@@ -6,7 +6,40 @@ namespace SudokuKata
 {
     public class SudokuBoardAndStackState
     {
-        public SudokuBoardAndStackState(Stack<int[]> stateStack, char[][] board)
+        public   SudokuBoardAndStackState()
+        {
+            SudokuBoardAndStackState sudokuBoardAndStackState;
+            // Prepare empty board
+            string line = "+---+---+---+";
+            string middle = "|...|...|...|";
+            char[][] board = new char[][]
+            {
+                line.ToCharArray(),
+                middle.ToCharArray(),
+                middle.ToCharArray(),
+                middle.ToCharArray(),
+                line.ToCharArray(),
+                middle.ToCharArray(),
+                middle.ToCharArray(),
+                middle.ToCharArray(),
+                line.ToCharArray(),
+                middle.ToCharArray(),
+                middle.ToCharArray(),
+                middle.ToCharArray(),
+                line.ToCharArray()
+            };
+
+            // Construct board to be solved
+
+            // Top element is current state of the board
+            var stateStack = new Stack<int[]>();
+
+            StateStack = stateStack;
+            Board = board;
+
+        }
+
+        private SudokuBoardAndStackState(Stack<int[]> stateStack, char[][] board)
         {
             StateStack = stateStack;
             Board = board;
