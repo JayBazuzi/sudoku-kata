@@ -76,6 +76,8 @@ namespace SudokuKata
                     board);
             }
 
+            var sudokuBoardAndStackState = new SudokuBoardAndStackState(stateStack, board);
+
             Console.WriteLine();
             Console.WriteLine("Final look of the solved board:");
             var result = string.Join(Environment.NewLine, board.Select(s => new string(s)).ToArray());
@@ -83,7 +85,6 @@ namespace SudokuKata
 
             #endregion
 
-            var sudokuBoardAndStackState = new SudokuBoardAndStackState(stateStack, board);
             return sudokuBoardAndStackState;
         }
 
