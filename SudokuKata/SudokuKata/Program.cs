@@ -5,6 +5,36 @@ using System.Text;
 
 namespace SudokuKata
 {
+    public class Applesauce1
+    {
+        public int Discriminator { get; set; }
+        public string Description { get; set; }
+        public int Index { get; set; }
+        public int Row { get; set; }
+        public int Column { get; set; }
+
+        public override string ToString()
+        {
+            return $"{{ Discriminator = {Discriminator}, Description = {Description}, Index = {Index}, Row = {Row}, Column = {Column} }}";
+        }
+
+        public override bool Equals(object value)
+        {
+            var type = value as Applesauce1;
+            return (type != null) && EqualityComparer<int>.Default.Equals(type.Discriminator, Discriminator) && EqualityComparer<string>.Default.Equals(type.Description, Description) && EqualityComparer<int>.Default.Equals(type.Index, Index) && EqualityComparer<int>.Default.Equals(type.Row, Row) && EqualityComparer<int>.Default.Equals(type.Column, Column);
+        }
+
+        public override int GetHashCode()
+        {
+            int num = 0x7a2f0b42;
+            num = (-1521134295 * num) + EqualityComparer<int>.Default.GetHashCode(Discriminator);
+            num = (-1521134295 * num) + EqualityComparer<string>.Default.GetHashCode(Description);
+            num = (-1521134295 * num) + EqualityComparer<int>.Default.GetHashCode(Index);
+            num = (-1521134295 * num) + EqualityComparer<int>.Default.GetHashCode(Row);
+            return (-1521134295 * num) + EqualityComparer<int>.Default.GetHashCode(Column);
+        }
+    }
+
     public class Program
     {
         public static void Play()
@@ -309,22 +339,18 @@ namespace SudokuKata
                 #region Build a collection (named cellGroups) which maps cell indices into distinct groups (rows/columns/blocks)
 
                 var rowsIndices = state
-                    .Select((value, index) => new
+                    .Select((value, index) => new Applesauce1
                     {
-                        Discriminator = index / 9,
-                        Description = $"row #{index / 9 + 1}",
-                        Index = index,
+                        Discriminator = index / 9, Description = $"row #{index / 9 + 1}", Index = index,
                         Row = index / 9,
                         Column = index % 9
                     })
                     .GroupBy(tuple => tuple.Discriminator);
 
                 var columnIndices = state
-                    .Select((value, index) => new
+                    .Select((value, index) => new Applesauce1
                     {
-                        Discriminator = 9 + index % 9,
-                        Description = $"column #{index % 9 + 1}",
-                        Index = index,
+                        Discriminator = 9 + index % 9, Description = $"column #{index % 9 + 1}", Index = index,
                         Row = index / 9,
                         Column = index % 9
                     })
@@ -337,11 +363,9 @@ namespace SudokuKata
                         Column = index % 9,
                         Index = index
                     })
-                    .Select(tuple => new
+                    .Select(tuple => new Applesauce1
                     {
-                        Discriminator = 18 + 3 * (tuple.Row / 3) + tuple.Column / 3,
-                        Description = $"block ({tuple.Row / 3 + 1}, {tuple.Column / 3 + 1})",
-                        Index = tuple.Index,
+                        Discriminator = 18 + 3 * (tuple.Row / 3) + tuple.Column / 3, Description = $"block ({tuple.Row / 3 + 1}, {tuple.Column / 3 + 1})", Index = tuple.Index,
                         Row = tuple.Row,
                         Column = tuple.Column
                     })
