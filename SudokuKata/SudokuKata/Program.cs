@@ -162,6 +162,12 @@ namespace SudokuKata
 
             var maskToOnesCount = PrepareLookupStructures(out var singleBitToIndex, out var allOnes);
 
+            Applesauce6(rng, state, allOnes, maskToOnesCount, singleBitToIndex, board, finalState);
+        }
+
+        private static void Applesauce6(Random rng, int[] state, int allOnes, Dictionary<int, int> maskToOnesCount,
+            Dictionary<int, int> singleBitToIndex, char[][] board, int[] finalState)
+        {
             bool changeMade = true;
             while (changeMade)
             {
@@ -227,7 +233,8 @@ namespace SudokuKata
                     })
                     .Select(tuple => new Applesauce1
                     {
-                        Discriminator = 18 + 3 * (tuple.Row / 3) + tuple.Column / 3, Description = $"block ({tuple.Row / 3 + 1}, {tuple.Column / 3 + 1})", Index = tuple.Index,
+                        Discriminator = 18 + 3 * (tuple.Row / 3) + tuple.Column / 3,
+                        Description = $"block ({tuple.Row / 3 + 1}, {tuple.Column / 3 + 1})", Index = tuple.Index,
                         Row = tuple.Row,
                         Column = tuple.Column
                     })
@@ -473,10 +480,12 @@ namespace SudokuKata
 
                     #endregion
 
-                    stepChangeMade = IsTryToFindGruopsOfDigitsApplesauce(changeMade, stepChangeMade, maskToOnesCount, cellGroups, state, candidateMasks);
+                    stepChangeMade = IsTryToFindGruopsOfDigitsApplesauce(changeMade, stepChangeMade, maskToOnesCount,
+                        cellGroups, state, candidateMasks);
                 }
 
-                changeMade = LookIfBoardHasMultipleSolutions(rng, changeMade, candidateMasks, maskToOnesCount, finalState, state, board);
+                changeMade = LookIfBoardHasMultipleSolutions(rng, changeMade, candidateMasks, maskToOnesCount, finalState,
+                    state, board);
 
                 PrintBoardChange(changeMade, board);
             }
