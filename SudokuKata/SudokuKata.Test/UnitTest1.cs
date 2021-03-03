@@ -13,7 +13,10 @@ namespace SudokuKata.Test
         {
             StringWriter output = new StringWriter();
             Console.SetOut(output);
-            Program.Play(new Random(1));
+            for (int i = 0; i < 10; i++)
+            {
+                Program.Play(new Random(i));
+            }
             Approvals.Verify(output);
         }
     }
