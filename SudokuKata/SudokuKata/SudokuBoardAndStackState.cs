@@ -11,7 +11,7 @@ namespace SudokuKata
             // Prepare empty board
             string line = "+---+---+---+";
             string middle = "|...|...|...|";
-            char[][] board = new char[][]
+            Board = new char[][]
             {
                 line.ToCharArray(),
                 middle.ToCharArray(),
@@ -29,8 +29,6 @@ namespace SudokuKata
             };
 
             StateStack = new Stack<int[]>();
-            Board = board;
-
         }
 
         public Stack<int[]> StateStack { get; private set; }
