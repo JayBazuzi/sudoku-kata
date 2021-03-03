@@ -78,7 +78,8 @@ namespace SudokuKata
 
             Console.WriteLine();
             Console.WriteLine("Final look of the solved board:");
-            Console.WriteLine(string.Join(Environment.NewLine, board.Select(s => new string(s)).ToArray()));
+            var result = string.Join(Environment.NewLine, board.Select(s => new string(s)).ToArray());
+            Console.WriteLine(result);
 
             #endregion
 
