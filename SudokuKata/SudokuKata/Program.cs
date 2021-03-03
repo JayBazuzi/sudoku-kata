@@ -28,6 +28,7 @@ namespace SudokuKata
 
         private static SudokuBoardAndStackState ConstructFullyPopulatedBoard(Random rng)
         {
+            SudokuBoardAndStackState sudokuBoardAndStackState;
             #region Construct fully populated board
 
             // Prepare empty board
@@ -66,7 +67,7 @@ namespace SudokuKata
             // Top element is the value that was set on (row, col)
             Stack<int> lastDigitStack = new Stack<int>();
 
-            var sudokuBoardAndStackState = new SudokuBoardAndStackState(stateStack, board);
+            sudokuBoardAndStackState = new SudokuBoardAndStackState(stateStack, board);
 
             // Indicates operation to perform next
             // - expand - finds next empty cell and puts new state on stacks
