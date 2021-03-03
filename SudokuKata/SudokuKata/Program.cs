@@ -701,7 +701,7 @@ namespace SudokuKata
                                 .Where(group => @group.CellsWithMask.Count() == maskToOnesCount[@group.Mask])
                                 .ToList();
 
-                        foreach (var groupWithNMasks in groupsWithNMasks)
+                        foreach (Applesauce3 groupWithNMasks in groupsWithNMasks)
                         {
                             int mask = groupWithNMasks.Mask;
 
