@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace SudokuKata
 {
@@ -12,5 +14,10 @@ namespace SudokuKata
 
         public Stack<int[]> StateStack { get; private set; }
         public char[][] ReturnValue { get; private set; }
+
+        public static string ToString(char[][] board)
+        {
+            return string.Join(Environment.NewLine, board.Select(s => new string(s)).ToArray());
+        }
     }
 }
