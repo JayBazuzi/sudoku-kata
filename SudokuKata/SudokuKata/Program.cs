@@ -83,7 +83,8 @@ namespace SudokuKata
 
             #endregion
 
-            return new SudokuBoardAndStackState(stateStack, board);
+            var sudokuBoardAndStackState = new SudokuBoardAndStackState(stateStack, board);
+            return sudokuBoardAndStackState;
         }
 
         private static void Applesauce6(Random rng, int[] state, int allOnes, Dictionary<int, int> maskToOnesCount,
