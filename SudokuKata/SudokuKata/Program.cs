@@ -172,36 +172,7 @@ namespace SudokuKata
             Array.Copy(state, finalState, finalState.Length);
 
             int removedPos = 0;
-            while (removedPos < 9 * 9 - remainingDigits)
-            {
-                int curRemainingDigits = positions.Length - removedPos;
-                int indexToPick = removedPos + rng.Next(curRemainingDigits);
-
-                int row = positions[indexToPick] / 9;
-                int col = positions[indexToPick] % 9;
-
-                int blockRowToRemove = row / 3;
-                int blockColToRemove = col / 3;
-
-                if (removedPerBlock[blockRowToRemove, blockColToRemove] >= maxRemovedPerBlock)
-                    continue;
-
-                removedPerBlock[blockRowToRemove, blockColToRemove] += 1;
-
-                int temp = positions[removedPos];
-                positions[removedPos] = positions[indexToPick];
-                positions[indexToPick] = temp;
-
-                int rowToWrite = row + row / 3 + 1;
-                int colToWrite = col + col / 3 + 1;
-
-                board[rowToWrite][colToWrite] = '.';
-
-                int stateIndex = 9 * row + col;
-                state[stateIndex] = 0;
-
-                removedPos += 1;
-            }
+            Applesauce5(rng, removedPos, remainingDigits, positions, removedPerBlock, maxRemovedPerBlock, board, state);
 
             Console.WriteLine();
             Console.WriteLine("Starting look of the board to solve:");
@@ -549,6 +520,41 @@ namespace SudokuKata
                 changeMade = LookIfBoardHasMultipleSolutions(rng, changeMade, candidateMasks, maskToOnesCount, finalState, state, board);
 
                 PrintBoardChange(changeMade, board);
+            }
+        }
+
+        private static void Applesauce5(Random rng, int removedPos, int remainingDigits, int[] positions,
+            int[,] removedPerBlock, int maxRemovedPerBlock, char[][] board, int[] state)
+        {
+            while (removedPos < 9 * 9 - remainingDigits)
+            {
+                int curRemainingDigits = positions.Length - removedPos;
+                int indexToPick = removedPos + rng.Next(curRemainingDigits);
+
+                int row = positions[indexToPick] / 9;
+                int col = positions[indexToPick] % 9;
+
+                int blockRowToRemove = row / 3;
+                int blockColToRemove = col / 3;
+
+                if (removedPerBlock[blockRowToRemove, blockColToRemove] >= maxRemovedPerBlock)
+                    continue;
+
+                removedPerBlock[blockRowToRemove, blockColToRemove] += 1;
+
+                int temp = positions[removedPos];
+                positions[removedPos] = positions[indexToPick];
+                positions[indexToPick] = temp;
+
+                int rowToWrite = row + row / 3 + 1;
+                int colToWrite = col + col / 3 + 1;
+
+                board[rowToWrite][colToWrite] = '.';
+
+                int stateIndex = 9 * row + col;
+                state[stateIndex] = 0;
+
+                removedPos += 1;
             }
         }
 
