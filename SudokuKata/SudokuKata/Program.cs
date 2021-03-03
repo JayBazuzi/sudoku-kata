@@ -55,6 +55,7 @@ namespace SudokuKata
             // Top element is current state of the board
             var stateStack = new Stack<int[]>();
 
+
             // Top elements are (row, col) of cell which has been modified compared to previous state
             Stack<int> rowIndexStack = new Stack<int>();
             Stack<int> colIndexStack = new Stack<int>();
@@ -64,6 +65,8 @@ namespace SudokuKata
 
             // Top element is the value that was set on (row, col)
             Stack<int> lastDigitStack = new Stack<int>();
+
+            var sudokuBoardAndStackState = new SudokuBoardAndStackState(stateStack, board);
 
             // Indicates operation to perform next
             // - expand - finds next empty cell and puts new state on stacks
@@ -76,7 +79,6 @@ namespace SudokuKata
                     board);
             }
 
-            var sudokuBoardAndStackState = new SudokuBoardAndStackState(stateStack, board);
 
             Console.WriteLine();
             Console.WriteLine("Final look of the solved board:");
