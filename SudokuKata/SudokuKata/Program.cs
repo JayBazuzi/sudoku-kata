@@ -29,7 +29,6 @@ namespace SudokuKata
         private static SudokuBoardAndStackState ConstructFullyPopulatedBoard(Random rng)
         {
             SudokuBoardAndStackState sudokuBoardAndStackState;
-            #region Construct fully populated board
 
             // Prepare empty board
             string line = "+---+---+---+";
@@ -85,8 +84,6 @@ namespace SudokuKata
             Console.WriteLine("Final look of the solved board:");
             var result = sudokuBoardAndStackState.ToString();
             Console.WriteLine(result);
-
-            #endregion
 
             return sudokuBoardAndStackState;
         }
