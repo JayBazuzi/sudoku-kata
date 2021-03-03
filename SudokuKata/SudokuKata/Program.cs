@@ -105,6 +105,17 @@ namespace SudokuKata
 
         public static void Play(Random rng)
         {
+            var board = ConstructFullyPopulatedBoard(rng, out var stateStack);
+
+            var state = GenerateInitialBoardFromCompletelyUnsolvedOne(rng, stateStack, board, out var finalState);
+
+            var maskToOnesCount = PrepareLookupStructures(out var singleBitToIndex, out var allOnes);
+
+            Applesauce6(rng, state, allOnes, maskToOnesCount, singleBitToIndex, board, finalState);
+        }
+
+        private static char[][] ConstructFullyPopulatedBoard(Random rng, out Stack<int[]> stateStack)
+        {
             #region Construct fully populated board
 
             // Prepare empty board
@@ -130,7 +141,7 @@ namespace SudokuKata
             // Construct board to be solved
 
             // Top element is current state of the board
-            Stack<int[]> stateStack = new Stack<int[]>();
+            stateStack = new Stack<int[]>();
 
             // Top elements are (row, col) of cell which has been modified compared to previous state
             Stack<int> rowIndexStack = new Stack<int>();
@@ -149,7 +160,8 @@ namespace SudokuKata
             string command = "expand";
             while (stateStack.Count <= 9 * 9)
             {
-                command = Applesauce4(rng, command, stateStack, rowIndexStack, colIndexStack, usedDigitsStack, lastDigitStack, board);
+                command = Applesauce4(rng, command, stateStack, rowIndexStack, colIndexStack, usedDigitsStack, lastDigitStack,
+                    board);
             }
 
             Console.WriteLine();
@@ -158,11 +170,7 @@ namespace SudokuKata
 
             #endregion
 
-            var state = GenerateInitialBoardFromCompletelyUnsolvedOne(rng, stateStack, board, out var finalState);
-
-            var maskToOnesCount = PrepareLookupStructures(out var singleBitToIndex, out var allOnes);
-
-            Applesauce6(rng, state, allOnes, maskToOnesCount, singleBitToIndex, board, finalState);
+            return board;
         }
 
         private static void Applesauce6(Random rng, int[] state, int allOnes, Dictionary<int, int> maskToOnesCount,
