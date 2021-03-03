@@ -5,11 +5,20 @@ using System.Text;
 
 namespace SudokuKata
 {
-    class Program
+    public class Program
     {
-        static void Play()
+        public static void Play()
+        {
+            Random rng = new Random();
+
+            Play(rng);
+        }
+
+
+        public static void Play(Random rng)
         {
             #region Construct fully populated board
+
             // Prepare empty board
             string line = "+---+---+---+";
             string middle = "|...|...|...|";
@@ -31,7 +40,6 @@ namespace SudokuKata
             };
 
             // Construct board to be solved
-            Random rng = new Random();
 
             // Top element is current state of the board
             Stack<int[]> stateStack = new Stack<int[]>();
@@ -72,7 +80,6 @@ namespace SudokuKata
                     for (int index = 0; index < currentState.Length; index++)
                         if (currentState[index] == 0)
                         {
-
                             int row = index / 9;
                             int col = index % 9;
                             int blockRow = row / 3;
@@ -115,7 +122,6 @@ namespace SudokuKata
                                 bestCandidatesCount = candidatesCount;
                                 bestRandomValue = randomValue;
                             }
-
                         } // for (index = 0..81)
 
                     if (!containsUnsolvableCells)
@@ -129,7 +135,6 @@ namespace SudokuKata
 
                     // Always try to move after expand
                     command = "move";
-
                 } // if (command == "expand")
                 else if (command == "collapse")
                 {
@@ -139,11 +144,10 @@ namespace SudokuKata
                     usedDigitsStack.Pop();
                     lastDigitStack.Pop();
 
-                    command = "move";   // Always try to move after collapse
+                    command = "move"; // Always try to move after collapse
                 }
                 else if (command == "move")
                 {
-
                     int rowToMove = rowIndexStack.Peek();
                     int colToMove = colIndexStack.Peek();
                     int digitToMove = lastDigitStack.Pop();
@@ -171,7 +175,7 @@ namespace SudokuKata
                         lastDigitStack.Push(movedToDigit);
                         usedDigits[movedToDigit - 1] = true;
                         currentState[currentStateIndex] = movedToDigit;
-                        board[rowToWrite][colToWrite] = (char)('0' + movedToDigit);
+                        board[rowToWrite][colToWrite] = (char) ('0' + movedToDigit);
 
                         // Next possible digit was found at current position
                         // Next step will be to expand the state
@@ -184,15 +188,16 @@ namespace SudokuKata
                         command = "collapse";
                     }
                 } // if (command == "move")
-
             }
 
             Console.WriteLine();
             Console.WriteLine("Final look of the solved board:");
             Console.WriteLine(string.Join(Environment.NewLine, board.Select(s => new string(s)).ToArray()));
+
             #endregion
 
             #region Generate inital board from the completely solved one
+
             // Board is solved at this point.
             // Now pick subset of digits as the starting position.
             int remainingDigits = 30;
@@ -239,9 +244,11 @@ namespace SudokuKata
             Console.WriteLine();
             Console.WriteLine("Starting look of the board to solve:");
             Console.WriteLine(string.Join("\n", board.Select(s => new string(s)).ToArray()));
+
             #endregion
 
             #region Prepare lookup structures that will be used in further execution
+
             Console.WriteLine();
             Console.WriteLine(new string('=', 80));
             Console.WriteLine();
@@ -260,6 +267,7 @@ namespace SudokuKata
                 singleBitToIndex[1 << i] = i;
 
             int allOnes = (1 << 9) - 1;
+
             #endregion
 
             bool changeMade = true;
@@ -268,12 +276,12 @@ namespace SudokuKata
                 changeMade = false;
 
                 #region Calculate candidates for current state of the board
+
                 int[] candidateMasks = new int[state.Length];
 
                 for (int i = 0; i < state.Length; i++)
                     if (state[i] == 0)
                     {
-
                         int row = i / 9;
                         int col = i % 9;
                         int blockRow = row / 3;
@@ -295,9 +303,11 @@ namespace SudokuKata
 
                         candidateMasks[i] = allOnes & ~colidingNumbers;
                     }
+
                 #endregion
 
                 #region Build a collection (named cellGroups) which maps cell indices into distinct groups (rows/columns/blocks)
+
                 var rowsIndices = state
                     .Select((value, index) => new
                     {
@@ -338,6 +348,7 @@ namespace SudokuKata
                     .GroupBy(tuple => tuple.Discriminator);
 
                 var cellGroups = rowsIndices.Concat(columnIndices).Concat(blockIndices).ToList();
+
                 #endregion
 
                 bool stepChangeMade = true;
@@ -372,7 +383,7 @@ namespace SudokuKata
                         int colToWrite = col + col / 3 + 1;
 
                         state[singleCandidateIndex] = candidate + 1;
-                        board[rowToWrite][colToWrite] = (char)('1' + candidate);
+                        board[rowToWrite][colToWrite] = (char) ('1' + candidate);
                         candidateMasks[singleCandidateIndex] = 0;
                         changeMade = true;
 
@@ -475,7 +486,7 @@ namespace SudokuKata
                             int stateIndex = 9 * row + col;
                             state[stateIndex] = digit;
                             candidateMasks[stateIndex] = 0;
-                            board[rowToWrite][colToWrite] = (char)('0' + digit);
+                            board[rowToWrite][colToWrite] = (char) ('0' + digit);
 
                             changeMade = true;
 
@@ -486,6 +497,7 @@ namespace SudokuKata
                     #endregion
 
                     #region Try to find pairs of digits in the same row/column/block and remove them from other colliding cells
+
                     if (!changeMade)
                     {
                         IEnumerable<int> twoDigitMasks =
@@ -495,14 +507,15 @@ namespace SudokuKata
                             twoDigitMasks
                                 .SelectMany(mask =>
                                     cellGroups
-                                        .Where(group => group.Count(tuple => candidateMasks[tuple.Index] == mask) == 2)
-                                        .Where(group => group.Any(tuple => candidateMasks[tuple.Index] != mask && (candidateMasks[tuple.Index] & mask) > 0))
+                                        .Where(group => @group.Count(tuple => candidateMasks[tuple.Index] == mask) == 2)
+                                        .Where(group => @group.Any(tuple =>
+                                            candidateMasks[tuple.Index] != mask && (candidateMasks[tuple.Index] & mask) > 0))
                                         .Select(group => new
                                         {
                                             Mask = mask,
-                                            Discriminator = group.Key,
-                                            Description = group.First().Description,
-                                            Cells = group
+                                            Discriminator = @group.Key,
+                                            Description = @group.First().Description,
+                                            Cells = @group
                                         }))
                                 .ToList();
 
@@ -511,16 +524,16 @@ namespace SudokuKata
                             foreach (var group in groups)
                             {
                                 var cells =
-                                    group.Cells
+                                    @group.Cells
                                         .Where(
                                             cell =>
-                                                candidateMasks[cell.Index] != group.Mask &&
-                                                (candidateMasks[cell.Index] & group.Mask) > 0)
+                                                candidateMasks[cell.Index] != @group.Mask &&
+                                                (candidateMasks[cell.Index] & @group.Mask) > 0)
                                         .ToList();
 
                                 var maskCells =
-                                    group.Cells
-                                        .Where(cell => candidateMasks[cell.Index] == group.Mask)
+                                    @group.Cells
+                                        .Where(cell => candidateMasks[cell.Index] == @group.Mask)
                                         .ToArray();
 
 
@@ -528,7 +541,7 @@ namespace SudokuKata
                                 {
                                     int upper = 0;
                                     int lower = 0;
-                                    int temp = group.Mask;
+                                    int temp = @group.Mask;
 
                                     int value = 1;
                                     while (temp > 0)
@@ -538,16 +551,17 @@ namespace SudokuKata
                                             lower = upper;
                                             upper = value;
                                         }
+
                                         temp = temp >> 1;
                                         value += 1;
                                     }
 
                                     Console.WriteLine(
-                                        $"Values {lower} and {upper} in {group.Description} are in cells ({maskCells[0].Row + 1}, {maskCells[0].Column + 1}) and ({maskCells[1].Row + 1}, {maskCells[1].Column + 1}).");
+                                        $"Values {lower} and {upper} in {@group.Description} are in cells ({maskCells[0].Row + 1}, {maskCells[0].Column + 1}) and ({maskCells[1].Row + 1}, {maskCells[1].Column + 1}).");
 
                                     foreach (var cell in cells)
                                     {
-                                        int maskToRemove = candidateMasks[cell.Index] & group.Mask;
+                                        int maskToRemove = candidateMasks[cell.Index] & @group.Mask;
                                         List<int> valuesToRemove = new List<int>();
                                         int curValue = 1;
                                         while (maskToRemove > 0)
@@ -556,24 +570,27 @@ namespace SudokuKata
                                             {
                                                 valuesToRemove.Add(curValue);
                                             }
+
                                             maskToRemove = maskToRemove >> 1;
                                             curValue += 1;
                                         }
 
                                         string valuesReport = string.Join(", ", valuesToRemove.ToArray());
-                                        Console.WriteLine($"{valuesReport} cannot appear in ({cell.Row + 1}, {cell.Column + 1}).");
+                                        Console.WriteLine(
+                                            $"{valuesReport} cannot appear in ({cell.Row + 1}, {cell.Column + 1}).");
 
-                                        candidateMasks[cell.Index] &= ~group.Mask;
+                                        candidateMasks[cell.Index] &= ~@group.Mask;
                                         stepChangeMade = true;
                                     }
                                 }
                             }
                         }
-
                     }
+
                     #endregion
 
                     #region Try to find groups of digits of size N which only appear in N cells within row/column/block
+
                     // When a set of N digits only appears in N cells within row/column/block, then no other digit can appear in the same set of cells
                     // All other candidates can then be removed from those cells
 
@@ -588,21 +605,24 @@ namespace SudokuKata
                             masks
                                 .SelectMany(mask =>
                                     cellGroups
-                                        .Where(group => group.All(cell => state[cell.Index] == 0 || (mask & (1 << (state[cell.Index] - 1))) == 0))
+                                        .Where(group => @group.All(cell =>
+                                            state[cell.Index] == 0 || (mask & (1 << (state[cell.Index] - 1))) == 0))
                                         .Select(group => new
                                         {
                                             Mask = mask,
-                                            Description = group.First().Description,
-                                            Cells = group,
+                                            Description = @group.First().Description,
+                                            Cells = @group,
                                             CellsWithMask =
-                                                group.Where(cell => state[cell.Index] == 0 && (candidateMasks[cell.Index] & mask) != 0).ToList(),
+                                                @group.Where(cell =>
+                                                        state[cell.Index] == 0 && (candidateMasks[cell.Index] & mask) != 0)
+                                                    .ToList(),
                                             CleanableCellsCount =
-                                                group.Count(
-                                                    cell => state[cell.Index] == 0 && 
-                                                        (candidateMasks[cell.Index] & mask) != 0 &&
-                                                        (candidateMasks[cell.Index] & ~mask) != 0)
+                                                @group.Count(
+                                                    cell => state[cell.Index] == 0 &&
+                                                            (candidateMasks[cell.Index] & mask) != 0 &&
+                                                            (candidateMasks[cell.Index] & ~mask) != 0)
                                         }))
-                                .Where(group => group.CellsWithMask.Count() == maskToOnesCount[group.Mask])
+                                .Where(group => @group.CellsWithMask.Count() == maskToOnesCount[@group.Mask])
                                 .ToList();
 
                         foreach (var groupWithNMasks in groupsWithNMasks)
@@ -627,6 +647,7 @@ namespace SudokuKata
                                         message.Append($"{separator}{curValue}");
                                         separator = ", ";
                                     }
+
                                     temp = temp >> 1;
                                     curValue += 1;
                                 }
@@ -663,13 +684,13 @@ namespace SudokuKata
                                         message.Append($"{separator}{valueToClear}");
                                         separator = ", ";
                                     }
+
                                     maskToClear = maskToClear >> 1;
                                     valueToClear += 1;
                                 }
 
                                 message.Append($" cannot appear in cell ({cell.Row + 1}, {cell.Column + 1}).");
                                 Console.WriteLine(message.ToString());
-
                             }
                         }
                     }
@@ -678,6 +699,7 @@ namespace SudokuKata
                 }
 
                 #region Final attempt - look if the board has multiple solutions
+
                 if (!changeMade)
                 {
                     // This is the last chance to do something in this iteration:
@@ -709,6 +731,7 @@ namespace SudokuKata
                                     lower = upper;
                                     upper = digit;
                                 }
+
                                 temp = temp >> 1;
                             }
 
@@ -796,7 +819,6 @@ namespace SudokuKata
                                 for (int index = 0; index < currentState.Length; index++)
                                     if (currentState[index] == 0)
                                     {
-
                                         int row = index / 9;
                                         int col = index % 9;
                                         int blockRow = row / 3;
@@ -839,7 +861,6 @@ namespace SudokuKata
                                             bestCandidatesCount = candidatesCount;
                                             bestRandomValue = randomValue;
                                         }
-
                                     } // for (index = 0..81)
 
                                 if (!containsUnsolvableCells)
@@ -853,7 +874,6 @@ namespace SudokuKata
 
                                 // Always try to move after expand
                                 command = "move";
-
                             } // if (command == "expand")
                             else if (command == "collapse")
                             {
@@ -870,7 +890,6 @@ namespace SudokuKata
                             }
                             else if (command == "move")
                             {
-
                                 int rowToMove = rowIndexStack.Peek();
                                 int colToMove = colIndexStack.Peek();
                                 int digitToMove = lastDigitStack.Pop();
@@ -898,7 +917,7 @@ namespace SudokuKata
                                     lastDigitStack.Push(movedToDigit);
                                     usedDigits[movedToDigit - 1] = true;
                                     currentState[currentStateIndex] = movedToDigit;
-                                    board[rowToWrite][colToWrite] = (char)('0' + movedToDigit);
+                                    board[rowToWrite][colToWrite] = (char) ('0' + movedToDigit);
 
                                     if (currentState.Any(digit => digit == 0))
                                         command = "expand";
@@ -912,11 +931,11 @@ namespace SudokuKata
                                     command = "collapse";
                                 }
                             } // if (command == "move")
-
                         } // while (command != "complete" && command != "fail")
 
                         if (command == "complete")
-                        {   // Board was solved successfully even with two digits swapped
+                        {
+                            // Board was solved successfully even with two digits swapped
                             stateIndex1.Add(index1);
                             stateIndex2.Add(index2);
                             value1.Add(digit1);
@@ -966,17 +985,20 @@ namespace SudokuKata
 
                             board[rowToWrite][colToWrite] = '.';
                             if (state[i] > 0)
-                                board[rowToWrite][colToWrite] = (char)('0' + state[i]);
+                                board[rowToWrite][colToWrite] = (char) ('0' + state[i]);
                         }
 
-                        Console.WriteLine($"Guessing that {digit1} and {digit2} are arbitrary in {description} (multiple solutions): Pick {finalState[index1]}->({row1 + 1}, {col1 + 1}), {finalState[index2]}->({row2 + 1}, {col2 + 1}).");
+                        Console.WriteLine(
+                            $"Guessing that {digit1} and {digit2} are arbitrary in {description} (multiple solutions): Pick {finalState[index1]}->({row1 + 1}, {col1 + 1}), {finalState[index2]}->({row2 + 1}, {col2 + 1}).");
                     }
                 }
+
                 #endregion
 
                 if (changeMade)
                 {
                     #region Print the board as it looks after one change was made to it
+
                     Console.WriteLine(string.Join(Environment.NewLine, board.Select(s => new string(s)).ToArray()));
                     string code =
                         string.Join(string.Empty, board.Select(s => new string(s)).ToArray())
@@ -987,12 +1009,13 @@ namespace SudokuKata
 
                     Console.WriteLine("Code: {0}", code);
                     Console.WriteLine();
+
                     #endregion
                 }
             }
         }
 
-        static void Main(string[] args)
+        public static void Main(string[] args)
         {
             Play();
 
