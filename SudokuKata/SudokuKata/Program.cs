@@ -681,7 +681,7 @@ namespace SudokuKata
                                 .Where(tuple => tuple.Value > 1)
                                 .Select(tuple => tuple.Key).ToList();
 
-                        var groupsWithNMasks =
+                        List<Applesauce3> groupsWithNMasks =
                             masks
                                 .SelectMany(mask =>
                                     cellGroups
