@@ -28,10 +28,6 @@ namespace SudokuKata
                 line.ToCharArray()
             };
 
-            // Construct board to be solved
-
-            // Top element is current state of the board
-
             StateStack = new Stack<int[]>();
             Board = board;
 
