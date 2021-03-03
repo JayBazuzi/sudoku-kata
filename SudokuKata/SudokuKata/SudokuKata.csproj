@@ -43,8 +43,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Applesauce1.cs" />
+    <Compile Include="Applesauce2.cs" />
+    <Compile Include="Applesauce3.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SudokuBoardAndStackState.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
