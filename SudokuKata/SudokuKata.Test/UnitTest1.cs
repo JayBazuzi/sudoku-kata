@@ -19,5 +19,11 @@ namespace SudokuKata.Test
             }
             Approvals.Verify(output);
         }
+
+        [TestMethod]
+        public void TestEmptyBoard()
+        {
+            Approvals.Verify(new SudokuBoardAndStackState());
+        }
     }
 }
