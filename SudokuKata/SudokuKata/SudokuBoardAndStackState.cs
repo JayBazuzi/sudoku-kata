@@ -6,18 +6,18 @@ namespace SudokuKata
 {
     public class SudokuBoardAndStackState
     {
-        public SudokuBoardAndStackState(Stack<int[]> stateStack, char[][] returnValue)
+        public SudokuBoardAndStackState(Stack<int[]> stateStack, char[][] board)
         {
             StateStack = stateStack;
-            ReturnValue = returnValue;
+            Board = board;
         }
 
         public Stack<int[]> StateStack { get; private set; }
-        public char[][] ReturnValue { get; private set; }
+        public char[][] Board { get; private set; }
 
         public override string ToString()
         {
-            return string.Join(Environment.NewLine, ReturnValue.Select(s => new string(s)).ToArray());
+            return string.Join(Environment.NewLine, Board.Select(s => new string(s)).ToArray());
         }
     }
 }

@@ -23,7 +23,7 @@ namespace SudokuKata
 
             var maskToOnesCount = PrepareLookupStructures(out var singleBitToIndex, out var allOnes);
 
-            Applesauce6(rng, state, allOnes, maskToOnesCount, singleBitToIndex, sudokuBoardAndStackState.ReturnValue, finalState);
+            Applesauce6(rng, state, allOnes, maskToOnesCount, singleBitToIndex, sudokuBoardAndStackState.Board, finalState);
         }
 
         private static SudokuBoardAndStackState ConstructFullyPopulatedBoard(Random rng)
@@ -447,7 +447,7 @@ namespace SudokuKata
             out int[] finalState)
         {
             var stateStack = sudokuBoardAndStackState.StateStack;
-            var board = sudokuBoardAndStackState.ReturnValue;
+            var board = sudokuBoardAndStackState.Board;
 
             #region Generate inital board from the completely solved one
 
