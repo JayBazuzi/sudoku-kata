@@ -28,9 +28,7 @@ namespace SudokuKata
 
         private static SudokuBoardAndStackState ConstructFullyPopulatedBoard(Random rng)
         {
-            SudokuBoardAndStackState sudokuBoardAndStackState;
-
-            sudokuBoardAndStackState = new SudokuBoardAndStackState();
+            var sudokuBoardAndStackState = new SudokuBoardAndStackState();
 
             // Top elements are (row, col) of cell which has been modified compared to previous state
             Stack<int> rowIndexStack = new Stack<int>();
