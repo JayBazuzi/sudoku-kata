@@ -555,7 +555,7 @@ namespace SudokuKata
                         IEnumerable<int> twoDigitMasks =
                             candidateMasks.Where(mask => maskToOnesCount[mask] == 2).Distinct().ToList();
 
-                        var groups =
+                        List<Applesauce2> groups =
                             twoDigitMasks
                                 .SelectMany(mask =>
                                     cellGroups
@@ -571,7 +571,7 @@ namespace SudokuKata
 
                         if (groups.Any())
                         {
-                            foreach (var group in groups)
+                            foreach (Applesauce2 group in groups)
                             {
                                 List<Applesauce1> cells =
                                     @group.Cells
