@@ -31,9 +31,8 @@ namespace SudokuKata
             // Construct board to be solved
 
             // Top element is current state of the board
-            var stateStack = new Stack<int[]>();
 
-            StateStack = stateStack;
+            StateStack = new Stack<int[]>();
             Board = board;
 
         }
