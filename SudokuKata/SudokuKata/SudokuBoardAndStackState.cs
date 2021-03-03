@@ -8,7 +8,6 @@ namespace SudokuKata
     {
         public   SudokuBoardAndStackState()
         {
-            SudokuBoardAndStackState sudokuBoardAndStackState;
             // Prepare empty board
             string line = "+---+---+---+";
             string middle = "|...|...|...|";
