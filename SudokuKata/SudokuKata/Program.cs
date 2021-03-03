@@ -31,33 +31,7 @@ namespace SudokuKata
             SudokuBoardAndStackState sudokuBoardAndStackState;
 
             {
-                // Prepare empty board
-                string line = "+---+---+---+";
-                string middle = "|...|...|...|";
-                char[][] board = new char[][]
-                {
-                    line.ToCharArray(),
-                    middle.ToCharArray(),
-                    middle.ToCharArray(),
-                    middle.ToCharArray(),
-                    line.ToCharArray(),
-                    middle.ToCharArray(),
-                    middle.ToCharArray(),
-                    middle.ToCharArray(),
-                    line.ToCharArray(),
-                    middle.ToCharArray(),
-                    middle.ToCharArray(),
-                    middle.ToCharArray(),
-                    line.ToCharArray()
-                };
-
-                // Construct board to be solved
-
-                // Top element is current state of the board
-                var stateStack = new Stack<int[]>();
-
-
-                sudokuBoardAndStackState = new SudokuBoardAndStackState(stateStack, board);
+                sudokuBoardAndStackState = NewSudokuBoardAndStackState();
             }
 
             // Top elements are (row, col) of cell which has been modified compared to previous state
@@ -88,6 +62,39 @@ namespace SudokuKata
             var result = sudokuBoardAndStackState.ToString();
             Console.WriteLine(result);
 
+            return sudokuBoardAndStackState;
+        }
+
+        private static SudokuBoardAndStackState NewSudokuBoardAndStackState()
+        {
+            SudokuBoardAndStackState sudokuBoardAndStackState;
+            // Prepare empty board
+            string line = "+---+---+---+";
+            string middle = "|...|...|...|";
+            char[][] board = new char[][]
+            {
+                line.ToCharArray(),
+                middle.ToCharArray(),
+                middle.ToCharArray(),
+                middle.ToCharArray(),
+                line.ToCharArray(),
+                middle.ToCharArray(),
+                middle.ToCharArray(),
+                middle.ToCharArray(),
+                line.ToCharArray(),
+                middle.ToCharArray(),
+                middle.ToCharArray(),
+                middle.ToCharArray(),
+                line.ToCharArray()
+            };
+
+            // Construct board to be solved
+
+            // Top element is current state of the board
+            var stateStack = new Stack<int[]>();
+
+
+            sudokuBoardAndStackState = new SudokuBoardAndStackState(stateStack, board);
             return sudokuBoardAndStackState;
         }
 
