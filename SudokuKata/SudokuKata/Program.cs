@@ -18,13 +18,12 @@ namespace SudokuKata
         public static void Play(Random rng)
         {
             var sudokuBoardAndStackState = ConstructFullyPopulatedBoard(rng);
-            var board = sudokuBoardAndStackState.ReturnValue;
 
             var state = GenerateInitialBoardFromCompletelyUnsolvedOne(rng, sudokuBoardAndStackState, out var finalState);
 
             var maskToOnesCount = PrepareLookupStructures(out var singleBitToIndex, out var allOnes);
 
-            Applesauce6(rng, state, allOnes, maskToOnesCount, singleBitToIndex, board, finalState);
+            Applesauce6(rng, state, allOnes, maskToOnesCount, singleBitToIndex, sudokuBoardAndStackState.ReturnValue, finalState);
         }
 
         private static SudokuBoardAndStackState ConstructFullyPopulatedBoard(Random rng)
