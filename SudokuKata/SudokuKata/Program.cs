@@ -18,7 +18,6 @@ namespace SudokuKata
         public static void Play(Random rng)
         {
             var sudokuBoardAndStackState = ConstructFullyPopulatedBoard(rng);
-            var stateStack = sudokuBoardAndStackState.StateStack;
             var board = sudokuBoardAndStackState.ReturnValue;
 
             var state = GenerateInitialBoardFromCompletelyUnsolvedOne(rng, sudokuBoardAndStackState, out var finalState);
