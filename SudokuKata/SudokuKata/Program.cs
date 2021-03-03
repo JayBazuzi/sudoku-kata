@@ -338,7 +338,7 @@ namespace SudokuKata
 
                 #region Build a collection (named cellGroups) which maps cell indices into distinct groups (rows/columns/blocks)
 
-                var rowsIndices = state
+                IEnumerable<IGrouping<int, Applesauce1>> rowsIndices = state
                     .Select((value, index) => new Applesauce1
                     {
                         Discriminator = index / 9, Description = $"row #{index / 9 + 1}", Index = index,
@@ -347,7 +347,7 @@ namespace SudokuKata
                     })
                     .GroupBy(tuple => tuple.Discriminator);
 
-                var columnIndices = state
+                IEnumerable<IGrouping<int, Applesauce1>> columnIndices = state
                     .Select((value, index) => new Applesauce1
                     {
                         Discriminator = 9 + index % 9, Description = $"column #{index % 9 + 1}", Index = index,
@@ -356,7 +356,7 @@ namespace SudokuKata
                     })
                     .GroupBy(tuple => tuple.Discriminator);
 
-                var blockIndices = state
+                IEnumerable<IGrouping<int, Applesauce1>> blockIndices = state
                     .Select((value, index) => new
                     {
                         Row = index / 9,
@@ -371,7 +371,7 @@ namespace SudokuKata
                     })
                     .GroupBy(tuple => tuple.Discriminator);
 
-                var cellGroups = rowsIndices.Concat(columnIndices).Concat(blockIndices).ToList();
+                List<IGrouping<int, Applesauce1>> cellGroups = rowsIndices.Concat(columnIndices).Concat(blockIndices).ToList();
 
                 #endregion
 
@@ -547,7 +547,7 @@ namespace SudokuKata
                         {
                             foreach (var group in groups)
                             {
-                                var cells =
+                                List<Applesauce1> cells =
                                     @group.Cells
                                         .Where(
                                             cell =>
@@ -555,7 +555,7 @@ namespace SudokuKata
                                                 (candidateMasks[cell.Index] & @group.Mask) > 0)
                                         .ToList();
 
-                                var maskCells =
+                                Applesauce1[] maskCells =
                                     @group.Cells
                                         .Where(cell => candidateMasks[cell.Index] == @group.Mask)
                                         .ToArray();
@@ -583,7 +583,7 @@ namespace SudokuKata
                                     Console.WriteLine(
                                         $"Values {lower} and {upper} in {@group.Description} are in cells ({maskCells[0].Row + 1}, {maskCells[0].Column + 1}) and ({maskCells[1].Row + 1}, {maskCells[1].Column + 1}).");
 
-                                    foreach (var cell in cells)
+                                    foreach (Applesauce1 cell in cells)
                                     {
                                         int maskToRemove = candidateMasks[cell.Index] & @group.Mask;
                                         List<int> valuesToRemove = new List<int>();
@@ -677,7 +677,7 @@ namespace SudokuKata
                                 }
 
                                 message.Append(" appear only in cells");
-                                foreach (var cell in groupWithNMasks.CellsWithMask)
+                                foreach (Applesauce1 cell in groupWithNMasks.CellsWithMask)
                                 {
                                     message.Append($" ({cell.Row + 1}, {cell.Column + 1})");
                                 }
@@ -687,7 +687,7 @@ namespace SudokuKata
                                 Console.WriteLine(message.ToString());
                             }
 
-                            foreach (var cell in groupWithNMasks.CellsWithMask)
+                            foreach (Applesauce1 cell in groupWithNMasks.CellsWithMask)
                             {
                                 int maskToClear = candidateMasks[cell.Index] & ~groupWithNMasks.Mask;
                                 if (maskToClear == 0)
