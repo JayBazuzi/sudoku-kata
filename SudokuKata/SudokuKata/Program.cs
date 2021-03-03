@@ -160,28 +160,7 @@ namespace SudokuKata
 
             var state = GenerateInitialBoardFromCompletelyUnsolvedOne(rng, stateStack, board, out var finalState);
 
-            #region Prepare lookup structures that will be used in further execution
-
-            Console.WriteLine();
-            Console.WriteLine(new string('=', 80));
-            Console.WriteLine();
-
-            Dictionary<int, int> maskToOnesCount = new Dictionary<int, int>();
-            maskToOnesCount[0] = 0;
-            for (int i = 1; i < (1 << 9); i++)
-            {
-                int smaller = i >> 1;
-                int increment = i & 1;
-                maskToOnesCount[i] = maskToOnesCount[smaller] + increment;
-            }
-
-            Dictionary<int, int> singleBitToIndex = new Dictionary<int, int>();
-            for (int i = 0; i < 9; i++)
-                singleBitToIndex[1 << i] = i;
-
-            int allOnes = (1 << 9) - 1;
-
-            #endregion
+            var maskToOnesCount = PrepareLookupStructures(out var singleBitToIndex, out var allOnes);
 
             bool changeMade = true;
             while (changeMade)
@@ -501,6 +480,34 @@ namespace SudokuKata
 
                 PrintBoardChange(changeMade, board);
             }
+        }
+
+        private static Dictionary<int, int> PrepareLookupStructures(out Dictionary<int, int> singleBitToIndex, out int allOnes)
+        {
+            #region Prepare lookup structures that will be used in further execution
+
+            Console.WriteLine();
+            Console.WriteLine(new string('=', 80));
+            Console.WriteLine();
+
+            Dictionary<int, int> maskToOnesCount = new Dictionary<int, int>();
+            maskToOnesCount[0] = 0;
+            for (int i = 1; i < (1 << 9); i++)
+            {
+                int smaller = i >> 1;
+                int increment = i & 1;
+                maskToOnesCount[i] = maskToOnesCount[smaller] + increment;
+            }
+
+            singleBitToIndex = new Dictionary<int, int>();
+            for (int i = 0; i < 9; i++)
+                singleBitToIndex[1 << i] = i;
+
+            allOnes = (1 << 9) - 1;
+
+            #endregion
+
+            return maskToOnesCount;
         }
 
         private static int[] GenerateInitialBoardFromCompletelyUnsolvedOne(Random rng, Stack<int[]> stateStack, char[][] board,
