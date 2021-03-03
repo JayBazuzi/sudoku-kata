@@ -30,9 +30,7 @@ namespace SudokuKata
         {
             SudokuBoardAndStackState sudokuBoardAndStackState;
 
-            {
-                sudokuBoardAndStackState = new SudokuBoardAndStackState();
-            }
+            sudokuBoardAndStackState = new SudokuBoardAndStackState();
 
             // Top elements are (row, col) of cell which has been modified compared to previous state
             Stack<int> rowIndexStack = new Stack<int>();
