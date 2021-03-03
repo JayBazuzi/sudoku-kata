@@ -39,12 +39,6 @@ namespace SudokuKata
 
         }
 
-        private SudokuBoardAndStackState(Stack<int[]> stateStack, char[][] board)
-        {
-            StateStack = stateStack;
-            Board = board;
-        }
-
         public Stack<int[]> StateStack { get; private set; }
         public char[][] Board { get; private set; }
 
