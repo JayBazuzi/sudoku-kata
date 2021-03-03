@@ -93,6 +93,18 @@ namespace SudokuKata
         }
     }
 
+    public class SudokuBoardAndStackState
+    {
+        public SudokuBoardAndStackState(Stack<int[]> stateStack, char[][] returnValue)
+        {
+            StateStack = stateStack;
+            ReturnValue = returnValue;
+        }
+
+        public Stack<int[]> StateStack { get; private set; }
+        public char[][] ReturnValue { get; private set; }
+    }
+
     public class Program
     {
         public static void Play()
@@ -105,7 +117,9 @@ namespace SudokuKata
 
         public static void Play(Random rng)
         {
-            var board = ConstructFullyPopulatedBoard(rng, out var stateStack);
+            var constructFullyPopulatedBoard = ConstructFullyPopulatedBoard(rng);
+            var stateStack = constructFullyPopulatedBoard.StateStack;
+            var board = constructFullyPopulatedBoard.ReturnValue;
 
             var state = GenerateInitialBoardFromCompletelyUnsolvedOne(rng, stateStack, board, out var finalState);
 
@@ -114,7 +128,7 @@ namespace SudokuKata
             Applesauce6(rng, state, allOnes, maskToOnesCount, singleBitToIndex, board, finalState);
         }
 
-        private static char[][] ConstructFullyPopulatedBoard(Random rng, out Stack<int[]> stateStack)
+        private static SudokuBoardAndStackState ConstructFullyPopulatedBoard(Random rng)
         {
             #region Construct fully populated board
 
@@ -141,7 +155,7 @@ namespace SudokuKata
             // Construct board to be solved
 
             // Top element is current state of the board
-            stateStack = new Stack<int[]>();
+            var stateStack = new Stack<int[]>();
 
             // Top elements are (row, col) of cell which has been modified compared to previous state
             Stack<int> rowIndexStack = new Stack<int>();
@@ -170,7 +184,7 @@ namespace SudokuKata
 
             #endregion
 
-            return board;
+            return new SudokuBoardAndStackState(stateStack, board);
         }
 
         private static void Applesauce6(Random rng, int[] state, int allOnes, Dictionary<int, int> maskToOnesCount,
