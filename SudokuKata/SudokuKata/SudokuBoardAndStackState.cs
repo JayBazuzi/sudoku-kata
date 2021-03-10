@@ -96,13 +96,13 @@ namespace SudokuKata
             return sudokuBoardAndStackState;
         }
 
-        private static Command Applesauce4(Random rng, Command command, Stack<int[]> stateStack,
+        private static Command Applesauce4(Random rng, Command command, Stack<int[]> stateStack1,
             Stack<int> rowIndexStack,
-            Stack<int> colIndexStack, Stack<bool[]> usedDigitsStack, Stack<int> lastDigitStack, char[][] board,
+            Stack<int> colIndexStack, Stack<bool[]> usedDigitsStack, Stack<int> lastDigitStack, char[][] board1,
             SudokuBoardAndStackState sudokuBoardAndStackState)
         {
-            stateStack = sudokuBoardAndStackState.StateStack;
-            board = sudokuBoardAndStackState.Board;
+            var stateStack = sudokuBoardAndStackState.StateStack;
+            var board = sudokuBoardAndStackState.Board;
 
             switch (command)
             {
