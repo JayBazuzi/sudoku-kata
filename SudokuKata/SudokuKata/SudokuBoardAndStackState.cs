@@ -6,12 +6,12 @@ namespace SudokuKata
 {
     public class SudokuBoardAndStackState
     {
-        public   SudokuBoardAndStackState()
+        public SudokuBoardAndStackState()
         {
             // Prepare empty board
-            string line = "+---+---+---+";
-            string middle = "|...|...|...|";
-            Board = new char[][]
+            var line = "+---+---+---+";
+            var middle = "|...|...|...|";
+            Board = new[]
             {
                 line.ToCharArray(),
                 middle.ToCharArray(),
@@ -31,8 +31,8 @@ namespace SudokuKata
             StateStack = new Stack<int[]>();
         }
 
-        public Stack<int[]> StateStack { get; private set; }
-        public char[][] Board { get; private set; }
+        public Stack<int[]> StateStack { get; }
+        public char[][] Board { get; }
 
         public override string ToString()
         {
@@ -44,24 +44,25 @@ namespace SudokuKata
             var sudokuBoardAndStackState = new SudokuBoardAndStackState();
 
             // Top elements are (row, col) of cell which has been modified compared to previous state
-            Stack<int> rowIndexStack = new Stack<int>();
-            Stack<int> colIndexStack = new Stack<int>();
+            var rowIndexStack = new Stack<int>();
+            var colIndexStack = new Stack<int>();
 
             // Top element indicates candidate digits (those with False) for (row, col)
-            Stack<bool[]> usedDigitsStack = new Stack<bool[]>();
+            var usedDigitsStack = new Stack<bool[]>();
 
             // Top element is the value that was set on (row, col)
-            Stack<int> lastDigitStack = new Stack<int>();
+            var lastDigitStack = new Stack<int>();
 
 
             // Indicates operation to perform next
             // - expand - finds next empty cell and puts new state on stacks
             // - move - finds next candidate number at current pos and applies it to current state
             // - collapse - pops current state from stack as it did not yield a solution
-            Command command = Command.Expand;
+            var command = Command.Expand;
             while (sudokuBoardAndStackState.StateStack.Count <= 9 * 9)
             {
-                command = Applesauce4(rng, command, sudokuBoardAndStackState.StateStack, rowIndexStack, colIndexStack, usedDigitsStack, lastDigitStack,
+                command = Applesauce4(rng, command, sudokuBoardAndStackState.StateStack, rowIndexStack, colIndexStack,
+                    usedDigitsStack, lastDigitStack,
                     sudokuBoardAndStackState.Board);
             }
 
@@ -74,43 +75,50 @@ namespace SudokuKata
             return sudokuBoardAndStackState;
         }
 
-        private static Command Applesauce4(Random rng, Command command, Stack<int[]> stateStack, Stack<int> rowIndexStack,
+        private static Command Applesauce4(Random rng, Command command, Stack<int[]> stateStack,
+            Stack<int> rowIndexStack,
             Stack<int> colIndexStack, Stack<bool[]> usedDigitsStack, Stack<int> lastDigitStack, char[][] board)
         {
             if (command == Command.Expand)
             {
-                command = Applesauce_Expand(rng, stateStack, rowIndexStack, colIndexStack, usedDigitsStack, lastDigitStack);
+                command = Applesauce_Expand(rng, stateStack, rowIndexStack, colIndexStack, usedDigitsStack,
+                    lastDigitStack);
             }
             else if (command == Command.Collapse)
             {
-                command = Applesauce_Collapse(stateStack, rowIndexStack, colIndexStack, usedDigitsStack, lastDigitStack);
+                command = Applesauce_Collapse(stateStack, rowIndexStack, colIndexStack, usedDigitsStack,
+                    lastDigitStack);
             }
             else if (command == Command.Move)
             {
-                command = Applesauce_Move(stateStack, rowIndexStack, colIndexStack, usedDigitsStack, lastDigitStack, board);
+                command = Applesauce_Move(stateStack, rowIndexStack, colIndexStack, usedDigitsStack, lastDigitStack,
+                    board);
             }
 
             return command;
         }
 
-        private static Command Applesauce_Move(Stack<int[]> stateStack, Stack<int> rowIndexStack, Stack<int> colIndexStack, Stack<bool[]> usedDigitsStack,
+        private static Command Applesauce_Move(Stack<int[]> stateStack, Stack<int> rowIndexStack,
+            Stack<int> colIndexStack, Stack<bool[]> usedDigitsStack,
             Stack<int> lastDigitStack, char[][] board)
         {
             Command command;
-            int rowToMove = rowIndexStack.Peek();
-            int colToMove = colIndexStack.Peek();
-            int digitToMove = lastDigitStack.Pop();
+            var rowToMove = rowIndexStack.Peek();
+            var colToMove = colIndexStack.Peek();
+            var digitToMove = lastDigitStack.Pop();
 
-            int rowToWrite = rowToMove + rowToMove / 3 + 1;
-            int colToWrite = colToMove + colToMove / 3 + 1;
+            var rowToWrite = rowToMove + rowToMove / 3 + 1;
+            var colToWrite = colToMove + colToMove / 3 + 1;
 
-            bool[] usedDigits = usedDigitsStack.Peek();
-            int[] currentState = stateStack.Peek();
-            int currentStateIndex = 9 * rowToMove + colToMove;
+            var usedDigits = usedDigitsStack.Peek();
+            var currentState = stateStack.Peek();
+            var currentStateIndex = 9 * rowToMove + colToMove;
 
-            int movedToDigit = digitToMove + 1;
+            var movedToDigit = digitToMove + 1;
             while (movedToDigit <= 9 && usedDigits[movedToDigit - 1])
+            {
                 movedToDigit += 1;
+            }
 
             if (digitToMove > 0)
             {
@@ -140,7 +148,8 @@ namespace SudokuKata
             return command;
         }
 
-        private static Command Applesauce_Collapse(Stack<int[]> stateStack, Stack<int> rowIndexStack, Stack<int> colIndexStack,
+        private static Command Applesauce_Collapse(Stack<int[]> stateStack, Stack<int> rowIndexStack,
+            Stack<int> colIndexStack,
             Stack<bool[]> usedDigitsStack, Stack<int> lastDigitStack)
         {
             stateStack.Pop();
@@ -152,49 +161,57 @@ namespace SudokuKata
             return Command.Move;
         }
 
-        private static Command Applesauce_Expand(Random rng, Stack<int[]> stateStack, Stack<int> rowIndexStack, Stack<int> colIndexStack,
+        private static Command Applesauce_Expand(Random rng, Stack<int[]> stateStack, Stack<int> rowIndexStack,
+            Stack<int> colIndexStack,
             Stack<bool[]> usedDigitsStack, Stack<int> lastDigitStack)
         {
-            int[] currentState = new int[9 * 9];
+            var currentState = new int[9 * 9];
 
             if (stateStack.Count > 0)
             {
                 Array.Copy(stateStack.Peek(), currentState, currentState.Length);
             }
 
-            int bestRow = -1;
-            int bestCol = -1;
+            var bestRow = -1;
+            var bestCol = -1;
             bool[] bestUsedDigits = null;
-            int bestCandidatesCount = -1;
-            int bestRandomValue = -1;
-            bool containsUnsolvableCells = false;
+            var bestCandidatesCount = -1;
+            var bestRandomValue = -1;
+            var containsUnsolvableCells = false;
 
-            for (int index = 0; index < currentState.Length; index++)
+            for (var index = 0; index < currentState.Length; index++)
+            {
                 if (currentState[index] == 0)
                 {
-                    int row = index / 9;
-                    int col = index % 9;
-                    int blockRow = row / 3;
-                    int blockCol = col / 3;
+                    var row = index / 9;
+                    var col = index % 9;
+                    var blockRow = row / 3;
+                    var blockCol = col / 3;
 
-                    bool[] isDigitUsed = new bool[9];
+                    var isDigitUsed = new bool[9];
 
-                    for (int i = 0; i < 9; i++)
+                    for (var i = 0; i < 9; i++)
                     {
-                        int rowDigit = currentState[9 * i + col];
+                        var rowDigit = currentState[9 * i + col];
                         if (rowDigit > 0)
+                        {
                             isDigitUsed[rowDigit - 1] = true;
+                        }
 
-                        int colDigit = currentState[9 * row + i];
+                        var colDigit = currentState[9 * row + i];
                         if (colDigit > 0)
+                        {
                             isDigitUsed[colDigit - 1] = true;
+                        }
 
-                        int blockDigit = currentState[(blockRow * 3 + i / 3) * 9 + (blockCol * 3 + i % 3)];
+                        var blockDigit = currentState[(blockRow * 3 + i / 3) * 9 + blockCol * 3 + i % 3];
                         if (blockDigit > 0)
+                        {
                             isDigitUsed[blockDigit - 1] = true;
+                        }
                     } // for (i = 0..8)
 
-                    int candidatesCount = isDigitUsed.Where(used => !used).Count();
+                    var candidatesCount = isDigitUsed.Where(used => !used).Count();
 
                     if (candidatesCount == 0)
                     {
@@ -202,11 +219,11 @@ namespace SudokuKata
                         break;
                     }
 
-                    int randomValue = rng.Next();
+                    var randomValue = rng.Next();
 
                     if (bestCandidatesCount < 0 ||
                         candidatesCount < bestCandidatesCount ||
-                        (candidatesCount == bestCandidatesCount && randomValue < bestRandomValue))
+                        candidatesCount == bestCandidatesCount && randomValue < bestRandomValue)
                     {
                         bestRow = row;
                         bestCol = col;
@@ -215,6 +232,7 @@ namespace SudokuKata
                         bestRandomValue = randomValue;
                     }
                 } // for (index = 0..81)
+            }
 
             if (!containsUnsolvableCells)
             {
