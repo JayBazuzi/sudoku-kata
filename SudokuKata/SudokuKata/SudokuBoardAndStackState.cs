@@ -131,7 +131,7 @@ namespace SudokuKata
                 var row = viableMove.RowToWrite;
                 var column = viableMove.ColToWrite;
                 var value = viableMove.MovedToDigit;
-                board[row][column] = (char) ('0' + value);
+                SetValue(board, row, column, value);
 
                 // Next possible digit was found at current position
                 // Next step will be to expand the state
@@ -143,6 +143,11 @@ namespace SudokuKata
                 lastDigitStack.Push(0);
                 return Command.Collapse;
             }
+        }
+
+        private static void SetValue(char[][] board, int row, int column, int value)
+        {
+            board[row][column] = (char) ('0' + value);
         }
 
         private static ViableMove GetViableMove(Stack<int[]> stateStack, Stack<int> rowIndexStack,
