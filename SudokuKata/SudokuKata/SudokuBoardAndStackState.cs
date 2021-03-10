@@ -91,6 +91,7 @@ namespace SudokuKata
 
             // Top element is the value that was set on (row, col)
             var lastDigitStack = new Stack<int>();
+            var stacks = new Stacks(rowIndexStack, colIndexStack, usedDigitsStack, lastDigitStack);
 
 
             // Indicates operation to perform next
@@ -100,7 +101,6 @@ namespace SudokuKata
             var command = Command.Expand;
             while (sudokuBoardAndStackState.StateStack.Count <= 9 * 9)
             {
-                var stacks = new Stacks(rowIndexStack, colIndexStack, usedDigitsStack, lastDigitStack);
                 command = Applesauce4(rng, command, stacks, sudokuBoardAndStackState);
             }
 
