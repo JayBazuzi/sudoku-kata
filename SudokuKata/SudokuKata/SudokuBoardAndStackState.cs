@@ -200,7 +200,7 @@ namespace SudokuKata
                         lastDigitStack.Push(viableMove.MovedToDigit);
                         viableMove.UsedDigits[viableMove.MovedToDigit - 1] = true;
                         viableMove.CurrentState[viableMove.CurrentStateIndex] = viableMove.MovedToDigit;
-                        SetValue(sudokuBoardAndStackState.Board, viableMove.RowToWrite, viableMove.ColToWrite, viableMove.MovedToDigit);
+                        SetValue(sudokuBoardAndStackState, viableMove.RowToWrite, viableMove.ColToWrite, viableMove.MovedToDigit);
 
                         // Next possible digit was found at current position
                         // Next step will be to expand the state
@@ -218,9 +218,9 @@ namespace SudokuKata
             }
         }
 
-        private static void SetValue(char[][] board, int row, int column, int value)
+        private static void SetValue(SudokuBoardAndStackState board, int row, int column, int value)
         {
-            board[row][column] = (char) ('0' + value);
+            board.Board[row][column] = (char) ('0' + value);
         }
 
         private static ViableMove GetViableMove(Stack<int[]> stateStack, Stack<int> rowIndexStack,
