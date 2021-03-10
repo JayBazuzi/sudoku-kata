@@ -6,25 +6,19 @@ namespace SudokuKata
     {
         public Stacks()
         {
-            // Top elements are (row, col) of cell which has been modified compared to previous state
-            var rowIndexStack = new Stack<int>();
-            var colIndexStack = new Stack<int>();
-
-            // Top element indicates candidate digits (those with False) for (row, col)
-            var usedDigitsStack = new Stack<bool[]>();
-
-            // Top element is the value that was set on (row, col)
-            var lastDigitStack = new Stack<int>();
-
-            RowIndexStack = rowIndexStack;
-            ColIndexStack = colIndexStack;
-            UsedDigitsStack = usedDigitsStack;
-            LastDigitStack = lastDigitStack;
+            RowIndexStack = new Stack<int>();
+            ColIndexStack = new Stack<int>();
+            UsedDigitsStack = new Stack<bool[]>();
+            LastDigitStack = new Stack<int>();
         }
 
+        // Top elements are (row, col) of cell which has been modified compared to previous state
         public Stack<int> RowIndexStack { get; private set; }
         public Stack<int> ColIndexStack { get; private set; }
+
+        // Top element indicates candidate digits (those with False) for (row, col)
         public Stack<bool[]> UsedDigitsStack { get; private set; }
+        // Top element is the value that was set on (row, col)
         public Stack<int> LastDigitStack { get; private set; }
 
     }
