@@ -79,78 +79,7 @@ namespace SudokuKata
         {
             if (command == "expand")
             {
-                int[] currentState = new int[9 * 9];
-
-                if (stateStack.Count > 0)
-                {
-                    Array.Copy(stateStack.Peek(), currentState, currentState.Length);
-                }
-
-                int bestRow = -1;
-                int bestCol = -1;
-                bool[] bestUsedDigits = null;
-                int bestCandidatesCount = -1;
-                int bestRandomValue = -1;
-                bool containsUnsolvableCells = false;
-
-                for (int index = 0; index < currentState.Length; index++)
-                    if (currentState[index] == 0)
-                    {
-                        int row = index / 9;
-                        int col = index % 9;
-                        int blockRow = row / 3;
-                        int blockCol = col / 3;
-
-                        bool[] isDigitUsed = new bool[9];
-
-                        for (int i = 0; i < 9; i++)
-                        {
-                            int rowDigit = currentState[9 * i + col];
-                            if (rowDigit > 0)
-                                isDigitUsed[rowDigit - 1] = true;
-
-                            int colDigit = currentState[9 * row + i];
-                            if (colDigit > 0)
-                                isDigitUsed[colDigit - 1] = true;
-
-                            int blockDigit = currentState[(blockRow * 3 + i / 3) * 9 + (blockCol * 3 + i % 3)];
-                            if (blockDigit > 0)
-                                isDigitUsed[blockDigit - 1] = true;
-                        } // for (i = 0..8)
-
-                        int candidatesCount = isDigitUsed.Where(used => !used).Count();
-
-                        if (candidatesCount == 0)
-                        {
-                            containsUnsolvableCells = true;
-                            break;
-                        }
-
-                        int randomValue = rng.Next();
-
-                        if (bestCandidatesCount < 0 ||
-                            candidatesCount < bestCandidatesCount ||
-                            (candidatesCount == bestCandidatesCount && randomValue < bestRandomValue))
-                        {
-                            bestRow = row;
-                            bestCol = col;
-                            bestUsedDigits = isDigitUsed;
-                            bestCandidatesCount = candidatesCount;
-                            bestRandomValue = randomValue;
-                        }
-                    } // for (index = 0..81)
-
-                if (!containsUnsolvableCells)
-                {
-                    stateStack.Push(currentState);
-                    rowIndexStack.Push(bestRow);
-                    colIndexStack.Push(bestCol);
-                    usedDigitsStack.Push(bestUsedDigits);
-                    lastDigitStack.Push(0); // No digit was tried at this position
-                }
-
-                // Always try to move after expand
-                command = "move";
+                command = Applesauce_Expand(rng, stateStack, rowIndexStack, colIndexStack, usedDigitsStack, lastDigitStack);
             } // if (command == "expand")
             else if (command == "collapse")
             {
@@ -205,6 +134,85 @@ namespace SudokuKata
                 }
             } // if (command == "move")
 
+            return command;
+        }
+
+        private static string Applesauce_Expand(Random rng, Stack<int[]> stateStack, Stack<int> rowIndexStack, Stack<int> colIndexStack,
+            Stack<bool[]> usedDigitsStack, Stack<int> lastDigitStack)
+        {
+            string command;
+            int[] currentState = new int[9 * 9];
+
+            if (stateStack.Count > 0)
+            {
+                Array.Copy(stateStack.Peek(), currentState, currentState.Length);
+            }
+
+            int bestRow = -1;
+            int bestCol = -1;
+            bool[] bestUsedDigits = null;
+            int bestCandidatesCount = -1;
+            int bestRandomValue = -1;
+            bool containsUnsolvableCells = false;
+
+            for (int index = 0; index < currentState.Length; index++)
+                if (currentState[index] == 0)
+                {
+                    int row = index / 9;
+                    int col = index % 9;
+                    int blockRow = row / 3;
+                    int blockCol = col / 3;
+
+                    bool[] isDigitUsed = new bool[9];
+
+                    for (int i = 0; i < 9; i++)
+                    {
+                        int rowDigit = currentState[9 * i + col];
+                        if (rowDigit > 0)
+                            isDigitUsed[rowDigit - 1] = true;
+
+                        int colDigit = currentState[9 * row + i];
+                        if (colDigit > 0)
+                            isDigitUsed[colDigit - 1] = true;
+
+                        int blockDigit = currentState[(blockRow * 3 + i / 3) * 9 + (blockCol * 3 + i % 3)];
+                        if (blockDigit > 0)
+                            isDigitUsed[blockDigit - 1] = true;
+                    } // for (i = 0..8)
+
+                    int candidatesCount = isDigitUsed.Where(used => !used).Count();
+
+                    if (candidatesCount == 0)
+                    {
+                        containsUnsolvableCells = true;
+                        break;
+                    }
+
+                    int randomValue = rng.Next();
+
+                    if (bestCandidatesCount < 0 ||
+                        candidatesCount < bestCandidatesCount ||
+                        (candidatesCount == bestCandidatesCount && randomValue < bestRandomValue))
+                    {
+                        bestRow = row;
+                        bestCol = col;
+                        bestUsedDigits = isDigitUsed;
+                        bestCandidatesCount = candidatesCount;
+                        bestRandomValue = randomValue;
+                    }
+                } // for (index = 0..81)
+
+            if (!containsUnsolvableCells)
+            {
+                stateStack.Push(currentState);
+                rowIndexStack.Push(bestRow);
+                colIndexStack.Push(bestCol);
+                usedDigitsStack.Push(bestUsedDigits);
+                lastDigitStack.Push(0); // No digit was tried at this position
+            }
+
+            // Always try to move after expand
+            command = "move";
             return command;
         }
     }
