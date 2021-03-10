@@ -4,10 +4,6 @@ namespace SudokuKata
 {
     public class Stacks
     {
-        public Stacks()
-        {
-        }
-
         // Top elements are (row, col) of cell which has been modified compared to previous state
         public Stack<int> RowIndexStack { get; private set; } = new Stack<int>();
         public Stack<int> ColIndexStack { get; private set; } = new Stack<int>();
