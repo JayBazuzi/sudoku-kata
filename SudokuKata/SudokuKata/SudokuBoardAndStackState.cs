@@ -80,7 +80,7 @@ namespace SudokuKata
             if (command == "expand")
             {
                 command = Applesauce_Expand(rng, stateStack, rowIndexStack, colIndexStack, usedDigitsStack, lastDigitStack);
-            } // if (command == "expand")
+            }
             else if (command == "collapse")
             {
                 command = Applesauce_Collapse(stateStack, rowIndexStack, colIndexStack, usedDigitsStack, lastDigitStack);
@@ -88,7 +88,7 @@ namespace SudokuKata
             else if (command == "move")
             {
                 command = Applesauce_Move(stateStack, rowIndexStack, colIndexStack, usedDigitsStack, lastDigitStack, board);
-            } // if (command == "move")
+            }
 
             return command;
         }
