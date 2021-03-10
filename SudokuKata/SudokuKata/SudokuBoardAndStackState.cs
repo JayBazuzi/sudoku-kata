@@ -27,6 +27,8 @@ namespace SudokuKata
 
     public class SudokuBoardAndStackState
     {
+        private const int Unknown = -1;
+
         public SudokuBoardAndStackState()
         {
             // Prepare empty board
@@ -219,7 +221,16 @@ namespace SudokuKata
 
         public void SetValue(int row, int column, int value)
         {
-            Board[row][column] = (char) ('0' + value);
+            if (value == Unknown)
+            {
+                Board[row][column] = '.';
+
+            }
+            else
+            {
+                Board[row][column] = (char)('0' + value);
+
+            }
         }
 
         private static ViableMove GetViableMove(SudokuBoardAndStackState sudokuBoardAndStackState, Stack<int> rowIndexStack,
@@ -247,7 +258,7 @@ namespace SudokuKata
             {
                 usedDigits[digitToMove - 1] = false;
                 currentState[currentStateIndex] = 0;
-                sudokuBoardAndStackState.Board[rowToWrite][colToWrite] = '.';
+                sudokuBoardAndStackState.SetValue(rowToWrite, colToWrite, Unknown);
             }
 
             if (movedToDigit <= 9)
