@@ -55,7 +55,7 @@ namespace SudokuKata
             var command = Command.Expand;
             while (sudokuBoardAndStackState.StateStack.Count <= 9 * 9)
             {
-                command = Applesauce4(rng, command, stacks, sudokuBoardAndStackState);
+                command = PopulateBoard(rng, command, stacks, sudokuBoardAndStackState);
             }
 
 
@@ -67,7 +67,7 @@ namespace SudokuKata
             return sudokuBoardAndStackState;
         }
 
-        private static Command Applesauce4(Random rng, Command command, Stacks stacks,
+        private static Command PopulateBoard(Random rng, Command command, Stacks stacks,
             SudokuBoardAndStackState sudokuBoardAndStackState)
         {
             switch (command)
