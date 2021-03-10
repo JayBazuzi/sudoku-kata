@@ -99,29 +99,7 @@ namespace SudokuKata
             Stack<int> colIndexStack, Stack<bool[]> usedDigitsStack,
             Stack<int> lastDigitStack, char[][] board)
         {
-            var rowToMove = rowIndexStack.Peek();
-            var colToMove = colIndexStack.Peek();
-            var digitToMove = lastDigitStack.Pop();
-
-            var rowToWrite = rowToMove + rowToMove / 3 + 1;
-            var colToWrite = colToMove + colToMove / 3 + 1;
-
-            var usedDigits = usedDigitsStack.Peek();
-            var currentState = stateStack.Peek();
-            var currentStateIndex = 9 * rowToMove + colToMove;
-
-            var movedToDigit = digitToMove + 1;
-            while (movedToDigit <= 9 && usedDigits[movedToDigit - 1])
-            {
-                movedToDigit += 1;
-            }
-
-            if (digitToMove > 0)
-            {
-                usedDigits[digitToMove - 1] = false;
-                currentState[currentStateIndex] = 0;
-                board[rowToWrite][colToWrite] = '.';
-            }
+            GetViableMove(stateStack, rowIndexStack, colIndexStack, usedDigitsStack, lastDigitStack, board, out var rowToWrite, out var colToWrite, out var usedDigits, out var currentState, out var currentStateIndex, out var movedToDigit);
 
             if (movedToDigit <= 9)
             {
@@ -139,6 +117,35 @@ namespace SudokuKata
                 // No viable candidate was found at current position - pop it in the next iteration
                 lastDigitStack.Push(0);
                 return Command.Collapse;
+            }
+        }
+
+        private static void GetViableMove(Stack<int[]> stateStack, Stack<int> rowIndexStack, Stack<int> colIndexStack, Stack<bool[]> usedDigitsStack,
+            Stack<int> lastDigitStack, char[][] board, out int rowToWrite, out int colToWrite, out bool[] usedDigits,
+            out int[] currentState, out int currentStateIndex, out int movedToDigit)
+        {
+            var rowToMove = rowIndexStack.Peek();
+            var colToMove = colIndexStack.Peek();
+            var digitToMove = lastDigitStack.Pop();
+
+            rowToWrite = rowToMove + rowToMove / 3 + 1;
+            colToWrite = colToMove + colToMove / 3 + 1;
+
+            usedDigits = usedDigitsStack.Peek();
+            currentState = stateStack.Peek();
+            currentStateIndex = 9 * rowToMove + colToMove;
+
+            movedToDigit = digitToMove + 1;
+            while (movedToDigit <= 9 && usedDigits[movedToDigit - 1])
+            {
+                movedToDigit += 1;
+            }
+
+            if (digitToMove > 0)
+            {
+                usedDigits[digitToMove - 1] = false;
+                currentState[currentStateIndex] = 0;
+                board[rowToWrite][colToWrite] = '.';
             }
         }
 
