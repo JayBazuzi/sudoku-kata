@@ -84,7 +84,7 @@ namespace SudokuKata
             {
                 command = Applesauce4(rng, command, sudokuBoardAndStackState.StateStack, rowIndexStack, colIndexStack,
                     usedDigitsStack, lastDigitStack,
-                    sudokuBoardAndStackState.Board);
+                    sudokuBoardAndStackState.Board, sudokuBoardAndStackState);
             }
 
 
@@ -98,7 +98,8 @@ namespace SudokuKata
 
         private static Command Applesauce4(Random rng, Command command, Stack<int[]> stateStack,
             Stack<int> rowIndexStack,
-            Stack<int> colIndexStack, Stack<bool[]> usedDigitsStack, Stack<int> lastDigitStack, char[][] board)
+            Stack<int> colIndexStack, Stack<bool[]> usedDigitsStack, Stack<int> lastDigitStack, char[][] board,
+            SudokuBoardAndStackState sudokuBoardAndStackState)
         {
             switch (command)
             {
