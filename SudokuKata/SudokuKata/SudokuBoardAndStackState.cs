@@ -120,19 +120,13 @@ namespace SudokuKata
             Stack<int> lastDigitStack, char[][] board)
         {
             var viableMove = GetViableMove(stateStack, rowIndexStack, colIndexStack, usedDigitsStack, lastDigitStack, board);
-            var rowToWrite = viableMove.RowToWrite;
-            var colToWrite = viableMove.ColToWrite;
-            var usedDigits = viableMove.UsedDigits;
-            var currentState = viableMove.CurrentState;
-            var currentStateIndex = viableMove.CurrentStateIndex;
-            var movedToDigit = viableMove.MovedToDigit;
 
-            if (movedToDigit <= 9)
+            if (viableMove.MovedToDigit <= 9)
             {
-                lastDigitStack.Push(movedToDigit);
-                usedDigits[movedToDigit - 1] = true;
-                currentState[currentStateIndex] = movedToDigit;
-                board[rowToWrite][colToWrite] = (char) ('0' + movedToDigit);
+                lastDigitStack.Push(viableMove.MovedToDigit);
+                viableMove.UsedDigits[viableMove.MovedToDigit - 1] = true;
+                viableMove.CurrentState[viableMove.CurrentStateIndex] = viableMove.MovedToDigit;
+                board[viableMove.RowToWrite][viableMove.ColToWrite] = (char) ('0' + viableMove.MovedToDigit);
 
                 // Next possible digit was found at current position
                 // Next step will be to expand the state
