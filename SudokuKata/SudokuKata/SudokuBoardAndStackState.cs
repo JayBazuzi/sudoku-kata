@@ -226,8 +226,7 @@ namespace SudokuKata
             }
 
             // Always try to move after expand
-            var command = Command.Move;
-            return command;
+            return Command.Move;
         }
     }
 }
