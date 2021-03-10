@@ -106,8 +106,13 @@ namespace SudokuKata
                     return Applesauce_Expand(rng, stateStack, rowIndexStack, colIndexStack, usedDigitsStack,
                         lastDigitStack);
                 case Command.Collapse:
-                    return Applesauce_Collapse(stateStack, rowIndexStack, colIndexStack, usedDigitsStack,
-                        lastDigitStack);
+                    stateStack.Pop();
+                    rowIndexStack.Pop();
+                    colIndexStack.Pop();
+                    usedDigitsStack.Pop();
+                    lastDigitStack.Pop();
+
+                    return Command.Move;
                 case Command.Move:
                     var viableMove = GetViableMove(stateStack, rowIndexStack, colIndexStack, usedDigitsStack, lastDigitStack,
                         board);
@@ -175,19 +180,6 @@ namespace SudokuKata
             }
 
             return null;
-        }
-
-        private static Command Applesauce_Collapse(Stack<int[]> stateStack, Stack<int> rowIndexStack,
-            Stack<int> colIndexStack,
-            Stack<bool[]> usedDigitsStack, Stack<int> lastDigitStack)
-        {
-            stateStack.Pop();
-            rowIndexStack.Pop();
-            colIndexStack.Pop();
-            usedDigitsStack.Pop();
-            lastDigitStack.Pop();
-
-            return Command.Move;
         }
 
         private static Command Applesauce_Expand(Random rng, Stack<int[]> stateStack, Stack<int> rowIndexStack,
