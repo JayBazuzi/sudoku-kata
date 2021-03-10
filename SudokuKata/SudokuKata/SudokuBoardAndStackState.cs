@@ -100,17 +100,14 @@ namespace SudokuKata
             Stack<int> colIndexStack, Stack<bool[]> usedDigitsStack, Stack<int> lastDigitStack,
             SudokuBoardAndStackState sudokuBoardAndStackState)
         {
-            var stateStack = sudokuBoardAndStackState.StateStack;
-            var board = sudokuBoardAndStackState.Board;
-
             switch (command)
             {
                 case Command.Expand:
                     var currentState = new int[9 * 9];
 
-                    if (stateStack.Count > 0)
+                    if (sudokuBoardAndStackState.StateStack.Count > 0)
                     {
-                        Array.Copy(stateStack.Peek(), currentState, currentState.Length);
+                        Array.Copy(sudokuBoardAndStackState.StateStack.Peek(), currentState, currentState.Length);
                     }
 
                     var bestRow = -1;
@@ -177,7 +174,7 @@ namespace SudokuKata
 
                     if (!containsUnsolvableCells)
                     {
-                        stateStack.Push(currentState);
+                        sudokuBoardAndStackState.StateStack.Push(currentState);
                         rowIndexStack.Push(bestRow);
                         colIndexStack.Push(bestCol);
                         usedDigitsStack.Push(bestUsedDigits);
@@ -187,7 +184,7 @@ namespace SudokuKata
                     // Always try to move after expand
                     return Command.Move;
                 case Command.Collapse:
-                    stateStack.Pop();
+                    sudokuBoardAndStackState.StateStack.Pop();
                     rowIndexStack.Pop();
                     colIndexStack.Pop();
                     usedDigitsStack.Pop();
@@ -195,15 +192,15 @@ namespace SudokuKata
 
                     return Command.Move;
                 case Command.Move:
-                    var viableMove = GetViableMove(stateStack, rowIndexStack, colIndexStack, usedDigitsStack, lastDigitStack,
-                        board);
+                    var viableMove = GetViableMove(sudokuBoardAndStackState.StateStack, rowIndexStack, colIndexStack, usedDigitsStack, lastDigitStack,
+                        sudokuBoardAndStackState.Board);
 
                     if (viableMove != null)
                     {
                         lastDigitStack.Push(viableMove.MovedToDigit);
                         viableMove.UsedDigits[viableMove.MovedToDigit - 1] = true;
                         viableMove.CurrentState[viableMove.CurrentStateIndex] = viableMove.MovedToDigit;
-                        SetValue(board, viableMove.RowToWrite, viableMove.ColToWrite, viableMove.MovedToDigit);
+                        SetValue(sudokuBoardAndStackState.Board, viableMove.RowToWrite, viableMove.ColToWrite, viableMove.MovedToDigit);
 
                         // Next possible digit was found at current position
                         // Next step will be to expand the state
