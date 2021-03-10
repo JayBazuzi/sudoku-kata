@@ -82,9 +82,8 @@ namespace SudokuKata
             var command = Command.Expand;
             while (sudokuBoardAndStackState.StateStack.Count <= 9 * 9)
             {
-                command = Applesauce4(rng, command, sudokuBoardAndStackState.StateStack, rowIndexStack, colIndexStack,
-                    usedDigitsStack, lastDigitStack,
-                    sudokuBoardAndStackState.Board, sudokuBoardAndStackState);
+                command = Applesauce4(rng, command, rowIndexStack, colIndexStack,
+                    usedDigitsStack, lastDigitStack, sudokuBoardAndStackState);
             }
 
 
@@ -96,9 +95,9 @@ namespace SudokuKata
             return sudokuBoardAndStackState;
         }
 
-        private static Command Applesauce4(Random rng, Command command, Stack<int[]> stateStack1,
+        private static Command Applesauce4(Random rng, Command command,
             Stack<int> rowIndexStack,
-            Stack<int> colIndexStack, Stack<bool[]> usedDigitsStack, Stack<int> lastDigitStack, char[][] board1,
+            Stack<int> colIndexStack, Stack<bool[]> usedDigitsStack, Stack<int> lastDigitStack,
             SudokuBoardAndStackState sudokuBoardAndStackState)
         {
             var stateStack = sudokuBoardAndStackState.StateStack;
