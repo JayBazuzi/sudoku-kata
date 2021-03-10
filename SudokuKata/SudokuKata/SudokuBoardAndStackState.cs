@@ -109,36 +109,29 @@ namespace SudokuKata
                     return Applesauce_Collapse(stateStack, rowIndexStack, colIndexStack, usedDigitsStack,
                         lastDigitStack);
                 case Command.Move:
-                    return Applesauce_Move(stateStack, rowIndexStack, colIndexStack, usedDigitsStack, lastDigitStack,
+                    var viableMove = GetViableMove(stateStack, rowIndexStack, colIndexStack, usedDigitsStack, lastDigitStack,
                         board);
+
+                    if (viableMove != null)
+                    {
+                        lastDigitStack.Push(viableMove.MovedToDigit);
+                        viableMove.UsedDigits[viableMove.MovedToDigit - 1] = true;
+                        viableMove.CurrentState[viableMove.CurrentStateIndex] = viableMove.MovedToDigit;
+                        SetValue(board, viableMove.RowToWrite, viableMove.ColToWrite, viableMove.MovedToDigit);
+
+                        // Next possible digit was found at current position
+                        // Next step will be to expand the state
+                        return Command.Expand;
+                    }
+                    else
+                    {
+                        // No viable candidate was found at current position - pop it in the next iteration
+                        lastDigitStack.Push(0);
+                        return Command.Collapse;
+                    }
+
                 default:
                     return command;
-            }
-        }
-
-        private static Command Applesauce_Move(Stack<int[]> stateStack, Stack<int> rowIndexStack,
-            Stack<int> colIndexStack, Stack<bool[]> usedDigitsStack,
-            Stack<int> lastDigitStack, char[][] board)
-        {
-            var viableMove = GetViableMove(stateStack, rowIndexStack, colIndexStack, usedDigitsStack, lastDigitStack,
-                board);
-
-            if (viableMove != null)
-            {
-                lastDigitStack.Push(viableMove.MovedToDigit);
-                viableMove.UsedDigits[viableMove.MovedToDigit - 1] = true;
-                viableMove.CurrentState[viableMove.CurrentStateIndex] = viableMove.MovedToDigit;
-                SetValue(board, viableMove.RowToWrite, viableMove.ColToWrite, viableMove.MovedToDigit);
-
-                // Next possible digit was found at current position
-                // Next step will be to expand the state
-                return Command.Expand;
-            }
-            else
-            {
-                // No viable candidate was found at current position - pop it in the next iteration
-                lastDigitStack.Push(0);
-                return Command.Collapse;
             }
         }
 
