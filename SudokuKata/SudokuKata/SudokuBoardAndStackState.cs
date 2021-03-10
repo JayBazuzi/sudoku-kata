@@ -128,7 +128,10 @@ namespace SudokuKata
                 lastDigitStack.Push(viableMove.MovedToDigit);
                 viableMove.UsedDigits[viableMove.MovedToDigit - 1] = true;
                 viableMove.CurrentState[viableMove.CurrentStateIndex] = viableMove.MovedToDigit;
-                board[viableMove.RowToWrite][viableMove.ColToWrite] = (char) ('0' + viableMove.MovedToDigit);
+                var row = viableMove.RowToWrite;
+                var column = viableMove.ColToWrite;
+                var value = viableMove.MovedToDigit;
+                board[row][column] = (char) ('0' + value);
 
                 // Next possible digit was found at current position
                 // Next step will be to expand the state
