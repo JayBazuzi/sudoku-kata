@@ -99,7 +99,6 @@ namespace SudokuKata
             Stack<int> colIndexStack, Stack<bool[]> usedDigitsStack,
             Stack<int> lastDigitStack, char[][] board)
         {
-            Command command;
             var rowToMove = rowIndexStack.Peek();
             var colToMove = colIndexStack.Peek();
             var digitToMove = lastDigitStack.Pop();
