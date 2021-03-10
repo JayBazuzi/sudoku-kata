@@ -81,21 +81,23 @@ namespace SudokuKata
         {
             if (command == Command.Expand)
             {
-                command = Applesauce_Expand(rng, stateStack, rowIndexStack, colIndexStack, usedDigitsStack,
+                return Applesauce_Expand(rng, stateStack, rowIndexStack, colIndexStack, usedDigitsStack,
                     lastDigitStack);
             }
             else if (command == Command.Collapse)
             {
-                command = Applesauce_Collapse(stateStack, rowIndexStack, colIndexStack, usedDigitsStack,
+                return Applesauce_Collapse(stateStack, rowIndexStack, colIndexStack, usedDigitsStack,
                     lastDigitStack);
             }
             else if (command == Command.Move)
             {
-                command = Applesauce_Move(stateStack, rowIndexStack, colIndexStack, usedDigitsStack, lastDigitStack,
+                return Applesauce_Move(stateStack, rowIndexStack, colIndexStack, usedDigitsStack, lastDigitStack,
                     board);
             }
-
-            return command;
+            else
+            {
+                return command;
+            }
         }
 
         private static Command Applesauce_Move(Stack<int[]> stateStack, Stack<int> rowIndexStack,
