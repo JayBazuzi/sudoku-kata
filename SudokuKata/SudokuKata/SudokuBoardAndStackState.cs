@@ -133,16 +133,14 @@ namespace SudokuKata
 
                 // Next possible digit was found at current position
                 // Next step will be to expand the state
-                command = Command.Expand;
+                return Command.Expand;
             }
             else
             {
                 // No viable candidate was found at current position - pop it in the next iteration
                 lastDigitStack.Push(0);
-                command = Command.Collapse;
+                return Command.Collapse;
             }
-
-            return command;
         }
 
         private static Command Applesauce_Collapse(Stack<int[]> stateStack, Stack<int> rowIndexStack,
