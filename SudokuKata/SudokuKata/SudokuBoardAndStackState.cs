@@ -87,46 +87,55 @@ namespace SudokuKata
             }
             else if (command == "move")
             {
-                int rowToMove = rowIndexStack.Peek();
-                int colToMove = colIndexStack.Peek();
-                int digitToMove = lastDigitStack.Pop();
-
-                int rowToWrite = rowToMove + rowToMove / 3 + 1;
-                int colToWrite = colToMove + colToMove / 3 + 1;
-
-                bool[] usedDigits = usedDigitsStack.Peek();
-                int[] currentState = stateStack.Peek();
-                int currentStateIndex = 9 * rowToMove + colToMove;
-
-                int movedToDigit = digitToMove + 1;
-                while (movedToDigit <= 9 && usedDigits[movedToDigit - 1])
-                    movedToDigit += 1;
-
-                if (digitToMove > 0)
-                {
-                    usedDigits[digitToMove - 1] = false;
-                    currentState[currentStateIndex] = 0;
-                    board[rowToWrite][colToWrite] = '.';
-                }
-
-                if (movedToDigit <= 9)
-                {
-                    lastDigitStack.Push(movedToDigit);
-                    usedDigits[movedToDigit - 1] = true;
-                    currentState[currentStateIndex] = movedToDigit;
-                    board[rowToWrite][colToWrite] = (char) ('0' + movedToDigit);
-
-                    // Next possible digit was found at current position
-                    // Next step will be to expand the state
-                    command = "expand";
-                }
-                else
-                {
-                    // No viable candidate was found at current position - pop it in the next iteration
-                    lastDigitStack.Push(0);
-                    command = "collapse";
-                }
+                command = Applesauce_Move(stateStack, rowIndexStack, colIndexStack, usedDigitsStack, lastDigitStack, board);
             } // if (command == "move")
+
+            return command;
+        }
+
+        private static string Applesauce_Move(Stack<int[]> stateStack, Stack<int> rowIndexStack, Stack<int> colIndexStack, Stack<bool[]> usedDigitsStack,
+            Stack<int> lastDigitStack, char[][] board)
+        {
+            string command;
+            int rowToMove = rowIndexStack.Peek();
+            int colToMove = colIndexStack.Peek();
+            int digitToMove = lastDigitStack.Pop();
+
+            int rowToWrite = rowToMove + rowToMove / 3 + 1;
+            int colToWrite = colToMove + colToMove / 3 + 1;
+
+            bool[] usedDigits = usedDigitsStack.Peek();
+            int[] currentState = stateStack.Peek();
+            int currentStateIndex = 9 * rowToMove + colToMove;
+
+            int movedToDigit = digitToMove + 1;
+            while (movedToDigit <= 9 && usedDigits[movedToDigit - 1])
+                movedToDigit += 1;
+
+            if (digitToMove > 0)
+            {
+                usedDigits[digitToMove - 1] = false;
+                currentState[currentStateIndex] = 0;
+                board[rowToWrite][colToWrite] = '.';
+            }
+
+            if (movedToDigit <= 9)
+            {
+                lastDigitStack.Push(movedToDigit);
+                usedDigits[movedToDigit - 1] = true;
+                currentState[currentStateIndex] = movedToDigit;
+                board[rowToWrite][colToWrite] = (char) ('0' + movedToDigit);
+
+                // Next possible digit was found at current position
+                // Next step will be to expand the state
+                command = "expand";
+            }
+            else
+            {
+                // No viable candidate was found at current position - pop it in the next iteration
+                lastDigitStack.Push(0);
+                command = "collapse";
+            }
 
             return command;
         }
