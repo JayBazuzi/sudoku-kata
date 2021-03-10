@@ -82,16 +82,7 @@ namespace SudokuKata
         {
             var sudokuBoardAndStackState = new SudokuBoardAndStackState();
 
-            // Top elements are (row, col) of cell which has been modified compared to previous state
-            var rowIndexStack = new Stack<int>();
-            var colIndexStack = new Stack<int>();
-
-            // Top element indicates candidate digits (those with False) for (row, col)
-            var usedDigitsStack = new Stack<bool[]>();
-
-            // Top element is the value that was set on (row, col)
-            var lastDigitStack = new Stack<int>();
-            var stacks = new Stacks(rowIndexStack, colIndexStack, usedDigitsStack, lastDigitStack);
+            var stacks = StacksCtor();
 
 
             // Indicates operation to perform next
@@ -111,6 +102,21 @@ namespace SudokuKata
             Console.WriteLine(result);
 
             return sudokuBoardAndStackState;
+        }
+
+        private static Stacks StacksCtor()
+        {
+            // Top elements are (row, col) of cell which has been modified compared to previous state
+            var rowIndexStack = new Stack<int>();
+            var colIndexStack = new Stack<int>();
+
+            // Top element indicates candidate digits (those with False) for (row, col)
+            var usedDigitsStack = new Stack<bool[]>();
+
+            // Top element is the value that was set on (row, col)
+            var lastDigitStack = new Stack<int>();
+            var stacks = new Stacks(rowIndexStack, colIndexStack, usedDigitsStack, lastDigitStack);
+            return stacks;
         }
 
         private static Command Applesauce4(Random rng, Command command, Stacks stacks,
