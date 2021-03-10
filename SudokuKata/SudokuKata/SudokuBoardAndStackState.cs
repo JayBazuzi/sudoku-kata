@@ -6,7 +6,8 @@ namespace SudokuKata
 {
     public class ViableMove
     {
-        public ViableMove(int rowToWrite, int colToWrite, bool[] usedDigits, int[] currentState, int currentStateIndex, int movedToDigit)
+        public ViableMove(int rowToWrite, int colToWrite, bool[] usedDigits, int[] currentState, int currentStateIndex,
+            int movedToDigit)
         {
             RowToWrite = rowToWrite;
             ColToWrite = colToWrite;
@@ -119,9 +120,10 @@ namespace SudokuKata
             Stack<int> colIndexStack, Stack<bool[]> usedDigitsStack,
             Stack<int> lastDigitStack, char[][] board)
         {
-            var viableMove = GetViableMove(stateStack, rowIndexStack, colIndexStack, usedDigitsStack, lastDigitStack, board);
+            var viableMove = GetViableMove(stateStack, rowIndexStack, colIndexStack, usedDigitsStack, lastDigitStack,
+                board);
 
-            if (viableMove.MovedToDigit <= 9)
+            if (viableMove != null)
             {
                 lastDigitStack.Push(viableMove.MovedToDigit);
                 viableMove.UsedDigits[viableMove.MovedToDigit - 1] = true;
@@ -140,7 +142,8 @@ namespace SudokuKata
             }
         }
 
-        private static ViableMove GetViableMove(Stack<int[]> stateStack, Stack<int> rowIndexStack, Stack<int> colIndexStack, Stack<bool[]> usedDigitsStack,
+        private static ViableMove GetViableMove(Stack<int[]> stateStack, Stack<int> rowIndexStack,
+            Stack<int> colIndexStack, Stack<bool[]> usedDigitsStack,
             Stack<int> lastDigitStack, char[][] board)
         {
             var rowToMove = rowIndexStack.Peek();
@@ -167,7 +170,13 @@ namespace SudokuKata
                 board[rowToWrite][colToWrite] = '.';
             }
 
-            return new ViableMove(rowToWrite, colToWrite, usedDigits, currentState, currentStateIndex, movedToDigit);
+            if (movedToDigit <= 9)
+            {
+                return new ViableMove(rowToWrite, colToWrite, usedDigits, currentState, currentStateIndex,
+                    movedToDigit);
+            }
+
+            return null;
         }
 
         private static Command Applesauce_Collapse(Stack<int[]> stateStack, Stack<int> rowIndexStack,
