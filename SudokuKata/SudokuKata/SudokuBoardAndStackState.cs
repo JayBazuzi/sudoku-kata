@@ -79,24 +79,19 @@ namespace SudokuKata
             Stack<int> rowIndexStack,
             Stack<int> colIndexStack, Stack<bool[]> usedDigitsStack, Stack<int> lastDigitStack, char[][] board)
         {
-            if (command == Command.Expand)
+            switch (command)
             {
-                return Applesauce_Expand(rng, stateStack, rowIndexStack, colIndexStack, usedDigitsStack,
-                    lastDigitStack);
-            }
-            else if (command == Command.Collapse)
-            {
-                return Applesauce_Collapse(stateStack, rowIndexStack, colIndexStack, usedDigitsStack,
-                    lastDigitStack);
-            }
-            else if (command == Command.Move)
-            {
-                return Applesauce_Move(stateStack, rowIndexStack, colIndexStack, usedDigitsStack, lastDigitStack,
-                    board);
-            }
-            else
-            {
-                return command;
+                case Command.Expand:
+                    return Applesauce_Expand(rng, stateStack, rowIndexStack, colIndexStack, usedDigitsStack,
+                        lastDigitStack);
+                case Command.Collapse:
+                    return Applesauce_Collapse(stateStack, rowIndexStack, colIndexStack, usedDigitsStack,
+                        lastDigitStack);
+                case Command.Move:
+                    return Applesauce_Move(stateStack, rowIndexStack, colIndexStack, usedDigitsStack, lastDigitStack,
+                        board);
+                default:
+                    return command;
             }
         }
 
