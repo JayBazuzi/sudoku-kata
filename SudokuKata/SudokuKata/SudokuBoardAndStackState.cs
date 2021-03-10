@@ -155,7 +155,6 @@ namespace SudokuKata
         private static Command Applesauce_Expand(Random rng, Stack<int[]> stateStack, Stack<int> rowIndexStack, Stack<int> colIndexStack,
             Stack<bool[]> usedDigitsStack, Stack<int> lastDigitStack)
         {
-            Command command;
             int[] currentState = new int[9 * 9];
 
             if (stateStack.Count > 0)
@@ -227,7 +226,7 @@ namespace SudokuKata
             }
 
             // Always try to move after expand
-            command = Command.Move;
+            var command = Command.Move;
             return command;
         }
     }
