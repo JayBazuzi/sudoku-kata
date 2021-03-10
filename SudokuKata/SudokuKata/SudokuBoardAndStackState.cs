@@ -100,7 +100,8 @@ namespace SudokuKata
             var command = Command.Expand;
             while (sudokuBoardAndStackState.StateStack.Count <= 9 * 9)
             {
-                command = Applesauce4(rng, command, new Stacks(rowIndexStack, colIndexStack, usedDigitsStack, lastDigitStack), sudokuBoardAndStackState);
+                var stacks = new Stacks(rowIndexStack, colIndexStack, usedDigitsStack, lastDigitStack);
+                command = Applesauce4(rng, command, stacks, sudokuBoardAndStackState);
             }
 
 
