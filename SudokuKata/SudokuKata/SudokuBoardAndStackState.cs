@@ -83,13 +83,7 @@ namespace SudokuKata
             } // if (command == "expand")
             else if (command == "collapse")
             {
-                stateStack.Pop();
-                rowIndexStack.Pop();
-                colIndexStack.Pop();
-                usedDigitsStack.Pop();
-                lastDigitStack.Pop();
-
-                command = "move"; // Always try to move after collapse
+                command = Applesauce_Collapse(stateStack, rowIndexStack, colIndexStack, usedDigitsStack, lastDigitStack);
             }
             else if (command == "move")
             {
@@ -134,6 +128,20 @@ namespace SudokuKata
                 }
             } // if (command == "move")
 
+            return command;
+        }
+
+        private static string Applesauce_Collapse(Stack<int[]> stateStack, Stack<int> rowIndexStack, Stack<int> colIndexStack,
+            Stack<bool[]> usedDigitsStack, Stack<int> lastDigitStack)
+        {
+            string command;
+            stateStack.Pop();
+            rowIndexStack.Pop();
+            colIndexStack.Pop();
+            usedDigitsStack.Pop();
+            lastDigitStack.Pop();
+
+            command = "move"; // Always try to move after collapse
             return command;
         }
 
