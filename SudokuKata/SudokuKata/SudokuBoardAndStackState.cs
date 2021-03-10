@@ -226,9 +226,6 @@ namespace SudokuKata
             Stack<int> colIndexStack, Stack<bool[]> usedDigitsStack,
             Stack<int> lastDigitStack)
         {
-            var stateStack = sudokuBoardAndStackState.StateStack;
-            var board = sudokuBoardAndStackState.Board;
-
             var rowToMove = rowIndexStack.Peek();
             var colToMove = colIndexStack.Peek();
             var digitToMove = lastDigitStack.Pop();
@@ -237,7 +234,7 @@ namespace SudokuKata
             var colToWrite = colToMove + colToMove / 3 + 1;
 
             var usedDigits = usedDigitsStack.Peek();
-            var currentState = stateStack.Peek();
+            var currentState = sudokuBoardAndStackState.StateStack.Peek();
             var currentStateIndex = 9 * rowToMove + colToMove;
 
             var movedToDigit = digitToMove + 1;
@@ -250,7 +247,7 @@ namespace SudokuKata
             {
                 usedDigits[digitToMove - 1] = false;
                 currentState[currentStateIndex] = 0;
-                board[rowToWrite][colToWrite] = '.';
+                sudokuBoardAndStackState.Board[rowToWrite][colToWrite] = '.';
             }
 
             if (movedToDigit <= 9)
