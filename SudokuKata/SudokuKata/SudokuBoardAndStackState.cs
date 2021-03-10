@@ -228,7 +228,7 @@ namespace SudokuKata
             }
             else
             {
-                Board[row][column] = (char)('0' + value);
+                Board[row][column] = value.ToString().Single();
 
             }
         }
