@@ -58,7 +58,7 @@ namespace SudokuKata
             // - expand - finds next empty cell and puts new state on stacks
             // - move - finds next candidate number at current pos and applies it to current state
             // - collapse - pops current state from stack as it did not yield a solution
-            string command = "expand";
+            Command command = Command.Expand;
             while (sudokuBoardAndStackState.StateStack.Count <= 9 * 9)
             {
                 command = Applesauce4(rng, command, sudokuBoardAndStackState.StateStack, rowIndexStack, colIndexStack, usedDigitsStack, lastDigitStack,
@@ -74,18 +74,18 @@ namespace SudokuKata
             return sudokuBoardAndStackState;
         }
 
-        private static string Applesauce4(Random rng, string command, Stack<int[]> stateStack, Stack<int> rowIndexStack,
+        private static Command Applesauce4(Random rng, Command command, Stack<int[]> stateStack, Stack<int> rowIndexStack,
             Stack<int> colIndexStack, Stack<bool[]> usedDigitsStack, Stack<int> lastDigitStack, char[][] board)
         {
-            if (command == "expand")
+            if (command == Command.Expand)
             {
                 command = Applesauce_Expand(rng, stateStack, rowIndexStack, colIndexStack, usedDigitsStack, lastDigitStack);
             }
-            else if (command == "collapse")
+            else if (command == Command.Collapse)
             {
                 command = Applesauce_Collapse(stateStack, rowIndexStack, colIndexStack, usedDigitsStack, lastDigitStack);
             }
-            else if (command == "move")
+            else if (command == Command.Move)
             {
                 command = Applesauce_Move(stateStack, rowIndexStack, colIndexStack, usedDigitsStack, lastDigitStack, board);
             }
@@ -93,10 +93,10 @@ namespace SudokuKata
             return command;
         }
 
-        private static string Applesauce_Move(Stack<int[]> stateStack, Stack<int> rowIndexStack, Stack<int> colIndexStack, Stack<bool[]> usedDigitsStack,
+        private static Command Applesauce_Move(Stack<int[]> stateStack, Stack<int> rowIndexStack, Stack<int> colIndexStack, Stack<bool[]> usedDigitsStack,
             Stack<int> lastDigitStack, char[][] board)
         {
-            string command;
+            Command command;
             int rowToMove = rowIndexStack.Peek();
             int colToMove = colIndexStack.Peek();
             int digitToMove = lastDigitStack.Pop();
@@ -128,36 +128,36 @@ namespace SudokuKata
 
                 // Next possible digit was found at current position
                 // Next step will be to expand the state
-                command = "expand";
+                command = Command.Expand;
             }
             else
             {
                 // No viable candidate was found at current position - pop it in the next iteration
                 lastDigitStack.Push(0);
-                command = "collapse";
+                command = Command.Collapse;
             }
 
             return command;
         }
 
-        private static string Applesauce_Collapse(Stack<int[]> stateStack, Stack<int> rowIndexStack, Stack<int> colIndexStack,
+        private static Command Applesauce_Collapse(Stack<int[]> stateStack, Stack<int> rowIndexStack, Stack<int> colIndexStack,
             Stack<bool[]> usedDigitsStack, Stack<int> lastDigitStack)
         {
-            string command;
+            Command command;
             stateStack.Pop();
             rowIndexStack.Pop();
             colIndexStack.Pop();
             usedDigitsStack.Pop();
             lastDigitStack.Pop();
 
-            command = "move"; // Always try to move after collapse
+            command = Command.Move; // Always try to move after collapse
             return command;
         }
 
-        private static string Applesauce_Expand(Random rng, Stack<int[]> stateStack, Stack<int> rowIndexStack, Stack<int> colIndexStack,
+        private static Command Applesauce_Expand(Random rng, Stack<int[]> stateStack, Stack<int> rowIndexStack, Stack<int> colIndexStack,
             Stack<bool[]> usedDigitsStack, Stack<int> lastDigitStack)
         {
-            string command;
+            Command command;
             int[] currentState = new int[9 * 9];
 
             if (stateStack.Count > 0)
@@ -229,7 +229,7 @@ namespace SudokuKata
             }
 
             // Always try to move after expand
-            command = "move";
+            command = Command.Move;
             return command;
         }
     }

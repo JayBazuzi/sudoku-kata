@@ -566,7 +566,7 @@ namespace SudokuKata
             Stack<int> colIndexStack;
             Stack<bool[]> usedDigitsStack;
             Stack<int> lastDigitStack;
-            string command;
+            Command command;
 
             #region Final attempt - look if the board has multiple solutions
 
@@ -663,10 +663,10 @@ namespace SudokuKata
                     usedDigitsStack = new Stack<bool[]>();
                     lastDigitStack = new Stack<int>();
 
-                    command = "expand";
-                    while (command != "complete" && command != "fail")
+                    command = Command.Expand;
+                    while (command != Command.Complete && command != Command.Fail)
                     {
-                        if (command == "expand")
+                        if (command == Command.Expand)
                         {
                             int[] currentState = new int[9 * 9];
 
@@ -743,9 +743,9 @@ namespace SudokuKata
                             }
 
                             // Always try to move after expand
-                            command = "move";
-                        } // if (command == "expand")
-                        else if (command == "collapse")
+                            command = Command.Move;
+                        } // if (command == Command.expand")
+                        else if (command == Command.Collapse)
                         {
                             stateStack.Pop();
                             rowIndexStack.Pop();
@@ -754,11 +754,11 @@ namespace SudokuKata
                             lastDigitStack.Pop();
 
                             if (stateStack.Any())
-                                command = "move"; // Always try to move after collapse
+                                command = Command.Move; // Always try to move after collapse
                             else
-                                command = "fail";
+                                command = Command.Fail;
                         }
-                        else if (command == "move")
+                        else if (command == Command.Move)
                         {
                             int rowToMove = rowIndexStack.Peek();
                             int colToMove = colIndexStack.Peek();
@@ -790,20 +790,20 @@ namespace SudokuKata
                                 board[rowToWrite][colToWrite] = (char) ('0' + movedToDigit);
 
                                 if (currentState.Any(digit => digit == 0))
-                                    command = "expand";
+                                    command = Command.Expand;
                                 else
-                                    command = "complete";
+                                    command = Command.Complete;
                             }
                             else
                             {
                                 // No viable candidate was found at current position - pop it in the next iteration
                                 lastDigitStack.Push(0);
-                                command = "collapse";
+                                command = Command.Collapse;
                             }
-                        } // if (command == "move")
+                        } // if (command == Command.move")
                     } // while (command != "complete" && command != "fail")
 
-                    if (command == "complete")
+                    if (command == Command.Complete)
                     {
                         // Board was solved successfully even with two digits swapped
                         stateIndex1.Add(index1);
