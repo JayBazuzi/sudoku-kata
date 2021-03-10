@@ -143,14 +143,13 @@ namespace SudokuKata
         private static Command Applesauce_Collapse(Stack<int[]> stateStack, Stack<int> rowIndexStack, Stack<int> colIndexStack,
             Stack<bool[]> usedDigitsStack, Stack<int> lastDigitStack)
         {
-            Command command;
             stateStack.Pop();
             rowIndexStack.Pop();
             colIndexStack.Pop();
             usedDigitsStack.Pop();
             lastDigitStack.Pop();
 
-            command = Command.Move; // Always try to move after collapse
+            var command = Command.Move;
             return command;
         }
 
