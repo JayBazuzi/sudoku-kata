@@ -149,8 +149,7 @@ namespace SudokuKata
             usedDigitsStack.Pop();
             lastDigitStack.Pop();
 
-            var command = Command.Move;
-            return command;
+            return Command.Move;
         }
 
         private static Command Applesauce_Expand(Random rng, Stack<int[]> stateStack, Stack<int> rowIndexStack, Stack<int> colIndexStack,
