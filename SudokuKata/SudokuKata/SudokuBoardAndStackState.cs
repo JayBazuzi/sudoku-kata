@@ -192,7 +192,7 @@ namespace SudokuKata
 
                     return Command.Move;
                 case Command.Move:
-                    var viableMove = GetViableMove(sudokuBoardAndStackState.StateStack, rowIndexStack, colIndexStack, usedDigitsStack, lastDigitStack,
+                    var viableMove = GetViableMove(sudokuBoardAndStackState, sudokuBoardAndStackState.StateStack, rowIndexStack, colIndexStack, usedDigitsStack, lastDigitStack,
                         sudokuBoardAndStackState.Board);
 
                     if (viableMove != null)
@@ -223,7 +223,8 @@ namespace SudokuKata
             Board[row][column] = (char) ('0' + value);
         }
 
-        private static ViableMove GetViableMove(Stack<int[]> stateStack, Stack<int> rowIndexStack,
+        private static ViableMove GetViableMove(SudokuBoardAndStackState sudokuBoardAndStackState,
+            Stack<int[]> stateStack, Stack<int> rowIndexStack,
             Stack<int> colIndexStack, Stack<bool[]> usedDigitsStack,
             Stack<int> lastDigitStack, char[][] board)
         {
