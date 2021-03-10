@@ -103,8 +103,86 @@ namespace SudokuKata
             switch (command)
             {
                 case Command.Expand:
-                    return Applesauce_Expand(rng, stateStack, rowIndexStack, colIndexStack, usedDigitsStack,
-                        lastDigitStack);
+                    var currentState = new int[9 * 9];
+
+                    if (stateStack.Count > 0)
+                    {
+                        Array.Copy(stateStack.Peek(), currentState, currentState.Length);
+                    }
+
+                    var bestRow = -1;
+                    var bestCol = -1;
+                    bool[] bestUsedDigits = null;
+                    var bestCandidatesCount = -1;
+                    var bestRandomValue = -1;
+                    var containsUnsolvableCells = false;
+
+                    for (var index = 0; index < currentState.Length; index++)
+                    {
+                        if (currentState[index] == 0)
+                        {
+                            var row = index / 9;
+                            var col = index % 9;
+                            var blockRow = row / 3;
+                            var blockCol = col / 3;
+
+                            var isDigitUsed = new bool[9];
+
+                            for (var i = 0; i < 9; i++)
+                            {
+                                var rowDigit = currentState[9 * i + col];
+                                if (rowDigit > 0)
+                                {
+                                    isDigitUsed[rowDigit - 1] = true;
+                                }
+
+                                var colDigit = currentState[9 * row + i];
+                                if (colDigit > 0)
+                                {
+                                    isDigitUsed[colDigit - 1] = true;
+                                }
+
+                                var blockDigit = currentState[(blockRow * 3 + i / 3) * 9 + blockCol * 3 + i % 3];
+                                if (blockDigit > 0)
+                                {
+                                    isDigitUsed[blockDigit - 1] = true;
+                                }
+                            } // for (i = 0..8)
+
+                            var candidatesCount = isDigitUsed.Where(used => !used).Count();
+
+                            if (candidatesCount == 0)
+                            {
+                                containsUnsolvableCells = true;
+                                break;
+                            }
+
+                            var randomValue = rng.Next();
+
+                            if (bestCandidatesCount < 0 ||
+                                candidatesCount < bestCandidatesCount ||
+                                candidatesCount == bestCandidatesCount && randomValue < bestRandomValue)
+                            {
+                                bestRow = row;
+                                bestCol = col;
+                                bestUsedDigits = isDigitUsed;
+                                bestCandidatesCount = candidatesCount;
+                                bestRandomValue = randomValue;
+                            }
+                        } // for (index = 0..81)
+                    }
+
+                    if (!containsUnsolvableCells)
+                    {
+                        stateStack.Push(currentState);
+                        rowIndexStack.Push(bestRow);
+                        colIndexStack.Push(bestCol);
+                        usedDigitsStack.Push(bestUsedDigits);
+                        lastDigitStack.Push(0); // No digit was tried at this position
+                    }
+
+                    // Always try to move after expand
+                    return Command.Move;
                 case Command.Collapse:
                     stateStack.Pop();
                     rowIndexStack.Pop();
@@ -180,92 +258,6 @@ namespace SudokuKata
             }
 
             return null;
-        }
-
-        private static Command Applesauce_Expand(Random rng, Stack<int[]> stateStack, Stack<int> rowIndexStack,
-            Stack<int> colIndexStack,
-            Stack<bool[]> usedDigitsStack, Stack<int> lastDigitStack)
-        {
-            var currentState = new int[9 * 9];
-
-            if (stateStack.Count > 0)
-            {
-                Array.Copy(stateStack.Peek(), currentState, currentState.Length);
-            }
-
-            var bestRow = -1;
-            var bestCol = -1;
-            bool[] bestUsedDigits = null;
-            var bestCandidatesCount = -1;
-            var bestRandomValue = -1;
-            var containsUnsolvableCells = false;
-
-            for (var index = 0; index < currentState.Length; index++)
-            {
-                if (currentState[index] == 0)
-                {
-                    var row = index / 9;
-                    var col = index % 9;
-                    var blockRow = row / 3;
-                    var blockCol = col / 3;
-
-                    var isDigitUsed = new bool[9];
-
-                    for (var i = 0; i < 9; i++)
-                    {
-                        var rowDigit = currentState[9 * i + col];
-                        if (rowDigit > 0)
-                        {
-                            isDigitUsed[rowDigit - 1] = true;
-                        }
-
-                        var colDigit = currentState[9 * row + i];
-                        if (colDigit > 0)
-                        {
-                            isDigitUsed[colDigit - 1] = true;
-                        }
-
-                        var blockDigit = currentState[(blockRow * 3 + i / 3) * 9 + blockCol * 3 + i % 3];
-                        if (blockDigit > 0)
-                        {
-                            isDigitUsed[blockDigit - 1] = true;
-                        }
-                    } // for (i = 0..8)
-
-                    var candidatesCount = isDigitUsed.Where(used => !used).Count();
-
-                    if (candidatesCount == 0)
-                    {
-                        containsUnsolvableCells = true;
-                        break;
-                    }
-
-                    var randomValue = rng.Next();
-
-                    if (bestCandidatesCount < 0 ||
-                        candidatesCount < bestCandidatesCount ||
-                        candidatesCount == bestCandidatesCount && randomValue < bestRandomValue)
-                    {
-                        bestRow = row;
-                        bestCol = col;
-                        bestUsedDigits = isDigitUsed;
-                        bestCandidatesCount = candidatesCount;
-                        bestRandomValue = randomValue;
-                    }
-                } // for (index = 0..81)
-            }
-
-            if (!containsUnsolvableCells)
-            {
-                stateStack.Push(currentState);
-                rowIndexStack.Push(bestRow);
-                colIndexStack.Push(bestCol);
-                usedDigitsStack.Push(bestUsedDigits);
-                lastDigitStack.Push(0); // No digit was tried at this position
-            }
-
-            // Always try to move after expand
-            return Command.Move;
         }
     }
 }
