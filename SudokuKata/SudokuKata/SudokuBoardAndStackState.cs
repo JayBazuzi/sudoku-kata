@@ -101,6 +101,9 @@ namespace SudokuKata
             Stack<int> colIndexStack, Stack<bool[]> usedDigitsStack, Stack<int> lastDigitStack, char[][] board,
             SudokuBoardAndStackState sudokuBoardAndStackState)
         {
+            stateStack = sudokuBoardAndStackState.StateStack;
+            board = sudokuBoardAndStackState.Board;
+
             switch (command)
             {
                 case Command.Expand:
