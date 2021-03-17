@@ -563,7 +563,6 @@ namespace SudokuKata
             Dictionary<int, int> maskToOnesCount, int[] finalState, int[] state,
             SudokuBoardAndStackState sudokuBoardAndStackState)
         {
-            var board = sudokuBoardAndStackState.Board;
             Stack<int[]> stateStack;
             Stack<int> rowIndexStack;
             Stack<int> colIndexStack;
@@ -782,7 +781,7 @@ namespace SudokuKata
                             {
                                 usedDigits[digitToMove - 1] = false;
                                 currentState[currentStateIndex] = 0;
-                                board[rowToWrite][colToWrite] = '.';
+                                sudokuBoardAndStackState.Board[rowToWrite][colToWrite] = '.';
                             }
 
                             if (movedToDigit <= 9)
@@ -790,7 +789,7 @@ namespace SudokuKata
                                 lastDigitStack.Push(movedToDigit);
                                 usedDigits[movedToDigit - 1] = true;
                                 currentState[currentStateIndex] = movedToDigit;
-                                board[rowToWrite][colToWrite] = (char) ('0' + movedToDigit);
+                                sudokuBoardAndStackState.Board[rowToWrite][colToWrite] = (char) ('0' + movedToDigit);
 
                                 if (currentState.Any(digit => digit == 0))
                                     command = Command.Expand;
@@ -856,9 +855,9 @@ namespace SudokuKata
                         int rowToWrite = tempRow + tempRow / 3 + 1;
                         int colToWrite = tempCol + tempCol / 3 + 1;
 
-                        board[rowToWrite][colToWrite] = '.';
+                        sudokuBoardAndStackState.Board[rowToWrite][colToWrite] = '.';
                         if (state[i] > 0)
-                            board[rowToWrite][colToWrite] = (char) ('0' + state[i]);
+                            sudokuBoardAndStackState.Board[rowToWrite][colToWrite] = (char) ('0' + state[i]);
                     }
 
                     Console.WriteLine(
