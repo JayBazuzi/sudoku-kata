@@ -877,9 +877,8 @@ namespace SudokuKata
                 #region Print the board as it looks after one change was made to it
 
                 Console.WriteLine(sudokuBoardAndStackState);
-                var code = ToCodeString(sudokuBoardAndStackState);
 
-                Console.WriteLine("Code: {0}", code);
+                Console.WriteLine("Code: {0}", ToCodeString(sudokuBoardAndStackState));
                 Console.WriteLine();
 
                 #endregion
