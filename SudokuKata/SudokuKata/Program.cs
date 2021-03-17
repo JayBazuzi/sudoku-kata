@@ -232,8 +232,6 @@ namespace SudokuKata
                             int row = candidateRowIndices.ElementAt(index);
                             int col = candidateColIndices.ElementAt(index);
                             int digit = candidates.ElementAt(index);
-                            int rowToWrite = row + row / 3 + 1;
-                            int colToWrite = col + col / 3 + 1;
 
                             string message = $"{description} can contain {digit} only at ({row + 1}, {col + 1}).";
 
