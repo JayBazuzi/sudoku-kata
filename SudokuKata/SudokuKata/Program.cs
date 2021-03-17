@@ -17,7 +17,7 @@ namespace SudokuKata
 
         public static void Play(Random rng)
         {
-            var sudokuBoardAndStackState = SudokuBoardAndStackState.ConstructFullyPopulatedBoard(rng);
+            var sudokuBoardAndStackState = SudokuBoardAndStackState.ConstructFullySolvedBoard(rng);
 
             var boardAsNumbers = GeneratePuzzleFromCompletelySolvedBoard(rng, sudokuBoardAndStackState, out var finalState);
 
