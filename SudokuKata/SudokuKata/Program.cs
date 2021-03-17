@@ -32,6 +32,7 @@ namespace SudokuKata
             Dictionary<int, int> singleBitToIndex, SudokuBoardAndStackState sudokuBoardAndStackState, char[][] board,
             int[] finalState)
         {
+            board = sudokuBoardAndStackState.Board;
             bool changeMade = true;
             while (changeMade)
             {
