@@ -19,6 +19,7 @@ namespace SudokuKata
             return that;
         }
     }
+
     public class SudokuBoardAndStackState
     {
         public const int Unknown = -1;
@@ -50,7 +51,7 @@ namespace SudokuKata
 
         public Stack<int[]> StateStack { get; }
         private char[][] _board2 { get; }
-        private readonly int[,] _board = new int[9,9].SetAll(Unknown);
+        private readonly int[,] _board = new int[9, 9].SetAll(Unknown);
 
         public override string ToString()
         {
@@ -110,7 +111,8 @@ namespace SudokuKata
                 stacks.LastDigitStack.Push(viableMove.MovedToDigit);
                 viableMove.UsedDigits[viableMove.MovedToDigit - 1] = true;
                 viableMove.CurrentState[viableMove.CurrentStateIndex] = viableMove.MovedToDigit;
-                sudokuBoardAndStackState.SetValue(viableMove.RowToWrite, viableMove.ColToWrite, viableMove.MovedToDigit);
+                sudokuBoardAndStackState.SetValue(viableMove.RowToWrite, viableMove.ColToWrite,
+                    viableMove.MovedToDigit);
 
                 // Next possible digit was found at current position
                 // Next step will be to expand the state
@@ -237,7 +239,8 @@ namespace SudokuKata
             }
         }
 
-        private static ViableMove GetViableMove(SudokuBoardAndStackState sudokuBoardAndStackState, Stack<int> rowIndexStack,
+        private static ViableMove GetViableMove(SudokuBoardAndStackState sudokuBoardAndStackState,
+            Stack<int> rowIndexStack,
             Stack<int> colIndexStack, Stack<bool[]> usedDigitsStack,
             Stack<int> lastDigitStack)
         {
@@ -276,13 +279,18 @@ namespace SudokuKata
 
         public string ToCodeString()
         {
-            string code =
-                string.Join(string.Empty, _board2.Select(s => new string(s)).ToArray())
-                    .Replace("-", string.Empty)
-                    .Replace("+", string.Empty)
-                    .Replace("|", string.Empty)
-                    .Replace(".", "0");
-            return code;
+            string result = "";
+
+            for (int row = 0; row < _board.GetLength(0); row++)
+            {
+                for (int column = 0; column < _board.GetLength(1); column++)
+                {
+                    var value = _board[row, column];
+                    result += value == Unknown ? 0 : value;
+                }
+            }
+
+            return result;
         }
     }
 }
