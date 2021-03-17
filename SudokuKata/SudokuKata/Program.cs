@@ -19,7 +19,7 @@ namespace SudokuKata
         {
             var sudokuBoardAndStackState = SudokuBoardAndStackState.ConstructFullyPopulatedBoard(rng);
 
-            var state = GenerateInitialBoardFromCompletelyUnsolvedOne(rng, sudokuBoardAndStackState, out var finalState);
+            var state = GeneratePuzzleFromCompletelySolvedBoard(rng, sudokuBoardAndStackState, out var finalState);
 
             var maskToOnesCount = PrepareLookupStructures(out var singleBitToIndex, out var allOnes);
 
@@ -381,7 +381,7 @@ namespace SudokuKata
             return maskToOnesCount;
         }
 
-        private static int[] GenerateInitialBoardFromCompletelyUnsolvedOne(Random rng, 
+        private static int[] GeneratePuzzleFromCompletelySolvedBoard(Random rng, 
             SudokuBoardAndStackState sudokuBoardAndStackState,
             out int[] finalState)
         {
