@@ -876,7 +876,7 @@ namespace SudokuKata
             {
                 #region Print the board as it looks after one change was made to it
 
-                Console.WriteLine(string.Join(Environment.NewLine, sudokuBoardAndStackState.Board.Select(s => new string(s)).ToArray()));
+                Console.WriteLine(sudokuBoardAndStackState);
                 string code =
                     string.Join(string.Empty, sudokuBoardAndStackState.Board.Select(s => new string(s)).ToArray())
                         .Replace("-", string.Empty)
