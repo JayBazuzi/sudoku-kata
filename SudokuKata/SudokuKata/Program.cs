@@ -790,7 +790,7 @@ namespace SudokuKata
                                 lastDigitStack.Push(movedToDigit);
                                 usedDigits[movedToDigit - 1] = true;
                                 currentState[currentStateIndex] = movedToDigit;
-                                sudokuBoardAndStackState.Board[rowToWrite][colToWrite] = (char) ('0' + movedToDigit);
+                                sudokuBoardAndStackState.SetValue(rowToWrite,colToWrite,movedToDigit);
 
                                 if (currentState.Any(digit => digit == 0))
                                     command = Command.Expand;
