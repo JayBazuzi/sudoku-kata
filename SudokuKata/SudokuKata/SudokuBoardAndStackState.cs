@@ -233,6 +233,14 @@ namespace SudokuKata
             }
         }
 
+        public void SetValueWithoutCruft(int row, int column, int value)
+        {
+            var rowToWrite = row + row / 3 + 1;
+            var colToWrite = column + column / 3 + 1;
+
+            SetValue(rowToWrite, colToWrite, value);
+        }
+
         private static ViableMove GetViableMove(SudokuBoardAndStackState sudokuBoardAndStackState, Stack<int> rowIndexStack,
             Stack<int> colIndexStack, Stack<bool[]> usedDigitsStack,
             Stack<int> lastDigitStack)
@@ -258,7 +266,7 @@ namespace SudokuKata
             {
                 usedDigits[digitToMove - 1] = false;
                 currentState[currentStateIndex] = 0;
-                sudokuBoardAndStackState.SetValue(rowToWrite, colToWrite, Unknown);
+                sudokuBoardAndStackState.SetValueWithoutCruft(rowToMove, colToMove, Unknown);
             }
 
             if (movedToDigit <= 9)
