@@ -440,7 +440,7 @@ namespace SudokuKata
                 int rowToWrite = row + row / 3 + 1;
                 int colToWrite = col + col / 3 + 1;
 
-                sudokuBoardAndStackState.Board[rowToWrite][colToWrite] = '.';
+                sudokuBoardAndStackState.SetValue(rowToWrite, colToWrite, SudokuBoardAndStackState.Unknown);
 
                 int stateIndex = 9 * row + col;
                 state[stateIndex] = 0;

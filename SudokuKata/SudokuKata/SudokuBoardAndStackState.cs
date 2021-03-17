@@ -6,7 +6,7 @@ namespace SudokuKata
 {
     public class SudokuBoardAndStackState
     {
-        private const int Unknown = -1;
+        public const int Unknown = -1;
 
         public SudokuBoardAndStackState()
         {
