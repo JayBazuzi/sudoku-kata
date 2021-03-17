@@ -856,7 +856,7 @@ namespace SudokuKata
                         int rowToWrite = tempRow + tempRow / 3 + 1;
                         int colToWrite = tempCol + tempCol / 3 + 1;
 
-                        sudokuBoardAndStackState.Board[rowToWrite][colToWrite] = '.';
+                        sudokuBoardAndStackState.SetValue(rowToWrite, colToWrite, SudokuBoardAndStackState.Unknown);
                         if (state[i] > 0)
                             sudokuBoardAndStackState.Board[rowToWrite][colToWrite] = (char) ('0' + state[i]);
                     }
