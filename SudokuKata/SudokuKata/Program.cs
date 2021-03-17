@@ -349,9 +349,9 @@ namespace SudokuKata
                 }
 
                 wasChangeMade = LookIfBoardHasMultipleSolutions(rng, wasChangeMade, candidateMasks, maskToOnesCount, finalState,
-                    boardAsNumbers, sudokuBoardAndStackState.Board);
+                    boardAsNumbers, sudokuBoardAndStackState, sudokuBoardAndStackState.Board);
 
-                PrintBoardChange(wasChangeMade, sudokuBoardAndStackState.Board);
+                PrintBoardChange(wasChangeMade, sudokuBoardAndStackState, sudokuBoardAndStackState.Board);
             }
         }
 
@@ -561,7 +561,8 @@ namespace SudokuKata
         }
 
         private static bool LookIfBoardHasMultipleSolutions(Random rng, bool changeMade, int[] candidateMasks,
-            Dictionary<int, int> maskToOnesCount, int[] finalState, int[] state, char[][] board)
+            Dictionary<int, int> maskToOnesCount, int[] finalState, int[] state,
+            SudokuBoardAndStackState sudokuBoardAndStackState, char[][] board)
         {
             Stack<int[]> stateStack;
             Stack<int> rowIndexStack;
@@ -870,7 +871,8 @@ namespace SudokuKata
             return changeMade;
         }
 
-        private static void PrintBoardChange(bool changeMade, char[][] board)
+        private static void PrintBoardChange(bool changeMade, SudokuBoardAndStackState sudokuBoardAndStackState,
+            char[][] board)
         {
             if (changeMade)
             {
