@@ -243,7 +243,7 @@ namespace SudokuKata
                             int stateIndex = 9 * row + col;
                             boardAsNumbers[stateIndex] = digit;
                             candidateMasks[stateIndex] = 0;
-                            sudokuBoardAndStackState.Board[rowToWrite][colToWrite] = (char) ('0' + digit);
+                            sudokuBoardAndStackState.SetValue(rowToWrite,colToWrite, digit);
 
                             wasChangeMade = true;
 
