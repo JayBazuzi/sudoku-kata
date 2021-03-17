@@ -858,7 +858,7 @@ namespace SudokuKata
 
                         sudokuBoardAndStackState.SetValue(rowToWrite, colToWrite, SudokuBoardAndStackState.Unknown);
                         if (state[i] > 0)
-                            sudokuBoardAndStackState.Board[rowToWrite][colToWrite] = (char) ('0' + state[i]);
+                            sudokuBoardAndStackState.SetValue(rowToWrite, colToWrite, state[i]);
                     }
 
                     Console.WriteLine(
