@@ -27,7 +27,7 @@ namespace SudokuKata
         }
 
 
-        private static void Applesauce6(Random rng, int[] state, int allOnes, Dictionary<int, int> maskToOnesCount,
+        private static void Applesauce6(Random rng, int[] boardAsNumbers, int allOnes, Dictionary<int, int> maskToOnesCount,
             Dictionary<int, int> singleBitToIndex, char[][] board, int[] finalState)
         {
             bool changeMade = true;
@@ -37,10 +37,10 @@ namespace SudokuKata
 
                 #region Calculate candidates for current state of the board
 
-                int[] candidateMasks = new int[state.Length];
+                int[] candidateMasks = new int[boardAsNumbers.Length];
 
-                for (int i = 0; i < state.Length; i++)
-                    if (state[i] == 0)
+                for (int i = 0; i < boardAsNumbers.Length; i++)
+                    if (boardAsNumbers[i] == 0)
                     {
                         int row = i / 9;
                         int col = i % 9;
@@ -54,9 +54,9 @@ namespace SudokuKata
                             int colSiblingIndex = 9 * j + col;
                             int blockSiblingIndex = 9 * (blockRow * 3 + j / 3) + blockCol * 3 + j % 3;
 
-                            int rowSiblingMask = 1 << (state[rowSiblingIndex] - 1);
-                            int colSiblingMask = 1 << (state[colSiblingIndex] - 1);
-                            int blockSiblingMask = 1 << (state[blockSiblingIndex] - 1);
+                            int rowSiblingMask = 1 << (boardAsNumbers[rowSiblingIndex] - 1);
+                            int colSiblingMask = 1 << (boardAsNumbers[colSiblingIndex] - 1);
+                            int blockSiblingMask = 1 << (boardAsNumbers[blockSiblingIndex] - 1);
 
                             colidingNumbers = colidingNumbers | rowSiblingMask | colSiblingMask | blockSiblingMask;
                         }
@@ -68,7 +68,7 @@ namespace SudokuKata
 
                 #region Build a collection (named cellGroups) which maps cell indices into distinct groups (rows/columns/blocks)
 
-                IEnumerable<IGrouping<int, Applesauce1>> rowsIndices = state
+                IEnumerable<IGrouping<int, Applesauce1>> rowsIndices = boardAsNumbers
                     .Select((value, index) => new Applesauce1
                     {
                         Discriminator = index / 9, Description = $"row #{index / 9 + 1}", Index = index,
@@ -77,7 +77,7 @@ namespace SudokuKata
                     })
                     .GroupBy(tuple => tuple.Discriminator);
 
-                IEnumerable<IGrouping<int, Applesauce1>> columnIndices = state
+                IEnumerable<IGrouping<int, Applesauce1>> columnIndices = boardAsNumbers
                     .Select((value, index) => new Applesauce1
                     {
                         Discriminator = 9 + index % 9, Description = $"column #{index % 9 + 1}", Index = index,
@@ -86,7 +86,7 @@ namespace SudokuKata
                     })
                     .GroupBy(tuple => tuple.Discriminator);
 
-                IEnumerable<IGrouping<int, Applesauce1>> blockIndices = state
+                IEnumerable<IGrouping<int, Applesauce1>> blockIndices = boardAsNumbers
                     .Select((value, index) => new
                     {
                         Row = index / 9,
@@ -137,7 +137,7 @@ namespace SudokuKata
                         int rowToWrite = row + row / 3 + 1;
                         int colToWrite = col + col / 3 + 1;
 
-                        state[singleCandidateIndex] = candidate + 1;
+                        boardAsNumbers[singleCandidateIndex] = candidate + 1;
                         board[rowToWrite][colToWrite] = (char) ('1' + candidate);
                         candidateMasks[singleCandidateIndex] = 0;
                         changeMade = true;
@@ -239,7 +239,7 @@ namespace SudokuKata
                             string message = $"{description} can contain {digit} only at ({row + 1}, {col + 1}).";
 
                             int stateIndex = 9 * row + col;
-                            state[stateIndex] = digit;
+                            boardAsNumbers[stateIndex] = digit;
                             candidateMasks[stateIndex] = 0;
                             board[rowToWrite][colToWrite] = (char) ('0' + digit);
 
@@ -343,11 +343,11 @@ namespace SudokuKata
                     #endregion
 
                     stepChangeMade = IsTryToFindGruopsOfDigitsApplesauce(changeMade, stepChangeMade, maskToOnesCount,
-                        cellGroups, state, candidateMasks);
+                        cellGroups, boardAsNumbers, candidateMasks);
                 }
 
                 changeMade = LookIfBoardHasMultipleSolutions(rng, changeMade, candidateMasks, maskToOnesCount, finalState,
-                    state, board);
+                    boardAsNumbers, board);
 
                 PrintBoardChange(changeMade, board);
             }
