@@ -34,7 +34,7 @@ namespace SudokuKata
         }
 
         public Stack<int[]> StateStack { get; }
-        public char[][] Board { get; }
+        private char[][] Board { get; }
 
         public override string ToString()
         {
