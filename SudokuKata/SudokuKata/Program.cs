@@ -416,8 +416,9 @@ namespace SudokuKata
 
         private static void Applesauce5(Random rng, int removedPos, int remainingDigits, int[] positions,
             int[,] removedPerBlock, int maxRemovedPerBlock, SudokuBoardAndStackState sudokuBoardAndStackState,
-            char[][] board, int[] state)
+            char[][] board2, int[] state)
         {
+            var board = sudokuBoardAndStackState.Board;
             while (removedPos < 9 * 9 - remainingDigits)
             {
                 int curRemainingDigits = positions.Length - removedPos;
