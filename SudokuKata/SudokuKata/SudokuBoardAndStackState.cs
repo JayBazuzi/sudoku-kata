@@ -219,26 +219,21 @@ namespace SudokuKata
             return Command.Move;
         }
 
-        public void SetValue(int row, int column, int value)
-        {
-            if (value == Unknown)
-            {
-                _board2[row][column] = '.';
-
-            }
-            else
-            {
-                _board2[row][column] = value.ToString().Single();
-
-            }
-        }
-
         public void SetValueWithoutCruft(int row, int column, int value)
         {
             var rowToWrite = row + row / 3 + 1;
             var colToWrite = column + column / 3 + 1;
 
-            SetValue(rowToWrite, colToWrite, value);
+            if (value == Unknown)
+            {
+                _board2[rowToWrite][colToWrite] = '.';
+
+            }
+            else
+            {
+                _board2[rowToWrite][colToWrite] = value.ToString().Single();
+
+            }
         }
 
         private static ViableMove GetViableMove(SudokuBoardAndStackState sudokuBoardAndStackState, Stack<int> rowIndexStack,
