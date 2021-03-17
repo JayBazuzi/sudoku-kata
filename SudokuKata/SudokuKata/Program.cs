@@ -136,9 +136,6 @@ namespace SudokuKata
                         int row = singleCandidateIndex / 9;
                         int col = singleCandidateIndex % 9;
 
-                        int rowToWrite = row + row / 3 + 1;
-                        int colToWrite = col + col / 3 + 1;
-
                         boardAsNumbers[singleCandidateIndex] = candidate + 1;
                         sudokuBoardAndStackState.SetValueWithoutCruft(row, col, 1+candidate);
                         candidateMasks[singleCandidateIndex] = 0;
