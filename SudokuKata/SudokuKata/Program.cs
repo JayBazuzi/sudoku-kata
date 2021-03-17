@@ -388,7 +388,6 @@ namespace SudokuKata
             out int[] finalState)
         {
             var stateStack = sudokuBoardAndStackState.StateStack;
-            var board = sudokuBoardAndStackState.Board;
 
             #region Generate inital board from the completely solved one
 
@@ -404,11 +403,11 @@ namespace SudokuKata
             Array.Copy(state, finalState, finalState.Length);
 
             int removedPos = 0;
-            Applesauce5(rng, removedPos, remainingDigits, positions, removedPerBlock, maxRemovedPerBlock, board, state);
+            Applesauce5(rng, removedPos, remainingDigits, positions, removedPerBlock, maxRemovedPerBlock, sudokuBoardAndStackState.Board, state);
 
             Console.WriteLine();
             Console.WriteLine("Starting look of the board to solve:");
-            Console.WriteLine(string.Join("\n", board.Select(s => new string(s)).ToArray()));
+            Console.WriteLine(string.Join("\n", sudokuBoardAndStackState.Board.Select(s => new string(s)).ToArray()));
 
             #endregion
 
