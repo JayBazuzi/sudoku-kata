@@ -562,8 +562,9 @@ namespace SudokuKata
 
         private static bool LookIfBoardHasMultipleSolutions(Random rng, bool changeMade, int[] candidateMasks,
             Dictionary<int, int> maskToOnesCount, int[] finalState, int[] state,
-            SudokuBoardAndStackState sudokuBoardAndStackState, char[][] board)
+            SudokuBoardAndStackState sudokuBoardAndStackState, char[][] board2)
         {
+            var board = sudokuBoardAndStackState.Board;
             Stack<int[]> stateStack;
             Stack<int> rowIndexStack;
             Stack<int> colIndexStack;
@@ -872,8 +873,9 @@ namespace SudokuKata
         }
 
         private static void PrintBoardChange(bool changeMade, SudokuBoardAndStackState sudokuBoardAndStackState,
-            char[][] board)
+            char[][] board_)
         {
+            var board = sudokuBoardAndStackState.Board;
             if (changeMade)
             {
                 #region Print the board as it looks after one change was made to it
