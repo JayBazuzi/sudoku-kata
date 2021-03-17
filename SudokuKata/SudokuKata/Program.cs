@@ -140,7 +140,7 @@ namespace SudokuKata
                         int colToWrite = col + col / 3 + 1;
 
                         boardAsNumbers[singleCandidateIndex] = candidate + 1;
-                        sudokuBoardAndStackState.SetValue(rowToWrite, colToWrite, 1+candidate);
+                        sudokuBoardAndStackState.SetValueWithoutCruft(row, col, 1+candidate);
                         candidateMasks[singleCandidateIndex] = 0;
                         wasChangeMade = true;
 
