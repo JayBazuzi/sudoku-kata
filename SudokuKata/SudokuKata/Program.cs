@@ -758,9 +758,6 @@ namespace SudokuKata
                             int colToMove = colIndexStack.Peek();
                             int digitToMove = lastDigitStack.Pop();
 
-                            int rowToWrite = rowToMove + rowToMove / 3 + 1;
-                            int colToWrite = colToMove + colToMove / 3 + 1;
-
                             bool[] usedDigits = usedDigitsStack.Peek();
                             int[] currentState = stateStack.Peek();
                             int currentStateIndex = 9 * rowToMove + colToMove;
