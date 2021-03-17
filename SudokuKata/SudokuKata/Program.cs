@@ -19,11 +19,11 @@ namespace SudokuKata
         {
             var sudokuBoardAndStackState = SudokuBoardAndStackState.ConstructFullyPopulatedBoard(rng);
 
-            var state = GeneratePuzzleFromCompletelySolvedBoard(rng, sudokuBoardAndStackState, out var finalState);
+            var boardAsNumbers = GeneratePuzzleFromCompletelySolvedBoard(rng, sudokuBoardAndStackState, out var finalState);
 
             var maskToOnesCount = PrepareLookupStructures(out var singleBitToIndex, out var allOnes);
 
-            Applesauce6(rng, state, allOnes, maskToOnesCount, singleBitToIndex, sudokuBoardAndStackState.Board, finalState);
+            Applesauce6(rng, boardAsNumbers, allOnes, maskToOnesCount, singleBitToIndex, sudokuBoardAndStackState.Board, finalState);
         }
 
 
