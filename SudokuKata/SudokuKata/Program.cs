@@ -847,7 +847,7 @@ namespace SudokuKata
 
                         sudokuBoardAndStackState.SetValueWithoutCruft(tempRow, tempCol, SudokuBoardAndStackState.Unknown);
                         if (state[i] > 0)
-                            sudokuBoardAndStackState.SetValue(rowToWrite, colToWrite, state[i]);
+                            sudokuBoardAndStackState.SetValueWithoutCruft(tempRow, tempCol, state[i]);
                     }
 
                     Console.WriteLine(
