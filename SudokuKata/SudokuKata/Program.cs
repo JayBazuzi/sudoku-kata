@@ -29,10 +29,10 @@ namespace SudokuKata
 
         private static void Applesauce6(Random rng, int[] boardAsNumbers, int allOnes,
             Dictionary<int, int> maskToOnesCount,
-            Dictionary<int, int> singleBitToIndex, SudokuBoardAndStackState sudokuBoardAndStackState, char[][] board,
+            Dictionary<int, int> singleBitToIndex, SudokuBoardAndStackState sudokuBoardAndStackState, char[][] board2,
             int[] finalState)
         {
-            board = sudokuBoardAndStackState.Board;
+            var board = sudokuBoardAndStackState.Board;
             bool changeMade = true;
             while (changeMade)
             {
