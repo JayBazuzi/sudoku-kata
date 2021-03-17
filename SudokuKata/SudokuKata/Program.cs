@@ -32,7 +32,6 @@ namespace SudokuKata
             Dictionary<int, int> singleBitToIndex, SudokuBoardAndStackState sudokuBoardAndStackState,
             int[] finalState)
         {
-            var board = sudokuBoardAndStackState.Board;
             bool changeMade = true;
             while (changeMade)
             {
@@ -141,7 +140,7 @@ namespace SudokuKata
                         int colToWrite = col + col / 3 + 1;
 
                         boardAsNumbers[singleCandidateIndex] = candidate + 1;
-                        board[rowToWrite][colToWrite] = (char) ('1' + candidate);
+                        sudokuBoardAndStackState.Board[rowToWrite][colToWrite] = (char) ('1' + candidate);
                         candidateMasks[singleCandidateIndex] = 0;
                         changeMade = true;
 
@@ -244,7 +243,7 @@ namespace SudokuKata
                             int stateIndex = 9 * row + col;
                             boardAsNumbers[stateIndex] = digit;
                             candidateMasks[stateIndex] = 0;
-                            board[rowToWrite][colToWrite] = (char) ('0' + digit);
+                            sudokuBoardAndStackState.Board[rowToWrite][colToWrite] = (char) ('0' + digit);
 
                             changeMade = true;
 
@@ -350,9 +349,9 @@ namespace SudokuKata
                 }
 
                 changeMade = LookIfBoardHasMultipleSolutions(rng, changeMade, candidateMasks, maskToOnesCount, finalState,
-                    boardAsNumbers, board);
+                    boardAsNumbers, sudokuBoardAndStackState.Board);
 
-                PrintBoardChange(changeMade, board);
+                PrintBoardChange(changeMade, sudokuBoardAndStackState.Board);
             }
         }
 
