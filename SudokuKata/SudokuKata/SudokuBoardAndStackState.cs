@@ -253,5 +253,16 @@ namespace SudokuKata
 
             return null;
         }
+
+        public string ToCodeString()
+        {
+            string code =
+                string.Join(string.Empty, Board.Select(s => new string(s)).ToArray())
+                    .Replace("-", string.Empty)
+                    .Replace("+", string.Empty)
+                    .Replace("|", string.Empty)
+                    .Replace(".", "0");
+            return code;
+        }
     }
 }
