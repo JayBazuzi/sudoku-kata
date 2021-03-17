@@ -32,10 +32,10 @@ namespace SudokuKata
             Dictionary<int, int> singleBitToIndex, SudokuBoardAndStackState sudokuBoardAndStackState,
             int[] finalState)
         {
-            bool changeMade = true;
-            while (changeMade)
+            bool wasChangeMade = true;
+            while (wasChangeMade)
             {
-                changeMade = false;
+                wasChangeMade = false;
 
                 #region Calculate candidates for current state of the board
 
@@ -142,7 +142,7 @@ namespace SudokuKata
                         boardAsNumbers[singleCandidateIndex] = candidate + 1;
                         sudokuBoardAndStackState.Board[rowToWrite][colToWrite] = (char) ('1' + candidate);
                         candidateMasks[singleCandidateIndex] = 0;
-                        changeMade = true;
+                        wasChangeMade = true;
 
                         Console.WriteLine("({0}, {1}) can only contain {2}.", row + 1, col + 1, candidate + 1);
                     }
@@ -151,7 +151,7 @@ namespace SudokuKata
 
                     #region Try to find a number which can only appear in one place in a row/column/block
 
-                    if (!changeMade)
+                    if (!wasChangeMade)
                     {
                         List<string> groupDescriptions = new List<string>();
                         List<int> candidateRowIndices = new List<int>();
@@ -245,7 +245,7 @@ namespace SudokuKata
                             candidateMasks[stateIndex] = 0;
                             sudokuBoardAndStackState.Board[rowToWrite][colToWrite] = (char) ('0' + digit);
 
-                            changeMade = true;
+                            wasChangeMade = true;
 
                             Console.WriteLine(message);
                         }
@@ -255,7 +255,7 @@ namespace SudokuKata
 
                     #region Try to find pairs of digits in the same row/column/block and remove them from other colliding cells
 
-                    if (!changeMade)
+                    if (!wasChangeMade)
                     {
                         IEnumerable<int> twoDigitMasks =
                             candidateMasks.Where(mask => maskToOnesCount[mask] == 2).Distinct().ToList();
@@ -344,14 +344,14 @@ namespace SudokuKata
 
                     #endregion
 
-                    stepChangeMade = IsTryToFindGruopsOfDigitsApplesauce(changeMade, stepChangeMade, maskToOnesCount,
+                    stepChangeMade = IsTryToFindGruopsOfDigitsApplesauce(wasChangeMade, stepChangeMade, maskToOnesCount,
                         cellGroups, boardAsNumbers, candidateMasks);
                 }
 
-                changeMade = LookIfBoardHasMultipleSolutions(rng, changeMade, candidateMasks, maskToOnesCount, finalState,
+                wasChangeMade = LookIfBoardHasMultipleSolutions(rng, wasChangeMade, candidateMasks, maskToOnesCount, finalState,
                     boardAsNumbers, sudokuBoardAndStackState.Board);
 
-                PrintBoardChange(changeMade, sudokuBoardAndStackState.Board);
+                PrintBoardChange(wasChangeMade, sudokuBoardAndStackState.Board);
             }
         }
 
