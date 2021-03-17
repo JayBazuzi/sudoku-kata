@@ -403,7 +403,7 @@ namespace SudokuKata
             Array.Copy(state, finalState, finalState.Length);
 
             int removedPos = 0;
-            Applesauce5(rng, removedPos, remainingDigits, positions, removedPerBlock, maxRemovedPerBlock, sudokuBoardAndStackState.Board, state);
+            Applesauce5(rng, removedPos, remainingDigits, positions, removedPerBlock, maxRemovedPerBlock, sudokuBoardAndStackState, sudokuBoardAndStackState.Board, state);
 
             Console.WriteLine();
             Console.WriteLine("Starting look of the board to solve:");
@@ -415,7 +415,8 @@ namespace SudokuKata
         }
 
         private static void Applesauce5(Random rng, int removedPos, int remainingDigits, int[] positions,
-            int[,] removedPerBlock, int maxRemovedPerBlock, char[][] board, int[] state)
+            int[,] removedPerBlock, int maxRemovedPerBlock, SudokuBoardAndStackState sudokuBoardAndStackState,
+            char[][] board, int[] state)
         {
             while (removedPos < 9 * 9 - remainingDigits)
             {
