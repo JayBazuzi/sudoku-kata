@@ -75,13 +75,7 @@ namespace SudokuKata
                 case Command.Expand:
                     return DoExpand(rng, stacks, sudokuBoardAndStackState);
                 case Command.Collapse:
-                    sudokuBoardAndStackState.StateStack.Pop();
-                    stacks.RowIndexStack.Pop();
-                    stacks.ColIndexStack.Pop();
-                    stacks.UsedDigitsStack.Pop();
-                    stacks.LastDigitStack.Pop();
-
-                    return Command.Move;
+                    return DoCollapse(stacks, sudokuBoardAndStackState);
                 case Command.Move:
                     var viableMove = GetViableMove(sudokuBoardAndStackState, stacks.RowIndexStack, stacks.ColIndexStack, stacks.UsedDigitsStack, stacks.LastDigitStack);
 
@@ -106,6 +100,17 @@ namespace SudokuKata
                 default:
                     return command;
             }
+        }
+
+        private static Command DoCollapse(Stacks stacks, SudokuBoardAndStackState sudokuBoardAndStackState)
+        {
+            sudokuBoardAndStackState.StateStack.Pop();
+            stacks.RowIndexStack.Pop();
+            stacks.ColIndexStack.Pop();
+            stacks.UsedDigitsStack.Pop();
+            stacks.LastDigitStack.Pop();
+
+            return Command.Move;
         }
 
         private static Command DoExpand(Random rng, Stacks stacks, SudokuBoardAndStackState sudokuBoardAndStackState)
