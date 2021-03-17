@@ -221,6 +221,7 @@ namespace SudokuKata
 
         public void SetValue(int row, int column, int value)
         {
+            _board[row, column] = value;
             var rowToWrite = row + row / 3 + 1;
             var colToWrite = column + column / 3 + 1;
 
