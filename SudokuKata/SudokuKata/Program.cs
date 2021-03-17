@@ -877,18 +877,24 @@ namespace SudokuKata
                 #region Print the board as it looks after one change was made to it
 
                 Console.WriteLine(sudokuBoardAndStackState);
-                string code =
-                    string.Join(string.Empty, sudokuBoardAndStackState.Board.Select(s => new string(s)).ToArray())
-                        .Replace("-", string.Empty)
-                        .Replace("+", string.Empty)
-                        .Replace("|", string.Empty)
-                        .Replace(".", "0");
+                var code = ToCodeString(sudokuBoardAndStackState);
 
                 Console.WriteLine("Code: {0}", code);
                 Console.WriteLine();
 
                 #endregion
             }
+        }
+
+        private static string ToCodeString(SudokuBoardAndStackState sudokuBoardAndStackState)
+        {
+            string code =
+                string.Join(string.Empty, sudokuBoardAndStackState.Board.Select(s => new string(s)).ToArray())
+                    .Replace("-", string.Empty)
+                    .Replace("+", string.Empty)
+                    .Replace("|", string.Empty)
+                    .Replace(".", "0");
+            return code;
         }
 
         public static void Main(string[] args)
