@@ -77,28 +77,34 @@ namespace SudokuKata
                 case Command.Collapse:
                     return DoCollapse(stacks, sudokuBoardAndStackState);
                 case Command.Move:
-                    var viableMove = GetViableMove(sudokuBoardAndStackState, stacks.RowIndexStack, stacks.ColIndexStack, stacks.UsedDigitsStack, stacks.LastDigitStack);
-
-                    if (viableMove != null)
-                    {
-                        stacks.LastDigitStack.Push(viableMove.MovedToDigit);
-                        viableMove.UsedDigits[viableMove.MovedToDigit - 1] = true;
-                        viableMove.CurrentState[viableMove.CurrentStateIndex] = viableMove.MovedToDigit;
-                        sudokuBoardAndStackState.SetValue(viableMove.RowToWrite, viableMove.ColToWrite, viableMove.MovedToDigit);
-
-                        // Next possible digit was found at current position
-                        // Next step will be to expand the state
-                        return Command.Expand;
-                    }
-                    else
-                    {
-                        // No viable candidate was found at current position - pop it in the next iteration
-                        stacks.LastDigitStack.Push(0);
-                        return Command.Collapse;
-                    }
+                    return DoMove(stacks, sudokuBoardAndStackState);
 
                 default:
                     return command;
+            }
+        }
+
+        private static Command DoMove(Stacks stacks, SudokuBoardAndStackState sudokuBoardAndStackState)
+        {
+            var viableMove = GetViableMove(sudokuBoardAndStackState, stacks.RowIndexStack, stacks.ColIndexStack,
+                stacks.UsedDigitsStack, stacks.LastDigitStack);
+
+            if (viableMove != null)
+            {
+                stacks.LastDigitStack.Push(viableMove.MovedToDigit);
+                viableMove.UsedDigits[viableMove.MovedToDigit - 1] = true;
+                viableMove.CurrentState[viableMove.CurrentStateIndex] = viableMove.MovedToDigit;
+                sudokuBoardAndStackState.SetValue(viableMove.RowToWrite, viableMove.ColToWrite, viableMove.MovedToDigit);
+
+                // Next possible digit was found at current position
+                // Next step will be to expand the state
+                return Command.Expand;
+            }
+            else
+            {
+                // No viable candidate was found at current position - pop it in the next iteration
+                stacks.LastDigitStack.Push(0);
+                return Command.Collapse;
             }
         }
 
