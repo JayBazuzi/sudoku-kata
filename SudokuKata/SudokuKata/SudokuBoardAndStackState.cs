@@ -4,6 +4,21 @@ using System.Linq;
 
 namespace SudokuKata
 {
+    static class _
+    {
+        public static int[,] SetAll(this int[,] that, int value)
+        {
+            for (int i = 0; i < that.GetLength(0); i++)
+            {
+                for (int j = 0; j < that.GetLength(1); j++)
+                {
+                    that[i,j] = value;
+                }
+            }
+
+            return that;
+        }
+    }
     public class SudokuBoardAndStackState
     {
         public const int Unknown = -1;
@@ -35,6 +50,7 @@ namespace SudokuKata
 
         public Stack<int[]> StateStack { get; }
         private char[][] _board2 { get; }
+        private readonly int[,] _board = new int[9,9].SetAll(Unknown);
 
         public override string ToString()
         {
