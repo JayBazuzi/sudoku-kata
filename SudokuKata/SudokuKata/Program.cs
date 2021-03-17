@@ -842,8 +842,6 @@ namespace SudokuKata
                     {
                         int tempRow = i / 9;
                         int tempCol = i % 9;
-                        int rowToWrite = tempRow + tempRow / 3 + 1;
-                        int colToWrite = tempCol + tempCol / 3 + 1;
 
                         sudokuBoardAndStackState.SetValueWithoutCruft(tempRow, tempCol, SudokuBoardAndStackState.Unknown);
                         if (state[i] > 0)
