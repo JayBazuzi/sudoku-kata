@@ -432,9 +432,6 @@ namespace SudokuKata
                 positions[removedPos] = positions[indexToPick];
                 positions[indexToPick] = temp;
 
-                int rowToWrite = row + row / 3 + 1;
-                int colToWrite = col + col / 3 + 1;
-
                 sudokuBoardAndStackState.SetValueWithoutCruft(row, col, SudokuBoardAndStackState.Unknown);
 
                 int stateIndex = 9 * row + col;
