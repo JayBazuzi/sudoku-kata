@@ -773,7 +773,7 @@ namespace SudokuKata
                             {
                                 usedDigits[digitToMove - 1] = false;
                                 currentState[currentStateIndex] = 0;
-                                sudokuBoardAndStackState.SetValue(rowToWrite, colToWrite,
+                                sudokuBoardAndStackState.SetValueWithoutCruft(rowToMove, colToMove,
                                     SudokuBoardAndStackState.Unknown);
                             }
 
