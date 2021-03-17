@@ -137,7 +137,7 @@ namespace SudokuKata
                         int col = singleCandidateIndex % 9;
 
                         boardAsNumbers[singleCandidateIndex] = candidate + 1;
-                        sudokuBoardAndStackState.SetValueWithoutCruft(row, col, 1+candidate);
+                        sudokuBoardAndStackState.SetValue(row, col, 1+candidate);
                         candidateMasks[singleCandidateIndex] = 0;
                         wasChangeMade = true;
 
@@ -238,7 +238,7 @@ namespace SudokuKata
                             int stateIndex = 9 * row + col;
                             boardAsNumbers[stateIndex] = digit;
                             candidateMasks[stateIndex] = 0;
-                            sudokuBoardAndStackState.SetValueWithoutCruft(row,col, digit);
+                            sudokuBoardAndStackState.SetValue(row,col, digit);
 
                             wasChangeMade = true;
 
@@ -432,7 +432,7 @@ namespace SudokuKata
                 positions[removedPos] = positions[indexToPick];
                 positions[indexToPick] = temp;
 
-                sudokuBoardAndStackState.SetValueWithoutCruft(row, col, SudokuBoardAndStackState.Unknown);
+                sudokuBoardAndStackState.SetValue(row, col, SudokuBoardAndStackState.Unknown);
 
                 int stateIndex = 9 * row + col;
                 state[stateIndex] = 0;
@@ -770,7 +770,7 @@ namespace SudokuKata
                             {
                                 usedDigits[digitToMove - 1] = false;
                                 currentState[currentStateIndex] = 0;
-                                sudokuBoardAndStackState.SetValueWithoutCruft(rowToMove, colToMove,
+                                sudokuBoardAndStackState.SetValue(rowToMove, colToMove,
                                     SudokuBoardAndStackState.Unknown);
                             }
 
@@ -779,7 +779,7 @@ namespace SudokuKata
                                 lastDigitStack.Push(movedToDigit);
                                 usedDigits[movedToDigit - 1] = true;
                                 currentState[currentStateIndex] = movedToDigit;
-                                sudokuBoardAndStackState.SetValueWithoutCruft(rowToMove,colToMove,movedToDigit);
+                                sudokuBoardAndStackState.SetValue(rowToMove,colToMove,movedToDigit);
 
                                 if (currentState.Any(digit => digit == 0))
                                     command = Command.Expand;
@@ -843,9 +843,9 @@ namespace SudokuKata
                         int tempRow = i / 9;
                         int tempCol = i % 9;
 
-                        sudokuBoardAndStackState.SetValueWithoutCruft(tempRow, tempCol, SudokuBoardAndStackState.Unknown);
+                        sudokuBoardAndStackState.SetValue(tempRow, tempCol, SudokuBoardAndStackState.Unknown);
                         if (state[i] > 0)
-                            sudokuBoardAndStackState.SetValueWithoutCruft(tempRow, tempCol, state[i]);
+                            sudokuBoardAndStackState.SetValue(tempRow, tempCol, state[i]);
                     }
 
                     Console.WriteLine(
