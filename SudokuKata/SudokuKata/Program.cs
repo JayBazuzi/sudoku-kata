@@ -872,14 +872,13 @@ namespace SudokuKata
 
         private static void PrintBoardChange(bool changeMade, SudokuBoardAndStackState sudokuBoardAndStackState)
         {
-            var board = sudokuBoardAndStackState.Board;
             if (changeMade)
             {
                 #region Print the board as it looks after one change was made to it
 
-                Console.WriteLine(string.Join(Environment.NewLine, board.Select(s => new string(s)).ToArray()));
+                Console.WriteLine(string.Join(Environment.NewLine, sudokuBoardAndStackState.Board.Select(s => new string(s)).ToArray()));
                 string code =
-                    string.Join(string.Empty, board.Select(s => new string(s)).ToArray())
+                    string.Join(string.Empty, sudokuBoardAndStackState.Board.Select(s => new string(s)).ToArray())
                         .Replace("-", string.Empty)
                         .Replace("+", string.Empty)
                         .Replace("|", string.Empty)
