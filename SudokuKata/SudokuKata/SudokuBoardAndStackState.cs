@@ -13,7 +13,7 @@ namespace SudokuKata
             // Prepare empty board
             var line = "+---+---+---+";
             var middle = "|...|...|...|";
-            Board = new[]
+            _board2 = new[]
             {
                 line.ToCharArray(),
                 middle.ToCharArray(),
@@ -34,11 +34,11 @@ namespace SudokuKata
         }
 
         public Stack<int[]> StateStack { get; }
-        private char[][] Board { get; }
+        private char[][] _board2 { get; }
 
         public override string ToString()
         {
-            return string.Join(Environment.NewLine, Board.Select(s => new string(s)).ToArray());
+            return string.Join(Environment.NewLine, _board2.Select(s => new string(s)).ToArray());
         }
 
         public static SudokuBoardAndStackState ConstructFullySolvedBoard(Random rng)
@@ -207,12 +207,12 @@ namespace SudokuKata
         {
             if (value == Unknown)
             {
-                Board[row][column] = '.';
+                _board2[row][column] = '.';
 
             }
             else
             {
-                Board[row][column] = value.ToString().Single();
+                _board2[row][column] = value.ToString().Single();
 
             }
         }
@@ -257,7 +257,7 @@ namespace SudokuKata
         public string ToCodeString()
         {
             string code =
-                string.Join(string.Empty, Board.Select(s => new string(s)).ToArray())
+                string.Join(string.Empty, _board2.Select(s => new string(s)).ToArray())
                     .Replace("-", string.Empty)
                     .Replace("+", string.Empty)
                     .Replace("|", string.Empty)
