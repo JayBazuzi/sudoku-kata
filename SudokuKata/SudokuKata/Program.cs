@@ -781,7 +781,8 @@ namespace SudokuKata
                             {
                                 usedDigits[digitToMove - 1] = false;
                                 currentState[currentStateIndex] = 0;
-                                sudokuBoardAndStackState.Board[rowToWrite][colToWrite] = '.';
+                                sudokuBoardAndStackState.SetValue(rowToWrite, colToWrite,
+                                    SudokuBoardAndStackState.Unknown);
                             }
 
                             if (movedToDigit <= 9)
