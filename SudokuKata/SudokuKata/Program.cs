@@ -23,13 +23,13 @@ namespace SudokuKata
 
             var maskToOnesCount = PrepareLookupStructures(out var singleBitToIndex, out var allOnes);
 
-            Applesauce6(rng, boardAsNumbers, allOnes, maskToOnesCount, singleBitToIndex, sudokuBoardAndStackState, sudokuBoardAndStackState.Board, finalState);
+            Applesauce6(rng, boardAsNumbers, allOnes, maskToOnesCount, singleBitToIndex, sudokuBoardAndStackState, finalState);
         }
 
 
         private static void Applesauce6(Random rng, int[] boardAsNumbers, int allOnes,
             Dictionary<int, int> maskToOnesCount,
-            Dictionary<int, int> singleBitToIndex, SudokuBoardAndStackState sudokuBoardAndStackState, char[][] board2,
+            Dictionary<int, int> singleBitToIndex, SudokuBoardAndStackState sudokuBoardAndStackState,
             int[] finalState)
         {
             var board = sudokuBoardAndStackState.Board;
