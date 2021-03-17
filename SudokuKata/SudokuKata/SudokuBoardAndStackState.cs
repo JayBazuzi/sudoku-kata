@@ -73,86 +73,7 @@ namespace SudokuKata
             switch (command)
             {
                 case Command.Expand:
-                    var currentState = new int[9 * 9];
-
-                    if (sudokuBoardAndStackState.StateStack.Count > 0)
-                    {
-                        Array.Copy(sudokuBoardAndStackState.StateStack.Peek(), currentState, currentState.Length);
-                    }
-
-                    var bestRow = -1;
-                    var bestCol = -1;
-                    bool[] bestUsedDigits = null;
-                    var bestCandidatesCount = -1;
-                    var bestRandomValue = -1;
-                    var containsUnsolvableCells = false;
-
-                    for (var index = 0; index < currentState.Length; index++)
-                    {
-                        if (currentState[index] == 0)
-                        {
-                            var row = index / 9;
-                            var col = index % 9;
-                            var blockRow = row / 3;
-                            var blockCol = col / 3;
-
-                            var isDigitUsed = new bool[9];
-
-                            for (var i = 0; i < 9; i++)
-                            {
-                                var rowDigit = currentState[9 * i + col];
-                                if (rowDigit > 0)
-                                {
-                                    isDigitUsed[rowDigit - 1] = true;
-                                }
-
-                                var colDigit = currentState[9 * row + i];
-                                if (colDigit > 0)
-                                {
-                                    isDigitUsed[colDigit - 1] = true;
-                                }
-
-                                var blockDigit = currentState[(blockRow * 3 + i / 3) * 9 + blockCol * 3 + i % 3];
-                                if (blockDigit > 0)
-                                {
-                                    isDigitUsed[blockDigit - 1] = true;
-                                }
-                            } // for (i = 0..8)
-
-                            var candidatesCount = isDigitUsed.Where(used => !used).Count();
-
-                            if (candidatesCount == 0)
-                            {
-                                containsUnsolvableCells = true;
-                                break;
-                            }
-
-                            var randomValue = rng.Next();
-
-                            if (bestCandidatesCount < 0 ||
-                                candidatesCount < bestCandidatesCount ||
-                                candidatesCount == bestCandidatesCount && randomValue < bestRandomValue)
-                            {
-                                bestRow = row;
-                                bestCol = col;
-                                bestUsedDigits = isDigitUsed;
-                                bestCandidatesCount = candidatesCount;
-                                bestRandomValue = randomValue;
-                            }
-                        } // for (index = 0..81)
-                    }
-
-                    if (!containsUnsolvableCells)
-                    {
-                        sudokuBoardAndStackState.StateStack.Push(currentState);
-                        stacks.RowIndexStack.Push(bestRow);
-                        stacks.ColIndexStack.Push(bestCol);
-                        stacks.UsedDigitsStack.Push(bestUsedDigits);
-                        stacks.LastDigitStack.Push(0); // No digit was tried at this position
-                    }
-
-                    // Always try to move after expand
-                    return Command.Move;
+                    return DoExpand(rng, stacks, sudokuBoardAndStackState);
                 case Command.Collapse:
                     sudokuBoardAndStackState.StateStack.Pop();
                     stacks.RowIndexStack.Pop();
@@ -185,6 +106,90 @@ namespace SudokuKata
                 default:
                     return command;
             }
+        }
+
+        private static Command DoExpand(Random rng, Stacks stacks, SudokuBoardAndStackState sudokuBoardAndStackState)
+        {
+            var currentState = new int[9 * 9];
+
+            if (sudokuBoardAndStackState.StateStack.Count > 0)
+            {
+                Array.Copy(sudokuBoardAndStackState.StateStack.Peek(), currentState, currentState.Length);
+            }
+
+            var bestRow = -1;
+            var bestCol = -1;
+            bool[] bestUsedDigits = null;
+            var bestCandidatesCount = -1;
+            var bestRandomValue = -1;
+            var containsUnsolvableCells = false;
+
+            for (var index = 0; index < currentState.Length; index++)
+            {
+                if (currentState[index] == 0)
+                {
+                    var row = index / 9;
+                    var col = index % 9;
+                    var blockRow = row / 3;
+                    var blockCol = col / 3;
+
+                    var isDigitUsed = new bool[9];
+
+                    for (var i = 0; i < 9; i++)
+                    {
+                        var rowDigit = currentState[9 * i + col];
+                        if (rowDigit > 0)
+                        {
+                            isDigitUsed[rowDigit - 1] = true;
+                        }
+
+                        var colDigit = currentState[9 * row + i];
+                        if (colDigit > 0)
+                        {
+                            isDigitUsed[colDigit - 1] = true;
+                        }
+
+                        var blockDigit = currentState[(blockRow * 3 + i / 3) * 9 + blockCol * 3 + i % 3];
+                        if (blockDigit > 0)
+                        {
+                            isDigitUsed[blockDigit - 1] = true;
+                        }
+                    } // for (i = 0..8)
+
+                    var candidatesCount = isDigitUsed.Where(used => !used).Count();
+
+                    if (candidatesCount == 0)
+                    {
+                        containsUnsolvableCells = true;
+                        break;
+                    }
+
+                    var randomValue = rng.Next();
+
+                    if (bestCandidatesCount < 0 ||
+                        candidatesCount < bestCandidatesCount ||
+                        candidatesCount == bestCandidatesCount && randomValue < bestRandomValue)
+                    {
+                        bestRow = row;
+                        bestCol = col;
+                        bestUsedDigits = isDigitUsed;
+                        bestCandidatesCount = candidatesCount;
+                        bestRandomValue = randomValue;
+                    }
+                } // for (index = 0..81)
+            }
+
+            if (!containsUnsolvableCells)
+            {
+                sudokuBoardAndStackState.StateStack.Push(currentState);
+                stacks.RowIndexStack.Push(bestRow);
+                stacks.ColIndexStack.Push(bestCol);
+                stacks.UsedDigitsStack.Push(bestUsedDigits);
+                stacks.LastDigitStack.Push(0); // No digit was tried at this position
+            }
+
+            // Always try to move after expand
+            return Command.Move;
         }
 
         public void SetValue(int row, int column, int value)
