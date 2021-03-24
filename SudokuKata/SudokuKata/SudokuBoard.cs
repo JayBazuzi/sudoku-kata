@@ -18,6 +18,17 @@ namespace SudokuKata
 
             return that;
         }
+
+        public static void ForEachRowColumn(int[,] board, Action<int, int> action)
+        {
+            for (int row = 0; row < board.GetLength(0); row++)
+            {
+                for (int column = 0; column < board.GetLength(1); column++)
+                {
+                    action(row, column);
+                }
+            }
+        }
     }
 
     public class SudokuBoard
@@ -100,20 +111,9 @@ namespace SudokuKata
             var action = (Action<int, int>)((r, c) => result._board[r, c] = state[r * 9 + c]);
 
             var board = result._board;
-            ForEachRowColumn(board, action);
+            _.ForEachRowColumn(board, action);
             
             return result;
-        }
-
-        private static void ForEachRowColumn(int[,] board, Action<int, int> action)
-        {
-            for (int row = 0; row < board.GetLength(0); row++)
-            {
-                for (int column = 0; column < board.GetLength(1); column++)
-                {
-                    action(row, column);
-                }
-            }
         }
     }
 }
