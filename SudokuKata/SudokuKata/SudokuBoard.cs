@@ -24,7 +24,7 @@ namespace SudokuKata
     {
         public const int Unknown = -1;
 
-        private readonly int[,] _board = new int[9, 9].SetAll(Unknown);
+        private int[,] _board = new int[9, 9].SetAll(Unknown);
 
         public override string ToString()
         {
@@ -93,6 +93,22 @@ namespace SudokuKata
             }
 
             return result.ToArray();
+        }
+
+        public static SudokuBoard FromNumbers(int[] state)
+        {
+            var result = new SudokuBoard();
+
+            for (int row = 0; row < result._board.GetLength(0); row++)
+            {
+                for (int column = 0; column < result._board.GetLength(1); column++)
+                {
+                    var value = state[row * 9 + column];
+                    result._board[row, column] = value == 0 ? Unknown : value;
+                }
+            }
+            
+            return result;
         }
     }
 }

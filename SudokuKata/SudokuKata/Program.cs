@@ -406,7 +406,7 @@ namespace SudokuKata
 
             #endregion
 
-            return state;
+            return SudokuBoard.FromNumbers(state).GetBoardAsNumber();
         }
 
         private static void Applesauce5(Random rng, int removedPos, int remainingDigits, int[] positions,
