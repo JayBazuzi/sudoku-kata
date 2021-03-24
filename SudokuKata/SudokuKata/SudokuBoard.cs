@@ -102,8 +102,7 @@ namespace SudokuKata
 
         private static Command DoMove(Stacks stacks, SudokuBoard sudokuBoard)
         {
-            var viableMove = GetViableMove(sudokuBoard, stacks, stacks.StateStack, stacks.RowIndexStack, stacks.ColIndexStack,
-                stacks.UsedDigitsStack, stacks.LastDigitStack);
+            var viableMove = GetViableMove(sudokuBoard, stacks);
 
             if (viableMove != null)
             {
@@ -226,12 +225,7 @@ namespace SudokuKata
         }
 
         private static ViableMove GetViableMove(SudokuBoard sudokuBoard,
-            Stacks stateStack,
-            Stack<int[]> stacksStateStack2,
-            Stack<int> rowIndexStack2,
-            Stack<int> colIndexStack2,
-            Stack<bool[]> usedDigitsStack2,
-            Stack<int> lastDigitStack2)
+            Stacks stateStack)
         {
             Stack<int[]> stacksStateStack = stateStack.StateStack;
             Stack<int> rowIndexStack = stateStack.RowIndexStack;
