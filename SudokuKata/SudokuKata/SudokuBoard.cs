@@ -86,14 +86,7 @@ namespace SudokuKata
         {
             var result = new List<int>();
 
-            for (int row = 0; row < _board.GetLength(0); row++)
-            {
-                for (int column = 0; column < _board.GetLength(1); column++)
-                {
-                    var value = _board[row, column];
-                    result.Add(value);
-                }
-            }
+            _board.ForEachRowColumn((r, c) => result.Add(_board[r, c]));
 
             return result.ToArray();
         }
