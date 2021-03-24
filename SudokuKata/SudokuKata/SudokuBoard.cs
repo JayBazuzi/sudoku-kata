@@ -22,7 +22,7 @@ namespace SudokuKata
 
     public class SudokuBoard
     {
-        public const int Unknown = -1;
+        public const int Unknown = 0;
 
         private int[,] _board = new int[9, 9].SetAll(Unknown);
 
