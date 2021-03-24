@@ -37,12 +37,12 @@ namespace SudokuKata
             string result = "";
 
             _board.ForEachRowColumn((row, column) => result
-                 += PrintSpace_OrSomething(column, row));
+                 += PrintSpace_OrSomething(row, column));
 
             return result;
         }
 
-        private string PrintSpace_OrSomething(int column, int row)
+        private string PrintSpace_OrSomething(int row, int column)
         {
             string result = "";
             var line = "+---+---+---+";
