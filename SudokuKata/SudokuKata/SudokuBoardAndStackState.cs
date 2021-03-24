@@ -281,5 +281,11 @@ namespace SudokuKata
 
             return result;
         }
+
+        public int[] GetState()
+        {
+            int[] state = StateStack.Peek();
+            return state;
+        }
     }
 }
