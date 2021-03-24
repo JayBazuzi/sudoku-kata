@@ -382,8 +382,6 @@ namespace SudokuKata
             SudokuBoardAndStackState sudokuBoardAndStackState,
             out int[] finalState)
         {
-            var stateStack = sudokuBoardAndStackState.StateStack;
-
             #region Generate inital board from the completely solved one
 
             // Board is solved at this point.
@@ -392,7 +390,7 @@ namespace SudokuKata
             int maxRemovedPerBlock = 6;
             int[,] removedPerBlock = new int[3, 3];
             int[] positions = Enumerable.Range(0, 9 * 9).ToArray();
-            int[] state = stateStack.Peek();
+            int[] state = sudokuBoardAndStackState.StateStack.Peek();
 
             finalState = new int[state.Length];
             Array.Copy(state, finalState, finalState.Length);
