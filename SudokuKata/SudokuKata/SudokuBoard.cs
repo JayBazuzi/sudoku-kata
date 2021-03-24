@@ -39,13 +39,13 @@ namespace SudokuKata
 
         public override string ToString()
         {
-            var line = "+---+---+---+";
 
             string result = "";
             for (int row = 0; row < 9; row++)
             {
                 for (int column = 0; column < 9; column++)
                 {
+                    var line = "+---+---+---+";
                     if (column == 0 && row % 3 == 0)
                     {
                         result += line + "\n";
