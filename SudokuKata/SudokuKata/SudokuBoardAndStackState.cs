@@ -284,8 +284,19 @@ namespace SudokuKata
 
         public int[] GetState()
         {
-            int[] state = StateStack.Peek();
-            return state;
+            var result = new List<int>();
+
+            for (int row = 0; row < _board.GetLength(0); row++)
+            {
+                for (int column = 0; column < _board.GetLength(1); column++)
+                {
+                    var value = _board[row, column];
+                    //result += value == Unknown ? 0 : value;
+                    result.Add(value == Unknown ? 0 : value);
+                }
+            }
+
+            return result.ToArray();
         }
     }
 }
