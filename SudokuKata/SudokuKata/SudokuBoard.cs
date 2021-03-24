@@ -77,14 +77,7 @@ namespace SudokuKata
         {
             string result = "";
 
-            for (int row = 0; row < _board.GetLength(0); row++)
-            {
-                for (int column = 0; column < _board.GetLength(1); column++)
-                {
-                    var value = _board[row, column];
-                    result += value;
-                }
-            }
+            _board.ForEachRowColumn((r, c) => result+=_board[r, c]);
 
             return result;
         }
