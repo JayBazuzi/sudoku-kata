@@ -24,12 +24,12 @@ namespace SudokuKata
 
             var maskToOnesCount = PrepareLookupStructures(out var singleBitToIndex, out var allOnes);
 
-            Applesauce6(rng, puzzle.GetBoardAsNumber(), allOnes, maskToOnesCount, singleBitToIndex, solvedBoard
+            SolvePuzzle(rng, puzzle.GetBoardAsNumber(), allOnes, maskToOnesCount, singleBitToIndex, solvedBoard
 , finalState);
         }
 
 
-        private static void Applesauce6(Random rng, int[] boardAsNumbers, int allOnes,
+        private static void SolvePuzzle(Random rng, int[] boardAsNumbers, int allOnes,
             Dictionary<int, int> maskToOnesCount,
             Dictionary<int, int> singleBitToIndex, SudokuBoard sudokuBoard,
             int[] finalState)
