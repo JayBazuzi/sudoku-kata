@@ -26,31 +26,10 @@ namespace SudokuKata
 
         public SudokuBoardAndStackState()
         {
-            // Prepare empty board
-            var line = "+---+---+---+";
-            var middle = "|...|...|...|";
-            _board2 = new[]
-            {
-                line.ToCharArray(),
-                middle.ToCharArray(),
-                middle.ToCharArray(),
-                middle.ToCharArray(),
-                line.ToCharArray(),
-                middle.ToCharArray(),
-                middle.ToCharArray(),
-                middle.ToCharArray(),
-                line.ToCharArray(),
-                middle.ToCharArray(),
-                middle.ToCharArray(),
-                middle.ToCharArray(),
-                line.ToCharArray()
-            };
-
             StateStack = new Stack<int[]>();
         }
 
         public Stack<int[]> StateStack { get; }
-        private char[][] _board2 { get; }
         private readonly int[,] _board = new int[9, 9].SetAll(Unknown);
 
         public override string ToString()
