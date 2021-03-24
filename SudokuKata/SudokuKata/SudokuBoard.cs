@@ -102,7 +102,8 @@ namespace SudokuKata
             {
                 for (int column = 0; column < result._board.GetLength(1); column++)
                 {
-                    ((Action<int, int>)((r,c) => result._board[r, c] = state[r* 9 + c]))(row, column);
+                    var action = (Action<int, int>)((r,c) => result._board[r, c] = state[r* 9 + c]);
+                    action(row, column);
                 }
             }
             
