@@ -19,12 +19,12 @@ namespace SudokuKata
         {
             var solvedBoard = SudokoBoardGenerator.ConstructFullySolvedBoard(rng);
 
-            var boardAsNumbers = GeneratePuzzleFromCompletelySolvedBoard(rng, solvedBoard
+            var puzzle = GeneratePuzzleFromCompletelySolvedBoard(rng, solvedBoard
 , out var finalState);
 
             var maskToOnesCount = PrepareLookupStructures(out var singleBitToIndex, out var allOnes);
 
-            Applesauce6(rng, boardAsNumbers.GetBoardAsNumber(), allOnes, maskToOnesCount, singleBitToIndex, solvedBoard
+            Applesauce6(rng, puzzle.GetBoardAsNumber(), allOnes, maskToOnesCount, singleBitToIndex, solvedBoard
 , finalState);
         }
 
