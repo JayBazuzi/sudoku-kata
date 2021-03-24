@@ -71,7 +71,7 @@ namespace SudokuKata
                 for (int column = 0; column < _board.GetLength(1); column++)
                 {
                     var value = _board[row, column];
-                    result += value == Unknown ? 0 : value;
+                    result += value;
                 }
             }
 
