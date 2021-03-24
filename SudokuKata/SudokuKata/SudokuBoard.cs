@@ -227,12 +227,18 @@ namespace SudokuKata
 
         private static ViableMove GetViableMove(SudokuBoard sudokuBoard,
             Stacks stateStack,
-            Stack<int[]> stacksStateStack,
-            Stack<int> rowIndexStack,
-            Stack<int> colIndexStack,
-            Stack<bool[]> usedDigitsStack,
-            Stack<int> lastDigitStack)
+            Stack<int[]> stacksStateStack2,
+            Stack<int> rowIndexStack2,
+            Stack<int> colIndexStack2,
+            Stack<bool[]> usedDigitsStack2,
+            Stack<int> lastDigitStack2)
         {
+            Stack<int[]> stacksStateStack = stateStack.StateStack;
+            Stack<int> rowIndexStack = stateStack.RowIndexStack;
+            Stack<int> colIndexStack = stateStack.ColIndexStack;
+            Stack<bool[]> usedDigitsStack = stateStack.UsedDigitsStack;
+            Stack<int> lastDigitStack = stateStack.LastDigitStack;
+
             var rowToMove = rowIndexStack.Peek();
             var colToMove = colIndexStack.Peek();
             var digitToMove = lastDigitStack.Pop();
