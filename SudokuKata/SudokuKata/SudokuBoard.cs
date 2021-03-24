@@ -40,11 +40,12 @@ namespace SudokuKata
         public override string ToString()
         {
 
-            string result1 = "";
+            string result = "";
 
-            _board.ForEachRowColumn((row, column) => result1 += PrintSpace_OrSomething(column, row));
+            _board.ForEachRowColumn((row, column) => result
+                 += PrintSpace_OrSomething(column, row));
 
-            return result1;
+            return result;
         }
 
         private string PrintSpace_OrSomething(int column, int row)
