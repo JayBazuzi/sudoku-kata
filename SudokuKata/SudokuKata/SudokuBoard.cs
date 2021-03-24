@@ -19,7 +19,7 @@ namespace SudokuKata
             return that;
         }
 
-        public static void ForEachRowColumn(int[,] board, Action<int, int> action)
+        public static void ForEachRowColumn(this int[,] board, Action<int, int> action)
         {
             for (int row = 0; row < board.GetLength(0); row++)
             {
@@ -111,7 +111,7 @@ namespace SudokuKata
             var action = (Action<int, int>)((r, c) => result._board[r, c] = state[r * 9 + c]);
 
             var board = result._board;
-            _.ForEachRowColumn(board, action);
+            board.ForEachRowColumn(action);
             
             return result;
         }
