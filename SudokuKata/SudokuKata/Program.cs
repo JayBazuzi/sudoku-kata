@@ -392,7 +392,7 @@ namespace SudokuKata
             int maxRemovedPerBlock = 6;
             int[,] removedPerBlock = new int[3, 3];
             int[] positions = Enumerable.Range(0, 9 * 9).ToArray();
-            var state = sudokuBoard.GetState();
+            var state = sudokuBoard.GetBoardAsNumber();
 
             finalState = new int[state.Length];
             Array.Copy(state, finalState, finalState.Length);

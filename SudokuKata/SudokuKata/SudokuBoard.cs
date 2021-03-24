@@ -279,7 +279,7 @@ namespace SudokuKata
             return result;
         }
 
-        public int[] GetState()
+        public int[] GetBoardAsNumber()
         {
             var result = new List<int>();
 
