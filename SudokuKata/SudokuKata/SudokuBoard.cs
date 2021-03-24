@@ -24,10 +24,6 @@ namespace SudokuKata
     {
         public const int Unknown = -1;
 
-        public SudokuBoard()
-        {
-        }
-
         private readonly int[,] _board = new int[9, 9].SetAll(Unknown);
 
         public override string ToString()
