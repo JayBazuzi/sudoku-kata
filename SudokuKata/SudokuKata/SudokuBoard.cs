@@ -63,10 +63,15 @@ namespace SudokuKata
                     {
                         result += "|\n";
                     }
+
+                    if (row == 8 && column == 8)
+                    {
+                        result += line;
+
+                    }
                 }
 
             }
-            result += line;
 
             return result;
         }
