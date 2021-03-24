@@ -57,9 +57,7 @@ namespace SudokuKata
                         result += "|";
                     }
 
-                    {
-                        result += _board[row, column] == Unknown ? "." : _board[row, column].ToString();
-                    }
+                    result += _board[row, column] == Unknown ? "." : _board[row, column].ToString();
                 }
 
                 result += "|\n";
