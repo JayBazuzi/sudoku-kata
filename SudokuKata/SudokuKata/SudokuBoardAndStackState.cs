@@ -55,6 +55,33 @@ namespace SudokuKata
 
         public override string ToString()
         {
+            var line = "+---+---+---+";
+
+            string result = "";
+            for (int row = 0; row < 9; row++)
+            {
+                if (row % 3 == 0)
+                {
+                    result += line + "\n";
+                }
+                {
+                    for (int column = 0; column < 9; column++)
+                    {
+                        if (column % 3 == 0)
+                        {
+                            result += "|";
+                        }
+                        {
+                            result += _board[row,column] == Unknown ? "." : _board[row, column].ToString();
+                        }
+                    }
+
+                    result += "|\n";
+                }
+            }
+            result += line;
+
+            return result;
             return string.Join(Environment.NewLine, _board2.Select(s => new string(s)).ToArray());
         }
 
