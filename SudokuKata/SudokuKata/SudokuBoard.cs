@@ -44,24 +44,25 @@ namespace SudokuKata
             string result = "";
             for (int row = 0; row < 9; row++)
             {
-                if (row % 3 == 0)
+                for (int column = 0; column < 9; column++)
                 {
-                    result += line + "\n";
-                }
-                {
-                    for (int column = 0; column < 9; column++)
+                    if (column == 0 && row % 3 == 0)
                     {
-                        if (column % 3 == 0)
-                        {
-                            result += "|";
-                        }
-                        {
-                            result += _board[row,column] == Unknown ? "." : _board[row, column].ToString();
-                        }
+                        result += line + "\n";
+
                     }
 
-                    result += "|\n";
+                    if (column % 3 == 0)
+                    {
+                        result += "|";
+                    }
+
+                    {
+                        result += _board[row, column] == Unknown ? "." : _board[row, column].ToString();
+                    }
                 }
+
+                result += "|\n";
             }
             result += line;
 
