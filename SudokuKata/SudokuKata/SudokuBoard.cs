@@ -58,9 +58,13 @@ namespace SudokuKata
                     }
 
                     result += _board[row, column] == Unknown ? "." : _board[row, column].ToString();
+
+                    if (column == 8)
+                    {
+                        result += "|\n";
+                    }
                 }
 
-                result += "|\n";
             }
             result += line;
 
