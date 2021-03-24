@@ -8,13 +8,7 @@ namespace SudokuKata
     {
         public static int[,] SetAll(this int[,] that, int value)
         {
-            for (int i = 0; i < that.GetLength(0); i++)
-            {
-                for (int j = 0; j < that.GetLength(1); j++)
-                {
-                    that[i,j] = value;
-                }
-            }
+            that.ForEachRowColumn(((row, column) => that[row, column] = value));
 
             return that;
         }
