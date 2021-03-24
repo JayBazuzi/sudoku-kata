@@ -11,13 +11,13 @@ namespace SudokuKata
             return that.ForEachRowColumn(((row, column) => that[row, column] = value));
         }
 
-        public static int[,] ForEachRowColumn(this int[,] board, Action<int, int> action)
+        public static int[,] ForEachRowColumn(this int[,] board, Action<int, int> actionOnRowAndColumn)
         {
             for (int row = 0; row < board.GetLength(0); row++)
             {
                 for (int column = 0; column < board.GetLength(1); column++)
                 {
-                    action(row, column);
+                    actionOnRowAndColumn(row, column);
                 }
             }
 
