@@ -24,7 +24,7 @@ namespace SudokuKata
 
             var maskToOnesCount = PrepareLookupStructures(out var singleBitToIndex, out var allOnes);
 
-            Applesauce6(rng, boardAsNumbers, allOnes, maskToOnesCount, singleBitToIndex, solvedBoard
+            Applesauce6(rng, boardAsNumbers.GetBoardAsNumber(), allOnes, maskToOnesCount, singleBitToIndex, solvedBoard
 , finalState);
         }
 
@@ -380,7 +380,7 @@ namespace SudokuKata
             return maskToOnesCount;
         }
 
-        private static int[] GeneratePuzzleFromCompletelySolvedBoard(Random rng, 
+        private static SudokuBoard GeneratePuzzleFromCompletelySolvedBoard(Random rng, 
             SudokuBoard sudokuBoard,
             out int[] finalState)
         {
@@ -406,7 +406,7 @@ namespace SudokuKata
 
             #endregion
 
-            return SudokuBoard.FromNumbers(state).GetBoardAsNumber();
+            return SudokuBoard.FromNumbers(state);
         }
 
         private static void Applesauce5(Random rng, int removedPos, int remainingDigits, int[] positions,
