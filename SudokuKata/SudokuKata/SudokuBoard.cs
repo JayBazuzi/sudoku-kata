@@ -108,9 +108,8 @@ namespace SudokuKata
         public static SudokuBoard FromNumbers(int[] state)
         {
             var result = new SudokuBoard();
-            var action = (Action<int, int>)((r, c) => result._board[r, c] = state[r * 9 + c]);
 
-            result._board.ForEachRowColumn(action);
+            result._board.ForEachRowColumn((Action<int, int>)((r, c) => result._board[r, c] = state[r * 9 + c]));
             
             return result;
         }
