@@ -45,31 +45,7 @@ namespace SudokuKata
             {
                 for (int column = 0; column < 9; column++)
                 {
-                    string result = "";
-                    var line = "+---+---+---+";
-                    if (column == 0 && row % 3 == 0)
-                    {
-                        result += line + "\n";
-
-                    }
-
-                    if (column % 3 == 0)
-                    {
-                        result += "|";
-                    }
-
-                    result += _board[row, column] == Unknown ? "." : _board[row, column].ToString();
-
-                    if (column == 8)
-                    {
-                        result += "|\n";
-                    }
-
-                    if (row == 8 && column == 8)
-                    {
-                        result += line;
-
-                    }
+                    var result = PrintSpace_OrSomething(column, row);
 
                     result1 += result;
                 }
@@ -78,6 +54,35 @@ namespace SudokuKata
             
 
             return result1;
+        }
+
+        private string PrintSpace_OrSomething(int column, int row)
+        {
+            string result = "";
+            var line = "+---+---+---+";
+            if (column == 0 && row % 3 == 0)
+            {
+                result += line + "\n";
+            }
+
+            if (column % 3 == 0)
+            {
+                result += "|";
+            }
+
+            result += _board[row, column] == Unknown ? "." : _board[row, column].ToString();
+
+            if (column == 8)
+            {
+                result += "|\n";
+            }
+
+            if (row == 8 && column == 8)
+            {
+                result += line;
+            }
+
+            return result;
         }
 
         public void SetValue(int row, int column, int value)
