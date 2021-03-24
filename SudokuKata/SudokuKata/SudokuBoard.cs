@@ -45,9 +45,7 @@ namespace SudokuKata
             {
                 for (int column = 0; column < 9; column++)
                 {
-                    var result = PrintSpace_OrSomething(column, row);
-
-                    result1 += result;
+                    result1 += PrintSpace_OrSomething(column, row);
                 }
 
             }
