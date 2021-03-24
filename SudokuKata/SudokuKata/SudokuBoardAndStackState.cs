@@ -29,7 +29,7 @@ namespace SudokuKata
             StateStack = new Stack<int[]>();
         }
 
-        public Stack<int[]> StateStack { get; }
+        private Stack<int[]> StateStack { get; }
         private readonly int[,] _board = new int[9, 9].SetAll(Unknown);
 
         public override string ToString()
