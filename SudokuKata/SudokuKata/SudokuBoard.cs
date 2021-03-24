@@ -20,11 +20,11 @@ namespace SudokuKata
         }
     }
 
-    public class SudokuBoardAndStackState
+    public class SudokuBoard
     {
         public const int Unknown = -1;
 
-        public SudokuBoardAndStackState()
+        public SudokuBoard()
         {
             StateStack = new Stack<int[]>();
         }
@@ -63,9 +63,9 @@ namespace SudokuKata
             return result;
         }
 
-        public static SudokuBoardAndStackState ConstructFullySolvedBoard(Random rng)
+        public static SudokuBoard ConstructFullySolvedBoard(Random rng)
         {
-            var sudokuBoardAndStackState = new SudokuBoardAndStackState();
+            var sudokuBoardAndStackState = new SudokuBoard();
 
             var stacks = new Stacks();
 
@@ -90,25 +90,25 @@ namespace SudokuKata
         }
 
         private static Command PopulateBoard(Random rng, Command command, Stacks stacks,
-            SudokuBoardAndStackState sudokuBoardAndStackState)
+            SudokuBoard sudokuBoard)
         {
             switch (command)
             {
                 case Command.Expand:
-                    return DoExpand(rng, stacks, sudokuBoardAndStackState);
+                    return DoExpand(rng, stacks, sudokuBoard);
                 case Command.Collapse:
-                    return DoCollapse(stacks, sudokuBoardAndStackState);
+                    return DoCollapse(stacks, sudokuBoard);
                 case Command.Move:
-                    return DoMove(stacks, sudokuBoardAndStackState);
+                    return DoMove(stacks, sudokuBoard);
 
                 default:
                     return command;
             }
         }
 
-        private static Command DoMove(Stacks stacks, SudokuBoardAndStackState sudokuBoardAndStackState)
+        private static Command DoMove(Stacks stacks, SudokuBoard sudokuBoard)
         {
-            var viableMove = GetViableMove(sudokuBoardAndStackState, stacks.RowIndexStack, stacks.ColIndexStack,
+            var viableMove = GetViableMove(sudokuBoard, stacks.RowIndexStack, stacks.ColIndexStack,
                 stacks.UsedDigitsStack, stacks.LastDigitStack);
 
             if (viableMove != null)
@@ -116,7 +116,7 @@ namespace SudokuKata
                 stacks.LastDigitStack.Push(viableMove.MovedToDigit);
                 viableMove.UsedDigits[viableMove.MovedToDigit - 1] = true;
                 viableMove.CurrentState[viableMove.CurrentStateIndex] = viableMove.MovedToDigit;
-                sudokuBoardAndStackState.SetValue(viableMove.RowToWrite, viableMove.ColToWrite,
+                sudokuBoard.SetValue(viableMove.RowToWrite, viableMove.ColToWrite,
                     viableMove.MovedToDigit);
 
                 // Next possible digit was found at current position
@@ -131,9 +131,9 @@ namespace SudokuKata
             }
         }
 
-        private static Command DoCollapse(Stacks stacks, SudokuBoardAndStackState sudokuBoardAndStackState)
+        private static Command DoCollapse(Stacks stacks, SudokuBoard sudokuBoard)
         {
-            sudokuBoardAndStackState.StateStack.Pop();
+            sudokuBoard.StateStack.Pop();
             stacks.RowIndexStack.Pop();
             stacks.ColIndexStack.Pop();
             stacks.UsedDigitsStack.Pop();
@@ -142,13 +142,13 @@ namespace SudokuKata
             return Command.Move;
         }
 
-        private static Command DoExpand(Random rng, Stacks stacks, SudokuBoardAndStackState sudokuBoardAndStackState)
+        private static Command DoExpand(Random rng, Stacks stacks, SudokuBoard sudokuBoard)
         {
             var currentState = new int[9 * 9];
 
-            if (sudokuBoardAndStackState.StateStack.Count > 0)
+            if (sudokuBoard.StateStack.Count > 0)
             {
-                Array.Copy(sudokuBoardAndStackState.StateStack.Peek(), currentState, currentState.Length);
+                Array.Copy(sudokuBoard.StateStack.Peek(), currentState, currentState.Length);
             }
 
             var bestRow = -1;
@@ -215,7 +215,7 @@ namespace SudokuKata
 
             if (!containsUnsolvableCells)
             {
-                sudokuBoardAndStackState.StateStack.Push(currentState);
+                sudokuBoard.StateStack.Push(currentState);
                 stacks.RowIndexStack.Push(bestRow);
                 stacks.ColIndexStack.Push(bestCol);
                 stacks.UsedDigitsStack.Push(bestUsedDigits);
@@ -231,7 +231,7 @@ namespace SudokuKata
             _board[row, column] = value;
         }
 
-        private static ViableMove GetViableMove(SudokuBoardAndStackState sudokuBoardAndStackState,
+        private static ViableMove GetViableMove(SudokuBoard sudokuBoard,
             Stack<int> rowIndexStack,
             Stack<int> colIndexStack, Stack<bool[]> usedDigitsStack,
             Stack<int> lastDigitStack)
@@ -241,7 +241,7 @@ namespace SudokuKata
             var digitToMove = lastDigitStack.Pop();
 
             var usedDigits = usedDigitsStack.Peek();
-            var currentState = sudokuBoardAndStackState.StateStack.Peek();
+            var currentState = sudokuBoard.StateStack.Peek();
             var currentStateIndex = 9 * rowToMove + colToMove;
 
             var movedToDigit = digitToMove + 1;
@@ -254,7 +254,7 @@ namespace SudokuKata
             {
                 usedDigits[digitToMove - 1] = false;
                 currentState[currentStateIndex] = 0;
-                sudokuBoardAndStackState.SetValue(rowToMove, colToMove, Unknown);
+                sudokuBoard.SetValue(rowToMove, colToMove, Unknown);
             }
 
             if (movedToDigit <= 9)

@@ -17,7 +17,7 @@ namespace SudokuKata
 
         public static void Play(Random rng)
         {
-            var sudokuBoardAndStackState = SudokuBoardAndStackState.ConstructFullySolvedBoard(rng);
+            var sudokuBoardAndStackState = SudokuBoard.ConstructFullySolvedBoard(rng);
 
             var boardAsNumbers = GeneratePuzzleFromCompletelySolvedBoard(rng, sudokuBoardAndStackState, out var finalState);
 
@@ -29,7 +29,7 @@ namespace SudokuKata
 
         private static void Applesauce6(Random rng, int[] boardAsNumbers, int allOnes,
             Dictionary<int, int> maskToOnesCount,
-            Dictionary<int, int> singleBitToIndex, SudokuBoardAndStackState sudokuBoardAndStackState,
+            Dictionary<int, int> singleBitToIndex, SudokuBoard sudokuBoard,
             int[] finalState)
         {
             bool wasChangeMade = true;
@@ -137,7 +137,7 @@ namespace SudokuKata
                         int col = singleCandidateIndex % 9;
 
                         boardAsNumbers[singleCandidateIndex] = candidate + 1;
-                        sudokuBoardAndStackState.SetValue(row, col, 1+candidate);
+                        sudokuBoard.SetValue(row, col, 1+candidate);
                         candidateMasks[singleCandidateIndex] = 0;
                         wasChangeMade = true;
 
@@ -238,7 +238,7 @@ namespace SudokuKata
                             int stateIndex = 9 * row + col;
                             boardAsNumbers[stateIndex] = digit;
                             candidateMasks[stateIndex] = 0;
-                            sudokuBoardAndStackState.SetValue(row,col, digit);
+                            sudokuBoard.SetValue(row,col, digit);
 
                             wasChangeMade = true;
 
@@ -344,9 +344,9 @@ namespace SudokuKata
                 }
 
                 wasChangeMade = LookIfBoardHasMultipleSolutions(rng, wasChangeMade, candidateMasks, maskToOnesCount, finalState,
-                    boardAsNumbers, sudokuBoardAndStackState);
+                    boardAsNumbers, sudokuBoard);
 
-                PrintBoardChange(wasChangeMade, sudokuBoardAndStackState);
+                PrintBoardChange(wasChangeMade, sudokuBoard);
             }
         }
 
@@ -379,7 +379,7 @@ namespace SudokuKata
         }
 
         private static int[] GeneratePuzzleFromCompletelySolvedBoard(Random rng, 
-            SudokuBoardAndStackState sudokuBoardAndStackState,
+            SudokuBoard sudokuBoard,
             out int[] finalState)
         {
             #region Generate inital board from the completely solved one
@@ -390,17 +390,17 @@ namespace SudokuKata
             int maxRemovedPerBlock = 6;
             int[,] removedPerBlock = new int[3, 3];
             int[] positions = Enumerable.Range(0, 9 * 9).ToArray();
-            var state = sudokuBoardAndStackState.GetState();
+            var state = sudokuBoard.GetState();
 
             finalState = new int[state.Length];
             Array.Copy(state, finalState, finalState.Length);
 
             int removedPos = 0;
-            Applesauce5(rng, removedPos, remainingDigits, positions, removedPerBlock, maxRemovedPerBlock, sudokuBoardAndStackState, state);
+            Applesauce5(rng, removedPos, remainingDigits, positions, removedPerBlock, maxRemovedPerBlock, sudokuBoard, state);
 
             Console.WriteLine();
             Console.WriteLine("Starting look of the board to solve:");
-            Console.WriteLine(string.Join("\n", sudokuBoardAndStackState.ToString()));
+            Console.WriteLine(string.Join("\n", sudokuBoard.ToString()));
 
             #endregion
 
@@ -408,7 +408,7 @@ namespace SudokuKata
         }
 
         private static void Applesauce5(Random rng, int removedPos, int remainingDigits, int[] positions,
-            int[,] removedPerBlock, int maxRemovedPerBlock, SudokuBoardAndStackState sudokuBoardAndStackState, int[] state)
+            int[,] removedPerBlock, int maxRemovedPerBlock, SudokuBoard sudokuBoard, int[] state)
         {
             while (removedPos < 9 * 9 - remainingDigits)
             {
@@ -430,7 +430,7 @@ namespace SudokuKata
                 positions[removedPos] = positions[indexToPick];
                 positions[indexToPick] = temp;
 
-                sudokuBoardAndStackState.SetValue(row, col, SudokuBoardAndStackState.Unknown);
+                sudokuBoard.SetValue(row, col, SudokuBoard.Unknown);
 
                 int stateIndex = 9 * row + col;
                 state[stateIndex] = 0;
@@ -551,7 +551,7 @@ namespace SudokuKata
 
         private static bool LookIfBoardHasMultipleSolutions(Random rng, bool changeMade, int[] candidateMasks,
             Dictionary<int, int> maskToOnesCount, int[] finalState, int[] state,
-            SudokuBoardAndStackState sudokuBoardAndStackState)
+            SudokuBoard sudokuBoard)
         {
             Stack<int[]> stateStack;
             Stack<int> rowIndexStack;
@@ -768,8 +768,8 @@ namespace SudokuKata
                             {
                                 usedDigits[digitToMove - 1] = false;
                                 currentState[currentStateIndex] = 0;
-                                sudokuBoardAndStackState.SetValue(rowToMove, colToMove,
-                                    SudokuBoardAndStackState.Unknown);
+                                sudokuBoard.SetValue(rowToMove, colToMove,
+                                    SudokuBoard.Unknown);
                             }
 
                             if (movedToDigit <= 9)
@@ -777,7 +777,7 @@ namespace SudokuKata
                                 lastDigitStack.Push(movedToDigit);
                                 usedDigits[movedToDigit - 1] = true;
                                 currentState[currentStateIndex] = movedToDigit;
-                                sudokuBoardAndStackState.SetValue(rowToMove,colToMove,movedToDigit);
+                                sudokuBoard.SetValue(rowToMove,colToMove,movedToDigit);
 
                                 if (currentState.Any(digit => digit == 0))
                                     command = Command.Expand;
@@ -841,9 +841,9 @@ namespace SudokuKata
                         int tempRow = i / 9;
                         int tempCol = i % 9;
 
-                        sudokuBoardAndStackState.SetValue(tempRow, tempCol, SudokuBoardAndStackState.Unknown);
+                        sudokuBoard.SetValue(tempRow, tempCol, SudokuBoard.Unknown);
                         if (state[i] > 0)
-                            sudokuBoardAndStackState.SetValue(tempRow, tempCol, state[i]);
+                            sudokuBoard.SetValue(tempRow, tempCol, state[i]);
                     }
 
                     Console.WriteLine(
@@ -856,15 +856,15 @@ namespace SudokuKata
             return changeMade;
         }
 
-        private static void PrintBoardChange(bool changeMade, SudokuBoardAndStackState sudokuBoardAndStackState)
+        private static void PrintBoardChange(bool changeMade, SudokuBoard sudokuBoard)
         {
             if (changeMade)
             {
                 #region Print the board as it looks after one change was made to it
 
-                Console.WriteLine(sudokuBoardAndStackState);
+                Console.WriteLine(sudokuBoard);
 
-                Console.WriteLine("Code: {0}", sudokuBoardAndStackState.ToCodeString());
+                Console.WriteLine("Code: {0}", sudokuBoard.ToCodeString());
                 Console.WriteLine();
 
                 #endregion

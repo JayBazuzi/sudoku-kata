@@ -23,7 +23,7 @@ namespace SudokuKata.Test
         [TestMethod]
         public void TestEmptyBoard()
         {
-            Approvals.Verify(new SudokuBoardAndStackState());
+            Approvals.Verify(new SudokuBoard());
         }
     }
 }
