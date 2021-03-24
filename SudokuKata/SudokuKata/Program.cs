@@ -17,13 +17,15 @@ namespace SudokuKata
 
         public static void Play(Random rng)
         {
-            var sudokuBoardAndStackState = SudokuBoard.ConstructFullySolvedBoard(rng);
+            var solvedBoard = SudokuBoard.ConstructFullySolvedBoard(rng);
 
-            var boardAsNumbers = GeneratePuzzleFromCompletelySolvedBoard(rng, sudokuBoardAndStackState, out var finalState);
+            var boardAsNumbers = GeneratePuzzleFromCompletelySolvedBoard(rng, solvedBoard
+, out var finalState);
 
             var maskToOnesCount = PrepareLookupStructures(out var singleBitToIndex, out var allOnes);
 
-            Applesauce6(rng, boardAsNumbers, allOnes, maskToOnesCount, singleBitToIndex, sudokuBoardAndStackState, finalState);
+            Applesauce6(rng, boardAsNumbers, allOnes, maskToOnesCount, singleBitToIndex, solvedBoard
+, finalState);
         }
 
 
