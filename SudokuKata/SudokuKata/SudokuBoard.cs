@@ -40,11 +40,12 @@ namespace SudokuKata
         public override string ToString()
         {
 
-            string result = "";
+            string result1 = "";
             for (int row = 0; row < 9; row++)
             {
                 for (int column = 0; column < 9; column++)
                 {
+                    string result = "";
                     var line = "+---+---+---+";
                     if (column == 0 && row % 3 == 0)
                     {
@@ -69,11 +70,14 @@ namespace SudokuKata
                         result += line;
 
                     }
+
+                    result1 += result;
                 }
 
             }
+            
 
-            return result;
+            return result1;
         }
 
         public void SetValue(int row, int column, int value)
