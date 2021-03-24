@@ -99,9 +99,10 @@ namespace SudokuKata
             var result = new SudokuBoard();
             var action = (Action<int, int>)((r, c) => result._board[r, c] = state[r * 9 + c]);
 
-            for (int row = 0; row < result._board.GetLength(0); row++)
+            var board = result._board;
+            for (int row = 0; row < board.GetLength(0); row++)
             {
-                for (int column = 0; column < result._board.GetLength(1); column++)
+                for (int column = 0; column < board.GetLength(1); column++)
                 {
                     action(row, column);
                 }
