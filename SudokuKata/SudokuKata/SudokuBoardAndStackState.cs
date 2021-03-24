@@ -82,7 +82,6 @@ namespace SudokuKata
             result += line;
 
             return result;
-            return string.Join(Environment.NewLine, _board2.Select(s => new string(s)).ToArray());
         }
 
         public static SudokuBoardAndStackState ConstructFullySolvedBoard(Random rng)
@@ -251,19 +250,6 @@ namespace SudokuKata
         public void SetValue(int row, int column, int value)
         {
             _board[row, column] = value;
-            var rowToWrite = row + row / 3 + 1;
-            var colToWrite = column + column / 3 + 1;
-
-            if (value == Unknown)
-            {
-                _board2[rowToWrite][colToWrite] = '.';
-
-            }
-            else
-            {
-                _board2[rowToWrite][colToWrite] = value.ToString().Single();
-
-            }
         }
 
         private static ViableMove GetViableMove(SudokuBoardAndStackState sudokuBoardAndStackState,
