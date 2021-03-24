@@ -8,12 +8,10 @@ namespace SudokuKata
     {
         public static int[,] SetAll(this int[,] that, int value)
         {
-            that.ForEachRowColumn(((row, column) => that[row, column] = value));
-
-            return that;
+            return that.ForEachRowColumn(((row, column) => that[row, column] = value));
         }
 
-        public static void ForEachRowColumn(this int[,] board, Action<int, int> action)
+        public static int[,] ForEachRowColumn(this int[,] board, Action<int, int> action)
         {
             for (int row = 0; row < board.GetLength(0); row++)
             {
@@ -22,6 +20,8 @@ namespace SudokuKata
                     action(row, column);
                 }
             }
+
+            return board;
         }
     }
 
