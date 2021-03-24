@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using SudokuKata;
 
-static internal class FullySolvedSudokoBoard
+static internal class SudokoBoardGenerator
 {
     public static SudokuBoard ConstructFullySolvedBoard(Random rng)
     {
