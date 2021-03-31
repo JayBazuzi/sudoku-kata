@@ -44,7 +44,7 @@ namespace SudokuKata
         }
 
 
-        private static void SolvePuzzle(Random rng, SudokuBoard asNumbers, int[] boardAsNumbers,
+        private static void SolvePuzzle(Random rng, SudokuBoard puzzle, int[] boardAsNumbers,
             LookupStructures lookupStructures, SudokuBoard sudokuBoard,
             int[] finalState)
         {
