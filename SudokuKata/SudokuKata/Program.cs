@@ -5,6 +5,20 @@ using System.Text;
 
 namespace SudokuKata
 {
+    public class LookupStructures
+    {
+        public Dictionary<int, int> _returnValue;
+        public int _allOnes;
+        public Dictionary<int, int> _singleBitToIndex;
+
+        public LookupStructures(Dictionary<int, int> singleBitToIndex, int allOnes, Dictionary<int, int> returnValue)
+        {
+            _singleBitToIndex = singleBitToIndex;
+            _allOnes = allOnes;
+            _returnValue = returnValue;
+        }
+    }
+
     public class Program
     {
         public static void Play()
@@ -23,7 +37,10 @@ namespace SudokuKata
 , out var finalState);
 
             PrintLineOfEquals();
-            var maskToOnesCount = PrepareLookupStructures(out var singleBitToIndex, out var allOnes);
+            var lookupStructures = PrepareLookupStructures();
+            var singleBitToIndex = lookupStructures._singleBitToIndex;
+            var allOnes = lookupStructures._allOnes;
+            var maskToOnesCount = lookupStructures._returnValue;
 
             SolvePuzzle(rng, puzzle.GetBoardAsNumber(), allOnes, maskToOnesCount, singleBitToIndex, solvedBoard
 , finalState);
@@ -353,7 +370,7 @@ namespace SudokuKata
             }
         }
 
-        private static Dictionary<int, int> PrepareLookupStructures(out Dictionary<int, int> singleBitToIndex, out int allOnes)
+        private static LookupStructures PrepareLookupStructures()
         {
             #region Prepare lookup structures that will be used in further execution
 
@@ -366,15 +383,15 @@ namespace SudokuKata
                 maskToOnesCount[i] = maskToOnesCount[smaller] + increment;
             }
 
-            singleBitToIndex = new Dictionary<int, int>();
+            var singleBitToIndex = new Dictionary<int, int>();
             for (int i = 0; i < 9; i++)
                 singleBitToIndex[1 << i] = i;
 
-            allOnes = (1 << 9) - 1;
+            var allOnes = (1 << 9) - 1;
 
             #endregion
 
-            return maskToOnesCount;
+            return new LookupStructures(singleBitToIndex, allOnes, maskToOnesCount);
         }
 
         private static void PrintLineOfEquals()
