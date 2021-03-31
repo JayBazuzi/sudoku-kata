@@ -100,5 +100,10 @@ namespace SudokuKata
 
             return result;
         }
+
+        public SudokuBoard Clone()
+        {
+            return SudokuBoard.FromNumbers(GetBoardAsNumber());
+        }
     }
 }

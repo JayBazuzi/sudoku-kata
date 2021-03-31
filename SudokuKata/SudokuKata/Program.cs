@@ -47,7 +47,7 @@ namespace SudokuKata
             PrintLineOfEquals();
             var lookupStructures = PrepareLookupStructures();
 
-            SolvePuzzle(rng, puzzle, lookupStructures, solvedBoard, finalState);
+            SolvePuzzle(rng, puzzle, lookupStructures, puzzle, finalState);
         }
 
 
@@ -420,6 +420,7 @@ namespace SudokuKata
             SudokuBoard sudokuBoard,
             out int[] finalState)
         {
+            sudokuBoard = sudokuBoard.Clone();
             #region Generate inital board from the completely solved one
 
             // Board is solved at this point.
