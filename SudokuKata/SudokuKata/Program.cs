@@ -433,20 +433,13 @@ namespace SudokuKata
             
             var removedPos = 0;
 
-            return GeneratePuzzleFromCompletelySolvedBoard_Applesauce(rng, removedPos, remainingDigits, positions,
-                removedPerBlock, maxRemovedPerBlock, sudokuBoard);
-        }
-
-        private static SudokuBoard GeneratePuzzleFromCompletelySolvedBoard_Applesauce(Random rng, int removedPos,
-            int remainingDigits, int[] positions,
-            int[,] removedPerBlock, int maxRemovedPerBlock, SudokuBoard sudokuBoard)
-        {
+            int removedPos1 = removedPos;
             var state = sudokuBoard.GetBoardAsNumbers();
 
-            while (removedPos < 9 * 9 - remainingDigits)
+            while (removedPos1 < 9 * 9 - remainingDigits)
             {
-                var curRemainingDigits = positions.Length - removedPos;
-                var indexToPick = removedPos + rng.Next(curRemainingDigits);
+                var curRemainingDigits = positions.Length - removedPos1;
+                var indexToPick = removedPos1 + rng.Next(curRemainingDigits);
 
                 var row = positions[indexToPick] / 9;
                 var col = positions[indexToPick] % 9;
@@ -461,8 +454,8 @@ namespace SudokuKata
 
                 removedPerBlock[blockRowToRemove, blockColToRemove] += 1;
 
-                var temp = positions[removedPos];
-                positions[removedPos] = positions[indexToPick];
+                var temp = positions[removedPos1];
+                positions[removedPos1] = positions[indexToPick];
                 positions[indexToPick] = temp;
 
                 sudokuBoard.SetValue(row, col, SudokuBoard.Unknown);
@@ -470,7 +463,7 @@ namespace SudokuKata
                 var stateIndex = 9 * row + col;
                 state[stateIndex] = 0;
 
-                removedPos += 1;
+                removedPos1 += 1;
             }
 
             return SudokuBoard.FromNumbers(state);
