@@ -426,7 +426,7 @@ namespace SudokuKata
             var state = sudokuBoard.GetBoardAsNumbers();
 
             var removedPos = 0;
-            GeneratePuzzleFromCompletelySolvedBoard_Applesauce(rng, removedPos, remainingDigits, positions, removedPerBlock, maxRemovedPerBlock, sudokuBoard,
+            var result = GeneratePuzzleFromCompletelySolvedBoard_Applesauce(rng, removedPos, remainingDigits, positions, removedPerBlock, maxRemovedPerBlock, sudokuBoard,
                 state);
 
             Console.WriteLine();
@@ -435,10 +435,10 @@ namespace SudokuKata
 
             #endregion
 
-            return SudokuBoard.FromNumbers(state);
+            return result;
         }
 
-        private static void GeneratePuzzleFromCompletelySolvedBoard_Applesauce(Random rng, int removedPos, int remainingDigits, int[] positions,
+        private static SudokuBoard GeneratePuzzleFromCompletelySolvedBoard_Applesauce(Random rng, int removedPos, int remainingDigits, int[] positions,
             int[,] removedPerBlock, int maxRemovedPerBlock, SudokuBoard sudokuBoard, int[] state)
         {
             while (removedPos < 9 * 9 - remainingDigits)
@@ -470,6 +470,8 @@ namespace SudokuKata
 
                 removedPos += 1;
             }
+
+            return SudokuBoard.FromNumbers(state);
         }
 
         private static bool IsTryToFindGruopsOfDigitsApplesauce(bool changeMade, bool stepChangeMade,
