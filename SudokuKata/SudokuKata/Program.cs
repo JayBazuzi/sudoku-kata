@@ -55,7 +55,6 @@ namespace SudokuKata
         private static void SolvePuzzle(Random rng, SudokuBoard puzzle,
             int[] finalState)
         {
-            var sudokuBoard = puzzle;
             var lookupStructures = PrepareLookupStructures();
 
             var boardAsNumbers = puzzle.GetBoardAsNumbers();
@@ -170,7 +169,7 @@ namespace SudokuKata
                         var col = singleCandidateIndex % 9;
 
                         boardAsNumbers[singleCandidateIndex] = candidate + 1;
-                        sudokuBoard.SetValue(row, col, 1 + candidate);
+                        puzzle.SetValue(row, col, 1 + candidate);
                         candidateMasks[singleCandidateIndex] = 0;
                         wasChangeMade = true;
 
@@ -271,7 +270,7 @@ namespace SudokuKata
                             var stateIndex = 9 * row + col;
                             boardAsNumbers[stateIndex] = digit;
                             candidateMasks[stateIndex] = 0;
-                            sudokuBoard.SetValue(row, col, digit);
+                            puzzle.SetValue(row, col, digit);
 
                             wasChangeMade = true;
 
@@ -380,9 +379,9 @@ namespace SudokuKata
 
                 wasChangeMade = LookIfBoardHasMultipleSolutions(rng, wasChangeMade, candidateMasks, maskToOnesCount,
                     finalState,
-                    boardAsNumbers, sudokuBoard);
+                    boardAsNumbers, puzzle);
 
-                PrintBoardChange(wasChangeMade, sudokuBoard);
+                PrintBoardChange(wasChangeMade, puzzle);
             }
         }
 
