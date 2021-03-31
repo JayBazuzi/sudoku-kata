@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using ApprovalUtilities.Utilities;
 
 namespace SudokuKata
 {
@@ -35,6 +36,11 @@ namespace SudokuKata
             var solvedBoard = SudokoBoardGenerator.ConstructFullySolvedBoard(rng);
 
             var puzzle = GeneratePuzzleFromCompletelySolvedBoard(rng, solvedBoard, out var finalState);
+
+            if (solvedBoard.GetBoardAsNumber().ToReadableString() != finalState.ToReadableString())
+            {
+                //throw new  Exception("boards not equal");
+            }
 
             PrintLineOfEquals();
             var lookupStructures = PrepareLookupStructures();
