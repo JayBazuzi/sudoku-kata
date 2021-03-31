@@ -36,15 +36,20 @@ namespace SudokuKata
             var solvedBoard = SudokoBoardGenerator.ConstructFullySolvedBoard(rng);
 
             var puzzle = GeneratePuzzleFromCompletelySolvedBoard(rng, solvedBoard);
+            LogStartOfSolution(puzzle);
+            var lookupStructures = PrepareLookupStructures();
+
+            SolvePuzzle(rng, puzzle, lookupStructures, puzzle, solvedBoard.GetBoardAsNumbers());
+        }
+
+        private static void LogStartOfSolution(SudokuBoard puzzle)
+        {
             Console.WriteLine();
             Console.WriteLine("Starting look of the board to solve:");
             Console.WriteLine(puzzle.ToString());
 
 
             PrintLineOfEquals();
-            var lookupStructures = PrepareLookupStructures();
-
-            SolvePuzzle(rng, puzzle, lookupStructures, puzzle, solvedBoard.GetBoardAsNumbers());
         }
 
 
