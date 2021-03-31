@@ -38,7 +38,7 @@ namespace SudokuKata
             LogStartOfSolution(puzzle);
             PrepareLookupStructures();
 
-            SolvePuzzle(rng, puzzle, solvedBoard, solvedBoard.GetBoardAsNumbers());
+            SolvePuzzle(rng, puzzle, solvedBoard);
         }
 
         private static void LogStartOfSolution(SudokuBoard puzzle)
@@ -53,8 +53,7 @@ namespace SudokuKata
 
 
         private static void SolvePuzzle(Random rng, SudokuBoard puzzle,
-            SudokuBoard solvedBoard,
-            int[] finalState2)
+            SudokuBoard solvedBoard)
         {
             var finalState = solvedBoard.GetBoardAsNumbers();
             var lookupStructures = PrepareLookupStructures();
