@@ -36,7 +36,10 @@ namespace SudokuKata
             var solvedBoard = SudokoBoardGenerator.ConstructFullySolvedBoard(rng);
 
             var puzzle = GeneratePuzzleFromCompletelySolvedBoard(rng, solvedBoard);
-            
+            Console.WriteLine();
+            Console.WriteLine("Starting look of the board to solve:");
+            Console.WriteLine(string.Join("\n", puzzle.ToString()));
+
 
             PrintLineOfEquals();
             var lookupStructures = PrepareLookupStructures();
@@ -428,10 +431,6 @@ namespace SudokuKata
             var removedPos = 0;
             var result = GeneratePuzzleFromCompletelySolvedBoard_Applesauce(rng, removedPos, remainingDigits, positions, removedPerBlock, maxRemovedPerBlock, sudokuBoard,
                 state);
-
-            Console.WriteLine();
-            Console.WriteLine("Starting look of the board to solve:");
-            Console.WriteLine(string.Join("\n", sudokuBoard.ToString()));
 
             #endregion
 
