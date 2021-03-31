@@ -36,7 +36,7 @@ namespace SudokuKata
             var solvedBoard = SudokoBoardGenerator.ConstructFullySolvedBoard(rng);
             var puzzle = GeneratePuzzleFromCompletelySolvedBoard(rng, solvedBoard);
             LogStartOfSolution(puzzle);
-            var lookupStructures = PrepareLookupStructures();
+            PrepareLookupStructures();
 
             SolvePuzzle(rng, puzzle, puzzle, solvedBoard.GetBoardAsNumbers());
         }
