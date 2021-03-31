@@ -22,6 +22,7 @@ namespace SudokuKata
             var puzzle = GeneratePuzzleFromCompletelySolvedBoard(rng, solvedBoard
 , out var finalState);
 
+            PrintLineOfEquals();
             var maskToOnesCount = PrepareLookupStructures(out var singleBitToIndex, out var allOnes);
 
             SolvePuzzle(rng, puzzle.GetBoardAsNumber(), allOnes, maskToOnesCount, singleBitToIndex, solvedBoard
@@ -355,8 +356,6 @@ namespace SudokuKata
         private static Dictionary<int, int> PrepareLookupStructures(out Dictionary<int, int> singleBitToIndex, out int allOnes)
         {
             #region Prepare lookup structures that will be used in further execution
-
-            PrintLineOfEquals();
 
             Dictionary<int, int> maskToOnesCount = new Dictionary<int, int>();
             maskToOnesCount[0] = 0;
