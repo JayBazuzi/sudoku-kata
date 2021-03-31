@@ -47,7 +47,7 @@ namespace SudokuKata
             PrintLineOfEquals();
             var lookupStructures = PrepareLookupStructures();
 
-            SolvePuzzle(rng, puzzle, lookupStructures, puzzle, finalState);
+            SolvePuzzle(rng, puzzle, lookupStructures, puzzle, solvedBoard.GetBoardAsNumber());
         }
 
 
