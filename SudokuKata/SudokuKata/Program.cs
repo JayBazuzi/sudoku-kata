@@ -52,10 +52,10 @@ namespace SudokuKata
         }
 
 
-        private static void SolvePuzzle(Random rng, SudokuBoard puzzle, SudokuBoard sudokuBoard,
+        private static void SolvePuzzle(Random rng, SudokuBoard puzzle, SudokuBoard sudokuBoard2,
             int[] finalState)
         {
-            sudokuBoard = puzzle;
+            var sudokuBoard = puzzle;
             var lookupStructures = PrepareLookupStructures();
 
             var boardAsNumbers = puzzle.GetBoardAsNumbers();
