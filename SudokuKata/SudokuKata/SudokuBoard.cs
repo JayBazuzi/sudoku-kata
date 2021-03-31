@@ -83,7 +83,7 @@ namespace SudokuKata
             return result;
         }
 
-        public int[] GetBoardAsNumber()
+        public int[] GetBoardAsNumbers()
         {
             var result = new List<int>();
 
@@ -103,7 +103,7 @@ namespace SudokuKata
 
         public SudokuBoard Clone()
         {
-            return SudokuBoard.FromNumbers(GetBoardAsNumber());
+            return SudokuBoard.FromNumbers(GetBoardAsNumbers());
         }
     }
 }

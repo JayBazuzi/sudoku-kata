@@ -41,7 +41,7 @@ namespace SudokuKata
             PrintLineOfEquals();
             var lookupStructures = PrepareLookupStructures();
 
-            SolvePuzzle(rng, puzzle, lookupStructures, puzzle, solvedBoard.GetBoardAsNumber());
+            SolvePuzzle(rng, puzzle, lookupStructures, puzzle, solvedBoard.GetBoardAsNumbers());
         }
 
 
@@ -49,7 +49,7 @@ namespace SudokuKata
             LookupStructures lookupStructures, SudokuBoard sudokuBoard,
             int[] finalState)
         {
-            var boardAsNumbers = puzzle.GetBoardAsNumber();
+            var boardAsNumbers = puzzle.GetBoardAsNumbers();
             var singleBitToIndex = lookupStructures._singleBitToIndex;
             var allOnes = lookupStructures._allOnes;
             var maskToOnesCount = lookupStructures._maskToOnesCount;
@@ -423,7 +423,7 @@ namespace SudokuKata
             var maxRemovedPerBlock = 6;
             var removedPerBlock = new int[3, 3];
             var positions = Enumerable.Range(0, 9 * 9).ToArray();
-            var state = sudokuBoard.GetBoardAsNumber();
+            var state = sudokuBoard.GetBoardAsNumbers();
 
             var removedPos = 0;
             GeneratePuzzleFromCompletelySolvedBoard_Applesauce(rng, removedPos, remainingDigits, positions, removedPerBlock, maxRemovedPerBlock, sudokuBoard,
