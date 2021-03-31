@@ -433,11 +433,10 @@ namespace SudokuKata
             var state = sudokuBoard.GetBoardAsNumbers();
 
             var removedPos = 0;
-            var result = GeneratePuzzleFromCompletelySolvedBoard_Applesauce(rng, removedPos, remainingDigits, positions,
+
+            return GeneratePuzzleFromCompletelySolvedBoard_Applesauce(rng, removedPos, remainingDigits, positions,
                 removedPerBlock, maxRemovedPerBlock, sudokuBoard,
                 state);
-
-            return result;
         }
 
         private static SudokuBoard GeneratePuzzleFromCompletelySolvedBoard_Applesauce(Random rng, int removedPos,
