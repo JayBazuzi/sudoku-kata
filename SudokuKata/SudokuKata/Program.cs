@@ -44,10 +44,11 @@ namespace SudokuKata
         }
 
 
-        private static void SolvePuzzle(Random rng, SudokuBoard puzzle, int[] boardAsNumbers,
+        private static void SolvePuzzle(Random rng, SudokuBoard puzzle, int[] boardAsNumbers2,
             LookupStructures lookupStructures, SudokuBoard sudokuBoard,
             int[] finalState)
         {
+            var boardAsNumbers = puzzle.GetBoardAsNumber();
             var singleBitToIndex = lookupStructures._singleBitToIndex;
             var allOnes = lookupStructures._allOnes;
             var maskToOnesCount = lookupStructures._maskToOnesCount;
