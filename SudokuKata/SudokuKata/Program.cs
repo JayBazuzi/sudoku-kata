@@ -431,12 +431,12 @@ namespace SudokuKata
             var removedPerBlock = new int[3, 3];
             var positions = Enumerable.Range(0, 9 * 9).ToArray();
 
-            int removedPos1 = 0;
+            int removedPosition = 0;
 
-            while (removedPos1 < 9 * 9 - remainingDigits)
+            while (removedPosition < 9 * 9 - remainingDigits)
             {
-                var curRemainingDigits = positions.Length - removedPos1;
-                var indexToPick = removedPos1 + rng.Next(curRemainingDigits);
+                var curRemainingDigits = positions.Length - removedPosition;
+                var indexToPick = removedPosition + rng.Next(curRemainingDigits);
 
                 var row = positions[indexToPick] / 9;
                 var col = positions[indexToPick] % 9;
@@ -451,13 +451,13 @@ namespace SudokuKata
 
                 removedPerBlock[blockRowToRemove, blockColToRemove] += 1;
 
-                var temp = positions[removedPos1];
-                positions[removedPos1] = positions[indexToPick];
+                var temp = positions[removedPosition];
+                positions[removedPosition] = positions[indexToPick];
                 positions[indexToPick] = temp;
 
                 puzzle.SetValue(row, col, SudokuBoard.Unknown);
 
-                removedPos1 += 1;
+                removedPosition += 1;
             }
 
             return puzzle;
