@@ -39,12 +39,12 @@ namespace SudokuKata
             PrintLineOfEquals();
             var lookupStructures = PrepareLookupStructures();
 
-            SolvePuzzle(rng, puzzle.GetBoardAsNumber(), lookupStructures, solvedBoard
+            SolvePuzzle(rng, puzzle, puzzle.GetBoardAsNumber(), lookupStructures, solvedBoard
 , finalState);
         }
 
 
-        private static void SolvePuzzle(Random rng, int[] boardAsNumbers,
+        private static void SolvePuzzle(Random rng, SudokuBoard asNumbers, int[] boardAsNumbers,
             LookupStructures lookupStructures, SudokuBoard sudokuBoard,
             int[] finalState)
         {
