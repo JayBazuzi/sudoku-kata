@@ -441,8 +441,10 @@ namespace SudokuKata
 
         private static SudokuBoard GeneratePuzzleFromCompletelySolvedBoard_Applesauce(Random rng, int removedPos,
             int remainingDigits, int[] positions,
-            int[,] removedPerBlock, int maxRemovedPerBlock, SudokuBoard sudokuBoard, int[] state)
+            int[,] removedPerBlock, int maxRemovedPerBlock, SudokuBoard sudokuBoard, int[] state2)
         {
+            var state = sudokuBoard.GetBoardAsNumbers();
+
             while (removedPos < 9 * 9 - remainingDigits)
             {
                 var curRemainingDigits = positions.Length - removedPos;
