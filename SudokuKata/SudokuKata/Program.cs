@@ -35,7 +35,7 @@ namespace SudokuKata
         {
             var solvedBoard = SudokoBoardGenerator.ConstructFullySolvedBoard(rng);
 
-            var puzzle = GeneratePuzzleFromCompletelySolvedBoard(rng, solvedBoard, out var finalState);
+            var puzzle = GeneratePuzzleFromCompletelySolvedBoard(rng, solvedBoard);
             
 
             PrintLineOfEquals();
@@ -411,8 +411,8 @@ namespace SudokuKata
         }
 
         private static SudokuBoard GeneratePuzzleFromCompletelySolvedBoard(Random rng,
-            SudokuBoard sudokuBoard,
-            out int[] finalState)
+            SudokuBoard sudokuBoard
+            )
         {
             sudokuBoard = sudokuBoard.Clone();
             #region Generate inital board from the completely solved one
@@ -424,9 +424,6 @@ namespace SudokuKata
             var removedPerBlock = new int[3, 3];
             var positions = Enumerable.Range(0, 9 * 9).ToArray();
             var state = sudokuBoard.GetBoardAsNumber();
-
-            finalState = new int[state.Length];
-            Array.Copy(state, finalState, finalState.Length);
 
             var removedPos = 0;
             Applesauce5(rng, removedPos, remainingDigits, positions, removedPerBlock, maxRemovedPerBlock, sudokuBoard,
