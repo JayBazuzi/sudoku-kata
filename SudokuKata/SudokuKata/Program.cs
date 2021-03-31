@@ -7,15 +7,15 @@ namespace SudokuKata
 {
     public class LookupStructures
     {
-        public Dictionary<int, int> _returnValue;
+        public Dictionary<int, int> _maskToOnesCount;
         public int _allOnes;
         public Dictionary<int, int> _singleBitToIndex;
 
-        public LookupStructures(Dictionary<int, int> singleBitToIndex, int allOnes, Dictionary<int, int> returnValue)
+        public LookupStructures(Dictionary<int, int> singleBitToIndex, int allOnes, Dictionary<int, int> maskToOnesCount)
         {
             _singleBitToIndex = singleBitToIndex;
             _allOnes = allOnes;
-            _returnValue = returnValue;
+            _maskToOnesCount = maskToOnesCount;
         }
     }
 
@@ -40,7 +40,7 @@ namespace SudokuKata
             var lookupStructures = PrepareLookupStructures();
             var singleBitToIndex = lookupStructures._singleBitToIndex;
             var allOnes = lookupStructures._allOnes;
-            var maskToOnesCount = lookupStructures._returnValue;
+            var maskToOnesCount = lookupStructures._maskToOnesCount;
 
             SolvePuzzle(rng, puzzle.GetBoardAsNumber(), allOnes, maskToOnesCount, singleBitToIndex, solvedBoard
 , finalState);
