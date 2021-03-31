@@ -38,7 +38,7 @@ namespace SudokuKata
             var puzzle = GeneratePuzzleFromCompletelySolvedBoard(rng, solvedBoard);
             Console.WriteLine();
             Console.WriteLine("Starting look of the board to solve:");
-            Console.WriteLine(string.Join("\n", puzzle.ToString()));
+            Console.WriteLine(puzzle.ToString());
 
 
             PrintLineOfEquals();
@@ -415,9 +415,10 @@ namespace SudokuKata
 
         private static SudokuBoard GeneratePuzzleFromCompletelySolvedBoard(Random rng,
             SudokuBoard sudokuBoard
-            )
+        )
         {
             sudokuBoard = sudokuBoard.Clone();
+
             #region Generate inital board from the completely solved one
 
             // Board is solved at this point.
@@ -429,7 +430,8 @@ namespace SudokuKata
             var state = sudokuBoard.GetBoardAsNumbers();
 
             var removedPos = 0;
-            var result = GeneratePuzzleFromCompletelySolvedBoard_Applesauce(rng, removedPos, remainingDigits, positions, removedPerBlock, maxRemovedPerBlock, sudokuBoard,
+            var result = GeneratePuzzleFromCompletelySolvedBoard_Applesauce(rng, removedPos, remainingDigits, positions,
+                removedPerBlock, maxRemovedPerBlock, sudokuBoard,
                 state);
 
             #endregion
@@ -437,7 +439,8 @@ namespace SudokuKata
             return result;
         }
 
-        private static SudokuBoard GeneratePuzzleFromCompletelySolvedBoard_Applesauce(Random rng, int removedPos, int remainingDigits, int[] positions,
+        private static SudokuBoard GeneratePuzzleFromCompletelySolvedBoard_Applesauce(Random rng, int removedPos,
+            int remainingDigits, int[] positions,
             int[,] removedPerBlock, int maxRemovedPerBlock, SudokuBoard sudokuBoard, int[] state)
         {
             while (removedPos < 9 * 9 - remainingDigits)
