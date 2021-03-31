@@ -34,14 +34,12 @@ namespace SudokuKata
         {
             var solvedBoard = SudokoBoardGenerator.ConstructFullySolvedBoard(rng);
 
-            var puzzle = GeneratePuzzleFromCompletelySolvedBoard(rng, solvedBoard
-                , out var finalState);
+            var puzzle = GeneratePuzzleFromCompletelySolvedBoard(rng, solvedBoard, out var finalState);
 
             PrintLineOfEquals();
             var lookupStructures = PrepareLookupStructures();
 
-            SolvePuzzle(rng, puzzle, lookupStructures, solvedBoard
-                , finalState);
+            SolvePuzzle(rng, puzzle, lookupStructures, solvedBoard, finalState);
         }
 
 
