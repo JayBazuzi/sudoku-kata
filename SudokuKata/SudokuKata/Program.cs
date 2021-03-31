@@ -430,10 +430,8 @@ namespace SudokuKata
             var maxRemovedPerBlock = 6;
             var removedPerBlock = new int[3, 3];
             var positions = Enumerable.Range(0, 9 * 9).ToArray();
-            
-            var removedPos = 0;
 
-            int removedPos1 = removedPos;
+            int removedPos1 = 0;
 
             while (removedPos1 < 9 * 9 - remainingDigits)
             {
