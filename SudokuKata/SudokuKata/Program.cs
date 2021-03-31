@@ -435,13 +435,12 @@ namespace SudokuKata
             var removedPos = 0;
 
             return GeneratePuzzleFromCompletelySolvedBoard_Applesauce(rng, removedPos, remainingDigits, positions,
-                removedPerBlock, maxRemovedPerBlock, sudokuBoard,
-                state);
+                removedPerBlock, maxRemovedPerBlock, sudokuBoard);
         }
 
         private static SudokuBoard GeneratePuzzleFromCompletelySolvedBoard_Applesauce(Random rng, int removedPos,
             int remainingDigits, int[] positions,
-            int[,] removedPerBlock, int maxRemovedPerBlock, SudokuBoard sudokuBoard, int[] state2)
+            int[,] removedPerBlock, int maxRemovedPerBlock, SudokuBoard sudokuBoard)
         {
             var state = sudokuBoard.GetBoardAsNumbers();
 
