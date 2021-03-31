@@ -47,12 +47,16 @@ namespace SudokuKata
         }
 
 
-        private static void SolvePuzzle(Random rng, int[] boardAsNumbers, int allOnes,
-            LookupStructures toOnesCount,
-            Dictionary<int, int> maskToOnesCount,
-            Dictionary<int, int> singleBitToIndex, SudokuBoard sudokuBoard,
+        private static void SolvePuzzle(Random rng, int[] boardAsNumbers, int allOnes2,
+            LookupStructures lookupStructures,
+            Dictionary<int, int> maskToOnesCount2,
+            Dictionary<int, int> singleBitToIndex2, SudokuBoard sudokuBoard,
             int[] finalState)
         {
+            var singleBitToIndex = lookupStructures._singleBitToIndex;
+            var allOnes = lookupStructures._allOnes;
+            var maskToOnesCount = lookupStructures._maskToOnesCount;
+
             bool wasChangeMade = true;
             while (wasChangeMade)
             {
