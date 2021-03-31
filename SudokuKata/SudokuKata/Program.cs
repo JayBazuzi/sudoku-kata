@@ -426,7 +426,7 @@ namespace SudokuKata
             var state = sudokuBoard.GetBoardAsNumber();
 
             var removedPos = 0;
-            Applesauce5(rng, removedPos, remainingDigits, positions, removedPerBlock, maxRemovedPerBlock, sudokuBoard,
+            GeneratePuzzleFromCompletelySolvedBoard_Applesauce(rng, removedPos, remainingDigits, positions, removedPerBlock, maxRemovedPerBlock, sudokuBoard,
                 state);
 
             Console.WriteLine();
@@ -438,7 +438,7 @@ namespace SudokuKata
             return SudokuBoard.FromNumbers(state);
         }
 
-        private static void Applesauce5(Random rng, int removedPos, int remainingDigits, int[] positions,
+        private static void GeneratePuzzleFromCompletelySolvedBoard_Applesauce(Random rng, int removedPos, int remainingDigits, int[] positions,
             int[,] removedPerBlock, int maxRemovedPerBlock, SudokuBoard sudokuBoard, int[] state)
         {
             while (removedPos < 9 * 9 - remainingDigits)
