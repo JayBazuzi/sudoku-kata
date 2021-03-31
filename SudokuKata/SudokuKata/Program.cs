@@ -434,7 +434,6 @@ namespace SudokuKata
             var removedPos = 0;
 
             int removedPos1 = removedPos;
-            var state = puzzle.GetBoardAsNumbers();
 
             while (removedPos1 < 9 * 9 - remainingDigits)
             {
@@ -461,7 +460,6 @@ namespace SudokuKata
                 puzzle.SetValue(row, col, SudokuBoard.Unknown);
 
                 var stateIndex = 9 * row + col;
-                state[stateIndex] = 0;
 
                 removedPos1 += 1;
             }
