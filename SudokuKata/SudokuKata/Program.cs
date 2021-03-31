@@ -424,8 +424,6 @@ namespace SudokuKata
         {
             sudokuBoard = sudokuBoard.Clone();
 
-            #region Generate inital board from the completely solved one
-
             // Board is solved at this point.
             // Now pick subset of digits as the starting position.
             var remainingDigits = 30;
@@ -438,8 +436,6 @@ namespace SudokuKata
             var result = GeneratePuzzleFromCompletelySolvedBoard_Applesauce(rng, removedPos, remainingDigits, positions,
                 removedPerBlock, maxRemovedPerBlock, sudokuBoard,
                 state);
-
-            #endregion
 
             return result;
         }
