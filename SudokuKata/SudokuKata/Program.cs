@@ -466,7 +466,7 @@ namespace SudokuKata
                 removedPos1 += 1;
             }
 
-            return SudokuBoard.FromNumbers(state);
+            return sudokuBoard;
         }
 
         private static bool IsTryToFindGruopsOfDigitsApplesauce(bool changeMade, bool stepChangeMade,
