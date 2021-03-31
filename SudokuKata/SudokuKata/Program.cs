@@ -422,7 +422,7 @@ namespace SudokuKata
             SudokuBoard sudokuBoardInput
         )
         {
-            var sudokuBoard = sudokuBoardInput.Clone();
+            var puzzle = sudokuBoardInput.Clone();
 
             // Board is solved at this point.
             // Now pick subset of digits as the starting position.
@@ -434,7 +434,7 @@ namespace SudokuKata
             var removedPos = 0;
 
             int removedPos1 = removedPos;
-            var state = sudokuBoard.GetBoardAsNumbers();
+            var state = puzzle.GetBoardAsNumbers();
 
             while (removedPos1 < 9 * 9 - remainingDigits)
             {
@@ -458,7 +458,7 @@ namespace SudokuKata
                 positions[removedPos1] = positions[indexToPick];
                 positions[indexToPick] = temp;
 
-                sudokuBoard.SetValue(row, col, SudokuBoard.Unknown);
+                puzzle.SetValue(row, col, SudokuBoard.Unknown);
 
                 var stateIndex = 9 * row + col;
                 state[stateIndex] = 0;
@@ -466,7 +466,7 @@ namespace SudokuKata
                 removedPos1 += 1;
             }
 
-            return sudokuBoard;
+            return puzzle;
         }
 
         private static bool IsTryToFindGruopsOfDigitsApplesauce(bool changeMade, bool stepChangeMade,
