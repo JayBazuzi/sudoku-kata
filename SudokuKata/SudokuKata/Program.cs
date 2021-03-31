@@ -34,7 +34,6 @@ namespace SudokuKata
         public static void Play(Random rng)
         {
             var solvedBoard = SudokoBoardGenerator.ConstructFullySolvedBoard(rng);
-
             var puzzle = GeneratePuzzleFromCompletelySolvedBoard(rng, solvedBoard);
             LogStartOfSolution(puzzle);
             var lookupStructures = PrepareLookupStructures();
@@ -54,9 +53,11 @@ namespace SudokuKata
 
 
         private static void SolvePuzzle(Random rng, SudokuBoard puzzle,
-            LookupStructures lookupStructures, SudokuBoard sudokuBoard,
+            LookupStructures lookupStructures2, SudokuBoard sudokuBoard,
             int[] finalState)
         {
+            var lookupStructures = PrepareLookupStructures();
+
             var boardAsNumbers = puzzle.GetBoardAsNumbers();
             var singleBitToIndex = lookupStructures._singleBitToIndex;
             var allOnes = lookupStructures._allOnes;
