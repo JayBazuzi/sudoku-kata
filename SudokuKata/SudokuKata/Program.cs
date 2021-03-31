@@ -55,6 +55,7 @@ namespace SudokuKata
         private static void SolvePuzzle(Random rng, SudokuBoard puzzle, SudokuBoard sudokuBoard,
             int[] finalState)
         {
+            sudokuBoard = puzzle;
             var lookupStructures = PrepareLookupStructures();
 
             var boardAsNumbers = puzzle.GetBoardAsNumbers();
