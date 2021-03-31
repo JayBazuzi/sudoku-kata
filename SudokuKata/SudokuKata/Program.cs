@@ -37,9 +37,11 @@ namespace SudokuKata
 
             var puzzle = GeneratePuzzleFromCompletelySolvedBoard(rng, solvedBoard, out var finalState);
 
-            if (solvedBoard.GetBoardAsNumber().ToReadableString() != finalState.ToReadableString())
+            var solvedText = solvedBoard.GetBoardAsNumber().ToReadableString();
+            var finalText = finalState.ToReadableString();
+            if (solvedText != finalText)
             {
-                //throw new  Exception("boards not equal");
+                //throw new Exception("boards not equal");
             }
 
             PrintLineOfEquals();
