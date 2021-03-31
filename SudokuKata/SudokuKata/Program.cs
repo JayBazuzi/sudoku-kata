@@ -459,8 +459,6 @@ namespace SudokuKata
 
                 puzzle.SetValue(row, col, SudokuBoard.Unknown);
 
-                var stateIndex = 9 * row + col;
-
                 removedPos1 += 1;
             }
 
