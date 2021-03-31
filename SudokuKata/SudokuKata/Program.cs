@@ -38,9 +38,6 @@ namespace SudokuKata
 
             PrintLineOfEquals();
             var lookupStructures = PrepareLookupStructures();
-            var singleBitToIndex = lookupStructures._singleBitToIndex;
-            var allOnes = lookupStructures._allOnes;
-            var maskToOnesCount = lookupStructures._maskToOnesCount;
 
             SolvePuzzle(rng, puzzle.GetBoardAsNumber(), lookupStructures, solvedBoard
 , finalState);
