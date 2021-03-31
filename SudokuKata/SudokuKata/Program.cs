@@ -419,10 +419,10 @@ namespace SudokuKata
         }
 
         private static SudokuBoard GeneratePuzzleFromCompletelySolvedBoard(Random rng,
-            SudokuBoard sudokuBoardInput
+            SudokuBoard solvedBoard
         )
         {
-            var puzzle = sudokuBoardInput.Clone();
+            var puzzle = solvedBoard.Clone();
 
             // Board is solved at this point.
             // Now pick subset of digits as the starting position.
