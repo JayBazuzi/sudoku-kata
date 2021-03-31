@@ -42,12 +42,13 @@ namespace SudokuKata
             var allOnes = lookupStructures._allOnes;
             var maskToOnesCount = lookupStructures._maskToOnesCount;
 
-            SolvePuzzle(rng, puzzle.GetBoardAsNumber(), allOnes, maskToOnesCount, singleBitToIndex, solvedBoard
+            SolvePuzzle(rng, puzzle.GetBoardAsNumber(), allOnes, lookupStructures, maskToOnesCount, singleBitToIndex, solvedBoard
 , finalState);
         }
 
 
         private static void SolvePuzzle(Random rng, int[] boardAsNumbers, int allOnes,
+            LookupStructures toOnesCount,
             Dictionary<int, int> maskToOnesCount,
             Dictionary<int, int> singleBitToIndex, SudokuBoard sudokuBoard,
             int[] finalState)
