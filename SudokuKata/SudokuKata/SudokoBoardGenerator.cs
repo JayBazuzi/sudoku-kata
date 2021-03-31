@@ -1,9 +1,8 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using SudokuKata;
 
-static internal class SudokoBoardGenerator
+internal static class SudokoBoardGenerator
 {
     public static SudokuBoard ConstructFullySolvedBoard(Random rng)
     {
@@ -64,12 +63,10 @@ static internal class SudokoBoardGenerator
             // Next step will be to expand the state
             return Command.Expand;
         }
-        else
-        {
-            // No viable candidate was found at current position - pop it in the next iteration
-            stacks.LastDigitStack.Push(0);
-            return Command.Collapse;
-        }
+
+        // No viable candidate was found at current position - pop it in the next iteration
+        stacks.LastDigitStack.Push(0);
+        return Command.Collapse;
     }
 
     private static Command DoCollapse(Stacks stacks, SudokuBoard sudokuBoard)
@@ -170,11 +167,11 @@ static internal class SudokoBoardGenerator
     private static ViableMove GetViableMove(SudokuBoard sudokuBoard,
         Stacks stateStack)
     {
-        Stack<int[]> stacksStateStack = stateStack.StateStack;
-        Stack<int> rowIndexStack = stateStack.RowIndexStack;
-        Stack<int> colIndexStack = stateStack.ColIndexStack;
-        Stack<bool[]> usedDigitsStack = stateStack.UsedDigitsStack;
-        Stack<int> lastDigitStack = stateStack.LastDigitStack;
+        var stacksStateStack = stateStack.StateStack;
+        var rowIndexStack = stateStack.RowIndexStack;
+        var colIndexStack = stateStack.ColIndexStack;
+        var usedDigitsStack = stateStack.UsedDigitsStack;
+        var lastDigitStack = stateStack.LastDigitStack;
 
         var rowToMove = rowIndexStack.Peek();
         var colToMove = colIndexStack.Peek();

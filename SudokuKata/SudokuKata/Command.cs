@@ -1,6 +1,4 @@
-﻿using System;
-
-public enum Command
+﻿public enum Command
 {
     Expand,
     Collapse,

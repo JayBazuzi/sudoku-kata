@@ -1,21 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace SudokuKata
 {
-    static class _
+    internal static class _
     {
         public static int[,] SetAll(this int[,] that, int value)
         {
-            return that.ForEachRowColumn(((row, column) => that[row, column] = value));
+            return that.ForEachRowColumn((row, column) => that[row, column] = value);
         }
 
         public static int[,] ForEachRowColumn(this int[,] board, Action<int, int> actionOnRowAndColumn)
         {
-            for (int row = 0; row < board.GetLength(0); row++)
+            for (var row = 0; row < board.GetLength(0); row++)
             {
-                for (int column = 0; column < board.GetLength(1); column++)
+                for (var column = 0; column < board.GetLength(1); column++)
                 {
                     actionOnRowAndColumn(row, column);
                 }
@@ -29,22 +28,21 @@ namespace SudokuKata
     {
         public const int Unknown = 0;
 
-        private int[,] _board = new int[9, 9].SetAll(Unknown);
+        private readonly int[,] _board = new int[9, 9].SetAll(Unknown);
 
         public override string ToString()
         {
-
-            string result = "";
+            var result = "";
 
             _board.ForEachRowColumn((row, column) => result
-                 += PrintSpace_OrSomething(row, column));
+                += PrintSpace_OrSomething(row, column));
 
             return result;
         }
 
         private string PrintSpace_OrSomething(int row, int column)
         {
-            string result = "";
+            var result = "";
             var line = "+---+---+---+";
             if (column == 0 && row % 3 == 0)
             {
@@ -78,9 +76,9 @@ namespace SudokuKata
 
         public string ToCodeString()
         {
-            string result = "";
+            var result = "";
 
-            _board.ForEachRowColumn((r, c) => result+=_board[r, c]);
+            _board.ForEachRowColumn((r, c) => result += _board[r, c]);
 
             return result;
         }
@@ -99,9 +97,8 @@ namespace SudokuKata
             var result = new SudokuBoard();
 
             result._board.ForEachRowColumn((r, c) => result._board[r, c] = state[r * 9 + c]);
-            
+
             return result;
         }
     }
 }
-

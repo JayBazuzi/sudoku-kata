@@ -12,22 +12,26 @@ namespace SudokuKata
 
         public override string ToString()
         {
-            return $"{{ Mask = {Mask}, Discriminator = {Discriminator}, Description = {Description}, Cells = {Cells} }}";
+            return
+                $"{{ Mask = {Mask}, Discriminator = {Discriminator}, Description = {Description}, Cells = {Cells} }}";
         }
 
         public override bool Equals(object value)
         {
             var type = value as Applesauce2;
-            return (type != null) && EqualityComparer<int>.Default.Equals(type.Mask, Mask) && EqualityComparer<int>.Default.Equals(type.Discriminator, Discriminator) && EqualityComparer<string>.Default.Equals(type.Description, Description) && EqualityComparer<IGrouping<int, Applesauce1>>.Default.Equals(type.Cells, Cells);
+            return type != null && EqualityComparer<int>.Default.Equals(type.Mask, Mask) &&
+                   EqualityComparer<int>.Default.Equals(type.Discriminator, Discriminator) &&
+                   EqualityComparer<string>.Default.Equals(type.Description, Description) &&
+                   EqualityComparer<IGrouping<int, Applesauce1>>.Default.Equals(type.Cells, Cells);
         }
 
         public override int GetHashCode()
         {
-            int num = 0x7a2f0b42;
-            num = (-1521134295 * num) + EqualityComparer<int>.Default.GetHashCode(Mask);
-            num = (-1521134295 * num) + EqualityComparer<int>.Default.GetHashCode(Discriminator);
-            num = (-1521134295 * num) + EqualityComparer<string>.Default.GetHashCode(Description);
-            return (-1521134295 * num) + EqualityComparer<IGrouping<int, Applesauce1>>.Default.GetHashCode(Cells);
+            var num = 0x7a2f0b42;
+            num = -1521134295 * num + EqualityComparer<int>.Default.GetHashCode(Mask);
+            num = -1521134295 * num + EqualityComparer<int>.Default.GetHashCode(Discriminator);
+            num = -1521134295 * num + EqualityComparer<string>.Default.GetHashCode(Description);
+            return -1521134295 * num + EqualityComparer<IGrouping<int, Applesauce1>>.Default.GetHashCode(Cells);
         }
     }
 }
