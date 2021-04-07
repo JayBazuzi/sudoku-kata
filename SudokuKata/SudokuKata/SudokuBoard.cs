@@ -105,5 +105,48 @@ namespace SudokuKata
         {
             return SudokuBoard.FromNumbers(GetBoardAsNumbers());
         }
+
+        public Candidates CalculateCandidatesForCurrentStateOfTheBoard()
+        {
+            var boardAsNumbers = GetBoardAsNumbers();
+            #region Calculate candidates for current state of the board
+
+            var candidateMasks = new int[boardAsNumbers.Length];
+            var candidates
+                = new Candidates(candidateMasks);
+
+            for (var i = 0; i < boardAsNumbers.Length; i++)
+            {
+                if (boardAsNumbers[i] == 0)
+                {
+                    var row = i / 9;
+                    var col = i % 9;
+                    var blockRow = row / 3;
+                    var blockCol = col / 3;
+
+                    var colidingNumbers = 0;
+                    for (var j = 0; j < 9; j++)
+                    {
+                        var rowSiblingIndex = 9 * row + j;
+                        var colSiblingIndex = 9 * j + col;
+                        var blockSiblingIndex = 9 * (blockRow * 3 + j / 3) + blockCol * 3 + j % 3;
+
+                        var rowSiblingMask = 1 << (boardAsNumbers[rowSiblingIndex] - 1);
+                        var colSiblingMask = 1 << (boardAsNumbers[colSiblingIndex] - 1);
+                        var blockSiblingMask = 1 << (boardAsNumbers[blockSiblingIndex] - 1);
+
+                        colidingNumbers = colidingNumbers | rowSiblingMask | colSiblingMask | blockSiblingMask;
+                    }
+
+                    var allOnes = (1 << 9) - 1;
+                    candidateMasks[i] = allOnes & ~colidingNumbers;
+                }
+            }
+
+            #endregion
+
+            return candidates
+                ;
+        }
     }
 }
