@@ -366,7 +366,6 @@ namespace SudokuKata
                 var row = singleCandidateIndex / 9;
                 var col = singleCandidateIndex % 9;
 
-                boardAsNumbers[singleCandidateIndex] = candidate + 1;
                 puzzle.SetValue(row, col, 1 + candidate);
                 candidateMasks[singleCandidateIndex] = 0;
                 wasChangeMade = true;
