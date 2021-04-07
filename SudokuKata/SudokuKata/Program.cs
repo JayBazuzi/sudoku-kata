@@ -21,6 +21,16 @@ namespace SudokuKata
         }
     }
 
+    public class Candidates
+    {
+        public Candidates(int[] returnValue)
+        {
+            ReturnValue = returnValue;
+        }
+
+        public int[] ReturnValue { get; private set; }
+    }
+
     public class Program
     {
         public static void Play()
@@ -66,7 +76,7 @@ namespace SudokuKata
             {
                 wasChangeMade = false;
 
-                var candidateMasks = CalculateCandidatesForCurrentStateOfTheBoard(boardAsNumbers, allOnes);
+                var candidateMasks = CalculateCandidatesForCurrentStateOfTheBoard(boardAsNumbers, allOnes).ReturnValue;
 
                 #region Build a collection (named cellGroups) which maps cell indices into distinct groups (rows/columns/blocks)
 
@@ -353,7 +363,7 @@ namespace SudokuKata
             }
         }
 
-        private static int[] CalculateCandidatesForCurrentStateOfTheBoard(int[] boardAsNumbers, int allOnes)
+        private static Candidates CalculateCandidatesForCurrentStateOfTheBoard(int[] boardAsNumbers, int allOnes)
         {
             #region Calculate candidates for current state of the board
 
@@ -388,7 +398,7 @@ namespace SudokuKata
 
             #endregion
 
-            return candidateMasks;
+            return new Candidates(candidateMasks);
         }
 
         private static LookupStructures PrepareLookupStructures()
