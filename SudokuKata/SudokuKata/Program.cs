@@ -63,7 +63,8 @@ namespace SudokuKata
             {
                 wasChangeMade = false;
 
-                var candidateMasks = puzzle.CalculateCandidatesForCurrentStateOfTheBoard().Board;
+                var candidates2 = puzzle.CalculateCandidatesForCurrentStateOfTheBoard();
+                var candidateMasks = candidates2.Board;
 
                 var cellGroups = BuildCellGroups(boardAsNumbers);
 
