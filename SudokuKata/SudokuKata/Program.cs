@@ -54,7 +54,6 @@ namespace SudokuKata
         private static void SolvePuzzle(Random rng, SudokuBoard puzzle,
             SudokuBoard solvedBoard)
         {
-            var finalState = solvedBoard.GetBoardAsNumbers();
             var lookupStructures = PrepareLookupStructures();
 
             var boardAsNumbers = puzzle.GetBoardAsNumbers();
@@ -378,7 +377,7 @@ namespace SudokuKata
                 }
 
                 wasChangeMade = LookIfBoardHasMultipleSolutions(rng, wasChangeMade, candidateMasks, maskToOnesCount,
-                    finalState,
+                    solvedBoard.GetBoardAsNumbers(),
                     boardAsNumbers, puzzle);
 
                 PrintBoardChange(wasChangeMade, puzzle);
