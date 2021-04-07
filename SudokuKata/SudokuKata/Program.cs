@@ -375,9 +375,10 @@ namespace SudokuKata
             return wasChangeMade;
         }
 
-        private static Candidates CalculateCandidatesForCurrentStateOfTheBoard(int[] boardAsNumbers,
+        private static Candidates CalculateCandidatesForCurrentStateOfTheBoard(int[] boardAsNumbers2,
             SudokuBoard sudokuBoard)
         {
+            var boardAsNumbers = sudokuBoard.GetBoardAsNumbers();
             #region Calculate candidates for current state of the board
 
             var candidateMasks = new int[boardAsNumbers.Length];
