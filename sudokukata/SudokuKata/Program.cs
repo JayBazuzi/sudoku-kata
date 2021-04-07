@@ -123,38 +123,7 @@ namespace SudokuKata
                 {
                     stepChangeMade = false;
 
-                    #region Pick cells with only one candidate left
-
-                    var singleCandidateIndices =
-                        candidateMasks
-                            .Select((mask, index) => new
-                            {
-                                CandidatesCount = maskToOnesCount[mask],
-                                Index = index
-                            })
-                            .Where(tuple => tuple.CandidatesCount == 1)
-                            .Select(tuple => tuple.Index)
-                            .ToArray();
-
-                    if (singleCandidateIndices.Length > 0)
-                    {
-                        var pickSingleCandidateIndex = rng.Next(singleCandidateIndices.Length);
-                        var singleCandidateIndex = singleCandidateIndices[pickSingleCandidateIndex];
-                        var candidateMask = candidateMasks[singleCandidateIndex];
-                        var candidate = singleBitToIndex[candidateMask];
-
-                        var row = singleCandidateIndex / 9;
-                        var col = singleCandidateIndex % 9;
-
-                        boardAsNumbers[singleCandidateIndex] = candidate + 1;
-                        puzzle.SetValue(row, col, 1 + candidate);
-                        candidateMasks[singleCandidateIndex] = 0;
-                        wasChangeMade = true;
-
-                        Console.WriteLine("({0}, {1}) can only contain {2}.", row + 1, col + 1, candidate + 1);
-                    }
-
-                    #endregion
+                    wasChangeMade = PickCellsWithOnlyOneCandidateRemaining(rng, puzzle, candidateMasks, maskToOnesCount, singleBitToIndex, boardAsNumbers, wasChangeMade);
 
                     #region Try to find a number which can only appear in one place in a row/column/block
 
@@ -361,6 +330,45 @@ namespace SudokuKata
 
                 PrintBoardChange(wasChangeMade, puzzle);
             }
+        }
+
+        private static bool PickCellsWithOnlyOneCandidateRemaining(Random rng, SudokuBoard puzzle, int[] candidateMasks,
+            Dictionary<int, int> maskToOnesCount, Dictionary<int, int> singleBitToIndex, int[] boardAsNumbers, bool wasChangeMade)
+        {
+            #region Pick cells with only one candidate left
+
+            var singleCandidateIndices =
+                candidateMasks
+                    .Select((mask, index) => new
+                    {
+                        CandidatesCount = maskToOnesCount[mask],
+                        Index = index
+                    })
+                    .Where(tuple => tuple.CandidatesCount == 1)
+                    .Select(tuple => tuple.Index)
+                    .ToArray();
+
+            if (singleCandidateIndices.Length > 0)
+            {
+                var pickSingleCandidateIndex = rng.Next(singleCandidateIndices.Length);
+                var singleCandidateIndex = singleCandidateIndices[pickSingleCandidateIndex];
+                var candidateMask = candidateMasks[singleCandidateIndex];
+                var candidate = singleBitToIndex[candidateMask];
+
+                var row = singleCandidateIndex / 9;
+                var col = singleCandidateIndex % 9;
+
+                boardAsNumbers[singleCandidateIndex] = candidate + 1;
+                puzzle.SetValue(row, col, 1 + candidate);
+                candidateMasks[singleCandidateIndex] = 0;
+                wasChangeMade = true;
+
+                Console.WriteLine("({0}, {1}) can only contain {2}.", row + 1, col + 1, candidate + 1);
+            }
+
+            #endregion
+
+            return wasChangeMade;
         }
 
         private static Candidates CalculateCandidatesForCurrentStateOfTheBoard(int[] boardAsNumbers, int allOnes)
