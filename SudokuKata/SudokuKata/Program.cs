@@ -398,7 +398,10 @@ namespace SudokuKata
 
             #endregion
 
-            return new Candidates(candidateMasks);
+            var candidates
+                = new Candidates(candidateMasks);
+            return candidates
+;
         }
 
         private static LookupStructures PrepareLookupStructures()
