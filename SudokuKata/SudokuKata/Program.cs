@@ -328,10 +328,11 @@ namespace SudokuKata
             return cellGroups;
         }
 
-        private static bool PickCellsWithOnlyOneCandidateRemaining(Random rng, SudokuBoard puzzle, int[] candidateMasks,
-            Candidates toOnesCount,
+        private static bool PickCellsWithOnlyOneCandidateRemaining(Random rng, SudokuBoard puzzle, int[] candidateMasks2,
+            Candidates candidates,
             Dictionary<int, int> maskToOnesCount, Dictionary<int, int> singleBitToIndex, bool wasChangeMade)
         {
+            var candidateMasks = candidates.Board;
             #region Pick cells with only one candidate left
 
             var singleCandidateIndices =
