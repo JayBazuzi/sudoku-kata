@@ -23,12 +23,12 @@ namespace SudokuKata
 
     public class Candidates
     {
-        public Candidates(int[] returnValue)
+        public Candidates(int[] board)
         {
-            ReturnValue = returnValue;
+            Board = board;
         }
 
-        public int[] ReturnValue { get; private set; }
+        public int[] Board { get; private set; }
     }
 
     public class Program
@@ -76,7 +76,7 @@ namespace SudokuKata
             {
                 wasChangeMade = false;
 
-                var candidateMasks = CalculateCandidatesForCurrentStateOfTheBoard(boardAsNumbers, allOnes).ReturnValue;
+                var candidateMasks = CalculateCandidatesForCurrentStateOfTheBoard(boardAsNumbers, allOnes).Board;
 
                 #region Build a collection (named cellGroups) which maps cell indices into distinct groups (rows/columns/blocks)
 
@@ -368,6 +368,8 @@ namespace SudokuKata
             #region Calculate candidates for current state of the board
 
             var candidateMasks = new int[boardAsNumbers.Length];
+            var candidates
+                = new Candidates(candidateMasks);
 
             for (var i = 0; i < boardAsNumbers.Length; i++)
             {
@@ -398,8 +400,6 @@ namespace SudokuKata
 
             #endregion
 
-            var candidates
-                = new Candidates(candidateMasks);
             return candidates
 ;
         }
