@@ -21,12 +21,12 @@ namespace SudokuKata
 
     public class Candidates
     {
-        public Candidates(int[] returnValue)
+        public Candidates(int[] board)
         {
-            ReturnValue = returnValue;
+            Board = board;
         }
 
-        public int[] ReturnValue { get; private set; }
+        public int[] Board { get; private set; }
     }
 
     public class Program
@@ -73,7 +73,7 @@ namespace SudokuKata
             {
                 wasChangeMade = false;
 
-                var candidateMasks = puzzle.CalculateCandidatesForCurrentStateOfTheBoard().ReturnValue;
+                var candidateMasks = puzzle.CalculateCandidatesForCurrentStateOfTheBoard().Board;
 
                 var cellGroups = BuildCellGroups(boardAsNumbers);
 
