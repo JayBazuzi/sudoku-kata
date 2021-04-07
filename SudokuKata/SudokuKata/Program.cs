@@ -73,7 +73,7 @@ namespace SudokuKata
             {
                 wasChangeMade = false;
 
-                var candidateMasks = CalculateCandidatesForCurrentStateOfTheBoard(boardAsNumbers).ReturnValue;
+                var candidateMasks = CalculateCandidatesForCurrentStateOfTheBoard(boardAsNumbers, puzzle).ReturnValue;
 
                 var cellGroups = BuildCellGroups(boardAsNumbers);
 
@@ -375,7 +375,8 @@ namespace SudokuKata
             return wasChangeMade;
         }
 
-        private static Candidates CalculateCandidatesForCurrentStateOfTheBoard(int[] boardAsNumbers)
+        private static Candidates CalculateCandidatesForCurrentStateOfTheBoard(int[] boardAsNumbers,
+            SudokuBoard sudokuBoard)
         {
             #region Calculate candidates for current state of the board
 
