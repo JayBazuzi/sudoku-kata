@@ -23,12 +23,12 @@ namespace SudokuKata
 
     public class Candidates
     {
-        public Candidates(int[] board)
+        public Candidates(int[] returnValue)
         {
-            Board = board;
+            ReturnValue = returnValue;
         }
 
-        public int[] Board { get; private set; }
+        public int[] ReturnValue { get; private set; }
     }
 
     public class Program
@@ -76,7 +76,7 @@ namespace SudokuKata
             {
                 wasChangeMade = false;
 
-                var candidateMasks = CalculateCandidatesForCurrentStateOfTheBoard(boardAsNumbers, allOnes).Board;
+                var candidateMasks = CalculateCandidatesForCurrentStateOfTheBoard(boardAsNumbers, allOnes).ReturnValue;
 
                 #region Build a collection (named cellGroups) which maps cell indices into distinct groups (rows/columns/blocks)
 
