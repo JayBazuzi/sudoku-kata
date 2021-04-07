@@ -8,15 +8,13 @@ namespace SudokuKata
 {
     public class LookupStructures
     {
-        public int _allOnes;
         public Dictionary<int, int> _maskToOnesCount;
         public Dictionary<int, int> _singleBitToIndex;
 
-        public LookupStructures(Dictionary<int, int> singleBitToIndex, int allOnes,
+        public LookupStructures(Dictionary<int, int> singleBitToIndex, 
             Dictionary<int, int> maskToOnesCount)
         {
             _singleBitToIndex = singleBitToIndex;
-            _allOnes = allOnes;
             _maskToOnesCount = maskToOnesCount;
         }
     }
@@ -68,7 +66,6 @@ namespace SudokuKata
 
             var boardAsNumbers = puzzle.GetBoardAsNumbers();
             var singleBitToIndex = lookupStructures._singleBitToIndex;
-            var allOnes = lookupStructures._allOnes;
             var maskToOnesCount = lookupStructures._maskToOnesCount;
 
             var wasChangeMade = true;
@@ -76,7 +73,7 @@ namespace SudokuKata
             {
                 wasChangeMade = false;
 
-                var candidateMasks = CalculateCandidatesForCurrentStateOfTheBoard(boardAsNumbers, allOnes).ReturnValue;
+                var candidateMasks = CalculateCandidatesForCurrentStateOfTheBoard(boardAsNumbers).ReturnValue;
 
                 var cellGroups = BuildCellGroups(boardAsNumbers);
 
@@ -378,7 +375,7 @@ namespace SudokuKata
             return wasChangeMade;
         }
 
-        private static Candidates CalculateCandidatesForCurrentStateOfTheBoard(int[] boardAsNumbers, int allOnes)
+        private static Candidates CalculateCandidatesForCurrentStateOfTheBoard(int[] boardAsNumbers)
         {
             #region Calculate candidates for current state of the board
 
@@ -409,6 +406,7 @@ namespace SudokuKata
                         colidingNumbers = colidingNumbers | rowSiblingMask | colSiblingMask | blockSiblingMask;
                     }
 
+                    var allOnes = (1 << 9) - 1;
                     candidateMasks[i] = allOnes & ~colidingNumbers;
                 }
             }
@@ -438,11 +436,10 @@ namespace SudokuKata
                 singleBitToIndex[1 << i] = i;
             }
 
-            var allOnes = (1 << 9) - 1;
 
             #endregion
 
-            return new LookupStructures(singleBitToIndex, allOnes, maskToOnesCount);
+            return new LookupStructures(singleBitToIndex,  maskToOnesCount);
         }
 
         private static void PrintLineOfEquals()
