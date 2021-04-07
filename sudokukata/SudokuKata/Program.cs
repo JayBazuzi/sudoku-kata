@@ -332,6 +332,18 @@ namespace SudokuKata
             Candidates candidates,
             Dictionary<int, int> maskToOnesCount, Dictionary<int, int> singleBitToIndex, bool wasChangeMade)
         {
+            // TODO: this is where we're headed next time
+            //var singleCandidates = candidates.GetCells().Select(c => c.Possible.Count == 1).FirstOrDefault();
+            //if (singleCandidates != null)
+            //{
+            //    puzzle.SetValue(singleCandidates, singleCandidates.Possible.Single());
+            //    return true;
+            //}
+            //else
+            //{
+            //    return false;
+            //}
+
             var candidateMasks = candidates.Board;
             #region Pick cells with only one candidate left
 
