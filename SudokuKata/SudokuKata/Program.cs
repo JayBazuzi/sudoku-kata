@@ -86,6 +86,7 @@ namespace SudokuKata
                     stepChangeMade = false;
 
                     wasChangeMade = PickCellsWithOnlyOneCandidateRemaining(rng, puzzle, candidateMasks, maskToOnesCount, singleBitToIndex, boardAsNumbers, wasChangeMade);
+                    boardAsNumbers = puzzle.GetBoardAsNumbers();
 
                     #region Try to find a number which can only appear in one place in a row/column/block
 
