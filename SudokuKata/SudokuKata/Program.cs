@@ -66,38 +66,7 @@ namespace SudokuKata
             {
                 wasChangeMade = false;
 
-                #region Calculate candidates for current state of the board
-
-                var candidateMasks = new int[boardAsNumbers.Length];
-
-                for (var i = 0; i < boardAsNumbers.Length; i++)
-                {
-                    if (boardAsNumbers[i] == 0)
-                    {
-                        var row = i / 9;
-                        var col = i % 9;
-                        var blockRow = row / 3;
-                        var blockCol = col / 3;
-
-                        var colidingNumbers = 0;
-                        for (var j = 0; j < 9; j++)
-                        {
-                            var rowSiblingIndex = 9 * row + j;
-                            var colSiblingIndex = 9 * j + col;
-                            var blockSiblingIndex = 9 * (blockRow * 3 + j / 3) + blockCol * 3 + j % 3;
-
-                            var rowSiblingMask = 1 << (boardAsNumbers[rowSiblingIndex] - 1);
-                            var colSiblingMask = 1 << (boardAsNumbers[colSiblingIndex] - 1);
-                            var blockSiblingMask = 1 << (boardAsNumbers[blockSiblingIndex] - 1);
-
-                            colidingNumbers = colidingNumbers | rowSiblingMask | colSiblingMask | blockSiblingMask;
-                        }
-
-                        candidateMasks[i] = allOnes & ~colidingNumbers;
-                    }
-                }
-
-                #endregion
+                var candidateMasks = CalculateCandidatesForCurrentStateOfTheBoard(boardAsNumbers, allOnes);
 
                 #region Build a collection (named cellGroups) which maps cell indices into distinct groups (rows/columns/blocks)
 
@@ -382,6 +351,44 @@ namespace SudokuKata
 
                 PrintBoardChange(wasChangeMade, puzzle);
             }
+        }
+
+        private static int[] CalculateCandidatesForCurrentStateOfTheBoard(int[] boardAsNumbers, int allOnes)
+        {
+            #region Calculate candidates for current state of the board
+
+            var candidateMasks = new int[boardAsNumbers.Length];
+
+            for (var i = 0; i < boardAsNumbers.Length; i++)
+            {
+                if (boardAsNumbers[i] == 0)
+                {
+                    var row = i / 9;
+                    var col = i % 9;
+                    var blockRow = row / 3;
+                    var blockCol = col / 3;
+
+                    var colidingNumbers = 0;
+                    for (var j = 0; j < 9; j++)
+                    {
+                        var rowSiblingIndex = 9 * row + j;
+                        var colSiblingIndex = 9 * j + col;
+                        var blockSiblingIndex = 9 * (blockRow * 3 + j / 3) + blockCol * 3 + j % 3;
+
+                        var rowSiblingMask = 1 << (boardAsNumbers[rowSiblingIndex] - 1);
+                        var colSiblingMask = 1 << (boardAsNumbers[colSiblingIndex] - 1);
+                        var blockSiblingMask = 1 << (boardAsNumbers[blockSiblingIndex] - 1);
+
+                        colidingNumbers = colidingNumbers | rowSiblingMask | colSiblingMask | blockSiblingMask;
+                    }
+
+                    candidateMasks[i] = allOnes & ~colidingNumbers;
+                }
+            }
+
+            #endregion
+
+            return candidateMasks;
         }
 
         private static LookupStructures PrepareLookupStructures()
