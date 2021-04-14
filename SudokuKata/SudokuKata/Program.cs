@@ -357,6 +357,7 @@ namespace SudokuKata
 
                 var row = singleCandidateIndex / 9;
                 var col = singleCandidateIndex % 9;
+                var cell = new Cell(row, col);
 
                 puzzle.SetValue(row, col, 1 + candidate);
                 wasChangeMade = true;
