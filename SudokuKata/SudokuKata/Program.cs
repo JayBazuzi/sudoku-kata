@@ -358,7 +358,7 @@ namespace SudokuKata
 
             Console.WriteLine("({0}, {1}) can only contain {2}.", cell.Row + 1, cell.Col + 1, cell.Value);
 
-            return wasChangeMade;
+            return true;
         }
 
         public static LookupStructures PrepareLookupStructures()
