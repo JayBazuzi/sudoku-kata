@@ -346,7 +346,7 @@ namespace SudokuKata
 
             var candidateMasks = candidates.Board;
 
-            var singleCandidateIndices = candidates.GetCellsWithOnlyOneCandidateRemaining(maskToOnesCount);
+            var singleCandidateIndices = candidates.GetCellsWithOnlyOneCandidateRemaining();
 
             if (singleCandidateIndices.Length > 0)
             {
@@ -368,7 +368,7 @@ namespace SudokuKata
             return wasChangeMade;
         }
 
-        private static LookupStructures PrepareLookupStructures()
+        public static LookupStructures PrepareLookupStructures()
         {
             #region Prepare lookup structures that will be used in further execution
 

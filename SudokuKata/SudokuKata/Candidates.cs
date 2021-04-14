@@ -5,20 +5,22 @@ namespace SudokuKata
 {
     public class Candidates
     {
-        public Candidates(int[] board)
+        static readonly LookupStructures _lookupStructures = Program.PrepareLookupStructures();
+        
+            public Candidates(int[] board)
         {
             Board = board;
         }
 
         public int[] Board { get; private set; }
 
-        public int[] GetCellsWithOnlyOneCandidateRemaining(Dictionary<int, int> maskToOnesCount)
+        public int[] GetCellsWithOnlyOneCandidateRemaining()
         {
             var singleCandidateIndices =
                 Board
                     .Select((mask, index) => new
                     {
-                        CandidatesCount = maskToOnesCount[mask],
+                        CandidatesCount = _lookupStructures._maskToOnesCount[mask],
                         Index = index
                     })
                     .Where(tuple => tuple.CandidatesCount == 1)
