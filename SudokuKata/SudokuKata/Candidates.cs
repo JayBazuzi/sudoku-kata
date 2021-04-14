@@ -21,11 +21,14 @@ namespace SudokuKata
                     .Select((mask, index) => new
                     {
                         CandidatesCount = _lookupStructures._maskToOnesCount[mask],
-                        Index = index
+                        Index = index,
+                        candidateMask = mask,
+                        candidate = _lookupStructures._maskToOnesCount[mask] == 1
+                            ? _lookupStructures._singleBitToIndex[mask]
+                            : 0,
                     })
                     .Where(tuple => tuple.CandidatesCount == 1)
-                    .Select(tuple => tuple.Index)
-                    .Select(Cell.FromIndex)
+                    .Select(tuple => Cell.FromIndex(tuple.Index))
                     .ToArray();
             return singleCandidateIndices;
         }
