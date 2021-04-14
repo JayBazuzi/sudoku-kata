@@ -359,7 +359,6 @@ namespace SudokuKata
                 var col = singleCandidateIndex % 9;
 
                 puzzle.SetValue(row, col, 1 + candidate);
-                candidateMasks[singleCandidateIndex] = 0;
                 wasChangeMade = true;
 
                 Console.WriteLine("({0}, {1}) can only contain {2}.", row + 1, col + 1, candidate + 1);
