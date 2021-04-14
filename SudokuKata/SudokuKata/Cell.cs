@@ -18,5 +18,10 @@
             var cell = new Cell(row, col);
             return cell;
         }
+
+        public int ToIndex()
+        {
+            return Row * 9 + Col;
+        }
     }
 }

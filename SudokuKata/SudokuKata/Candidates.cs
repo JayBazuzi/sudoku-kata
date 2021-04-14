@@ -14,7 +14,7 @@ namespace SudokuKata
 
         public int[] Board { get; private set; }
 
-        public int[] GetCellsWithOnlyOneCandidateRemaining()
+        public Cell[] GetCellsWithOnlyOneCandidateRemaining()
         {
             var singleCandidateIndices =
                 Board
@@ -25,6 +25,7 @@ namespace SudokuKata
                     })
                     .Where(tuple => tuple.CandidatesCount == 1)
                     .Select(tuple => tuple.Index)
+                    .Select(Cell.FromIndex)
                     .ToArray();
             return singleCandidateIndices;
         }

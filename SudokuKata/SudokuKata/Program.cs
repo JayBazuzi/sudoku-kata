@@ -352,10 +352,10 @@ namespace SudokuKata
             {
                 var pickSingleCandidateIndex = rng.Next(singleCandidateIndices.Length);
                 var singleCandidateIndex = singleCandidateIndices[pickSingleCandidateIndex];
-                var candidateMask = candidateMasks[singleCandidateIndex];
+                var candidateMask = candidateMasks[singleCandidateIndex.ToIndex()];
                 var candidate = singleBitToIndex[candidateMask];
 
-                var cell = Cell.FromIndex(singleCandidateIndex);
+                var cell = singleCandidateIndex;
 
                 puzzle.SetValue(cell.Row, cell.Col, 1 + candidate);
                 wasChangeMade = true;
