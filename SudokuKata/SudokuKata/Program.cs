@@ -352,13 +352,11 @@ namespace SudokuKata
             {
                 var pickSingleCandidateIndex = rng.Next(singleCandidateIndices.Length);
                 var cell = singleCandidateIndices[pickSingleCandidateIndex];
-                var candidateMask = candidateMasks[cell.ToIndex()];
-                var candidate = singleBitToIndex[candidateMask];
 
                 puzzle.SetValue(cell.Row, cell.Col, 1 + cell.Value);
                 wasChangeMade = true;
 
-                Console.WriteLine("({0}, {1}) can only contain {2}.", cell.Row + 1, cell.Col + 1, candidate + 1);
+                Console.WriteLine("({0}, {1}) can only contain {2}.", cell.Row + 1, cell.Col + 1, cell.Value + 1);
             }
 
             return wasChangeMade;
