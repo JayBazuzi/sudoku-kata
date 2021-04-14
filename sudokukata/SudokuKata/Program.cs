@@ -332,18 +332,6 @@ namespace SudokuKata
             Candidates candidates,
             Dictionary<int, int> maskToOnesCount, Dictionary<int, int> singleBitToIndex)
         {
-            // TODO: this is where we're headed next time
-            //var singleCandidates = candidates.GetCells().Select(c => c.Possible.Count == 1).FirstOrDefault();
-            //if (singleCandidates != null)
-            //{
-            //    puzzle.SetValue(singleCandidates, singleCandidates.Possible.Single());
-            //    return true;
-            //}
-            //else
-            //{
-            //    return false;
-            //}
-
             var singleCandidateIndices = candidates.GetCellsWithOnlyOneCandidateRemaining();
 
             var skip = singleCandidateIndices.Length == 0 ? 0 : rng.Next(singleCandidateIndices.Length);
