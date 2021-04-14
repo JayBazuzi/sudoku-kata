@@ -28,7 +28,7 @@ namespace SudokuKata
                             : 0,
                     })
                     .Where(tuple => tuple.CandidatesCount == 1)
-                    .Select(tuple => Cell.FromIndex(tuple.Index, tuple.candidate))
+                    .Select(tuple => Cell.FromIndex(tuple.Index, tuple.candidate + 1))
                     .ToArray();
             return singleCandidateIndices;
         }
