@@ -355,9 +355,7 @@ namespace SudokuKata
                 var candidateMask = candidateMasks[singleCandidateIndex];
                 var candidate = singleBitToIndex[candidateMask];
 
-                var row = singleCandidateIndex / 9;
-                var col = singleCandidateIndex % 9;
-                var cell = new Cell(row, col);
+                var cell = CellFromIndex(singleCandidateIndex);
 
                 puzzle.SetValue(cell.Row, cell.Col, 1 + candidate);
                 wasChangeMade = true;
@@ -366,6 +364,14 @@ namespace SudokuKata
             }
 
             return wasChangeMade;
+        }
+
+        private static Cell CellFromIndex(int singleCandidateIndex)
+        {
+            var row = singleCandidateIndex / 9;
+            var col = singleCandidateIndex % 9;
+            var cell = new Cell(row, col);
+            return cell;
         }
 
         public static LookupStructures PrepareLookupStructures()
