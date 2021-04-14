@@ -348,13 +348,15 @@ namespace SudokuKata
 
             var skip = singleCandidateIndices.Length == 0 ? 0 : rng.Next(singleCandidateIndices.Length);
             var cell = singleCandidateIndices.Skip(skip).FirstOrDefault();
-            if (cell != null)
+            if (cell == null)
             {
-                puzzle.SetValue(cell.Row, cell.Col, cell.Value);
-                wasChangeMade = true;
-
-                Console.WriteLine("({0}, {1}) can only contain {2}.", cell.Row + 1, cell.Col + 1, cell.Value);
+                return wasChangeMade;
             }
+
+            puzzle.SetValue(cell.Row, cell.Col, cell.Value);
+            wasChangeMade = true;
+
+            Console.WriteLine("({0}, {1}) can only contain {2}.", cell.Row + 1, cell.Col + 1, cell.Value);
 
             return wasChangeMade;
         }
