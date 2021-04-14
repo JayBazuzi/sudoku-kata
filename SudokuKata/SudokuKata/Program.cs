@@ -348,8 +348,7 @@ namespace SudokuKata
 
             if (singleCandidateIndices.Length > 0)
             {
-                var pickSingleCandidateIndex = rng.Next(singleCandidateIndices.Length);
-                var cell = singleCandidateIndices[pickSingleCandidateIndex];
+                var cell = singleCandidateIndices[rng.Next(singleCandidateIndices.Length)];
 
                 puzzle.SetValue(cell.Row, cell.Col, cell.Value);
                 wasChangeMade = true;
