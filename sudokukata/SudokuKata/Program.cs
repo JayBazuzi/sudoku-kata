@@ -346,7 +346,7 @@ namespace SudokuKata
 
             var candidateMasks = candidates.Board;
 
-            var singleCandidateIndices = GetCellsWithOnlyOneCandidateRemaining(maskToOnesCount, candidateMasks);
+            var singleCandidateIndices = GetCellsWithOnlyOneCandidateRemaining(maskToOnesCount, candidates.Board);
 
             if (singleCandidateIndices.Length > 0)
             {
