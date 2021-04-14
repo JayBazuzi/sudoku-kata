@@ -344,8 +344,6 @@ namespace SudokuKata
             //    return false;
             //}
 
-            var candidateMasks = candidates.Board;
-
             var singleCandidateIndices = candidates.GetCellsWithOnlyOneCandidateRemaining();
 
             if (singleCandidateIndices.Length > 0)
