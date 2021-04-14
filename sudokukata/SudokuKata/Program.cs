@@ -346,7 +346,7 @@ namespace SudokuKata
 
             var candidateMasks = candidates.Board;
 
-            var singleCandidateIndices = GetCellsWithOnlyOneCandidateRemaining(maskToOnesCount, candidates.Board);
+            var singleCandidateIndices = Candidates.GetCellsWithOnlyOneCandidateRemaining(maskToOnesCount, candidates.Board);
 
             if (singleCandidateIndices.Length > 0)
             {
@@ -366,21 +366,6 @@ namespace SudokuKata
             }
 
             return wasChangeMade;
-        }
-
-        private static int[] GetCellsWithOnlyOneCandidateRemaining(Dictionary<int, int> maskToOnesCount, int[] candidateMasks)
-        {
-            var singleCandidateIndices =
-                candidateMasks
-                    .Select((mask, index) => new
-                    {
-                        CandidatesCount = maskToOnesCount[mask],
-                        Index = index
-                    })
-                    .Where(tuple => tuple.CandidatesCount == 1)
-                    .Select(tuple => tuple.Index)
-                    .ToArray();
-            return singleCandidateIndices;
         }
 
         private static LookupStructures PrepareLookupStructures()
