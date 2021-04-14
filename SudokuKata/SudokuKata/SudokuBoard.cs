@@ -109,7 +109,6 @@ namespace SudokuKata
         public Candidates CalculateCandidatesForCurrentStateOfTheBoard()
         {
             var boardAsNumbers = GetBoardAsNumbers();
-            #region Calculate candidates for current state of the board
 
             var candidateMasks = new int[boardAsNumbers.Length];
             var candidates
@@ -142,8 +141,6 @@ namespace SudokuKata
                     candidateMasks[i] = allOnes & ~colidingNumbers;
                 }
             }
-
-            #endregion
 
             return candidates
                 ;
