@@ -12,10 +12,10 @@ namespace SudokuKata
 
         public int[] Board { get; private set; }
 
-        public static int[] GetCellsWithOnlyOneCandidateRemaining(Dictionary<int, int> maskToOnesCount, Candidates candidates)
+        public int[] GetCellsWithOnlyOneCandidateRemaining(Dictionary<int, int> maskToOnesCount)
         {
             var singleCandidateIndices =
-                candidates.Board
+                Board
                     .Select((mask, index) => new
                     {
                         CandidatesCount = maskToOnesCount[mask],
