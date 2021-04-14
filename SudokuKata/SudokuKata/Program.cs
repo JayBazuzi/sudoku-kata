@@ -346,10 +346,10 @@ namespace SudokuKata
 
             var singleCandidateIndices = candidates.GetCellsWithOnlyOneCandidateRemaining();
 
-            if (singleCandidateIndices.Length > 0)
+            var skip = singleCandidateIndices.Length == 0 ? 0 : rng.Next(singleCandidateIndices.Length);
+            var cell = singleCandidateIndices.Skip(skip).FirstOrDefault();
+            if (cell != null)
             {
-                var cell = singleCandidateIndices.Skip(rng.Next(singleCandidateIndices.Length)).FirstOrDefault();
-
                 puzzle.SetValue(cell.Row, cell.Col, cell.Value);
                 wasChangeMade = true;
 
