@@ -11,10 +11,10 @@
             Col = col;
         }
 
-        public static Cell FromIndex(int singleCandidateIndex)
+        public static Cell FromIndex(int index)
         {
-            var row = singleCandidateIndex / 9;
-            var col = singleCandidateIndex % 9;
+            var row = index / 9;
+            var col = index % 9;
             var cell = new Cell(row, col);
             return cell;
         }
