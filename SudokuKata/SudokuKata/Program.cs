@@ -73,7 +73,7 @@ namespace SudokuKata
                 {
                     stepChangeMade = false;
 
-                    wasChangeMade = PickCellsWithOnlyOneCandidateRemaining(rng, puzzle, candidates2, maskToOnesCount, singleBitToIndex, wasChangeMade);
+                    wasChangeMade |= PickCellsWithOnlyOneCandidateRemaining(rng, puzzle, candidates2, maskToOnesCount, singleBitToIndex);
                     boardAsNumbers = puzzle.GetBoardAsNumbers();
 
                     #region Try to find a number which can only appear in one place in a row/column/block
@@ -330,7 +330,7 @@ namespace SudokuKata
 
         private static bool PickCellsWithOnlyOneCandidateRemaining(Random rng, SudokuBoard puzzle,
             Candidates candidates,
-            Dictionary<int, int> maskToOnesCount, Dictionary<int, int> singleBitToIndex, bool wasChangeMade)
+            Dictionary<int, int> maskToOnesCount, Dictionary<int, int> singleBitToIndex)
         {
             // TODO: this is where we're headed next time
             //var singleCandidates = candidates.GetCells().Select(c => c.Possible.Count == 1).FirstOrDefault();
@@ -350,11 +350,10 @@ namespace SudokuKata
             var cell = singleCandidateIndices.Skip(skip).FirstOrDefault();
             if (cell == null)
             {
-                return wasChangeMade;
+                return false;
             }
 
             puzzle.SetValue(cell.Row, cell.Col, cell.Value);
-            wasChangeMade = true;
 
             Console.WriteLine("({0}, {1}) can only contain {2}.", cell.Row + 1, cell.Col + 1, cell.Value);
 
