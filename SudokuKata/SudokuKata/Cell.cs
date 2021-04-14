@@ -10,5 +10,13 @@
             Row = row;
             Col = col;
         }
+
+        public static Cell CellFromIndex(int singleCandidateIndex)
+        {
+            var row = singleCandidateIndex / 9;
+            var col = singleCandidateIndex % 9;
+            var cell = new Cell(row, col);
+            return cell;
+        }
     }
 }
