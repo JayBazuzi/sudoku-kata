@@ -64,7 +64,7 @@ namespace SudokuKata
                 wasChangeMade = false;
 
                 var candidates2 = puzzle.CalculateCandidatesForCurrentStateOfTheBoard();
-                // TODO: Have Candidates return a wrapping object instead of raw ints, so it can hold behaviors and get away from bit manipulation
+                // TODO: Add candidates into the board. Abstract SolvingSolutions 
                 var candidateMasks = candidates2.Board;
 
                 var cellGroups = BuildCellGroups(boardAsNumbers);
