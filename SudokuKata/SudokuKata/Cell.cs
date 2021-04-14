@@ -11,7 +11,7 @@
             Col = col;
         }
 
-        public static Cell CellFromIndex(int singleCandidateIndex)
+        public static Cell FromIndex(int singleCandidateIndex)
         {
             var row = singleCandidateIndex / 9;
             var col = singleCandidateIndex % 9;

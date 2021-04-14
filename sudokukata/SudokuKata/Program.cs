@@ -355,7 +355,7 @@ namespace SudokuKata
                 var candidateMask = candidateMasks[singleCandidateIndex];
                 var candidate = singleBitToIndex[candidateMask];
 
-                var cell = Cell.CellFromIndex(singleCandidateIndex);
+                var cell = Cell.FromIndex(singleCandidateIndex);
 
                 puzzle.SetValue(cell.Row, cell.Col, 1 + candidate);
                 wasChangeMade = true;
