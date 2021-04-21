@@ -51,8 +51,6 @@ namespace SudokuKata
         private static void SolvePuzzle(Random rng, SudokuBoard puzzle,
             SudokuBoard solvedBoard)
         {
-            var boardAsNumbers = puzzle.GetBoardAsNumbers();
-
             var wasChangeMade = true;
             while (wasChangeMade)
             {
@@ -62,7 +60,7 @@ namespace SudokuKata
                 // TODO: Add candidates into the board. Abstract SolvingSolutions 
                 var candidateMasks = candidates2.Board;
 
-                var cellGroups = BuildCellGroups(boardAsNumbers);
+                var cellGroups = BuildCellGroups(puzzle.GetBoardAsNumbers());
 
                 var stepChangeMade = true;
                 while (stepChangeMade)
