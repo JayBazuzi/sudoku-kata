@@ -55,7 +55,6 @@ namespace SudokuKata
             var lookupStructures = PrepareLookupStructures();
 
             var boardAsNumbers = puzzle.GetBoardAsNumbers();
-            var singleBitToIndex = lookupStructures._singleBitToIndex;
             var maskToOnesCount = lookupStructures._maskToOnesCount;
 
             var wasChangeMade = true;
