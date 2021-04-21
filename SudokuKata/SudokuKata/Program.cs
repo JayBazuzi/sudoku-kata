@@ -119,7 +119,7 @@ namespace SudokuKata
             bool stepChangeMade = false;
             if (!groups.Any())
             {
-                return stepChangeMade;
+                return false;
             }
 
             {
