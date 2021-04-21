@@ -72,10 +72,10 @@ namespace SudokuKata
                     wasChangeMade = wasChangeMade || TryToFindANumberWhichCanOnlyAppearInOnePlaceInARowColumnBlock(rng, puzzle);
 
                     stepChangeMade =
-                        TryToFindPairsOfDigitsInTheSameRowColumnBlockAndRemoveThemFromOtherCollidingCells(wasChangeMade,
+                        TryToFindPairsOfDigitsInTheSameRowColumnBlockAndRemoveThemFromOtherCollidingCells(wasChangeMade, puzzle,
                             candidateMasks, cellGroups);
 
-                    stepChangeMade = IsTryToFindGruopsOfDigitsApplesauce(wasChangeMade, stepChangeMade,
+                    stepChangeMade = IsTryToFindGruopsOfDigitsApplesauce(wasChangeMade, puzzle, stepChangeMade,
                         cellGroups, puzzle.GetBoardAsNumbers(), candidateMasks);
                 }
 
@@ -88,7 +88,7 @@ namespace SudokuKata
         }
 
         private static bool TryToFindPairsOfDigitsInTheSameRowColumnBlockAndRemoveThemFromOtherCollidingCells(
-            bool wasChangeMade, int[] candidateMasks,
+            bool wasChangeMade, SudokuBoard sudokuBoard, int[] candidateMasks,
             List<IGrouping<int, SudokuConstraints_OrSomething>> cellGroups)
         {
             var maskToOnesCount = PrepareLookupStructures()._maskToOnesCount;
@@ -431,7 +431,8 @@ namespace SudokuKata
             return puzzle;
         }
 
-        private static bool IsTryToFindGruopsOfDigitsApplesauce(bool changeMade, bool stepChangeMade, List<IGrouping<int, SudokuConstraints_OrSomething>> cellGroups, int[] state,
+        private static bool IsTryToFindGruopsOfDigitsApplesauce(bool changeMade, SudokuBoard sudokuBoard,
+            bool stepChangeMade, List<IGrouping<int, SudokuConstraints_OrSomething>> cellGroups, int[] state,
             int[] candidateMasks)
         {
             var maskToOnesCount = PrepareLookupStructures()._maskToOnesCount;
