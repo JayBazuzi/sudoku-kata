@@ -349,8 +349,7 @@ namespace SudokuKata
 
         private static bool PickCellsWithOnlyOneCandidateRemaining(Random rng, SudokuBoard puzzle)
         {
-            var candidates = puzzle.GetCandidates();
-            var singleCandidateIndices = candidates.GetCellsWithOnlyOneCandidateRemaining();
+            var singleCandidateIndices = puzzle.GetCandidates().GetCellsWithOnlyOneCandidateRemaining();
 
             var skip = singleCandidateIndices.Length == 0 ? 0 : rng.Next(singleCandidateIndices.Length);
             var cell = singleCandidateIndices.Skip(skip).FirstOrDefault();
