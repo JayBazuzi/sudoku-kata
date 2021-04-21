@@ -71,8 +71,6 @@ namespace SudokuKata
                 var stepChangeMade = true;
                 while (stepChangeMade)
                 {
-                    stepChangeMade = false;
-
                     wasChangeMade |= PickCellsWithOnlyOneCandidateRemaining(rng, puzzle, candidates2);
                     boardAsNumbers = puzzle.GetBoardAsNumbers();
 
