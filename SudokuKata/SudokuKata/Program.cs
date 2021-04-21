@@ -77,8 +77,7 @@ namespace SudokuKata
                 }
 
                 wasChangeMade = LookIfBoardHasMultipleSolutions(rng, wasChangeMade, candidateMasks,
-                    solvedBoard.GetBoardAsNumbers(),
-                    puzzle.GetBoardAsNumbers(), puzzle);
+                    solvedBoard.GetBoardAsNumbers(), puzzle);
 
                 PrintBoardChange(wasChangeMade, puzzle);
             }
@@ -504,7 +503,7 @@ namespace SudokuKata
         }
 
         private static bool LookIfBoardHasMultipleSolutions(Random rng, bool changeMade, int[] candidateMasks,
-            int[] finalState, int[] state2,
+            int[] finalState,
             SudokuBoard sudokuBoard)
         {
             var state = sudokuBoard.GetBoardAsNumbers();
