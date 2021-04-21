@@ -108,6 +108,11 @@ namespace SudokuKata
 
         public Candidates CalculateCandidatesForCurrentStateOfTheBoard2()
         {
+            return CalculateCandidatesForCurrentStateOfTheBoard();
+        }
+
+        private Candidates CalculateCandidatesForCurrentStateOfTheBoard()
+        {
             var boardAsNumbers = GetBoardAsNumbers();
 
             var candidateMasks = new int[boardAsNumbers.Length];
