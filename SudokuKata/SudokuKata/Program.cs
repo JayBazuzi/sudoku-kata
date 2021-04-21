@@ -197,7 +197,6 @@ namespace SudokuKata
             bool wasChangeMade = false;
             var candidateMasks = puzzle.GetCandidates().Board;
             var boardAsNumbers = puzzle.GetBoardAsNumbers();
-            if (!wasChangeMade)
             {
                 var groupDescriptions = new List<string>();
                 var candidateRowIndices = new List<int>();
