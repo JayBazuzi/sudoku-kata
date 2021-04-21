@@ -106,7 +106,7 @@ namespace SudokuKata
             return FromNumbers(GetBoardAsNumbers());
         }
 
-        public Candidates GetCandidates()
+        public Candidates GetCandidates(bool forceRecalculation = true)
         {
             return CalculateCandidatesForCurrentStateOfTheBoard();
         }
