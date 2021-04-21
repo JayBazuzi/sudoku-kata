@@ -8,7 +8,7 @@ namespace SudokuKata
         public int Mask { get; set; }
         public int Discriminator { get; set; }
         public string Description { get; set; }
-        public IGrouping<int, Applesauce1> Cells { get; set; }
+        public IGrouping<int, SudokuConstraints_OrSomething> Cells { get; set; }
 
         public override string ToString()
         {
@@ -22,7 +22,7 @@ namespace SudokuKata
             return type != null && EqualityComparer<int>.Default.Equals(type.Mask, Mask) &&
                    EqualityComparer<int>.Default.Equals(type.Discriminator, Discriminator) &&
                    EqualityComparer<string>.Default.Equals(type.Description, Description) &&
-                   EqualityComparer<IGrouping<int, Applesauce1>>.Default.Equals(type.Cells, Cells);
+                   EqualityComparer<IGrouping<int, SudokuConstraints_OrSomething>>.Default.Equals(type.Cells, Cells);
         }
 
         public override int GetHashCode()
@@ -31,7 +31,7 @@ namespace SudokuKata
             num = -1521134295 * num + EqualityComparer<int>.Default.GetHashCode(Mask);
             num = -1521134295 * num + EqualityComparer<int>.Default.GetHashCode(Discriminator);
             num = -1521134295 * num + EqualityComparer<string>.Default.GetHashCode(Description);
-            return -1521134295 * num + EqualityComparer<IGrouping<int, Applesauce1>>.Default.GetHashCode(Cells);
+            return -1521134295 * num + EqualityComparer<IGrouping<int, SudokuConstraints_OrSomething>>.Default.GetHashCode(Cells);
         }
     }
 }

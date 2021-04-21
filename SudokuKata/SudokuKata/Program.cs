@@ -92,7 +92,7 @@ namespace SudokuKata
 
         private static bool TryToFindPairsOfDigitsInTheSameRowColumnBlockAndRemoveThemFromOtherCollidingCells(
             bool wasChangeMade, int[] candidateMasks,
-            List<IGrouping<int, Applesauce1>> cellGroups)
+            List<IGrouping<int, SudokuConstraints_OrSomething>> cellGroups)
         {
             var maskToOnesCount = PrepareLookupStructures()._maskToOnesCount;
             if (wasChangeMade)
@@ -295,12 +295,12 @@ namespace SudokuKata
             return wasChangeMade;
         }
 
-        private static List<IGrouping<int, Applesauce1>> BuildCellGroups(int[] boardAsNumbers)
+        private static List<IGrouping<int, SudokuConstraints_OrSomething>> BuildCellGroups(int[] boardAsNumbers)
         {
             #region Build a collection (named cellGroups) which maps cell indices into distinct groups (rows/columns/blocks)
 
             var rowsIndices = boardAsNumbers
-                .Select((value, index) => new Applesauce1
+                .Select((value, index) => new SudokuConstraints_OrSomething
                 {
                     Discriminator = index / 9, Description = $"row #{index / 9 + 1}", Index = index,
                     Row = index / 9,
@@ -309,7 +309,7 @@ namespace SudokuKata
                 .GroupBy(tuple => tuple.Discriminator);
 
             var columnIndices = boardAsNumbers
-                .Select((value, index) => new Applesauce1
+                .Select((value, index) => new SudokuConstraints_OrSomething
                 {
                     Discriminator = 9 + index % 9, Description = $"column #{index % 9 + 1}", Index = index,
                     Row = index / 9,
@@ -324,7 +324,7 @@ namespace SudokuKata
                     Column = index % 9,
                     Index = index
                 })
-                .Select(tuple => new Applesauce1
+                .Select(tuple => new SudokuConstraints_OrSomething
                 {
                     Discriminator = 18 + 3 * (tuple.Row / 3) + tuple.Column / 3,
                     Description = $"block ({tuple.Row / 3 + 1}, {tuple.Column / 3 + 1})", Index = tuple.Index,
@@ -434,7 +434,7 @@ namespace SudokuKata
             return puzzle;
         }
 
-        private static bool IsTryToFindGruopsOfDigitsApplesauce(bool changeMade, bool stepChangeMade, List<IGrouping<int, Applesauce1>> cellGroups, int[] state,
+        private static bool IsTryToFindGruopsOfDigitsApplesauce(bool changeMade, bool stepChangeMade, List<IGrouping<int, SudokuConstraints_OrSomething>> cellGroups, int[] state,
             int[] candidateMasks)
         {
             var maskToOnesCount = PrepareLookupStructures()._maskToOnesCount;

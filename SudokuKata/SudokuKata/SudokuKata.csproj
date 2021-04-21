@@ -47,7 +47,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Applesauce1.cs" />
+    <Compile Include="SudokuConstraints_OrSomething.cs" />
     <Compile Include="Applesauce2.cs" />
     <Compile Include="Applesauce3.cs" />
     <Compile Include="Candidates.cs" />

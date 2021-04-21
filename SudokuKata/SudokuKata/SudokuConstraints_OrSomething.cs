@@ -2,7 +2,7 @@
 
 namespace SudokuKata
 {
-    public class Applesauce1
+    public class SudokuConstraints_OrSomething
     {
         public int Discriminator { get; set; }
         public string Description { get; set; }
@@ -18,7 +18,7 @@ namespace SudokuKata
 
         public override bool Equals(object value)
         {
-            var type = value as Applesauce1;
+            var type = value as SudokuConstraints_OrSomething;
             return type != null && EqualityComparer<int>.Default.Equals(type.Discriminator, Discriminator) &&
                    EqualityComparer<string>.Default.Equals(type.Description, Description) &&
                    EqualityComparer<int>.Default.Equals(type.Index, Index) &&
