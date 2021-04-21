@@ -23,7 +23,8 @@ namespace SudokuKata
             return type != null && EqualityComparer<int>.Default.Equals(type.Mask, Mask) &&
                    EqualityComparer<string>.Default.Equals(type.Description, Description) &&
                    EqualityComparer<IGrouping<int, SudokuConstraints_OrSomething>>.Default.Equals(type.Cells, Cells) &&
-                   EqualityComparer<List<SudokuConstraints_OrSomething>>.Default.Equals(type.CellsWithMask, CellsWithMask) &&
+                   EqualityComparer<List<SudokuConstraints_OrSomething>>.Default.Equals(type.CellsWithMask,
+                       CellsWithMask) &&
                    EqualityComparer<int>.Default.Equals(type.CleanableCellsCount, CleanableCellsCount);
         }
 
@@ -32,8 +33,10 @@ namespace SudokuKata
             var num = 0x7a2f0b42;
             num = -1521134295 * num + EqualityComparer<int>.Default.GetHashCode(Mask);
             num = -1521134295 * num + EqualityComparer<string>.Default.GetHashCode(Description);
-            num = -1521134295 * num + EqualityComparer<IGrouping<int, SudokuConstraints_OrSomething>>.Default.GetHashCode(Cells);
-            num = -1521134295 * num + EqualityComparer<List<SudokuConstraints_OrSomething>>.Default.GetHashCode(CellsWithMask);
+            num = -1521134295 * num +
+                  EqualityComparer<IGrouping<int, SudokuConstraints_OrSomething>>.Default.GetHashCode(Cells);
+            num = -1521134295 * num +
+                  EqualityComparer<List<SudokuConstraints_OrSomething>>.Default.GetHashCode(CellsWithMask);
             return -1521134295 * num + EqualityComparer<int>.Default.GetHashCode(CleanableCellsCount);
         }
     }

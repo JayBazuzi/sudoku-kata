@@ -31,7 +31,8 @@ namespace SudokuKata
             num = -1521134295 * num + EqualityComparer<int>.Default.GetHashCode(Mask);
             num = -1521134295 * num + EqualityComparer<int>.Default.GetHashCode(Discriminator);
             num = -1521134295 * num + EqualityComparer<string>.Default.GetHashCode(Description);
-            return -1521134295 * num + EqualityComparer<IGrouping<int, SudokuConstraints_OrSomething>>.Default.GetHashCode(Cells);
+            return -1521134295 * num +
+                   EqualityComparer<IGrouping<int, SudokuConstraints_OrSomething>>.Default.GetHashCode(Cells);
         }
     }
 }

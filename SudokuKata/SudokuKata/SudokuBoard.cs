@@ -114,7 +114,7 @@ namespace SudokuKata
             {
                 candidates = CalculateCandidatesForCurrentStateOfTheBoard();
             }
-            
+
 
             return candidates;
         }
@@ -159,7 +159,8 @@ namespace SudokuKata
 
         public List<IGrouping<int, SudokuConstraints_OrSomething>> BuildCellGroups()
         {
-            var boardAsNumbers = this.GetBoardAsNumbers();
+            var boardAsNumbers = GetBoardAsNumbers();
+
             #region Build a collection (named cellGroups) which maps cell indices into distinct groups (rows/columns/blocks)
 
             var rowsIndices = boardAsNumbers

@@ -66,10 +66,12 @@ namespace SudokuKata
                 {
                     wasChangeMade |= PickCellsWithOnlyOneCandidateRemaining(rng, puzzle);
 
-                    wasChangeMade = wasChangeMade || TryToFindANumberWhichCanOnlyAppearInOnePlaceInARowColumnBlock(rng, puzzle);
+                    wasChangeMade = wasChangeMade ||
+                                    TryToFindANumberWhichCanOnlyAppearInOnePlaceInARowColumnBlock(rng, puzzle);
 
                     stepChangeMade =
-                        TryToFindPairsOfDigitsInTheSameRowColumnBlockAndRemoveThemFromOtherCollidingCells(wasChangeMade, puzzle);
+                        TryToFindPairsOfDigitsInTheSameRowColumnBlockAndRemoveThemFromOtherCollidingCells(wasChangeMade,
+                            puzzle);
 
                     stepChangeMade = IsTryToFindGruopsOfDigitsApplesauce(wasChangeMade, puzzle, stepChangeMade);
                 }
@@ -185,9 +187,10 @@ namespace SudokuKata
             return stepChangeMade;
         }
 
-        private static bool TryToFindANumberWhichCanOnlyAppearInOnePlaceInARowColumnBlock(Random rng, SudokuBoard puzzle)
+        private static bool TryToFindANumberWhichCanOnlyAppearInOnePlaceInARowColumnBlock(Random rng,
+            SudokuBoard puzzle)
         {
-            bool wasChangeMade = false;
+            var wasChangeMade = false;
             var candidateMasks = puzzle.GetCandidates().Board;
             var boardAsNumbers = puzzle.GetBoardAsNumbers();
             var groupDescriptions = new List<string>();
@@ -390,6 +393,7 @@ namespace SudokuKata
             var state = sudokuBoard.GetBoardAsNumbers();
             var candidateMasks = sudokuBoard.GetCandidates().Board;
             var maskToOnesCount = PrepareLookupStructures()._maskToOnesCount;
+
             #region Try to find groups of digits of size N which only appear in N cells within row/column/block
 
             // When a set of N digits only appears in N cells within row/column/block, then no other digit can appear in the same set of cells
@@ -499,7 +503,8 @@ namespace SudokuKata
             return stepChangeMade;
         }
 
-        private static bool LookIfBoardHasMultipleSolutions(Random rng, bool changeMade, int[] candidateMasks, int[] finalState, int[] state,
+        private static bool LookIfBoardHasMultipleSolutions(Random rng, bool changeMade, int[] candidateMasks,
+            int[] finalState, int[] state,
             SudokuBoard sudokuBoard)
         {
             var maskToOnesCount = PrepareLookupStructures()._maskToOnesCount;
