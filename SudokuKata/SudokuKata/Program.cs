@@ -73,7 +73,7 @@ namespace SudokuKata
                     wasChangeMade |= PickCellsWithOnlyOneCandidateRemaining(rng, puzzle);
                     boardAsNumbers = puzzle.GetBoardAsNumbers();
 
-                    wasChangeMade = TryToFindANumberWhichCanOnlyAppearInOnePlaceInARowColumnBlock(rng, puzzle,
+                    wasChangeMade |= TryToFindANumberWhichCanOnlyAppearInOnePlaceInARowColumnBlock(rng, puzzle,
                         wasChangeMade);
 
                     stepChangeMade =
