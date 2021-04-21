@@ -197,8 +197,6 @@ namespace SudokuKata
             SudokuBoard puzzle,
             bool wasChangeMade, int[] candidateMasks, int[] boardAsNumbers)
         {
-            #region Try to find a number which can only appear in one place in a row/column/block
-
             if (!wasChangeMade)
             {
                 var groupDescriptions = new List<string>();
@@ -296,8 +294,6 @@ namespace SudokuKata
                     Console.WriteLine(message);
                 }
             }
-
-            #endregion
 
             return wasChangeMade;
         }
