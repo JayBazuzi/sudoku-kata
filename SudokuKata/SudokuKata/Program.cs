@@ -38,35 +38,36 @@ namespace SudokuKata
         private static void SolvePuzzle(Random rng, SudokuBoard puzzle,
             SudokuBoard solvedBoard)
         {
-            var wasChangeMade = true;
-            while (wasChangeMade)
+            var changesMadeStates = new ChangesMadeStates();
+
+            changesMadeStates.wasChangeMade = true;
+            while (changesMadeStates.wasChangeMade)
             {
-                wasChangeMade = false;
+                changesMadeStates.wasChangeMade = false;
 
                 var candidates2 = puzzle.GetCandidates(true);
                 // TODO: Add candidates into the board. Abstract SolvingSolutions 
                 var candidateMasks = candidates2.Board;
 
-
                 var stepChangeMade = true;
                 while (stepChangeMade)
                 {
-                    wasChangeMade |= PickCellsWithOnlyOneCandidateRemaining(rng, puzzle);
+                    changesMadeStates.wasChangeMade |= PickCellsWithOnlyOneCandidateRemaining(rng, puzzle);
 
-                    wasChangeMade = wasChangeMade ||
+                    changesMadeStates.wasChangeMade = changesMadeStates.wasChangeMade ||
                                     TryToFindANumberWhichCanOnlyAppearInOnePlaceInARowColumnBlock(rng, puzzle);
 
                     stepChangeMade =
-                        TryToFindPairsOfDigitsInTheSameRowColumnBlockAndRemoveThemFromOtherCollidingCells(wasChangeMade,
+                        TryToFindPairsOfDigitsInTheSameRowColumnBlockAndRemoveThemFromOtherCollidingCells(changesMadeStates.wasChangeMade,
                             puzzle);
 
-                    stepChangeMade = IsTryToFindGruopsOfDigitsApplesauce(wasChangeMade, puzzle, stepChangeMade);
+                    stepChangeMade = IsTryToFindGruopsOfDigitsApplesauce(changesMadeStates.wasChangeMade, puzzle, stepChangeMade);
                 }
 
-                wasChangeMade = LookIfBoardHasMultipleSolutions(rng, wasChangeMade, candidateMasks,
+                changesMadeStates.wasChangeMade = LookIfBoardHasMultipleSolutions(rng, changesMadeStates.wasChangeMade, candidateMasks,
                     solvedBoard.GetBoardAsNumbers(), puzzle);
 
-                PrintBoardChange(wasChangeMade, puzzle);
+                PrintBoardChange(changesMadeStates.wasChangeMade, puzzle);
             }
         }
 

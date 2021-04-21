@@ -2,7 +2,7 @@
 {
     class ChangesMadeStates
     {
-        public bool CellChange;
-        public bool PossibilityChange;
+        //public bool stepChangeMade; // CellChange;
+        public bool wasChangeMade; // PossibilityChange;
     }
 }
