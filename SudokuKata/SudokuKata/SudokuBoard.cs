@@ -109,7 +109,12 @@ namespace SudokuKata
 
         public Candidates GetCandidates(bool forceRecalculation = true)
         {
-            candidates = CalculateCandidatesForCurrentStateOfTheBoard();
+            if (forceRecalculation || candidates == null)
+            {
+                candidates = CalculateCandidatesForCurrentStateOfTheBoard();
+            }
+            
+
             return candidates;
         }
 
