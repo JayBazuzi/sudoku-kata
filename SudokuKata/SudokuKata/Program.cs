@@ -72,8 +72,7 @@ namespace SudokuKata
                     stepChangeMade =
                         TryToFindPairsOfDigitsInTheSameRowColumnBlockAndRemoveThemFromOtherCollidingCells(wasChangeMade, puzzle);
 
-                    stepChangeMade = IsTryToFindGruopsOfDigitsApplesauce(wasChangeMade, puzzle, stepChangeMade,
-                        cellGroups);
+                    stepChangeMade = IsTryToFindGruopsOfDigitsApplesauce(wasChangeMade, puzzle, stepChangeMade);
                 }
 
                 wasChangeMade = LookIfBoardHasMultipleSolutions(rng, wasChangeMade, candidateMasks,
@@ -385,7 +384,7 @@ namespace SudokuKata
         }
 
         private static bool IsTryToFindGruopsOfDigitsApplesauce(bool changeMade, SudokuBoard sudokuBoard,
-            bool stepChangeMade, List<IGrouping<int, SudokuConstraints_OrSomething>> cellGroups2)
+            bool stepChangeMade)
         {
             var cellGroups = sudokuBoard.BuildCellGroups();
 
