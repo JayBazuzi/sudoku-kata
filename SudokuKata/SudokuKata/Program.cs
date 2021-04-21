@@ -96,7 +96,7 @@ namespace SudokuKata
 
             if (wasChangeMade)
             {
-                return stepChangeMade;
+                return false;
             }
 
             IEnumerable<int> twoDigitMasks =
