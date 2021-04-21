@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using ApprovalUtilities.Utilities;
 
 namespace SudokuKata
 {
@@ -11,7 +10,7 @@ namespace SudokuKata
         public Dictionary<int, int> _maskToOnesCount;
         public Dictionary<int, int> _singleBitToIndex;
 
-        public LookupStructures(Dictionary<int, int> singleBitToIndex, 
+        public LookupStructures(Dictionary<int, int> singleBitToIndex,
             Dictionary<int, int> maskToOnesCount)
         {
             _singleBitToIndex = singleBitToIndex;
@@ -74,9 +73,12 @@ namespace SudokuKata
                     wasChangeMade |= PickCellsWithOnlyOneCandidateRemaining(rng, puzzle, candidates2);
                     boardAsNumbers = puzzle.GetBoardAsNumbers();
 
-                    wasChangeMade = TryToFindANumberWhichCanOnlyAppearInOnePlaceInARowColumnBlock(rng, puzzle, wasChangeMade, candidateMasks, boardAsNumbers);
+                    wasChangeMade = TryToFindANumberWhichCanOnlyAppearInOnePlaceInARowColumnBlock(rng, puzzle,
+                        wasChangeMade, candidateMasks, boardAsNumbers);
 
-                    stepChangeMade = TryToFindPairsOfDigitsInTheSameRowColumnBlockAndRemoveThemFromOtherCollidingCells(wasChangeMade, candidateMasks, maskToOnesCount, cellGroups);
+                    stepChangeMade =
+                        TryToFindPairsOfDigitsInTheSameRowColumnBlockAndRemoveThemFromOtherCollidingCells(wasChangeMade,
+                            candidateMasks, maskToOnesCount, cellGroups);
 
                     stepChangeMade = IsTryToFindGruopsOfDigitsApplesauce(wasChangeMade, stepChangeMade, maskToOnesCount,
                         cellGroups, boardAsNumbers, candidateMasks);
@@ -90,7 +92,9 @@ namespace SudokuKata
             }
         }
 
-        private static bool TryToFindPairsOfDigitsInTheSameRowColumnBlockAndRemoveThemFromOtherCollidingCells(bool wasChangeMade, int[] candidateMasks, Dictionary<int, int> maskToOnesCount, List<IGrouping<int, Applesauce1>> cellGroups)
+        private static bool TryToFindPairsOfDigitsInTheSameRowColumnBlockAndRemoveThemFromOtherCollidingCells(
+            bool wasChangeMade, int[] candidateMasks, Dictionary<int, int> maskToOnesCount,
+            List<IGrouping<int, Applesauce1>> cellGroups)
         {
             if (wasChangeMade)
             {
@@ -104,15 +108,15 @@ namespace SudokuKata
                 twoDigitMasks
                     .SelectMany(mask =>
                         cellGroups
-                            .Where(@group => @group.Count(tuple => candidateMasks[tuple.Index] == mask) == 2)
-                            .Where(@group => @group.Any(tuple =>
+                            .Where(group => group.Count(tuple => candidateMasks[tuple.Index] == mask) == 2)
+                            .Where(group => group.Any(tuple =>
                                 candidateMasks[tuple.Index] != mask &&
                                 (candidateMasks[tuple.Index] & mask) > 0))
-                            .Select(@group => new Applesauce2
+                            .Select(group => new Applesauce2
                             {
-                                Mask = mask, Discriminator = @group.Key,
-                                Description = @group.First().Description,
-                                Cells = @group
+                                Mask = mask, Discriminator = group.Key,
+                                Description = group.First().Description,
+                                Cells = group
                             }))
                     .ToList();
 
@@ -121,20 +125,20 @@ namespace SudokuKata
                 return false;
             }
 
-            bool stepChangeMade = false;
-            foreach (var @group in groups)
+            var stepChangeMade = false;
+            foreach (var group in groups)
             {
                 var cells =
-                    @group.Cells
+                    group.Cells
                         .Where(
                             cell =>
-                                candidateMasks[cell.Index] != @group.Mask &&
-                                (candidateMasks[cell.Index] & @group.Mask) > 0)
+                                candidateMasks[cell.Index] != group.Mask &&
+                                (candidateMasks[cell.Index] & group.Mask) > 0)
                         .ToList();
 
                 var maskCells =
-                    @group.Cells
-                        .Where(cell => candidateMasks[cell.Index] == @group.Mask)
+                    group.Cells
+                        .Where(cell => candidateMasks[cell.Index] == group.Mask)
                         .ToArray();
 
 
@@ -142,7 +146,7 @@ namespace SudokuKata
                 {
                     var upper = 0;
                     var lower = 0;
-                    var temp = @group.Mask;
+                    var temp = group.Mask;
 
                     var value = 1;
                     while (temp > 0)
@@ -158,11 +162,11 @@ namespace SudokuKata
                     }
 
                     Console.WriteLine(
-                        $"Values {lower} and {upper} in {@group.Description} are in cells ({maskCells[0].Row + 1}, {maskCells[0].Column + 1}) and ({maskCells[1].Row + 1}, {maskCells[1].Column + 1}).");
+                        $"Values {lower} and {upper} in {group.Description} are in cells ({maskCells[0].Row + 1}, {maskCells[0].Column + 1}) and ({maskCells[1].Row + 1}, {maskCells[1].Column + 1}).");
 
                     foreach (var cell in cells)
                     {
-                        var maskToRemove = candidateMasks[cell.Index] & @group.Mask;
+                        var maskToRemove = candidateMasks[cell.Index] & group.Mask;
                         var valuesToRemove = new List<int>();
                         var curValue = 1;
                         while (maskToRemove > 0)
@@ -180,7 +184,7 @@ namespace SudokuKata
                         Console.WriteLine(
                             $"{valuesReport} cannot appear in ({cell.Row + 1}, {cell.Column + 1}).");
 
-                        candidateMasks[cell.Index] &= ~@group.Mask;
+                        candidateMasks[cell.Index] &= ~group.Mask;
                         stepChangeMade = true;
                     }
                 }
@@ -189,7 +193,8 @@ namespace SudokuKata
             return stepChangeMade;
         }
 
-        private static bool TryToFindANumberWhichCanOnlyAppearInOnePlaceInARowColumnBlock(Random rng, SudokuBoard puzzle,
+        private static bool TryToFindANumberWhichCanOnlyAppearInOnePlaceInARowColumnBlock(Random rng,
+            SudokuBoard puzzle,
             bool wasChangeMade, int[] candidateMasks, int[] boardAsNumbers)
         {
             #region Try to find a number which can only appear in one place in a row/column/block
@@ -353,14 +358,12 @@ namespace SudokuKata
             {
                 return false;
             }
-            else
-            {
-                puzzle.SetValue(cell.Row, cell.Col, cell.Value);
 
-                Console.WriteLine("({0}, {1}) can only contain {2}.", cell.Row + 1, cell.Col + 1, cell.Value);
+            puzzle.SetValue(cell.Row, cell.Col, cell.Value);
 
-                return true;
-            }
+            Console.WriteLine("({0}, {1}) can only contain {2}.", cell.Row + 1, cell.Col + 1, cell.Value);
+
+            return true;
         }
 
         public static LookupStructures PrepareLookupStructures()
@@ -382,10 +385,9 @@ namespace SudokuKata
                 singleBitToIndex[1 << i] = i;
             }
 
-
             #endregion
 
-            return new LookupStructures(singleBitToIndex,  maskToOnesCount);
+            return new LookupStructures(singleBitToIndex, maskToOnesCount);
         }
 
         private static void PrintLineOfEquals()
@@ -408,7 +410,7 @@ namespace SudokuKata
             var removedPerBlock = new int[3, 3];
             var positions = Enumerable.Range(0, 9 * 9).ToArray();
 
-            int removedPosition = 0;
+            var removedPosition = 0;
 
             while (removedPosition < 9 * 9 - remainingDigits)
             {

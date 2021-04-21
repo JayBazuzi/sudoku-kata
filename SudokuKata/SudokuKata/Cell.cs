@@ -2,8 +2,8 @@
 {
     public class Cell
     {
-        public readonly int Row;
         public readonly int Col;
+        public readonly int Row;
         public readonly int Value;
 
         public Cell(int row, int col, int value)

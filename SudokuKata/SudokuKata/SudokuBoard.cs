@@ -103,7 +103,7 @@ namespace SudokuKata
 
         public SudokuBoard Clone()
         {
-            return SudokuBoard.FromNumbers(GetBoardAsNumbers());
+            return FromNumbers(GetBoardAsNumbers());
         }
 
         public Candidates CalculateCandidatesForCurrentStateOfTheBoard2()

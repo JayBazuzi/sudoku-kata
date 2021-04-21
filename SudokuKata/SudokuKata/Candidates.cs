@@ -1,18 +1,17 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 
 namespace SudokuKata
 {
     public class Candidates
     {
-        static readonly LookupStructures _lookupStructures = Program.PrepareLookupStructures();
-        
-            public Candidates(int[] board)
+        private static readonly LookupStructures _lookupStructures = Program.PrepareLookupStructures();
+
+        public Candidates(int[] board)
         {
             Board = board;
         }
 
-        public int[] Board { get; private set; }
+        public int[] Board { get; }
 
         public Cell[] GetCellsWithOnlyOneCandidateRemaining()
         {
@@ -21,14 +20,13 @@ namespace SudokuKata
                 {
                     CandidatesCount = _lookupStructures._maskToOnesCount[mask],
                     Index = index,
-                    candidateMask = mask,
+                    candidateMask = mask
                 })
                 .Where(tuple => tuple.CandidatesCount == 1)
                 .Select(tuple => new
                 {
-                    Index = tuple.Index,
+                    tuple.Index,
                     candidate = _lookupStructures._singleBitToIndex[tuple.candidateMask]
-                    ,
                 })
                 .Select(tuple => Cell.FromIndex(tuple.Index, tuple.candidate + 1))
                 .ToArray();
