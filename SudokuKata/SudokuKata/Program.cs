@@ -92,8 +92,6 @@ namespace SudokuKata
 
         private static bool TryToFindPairsOfDigitsInTheSameRowColumnBlockAndRemoveThemFromOtherCollidingCells(bool wasChangeMade, int[] candidateMasks, Dictionary<int, int> maskToOnesCount, List<IGrouping<int, Applesauce1>> cellGroups)
         {
-            bool stepChangeMade = false;
-
             if (wasChangeMade)
             {
                 return false;
@@ -118,6 +116,7 @@ namespace SudokuKata
                             }))
                     .ToList();
 
+            bool stepChangeMade = false;
             if (groups.Any())
             {
                 foreach (var @group in groups)
