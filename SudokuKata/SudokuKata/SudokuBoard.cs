@@ -106,7 +106,7 @@ namespace SudokuKata
             return SudokuBoard.FromNumbers(GetBoardAsNumbers());
         }
 
-        public Candidates CalculateCandidatesForCurrentStateOfTheBoard()
+        public Candidates CalculateCandidatesForCurrentStateOfTheBoard2()
         {
             var boardAsNumbers = GetBoardAsNumbers();
 
