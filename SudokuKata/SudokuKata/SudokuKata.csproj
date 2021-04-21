@@ -47,6 +47,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ChangesMadeStates.cs" />
     <Compile Include="LookupStructures.cs" />
     <Compile Include="SudokuConstraints_OrSomething.cs" />
     <Compile Include="Applesauce2.cs" />
