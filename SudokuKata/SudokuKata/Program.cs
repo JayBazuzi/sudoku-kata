@@ -72,8 +72,7 @@ namespace SudokuKata
                     wasChangeMade = wasChangeMade || TryToFindANumberWhichCanOnlyAppearInOnePlaceInARowColumnBlock(rng, puzzle);
 
                     stepChangeMade =
-                        TryToFindPairsOfDigitsInTheSameRowColumnBlockAndRemoveThemFromOtherCollidingCells(wasChangeMade, puzzle,
-                            candidateMasks, cellGroups);
+                        TryToFindPairsOfDigitsInTheSameRowColumnBlockAndRemoveThemFromOtherCollidingCells(wasChangeMade, puzzle, cellGroups);
 
                     stepChangeMade = IsTryToFindGruopsOfDigitsApplesauce(wasChangeMade, puzzle, stepChangeMade,
                         cellGroups);
@@ -88,7 +87,7 @@ namespace SudokuKata
         }
 
         private static bool TryToFindPairsOfDigitsInTheSameRowColumnBlockAndRemoveThemFromOtherCollidingCells(
-            bool wasChangeMade, SudokuBoard sudokuBoard, int[] candidateMasks2,
+            bool wasChangeMade, SudokuBoard sudokuBoard,
             List<IGrouping<int, SudokuConstraints_OrSomething>> cellGroups)
         {
             var candidateMasks = sudokuBoard.GetCandidates().Board;
