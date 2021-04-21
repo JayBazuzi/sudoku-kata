@@ -70,7 +70,7 @@ namespace SudokuKata
                 var stepChangeMade = true;
                 while (stepChangeMade)
                 {
-                    wasChangeMade |= PickCellsWithOnlyOneCandidateRemaining(rng, puzzle, candidates2);
+                    wasChangeMade |= PickCellsWithOnlyOneCandidateRemaining(rng, puzzle);
                     boardAsNumbers = puzzle.GetBoardAsNumbers();
 
                     wasChangeMade = TryToFindANumberWhichCanOnlyAppearInOnePlaceInARowColumnBlock(rng, puzzle,
@@ -347,7 +347,7 @@ namespace SudokuKata
             return cellGroups;
         }
 
-        private static bool PickCellsWithOnlyOneCandidateRemaining(Random rng, SudokuBoard puzzle, Candidates candidates3)
+        private static bool PickCellsWithOnlyOneCandidateRemaining(Random rng, SudokuBoard puzzle)
         {
             var candidates = puzzle.GetCandidates();
             var singleCandidateIndices = candidates.GetCellsWithOnlyOneCandidateRemaining();
