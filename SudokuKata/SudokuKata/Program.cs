@@ -385,8 +385,10 @@ namespace SudokuKata
         }
 
         private static bool IsTryToFindGruopsOfDigitsApplesauce(bool changeMade, SudokuBoard sudokuBoard,
-            bool stepChangeMade, List<IGrouping<int, SudokuConstraints_OrSomething>> cellGroups)
+            bool stepChangeMade, List<IGrouping<int, SudokuConstraints_OrSomething>> cellGroups2)
         {
+            var cellGroups = sudokuBoard.BuildCellGroups();
+
             var state = sudokuBoard.GetBoardAsNumbers();
             var candidateMasks = sudokuBoard.GetCandidates().Board;
             var maskToOnesCount = PrepareLookupStructures()._maskToOnesCount;
