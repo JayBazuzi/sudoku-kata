@@ -76,7 +76,7 @@ namespace SudokuKata
                             candidateMasks, cellGroups);
 
                     stepChangeMade = IsTryToFindGruopsOfDigitsApplesauce(wasChangeMade, puzzle, stepChangeMade,
-                        cellGroups, candidateMasks);
+                        cellGroups);
                 }
 
                 wasChangeMade = LookIfBoardHasMultipleSolutions(rng, wasChangeMade, candidateMasks,
@@ -432,8 +432,7 @@ namespace SudokuKata
         }
 
         private static bool IsTryToFindGruopsOfDigitsApplesauce(bool changeMade, SudokuBoard sudokuBoard,
-            bool stepChangeMade, List<IGrouping<int, SudokuConstraints_OrSomething>> cellGroups,
-            int[] candidateMasks2)
+            bool stepChangeMade, List<IGrouping<int, SudokuConstraints_OrSomething>> cellGroups)
         {
             var state = sudokuBoard.GetBoardAsNumbers();
             var candidateMasks = sudokuBoard.GetCandidates().Board;
