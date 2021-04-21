@@ -195,9 +195,10 @@ namespace SudokuKata
 
         private static bool TryToFindANumberWhichCanOnlyAppearInOnePlaceInARowColumnBlock(Random rng,
             SudokuBoard puzzle,
-            bool wasChangeMade, int[] boardAsNumbers)
+            bool wasChangeMade, int[] boardAsNumbers2)
         {
             var candidateMasks = puzzle.GetCandidates().Board;
+            var boardAsNumbers = puzzle.GetBoardAsNumbers();
             if (!wasChangeMade)
             {
                 var groupDescriptions = new List<string>();
