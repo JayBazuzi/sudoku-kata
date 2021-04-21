@@ -68,7 +68,6 @@ namespace SudokuKata
                 while (stepChangeMade)
                 {
                     wasChangeMade |= PickCellsWithOnlyOneCandidateRemaining(rng, puzzle);
-                    boardAsNumbers = puzzle.GetBoardAsNumbers();
 
                     wasChangeMade = wasChangeMade || TryToFindANumberWhichCanOnlyAppearInOnePlaceInARowColumnBlock(rng, puzzle);
 
@@ -77,12 +76,12 @@ namespace SudokuKata
                             candidateMasks, cellGroups);
 
                     stepChangeMade = IsTryToFindGruopsOfDigitsApplesauce(wasChangeMade, stepChangeMade,
-                        cellGroups, boardAsNumbers, candidateMasks);
+                        cellGroups, puzzle.GetBoardAsNumbers(), candidateMasks);
                 }
 
                 wasChangeMade = LookIfBoardHasMultipleSolutions(rng, wasChangeMade, candidateMasks,
                     solvedBoard.GetBoardAsNumbers(),
-                    boardAsNumbers, puzzle);
+                    puzzle.GetBoardAsNumbers(), puzzle);
 
                 PrintBoardChange(wasChangeMade, puzzle);
             }
