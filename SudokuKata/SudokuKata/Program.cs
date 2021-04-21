@@ -61,7 +61,7 @@ namespace SudokuKata
             {
                 wasChangeMade = false;
 
-                var candidates2 = puzzle.GetCandidates();
+                var candidates2 = puzzle.GetCandidates(true);
                 // TODO: Add candidates into the board. Abstract SolvingSolutions 
                 var candidateMasks = candidates2.Board;
 

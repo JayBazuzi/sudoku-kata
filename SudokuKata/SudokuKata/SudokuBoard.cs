@@ -107,7 +107,7 @@ namespace SudokuKata
             return FromNumbers(GetBoardAsNumbers());
         }
 
-        public Candidates GetCandidates(bool forceRecalculation = true)
+        public Candidates GetCandidates(bool forceRecalculation = false)
         {
             if (forceRecalculation || candidates == null)
             {
