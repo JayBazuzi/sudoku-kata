@@ -76,13 +76,13 @@ namespace SudokuKata
 
                     stepChangeMade =
                         TryToFindPairsOfDigitsInTheSameRowColumnBlockAndRemoveThemFromOtherCollidingCells(wasChangeMade,
-                            candidateMasks, lookupStructures._maskToOnesCount, cellGroups);
+                            candidateMasks, cellGroups);
 
-                    stepChangeMade = IsTryToFindGruopsOfDigitsApplesauce(wasChangeMade, stepChangeMade, lookupStructures._maskToOnesCount,
+                    stepChangeMade = IsTryToFindGruopsOfDigitsApplesauce(wasChangeMade, stepChangeMade,
                         cellGroups, boardAsNumbers, candidateMasks);
                 }
 
-                wasChangeMade = LookIfBoardHasMultipleSolutions(rng, wasChangeMade, candidateMasks, lookupStructures._maskToOnesCount,
+                wasChangeMade = LookIfBoardHasMultipleSolutions(rng, wasChangeMade, candidateMasks,
                     solvedBoard.GetBoardAsNumbers(),
                     boardAsNumbers, puzzle);
 
@@ -91,7 +91,7 @@ namespace SudokuKata
         }
 
         private static bool TryToFindPairsOfDigitsInTheSameRowColumnBlockAndRemoveThemFromOtherCollidingCells(
-            bool wasChangeMade, int[] candidateMasks, Dictionary<int, int> maskToOnesCount2,
+            bool wasChangeMade, int[] candidateMasks,
             List<IGrouping<int, Applesauce1>> cellGroups)
         {
             var maskToOnesCount = PrepareLookupStructures()._maskToOnesCount;
@@ -434,8 +434,7 @@ namespace SudokuKata
             return puzzle;
         }
 
-        private static bool IsTryToFindGruopsOfDigitsApplesauce(bool changeMade, bool stepChangeMade,
-            Dictionary<int, int> maskToOnesCount2, List<IGrouping<int, Applesauce1>> cellGroups, int[] state,
+        private static bool IsTryToFindGruopsOfDigitsApplesauce(bool changeMade, bool stepChangeMade, List<IGrouping<int, Applesauce1>> cellGroups, int[] state,
             int[] candidateMasks)
         {
             var maskToOnesCount = PrepareLookupStructures()._maskToOnesCount;
@@ -548,8 +547,7 @@ namespace SudokuKata
             return stepChangeMade;
         }
 
-        private static bool LookIfBoardHasMultipleSolutions(Random rng, bool changeMade, int[] candidateMasks,
-            Dictionary<int, int> maskToOnesCount2, int[] finalState, int[] state,
+        private static bool LookIfBoardHasMultipleSolutions(Random rng, bool changeMade, int[] candidateMasks, int[] finalState, int[] state,
             SudokuBoard sudokuBoard)
         {
             var maskToOnesCount = PrepareLookupStructures()._maskToOnesCount;
