@@ -78,7 +78,7 @@ namespace SudokuKata
 
                     wasChangeMade = TryToFindANumberWhichCanOnlyAppearInOnePlaceInARowColumnBlock(rng, puzzle, wasChangeMade, candidateMasks, boardAsNumbers);
 
-                    stepChangeMade = TryToFindPairsOfDigitsInTheSameRowColumnBlockAndRemoveThemFromOtherCollidingCells(wasChangeMade, candidateMasks, maskToOnesCount, cellGroups, stepChangeMade);
+                    stepChangeMade = TryToFindPairsOfDigitsInTheSameRowColumnBlockAndRemoveThemFromOtherCollidingCells(wasChangeMade, candidateMasks, maskToOnesCount, cellGroups, false);
 
                     stepChangeMade = IsTryToFindGruopsOfDigitsApplesauce(wasChangeMade, stepChangeMade, maskToOnesCount,
                         cellGroups, boardAsNumbers, candidateMasks);
