@@ -504,9 +504,10 @@ namespace SudokuKata
         }
 
         private static bool LookIfBoardHasMultipleSolutions(Random rng, bool changeMade, int[] candidateMasks,
-            int[] finalState, int[] state,
+            int[] finalState, int[] state2,
             SudokuBoard sudokuBoard)
         {
+            var state = sudokuBoard.GetBoardAsNumbers();
             var maskToOnesCount = PrepareLookupStructures()._maskToOnesCount;
             Stack<int[]> stateStack;
             Stack<int> rowIndexStack;
