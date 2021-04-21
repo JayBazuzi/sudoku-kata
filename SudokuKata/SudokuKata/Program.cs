@@ -117,7 +117,11 @@ namespace SudokuKata
                     .ToList();
 
             bool stepChangeMade = false;
-            if (groups.Any())
+            if (!groups.Any())
+            {
+                return stepChangeMade;
+            }
+
             {
                 foreach (var @group in groups)
                 {
