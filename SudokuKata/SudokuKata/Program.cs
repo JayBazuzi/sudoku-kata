@@ -74,7 +74,7 @@ namespace SudokuKata
                     boardAsNumbers = puzzle.GetBoardAsNumbers();
 
                     wasChangeMade = TryToFindANumberWhichCanOnlyAppearInOnePlaceInARowColumnBlock(rng, puzzle,
-                        wasChangeMade, boardAsNumbers);
+                        wasChangeMade);
 
                     stepChangeMade =
                         TryToFindPairsOfDigitsInTheSameRowColumnBlockAndRemoveThemFromOtherCollidingCells(wasChangeMade,
@@ -195,7 +195,7 @@ namespace SudokuKata
 
         private static bool TryToFindANumberWhichCanOnlyAppearInOnePlaceInARowColumnBlock(Random rng,
             SudokuBoard puzzle,
-            bool wasChangeMade, int[] boardAsNumbers2)
+            bool wasChangeMade)
         {
             var candidateMasks = puzzle.GetCandidates().Board;
             var boardAsNumbers = puzzle.GetBoardAsNumbers();
