@@ -76,7 +76,7 @@ namespace SudokuKata
 
                     wasChangeMade = TryToFindANumberWhichCanOnlyAppearInOnePlaceInARowColumnBlock(rng, puzzle, wasChangeMade, candidateMasks, boardAsNumbers);
 
-                    stepChangeMade = TryToFindPairsOfDigitsInTheSameRowColumnBlockAndRemoveThemFromOtherCollidingCells(wasChangeMade, candidateMasks, maskToOnesCount, cellGroups, false);
+                    stepChangeMade = TryToFindPairsOfDigitsInTheSameRowColumnBlockAndRemoveThemFromOtherCollidingCells(wasChangeMade, candidateMasks, maskToOnesCount, cellGroups);
 
                     stepChangeMade = IsTryToFindGruopsOfDigitsApplesauce(wasChangeMade, stepChangeMade, maskToOnesCount,
                         cellGroups, boardAsNumbers, candidateMasks);
@@ -90,9 +90,10 @@ namespace SudokuKata
             }
         }
 
-        private static bool TryToFindPairsOfDigitsInTheSameRowColumnBlockAndRemoveThemFromOtherCollidingCells(
-            bool wasChangeMade, int[] candidateMasks, Dictionary<int, int> maskToOnesCount, List<IGrouping<int, Applesauce1>> cellGroups, bool stepChangeMade)
+        private static bool TryToFindPairsOfDigitsInTheSameRowColumnBlockAndRemoveThemFromOtherCollidingCells(bool wasChangeMade, int[] candidateMasks, Dictionary<int, int> maskToOnesCount, List<IGrouping<int, Applesauce1>> cellGroups)
         {
+            bool stepChangeMade = false;
+
             #region Try to find pairs of digits in the same row/column/block and remove them from other colliding cells
 
             if (!wasChangeMade)
@@ -104,11 +105,11 @@ namespace SudokuKata
                     twoDigitMasks
                         .SelectMany(mask =>
                             cellGroups
-                                .Where(group => @group.Count(tuple => candidateMasks[tuple.Index] == mask) == 2)
-                                .Where(group => @group.Any(tuple =>
+                                .Where(@group => @group.Count(tuple => candidateMasks[tuple.Index] == mask) == 2)
+                                .Where(@group => @group.Any(tuple =>
                                     candidateMasks[tuple.Index] != mask &&
                                     (candidateMasks[tuple.Index] & mask) > 0))
-                                .Select(group => new Applesauce2
+                                .Select(@group => new Applesauce2
                                 {
                                     Mask = mask, Discriminator = @group.Key,
                                     Description = @group.First().Description,
@@ -118,7 +119,7 @@ namespace SudokuKata
 
                 if (groups.Any())
                 {
-                    foreach (var group in groups)
+                    foreach (var @group in groups)
                     {
                         var cells =
                             @group.Cells
