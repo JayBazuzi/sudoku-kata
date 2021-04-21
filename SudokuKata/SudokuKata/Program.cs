@@ -432,9 +432,10 @@ namespace SudokuKata
         }
 
         private static bool IsTryToFindGruopsOfDigitsApplesauce(bool changeMade, SudokuBoard sudokuBoard,
-            bool stepChangeMade, List<IGrouping<int, SudokuConstraints_OrSomething>> cellGroups, int[] state,
+            bool stepChangeMade, List<IGrouping<int, SudokuConstraints_OrSomething>> cellGroups, int[] state2,
             int[] candidateMasks)
         {
+            var state = sudokuBoard.GetBoardAsNumbers();
             var maskToOnesCount = PrepareLookupStructures()._maskToOnesCount;
             #region Try to find groups of digits of size N which only appear in N cells within row/column/block
 
