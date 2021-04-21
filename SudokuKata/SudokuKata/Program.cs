@@ -74,7 +74,7 @@ namespace SudokuKata
                     boardAsNumbers = puzzle.GetBoardAsNumbers();
 
                     wasChangeMade = wasChangeMade || TryToFindANumberWhichCanOnlyAppearInOnePlaceInARowColumnBlock(rng, puzzle,
-                        wasChangeMade);
+                        false);
 
                     stepChangeMade =
                         TryToFindPairsOfDigitsInTheSameRowColumnBlockAndRemoveThemFromOtherCollidingCells(wasChangeMade,
