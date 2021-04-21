@@ -54,7 +54,6 @@ namespace SudokuKata
             var lookupStructures = PrepareLookupStructures();
 
             var boardAsNumbers = puzzle.GetBoardAsNumbers();
-            var maskToOnesCount = lookupStructures._maskToOnesCount;
 
             var wasChangeMade = true;
             while (wasChangeMade)
@@ -77,13 +76,13 @@ namespace SudokuKata
 
                     stepChangeMade =
                         TryToFindPairsOfDigitsInTheSameRowColumnBlockAndRemoveThemFromOtherCollidingCells(wasChangeMade,
-                            candidateMasks, maskToOnesCount, cellGroups);
+                            candidateMasks, lookupStructures._maskToOnesCount, cellGroups);
 
-                    stepChangeMade = IsTryToFindGruopsOfDigitsApplesauce(wasChangeMade, stepChangeMade, maskToOnesCount,
+                    stepChangeMade = IsTryToFindGruopsOfDigitsApplesauce(wasChangeMade, stepChangeMade, lookupStructures._maskToOnesCount,
                         cellGroups, boardAsNumbers, candidateMasks);
                 }
 
-                wasChangeMade = LookIfBoardHasMultipleSolutions(rng, wasChangeMade, candidateMasks, maskToOnesCount,
+                wasChangeMade = LookIfBoardHasMultipleSolutions(rng, wasChangeMade, candidateMasks, lookupStructures._maskToOnesCount,
                     solvedBoard.GetBoardAsNumbers(),
                     boardAsNumbers, puzzle);
 
