@@ -88,9 +88,10 @@ namespace SudokuKata
         }
 
         private static bool TryToFindPairsOfDigitsInTheSameRowColumnBlockAndRemoveThemFromOtherCollidingCells(
-            bool wasChangeMade, SudokuBoard sudokuBoard, int[] candidateMasks,
+            bool wasChangeMade, SudokuBoard sudokuBoard, int[] candidateMasks2,
             List<IGrouping<int, SudokuConstraints_OrSomething>> cellGroups)
         {
+            var candidateMasks = sudokuBoard.GetCandidates().Board;
             var maskToOnesCount = PrepareLookupStructures()._maskToOnesCount;
             if (wasChangeMade)
             {
