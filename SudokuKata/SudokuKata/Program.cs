@@ -94,8 +94,6 @@ namespace SudokuKata
         {
             bool stepChangeMade = false;
 
-            #region Try to find pairs of digits in the same row/column/block and remove them from other colliding cells
-
             if (!wasChangeMade)
             {
                 IEnumerable<int> twoDigitMasks =
@@ -184,8 +182,6 @@ namespace SudokuKata
                     }
                 }
             }
-
-            #endregion
 
             return stepChangeMade;
         }
