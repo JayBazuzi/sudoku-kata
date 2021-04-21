@@ -116,12 +116,12 @@ namespace SudokuKata
                             }))
                     .ToList();
 
-            bool stepChangeMade = false;
             if (!groups.Any())
             {
                 return false;
             }
 
+            bool stepChangeMade = false;
             {
                 foreach (var @group in groups)
                 {
