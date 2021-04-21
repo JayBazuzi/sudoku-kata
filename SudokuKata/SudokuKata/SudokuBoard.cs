@@ -157,8 +157,9 @@ namespace SudokuKata
             return candidates;
         }
 
-        public static List<IGrouping<int, SudokuConstraints_OrSomething>> BuildCellGroups(int[] boardAsNumbers)
+        public List<IGrouping<int, SudokuConstraints_OrSomething>> BuildCellGroups()
         {
+            var boardAsNumbers = this.GetBoardAsNumbers();
             #region Build a collection (named cellGroups) which maps cell indices into distinct groups (rows/columns/blocks)
 
             var rowsIndices = boardAsNumbers

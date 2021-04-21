@@ -60,7 +60,7 @@ namespace SudokuKata
                 // TODO: Add candidates into the board. Abstract SolvingSolutions 
                 var candidateMasks = candidates2.Board;
 
-                var cellGroups = SudokuBoard.BuildCellGroups(puzzle.GetBoardAsNumbers());
+                var cellGroups = puzzle.BuildCellGroups();
 
                 var stepChangeMade = true;
                 while (stepChangeMade)
