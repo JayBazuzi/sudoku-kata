@@ -29,6 +29,7 @@ namespace SudokuKata
         public const int Unknown = 0;
 
         private readonly int[,] _board = new int[9, 9].SetAll(Unknown);
+        private Candidates candidates;
 
         public override string ToString()
         {
@@ -108,7 +109,8 @@ namespace SudokuKata
 
         public Candidates GetCandidates(bool forceRecalculation = true)
         {
-            return CalculateCandidatesForCurrentStateOfTheBoard();
+            candidates = CalculateCandidatesForCurrentStateOfTheBoard();
+            return candidates;
         }
 
         private Candidates CalculateCandidatesForCurrentStateOfTheBoard()
