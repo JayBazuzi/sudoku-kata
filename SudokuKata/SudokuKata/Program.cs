@@ -91,9 +91,10 @@ namespace SudokuKata
         }
 
         private static bool TryToFindPairsOfDigitsInTheSameRowColumnBlockAndRemoveThemFromOtherCollidingCells(
-            bool wasChangeMade, int[] candidateMasks, Dictionary<int, int> maskToOnesCount,
+            bool wasChangeMade, int[] candidateMasks, Dictionary<int, int> maskToOnesCount2,
             List<IGrouping<int, Applesauce1>> cellGroups)
         {
+            var maskToOnesCount = PrepareLookupStructures()._maskToOnesCount;
             if (wasChangeMade)
             {
                 return false;
@@ -434,9 +435,10 @@ namespace SudokuKata
         }
 
         private static bool IsTryToFindGruopsOfDigitsApplesauce(bool changeMade, bool stepChangeMade,
-            Dictionary<int, int> maskToOnesCount, List<IGrouping<int, Applesauce1>> cellGroups, int[] state,
+            Dictionary<int, int> maskToOnesCount2, List<IGrouping<int, Applesauce1>> cellGroups, int[] state,
             int[] candidateMasks)
         {
+            var maskToOnesCount = PrepareLookupStructures()._maskToOnesCount;
             #region Try to find groups of digits of size N which only appear in N cells within row/column/block
 
             // When a set of N digits only appears in N cells within row/column/block, then no other digit can appear in the same set of cells
@@ -547,9 +549,10 @@ namespace SudokuKata
         }
 
         private static bool LookIfBoardHasMultipleSolutions(Random rng, bool changeMade, int[] candidateMasks,
-            Dictionary<int, int> maskToOnesCount, int[] finalState, int[] state,
+            Dictionary<int, int> maskToOnesCount2, int[] finalState, int[] state,
             SudokuBoard sudokuBoard)
         {
+            var maskToOnesCount = PrepareLookupStructures()._maskToOnesCount;
             Stack<int[]> stateStack;
             Stack<int> rowIndexStack;
             Stack<int> colIndexStack;
