@@ -40,34 +40,34 @@ namespace SudokuKata
         {
             var changesMadeStates = new ChangesMadeStates();
 
-            changesMadeStates.wasChangeMade = true;
-            while (changesMadeStates.wasChangeMade)
+            changesMadeStates.CellChange = true;
+            while (changesMadeStates.CellChange)
             {
-                changesMadeStates.wasChangeMade = false;
+                changesMadeStates.CellChange = false;
 
                 var candidates2 = puzzle.GetCandidates(true);
                 // TODO: Add candidates into the board. Abstract SolvingSolutions 
                 var candidateMasks = candidates2.Board;
 
-                changesMadeStates.stepChangeMade = true;
-                while (changesMadeStates.stepChangeMade)
+                changesMadeStates.PossibilityChange = true;
+                while (changesMadeStates.PossibilityChange)
                 {
-                    changesMadeStates.wasChangeMade |= PickCellsWithOnlyOneCandidateRemaining(rng, puzzle);
+                    changesMadeStates.CellChange |= PickCellsWithOnlyOneCandidateRemaining(rng, puzzle);
 
-                    changesMadeStates.wasChangeMade = changesMadeStates.wasChangeMade ||
+                    changesMadeStates.CellChange = changesMadeStates.CellChange ||
                                     TryToFindANumberWhichCanOnlyAppearInOnePlaceInARowColumnBlock(rng, puzzle);
 
-                    changesMadeStates.stepChangeMade =
-                        TryToFindPairsOfDigitsInTheSameRowColumnBlockAndRemoveThemFromOtherCollidingCells(changesMadeStates.wasChangeMade,
+                    changesMadeStates.PossibilityChange =
+                        TryToFindPairsOfDigitsInTheSameRowColumnBlockAndRemoveThemFromOtherCollidingCells(changesMadeStates.CellChange,
                             puzzle);
 
-                    changesMadeStates.stepChangeMade = IsTryToFindGruopsOfDigitsApplesauce(changesMadeStates.wasChangeMade, puzzle, changesMadeStates.stepChangeMade);
+                    changesMadeStates.PossibilityChange = IsTryToFindGruopsOfDigitsApplesauce(changesMadeStates.CellChange, puzzle, changesMadeStates.PossibilityChange);
                 }
 
-                changesMadeStates.wasChangeMade = LookIfBoardHasMultipleSolutions(rng, changesMadeStates.wasChangeMade, candidateMasks,
+                changesMadeStates.CellChange = LookIfBoardHasMultipleSolutions(rng, changesMadeStates.CellChange, candidateMasks,
                     solvedBoard.GetBoardAsNumbers(), puzzle);
 
-                PrintBoardChange(changesMadeStates.wasChangeMade, puzzle);
+                PrintBoardChange(changesMadeStates.CellChange, puzzle);
             }
         }
 
