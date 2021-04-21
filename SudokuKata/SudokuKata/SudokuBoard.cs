@@ -116,8 +116,7 @@ namespace SudokuKata
             var boardAsNumbers = GetBoardAsNumbers();
 
             var candidateMasks = new int[boardAsNumbers.Length];
-            var candidates
-                = new Candidates(candidateMasks);
+            var candidates = new Candidates(candidateMasks);
 
             for (var i = 0; i < boardAsNumbers.Length; i++)
             {
@@ -147,8 +146,7 @@ namespace SudokuKata
                 }
             }
 
-            return candidates
-                ;
+            return candidates;
         }
     }
 }
