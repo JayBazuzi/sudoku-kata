@@ -76,7 +76,7 @@ namespace SudokuKata
                             candidateMasks, cellGroups);
 
                     stepChangeMade = IsTryToFindGruopsOfDigitsApplesauce(wasChangeMade, puzzle, stepChangeMade,
-                        cellGroups, puzzle.GetBoardAsNumbers(), candidateMasks);
+                        cellGroups, candidateMasks);
                 }
 
                 wasChangeMade = LookIfBoardHasMultipleSolutions(rng, wasChangeMade, candidateMasks,
@@ -432,10 +432,11 @@ namespace SudokuKata
         }
 
         private static bool IsTryToFindGruopsOfDigitsApplesauce(bool changeMade, SudokuBoard sudokuBoard,
-            bool stepChangeMade, List<IGrouping<int, SudokuConstraints_OrSomething>> cellGroups, int[] state2,
-            int[] candidateMasks)
+            bool stepChangeMade, List<IGrouping<int, SudokuConstraints_OrSomething>> cellGroups,
+            int[] candidateMasks2)
         {
             var state = sudokuBoard.GetBoardAsNumbers();
+            var candidateMasks = sudokuBoard.GetCandidates().Board;
             var maskToOnesCount = PrepareLookupStructures()._maskToOnesCount;
             #region Try to find groups of digits of size N which only appear in N cells within row/column/block
 
