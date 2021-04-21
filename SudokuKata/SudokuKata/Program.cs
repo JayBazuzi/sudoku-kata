@@ -347,9 +347,9 @@ namespace SudokuKata
             return cellGroups;
         }
 
-        private static bool PickCellsWithOnlyOneCandidateRemaining(Random rng, SudokuBoard puzzle,
-            Candidates candidates)
+        private static bool PickCellsWithOnlyOneCandidateRemaining(Random rng, SudokuBoard puzzle, Candidates candidates3)
         {
+            Candidates candidates = candidates3;
             candidates = puzzle.GetCandidates();
             var singleCandidateIndices = candidates.GetCellsWithOnlyOneCandidateRemaining();
 
