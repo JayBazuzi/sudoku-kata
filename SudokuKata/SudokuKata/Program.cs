@@ -49,19 +49,19 @@ namespace SudokuKata
                 // TODO: Add candidates into the board. Abstract SolvingSolutions 
                 var candidateMasks = candidates2.Board;
 
-                var stepChangeMade = true;
-                while (stepChangeMade)
+                changesMadeStates.stepChangeMade = true;
+                while (changesMadeStates.stepChangeMade)
                 {
                     changesMadeStates.wasChangeMade |= PickCellsWithOnlyOneCandidateRemaining(rng, puzzle);
 
                     changesMadeStates.wasChangeMade = changesMadeStates.wasChangeMade ||
                                     TryToFindANumberWhichCanOnlyAppearInOnePlaceInARowColumnBlock(rng, puzzle);
 
-                    stepChangeMade =
+                    changesMadeStates.stepChangeMade =
                         TryToFindPairsOfDigitsInTheSameRowColumnBlockAndRemoveThemFromOtherCollidingCells(changesMadeStates.wasChangeMade,
                             puzzle);
 
-                    stepChangeMade = IsTryToFindGruopsOfDigitsApplesauce(changesMadeStates.wasChangeMade, puzzle, stepChangeMade);
+                    changesMadeStates.stepChangeMade = IsTryToFindGruopsOfDigitsApplesauce(changesMadeStates.wasChangeMade, puzzle, changesMadeStates.stepChangeMade);
                 }
 
                 changesMadeStates.wasChangeMade = LookIfBoardHasMultipleSolutions(rng, changesMadeStates.wasChangeMade, candidateMasks,
