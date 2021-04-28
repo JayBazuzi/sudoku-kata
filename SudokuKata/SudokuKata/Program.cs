@@ -18,7 +18,7 @@ namespace SudokuKata
         public static void Play(Random rng)
         {
             var solvedBoard = SudokoBoardGenerator.ConstructFullySolvedBoard(rng);
-            var puzzle = GeneratePuzzleFromCompletelySolvedBoard(rng, solvedBoard);
+            var puzzle = solvedBoard.GeneratePuzzleFromCompletelySolvedBoard(rng);
             LogStartOfSolution(puzzle);
 
             SolvePuzzle(rng, puzzle, solvedBoard);
@@ -103,51 +103,6 @@ namespace SudokuKata
             Console.WriteLine();
             Console.WriteLine(new string('=', 80));
             Console.WriteLine();
-        }
-
-        private static SudokuBoard GeneratePuzzleFromCompletelySolvedBoard(Random rng,
-            SudokuBoard solvedBoard
-        )
-        {
-            var puzzle = solvedBoard.Clone();
-
-            // Board is solved at this point.
-            // Now pick subset of digits as the starting position.
-            var remainingDigits = 30;
-            var maxRemovedPerBlock = 6;
-            var removedPerBlock = new int[3, 3];
-            var positions = Enumerable.Range(0, 9 * 9).ToArray();
-
-            var removedPosition = 0;
-
-            while (removedPosition < 9 * 9 - remainingDigits)
-            {
-                var curRemainingDigits = positions.Length - removedPosition;
-                var indexToPick = removedPosition + rng.Next(curRemainingDigits);
-
-                var row = positions[indexToPick] / 9;
-                var col = positions[indexToPick] % 9;
-
-                var blockRowToRemove = row / 3;
-                var blockColToRemove = col / 3;
-
-                if (removedPerBlock[blockRowToRemove, blockColToRemove] >= maxRemovedPerBlock)
-                {
-                    continue;
-                }
-
-                removedPerBlock[blockRowToRemove, blockColToRemove] += 1;
-
-                var temp = positions[removedPosition];
-                positions[removedPosition] = positions[indexToPick];
-                positions[indexToPick] = temp;
-
-                puzzle.SetValue(row, col, SudokuBoard.Unknown);
-
-                removedPosition += 1;
-            }
-
-            return puzzle;
         }
 
         private static void PrintBoardChange(bool changeMade, SudokuBoard sudokuBoard)
