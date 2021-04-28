@@ -48,7 +48,9 @@ namespace SudokuKata
 
                 do
                 {
-                    changesMadeStates.CellChanged = changesMadeStates.CellChanged ? true : PickCellsWithOnlyOneCandidateRemaining(rng, puzzle);
+                    changesMadeStates = changesMadeStates.CellChanged
+                        ? changesMadeStates
+                        : PickCellsWithOnlyOneCandidateRemaining(rng, puzzle);
 
                     changesMadeStates.CellChanged = changesMadeStates.CellChanged ||
                                                     TryToFindANumberWhichCanOnlyAppearInOnePlaceInARowColumnBlock(rng,
@@ -280,7 +282,7 @@ namespace SudokuKata
             return wasChangeMade;
         }
 
-        private static bool PickCellsWithOnlyOneCandidateRemaining(Random rng, SudokuBoard puzzle)
+        private static ChangesMadeStates PickCellsWithOnlyOneCandidateRemaining(Random rng, SudokuBoard puzzle)
         {
             var singleCandidateIndices = puzzle.GetCandidates().GetCellsWithOnlyOneCandidateRemaining();
 
@@ -288,14 +290,14 @@ namespace SudokuKata
             var cell = singleCandidateIndices.Skip(skip).FirstOrDefault();
             if (cell == null)
             {
-                return false;
+                return new ChangesMadeStates();
             }
 
             puzzle.SetValue(cell.Row, cell.Col, cell.Value);
 
             Console.WriteLine("({0}, {1}) can only contain {2}.", cell.Row + 1, cell.Col + 1, cell.Value);
 
-            return true;
+            return new ChangesMadeStates {CellChanged = true};
         }
 
         public static LookupStructures PrepareLookupStructures()
