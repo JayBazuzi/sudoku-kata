@@ -51,7 +51,7 @@ namespace SudokuKata
                     changesMadeStates.Reset();
                     foreach (var step in GetSudokuSolverSteps())
                     {
-                        changesMadeStates = changesMadeStates.DoIfUnchanged(() => step.Do(rng, puzzle));
+                        changesMadeStates = changesMadeStates.DoIfUnchanged(step, rng, puzzle);
                     }
                 } while (changesMadeStates.CandidateChanged);
 

@@ -24,5 +24,10 @@ namespace SudokuKata
                 return this;
             }
         }
+
+        public ChangesMadeStates DoIfUnchanged(ISudokuSolverStep step, Random rng, SudokuBoard puzzle)
+        {
+            return DoIfUnchanged(() => step.Do(rng, puzzle));
+        }
     }
 }
