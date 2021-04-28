@@ -30,5 +30,7 @@ namespace SudokuKata
             _singleBitToIndex = singleBitToIndex;
             _maskToOnesCount = maskToOnesCount;
         }
+
+        public static readonly LookupStructures Instance = new LookupStructures();
     }
 }
