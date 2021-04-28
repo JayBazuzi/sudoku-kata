@@ -46,8 +46,7 @@ namespace SudokuKata
 
                 var candidates2 = puzzle.GetCandidates(true);
 
-                changesMadeStates.CandidateChanged = true;
-                while (changesMadeStates.CandidateChanged)
+                do
                 {
                     changesMadeStates.CellChanged |= PickCellsWithOnlyOneCandidateRemaining(rng, puzzle);
 
@@ -63,7 +62,7 @@ namespace SudokuKata
                     changesMadeStates.CandidateChanged =
                         IsTryToFindGruopsOfDigitsApplesauce(changesMadeStates.CellChanged, puzzle,
                             changesMadeStates.CandidateChanged);
-                }
+                } while (changesMadeStates.CandidateChanged);
 
                 changesMadeStates.CellChanged = LookIfBoardHasMultipleSolutions(rng, changesMadeStates.CellChanged,
                     candidates2.Board,
