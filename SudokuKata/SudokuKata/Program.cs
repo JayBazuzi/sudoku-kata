@@ -276,9 +276,14 @@ namespace SudokuKata
                 wasChangeMade = true;
 
                 Console.WriteLine(message);
+                return new ChangesMadeStates { CellChanged = wasChangeMade };
+
+            }
+            else
+            {
+                return new ChangesMadeStates();
             }
 
-            return new ChangesMadeStates {CellChanged = wasChangeMade};
         }
 
         private static ChangesMadeStates PickCellsWithOnlyOneCandidateRemaining(Random rng, SudokuBoard puzzle)
