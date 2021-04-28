@@ -42,7 +42,7 @@ namespace SudokuKata
 
             do
             {
-                changesMadeStates = new ChangesMadeStates();
+                changesMadeStates = ChangesMadeStates.None;
 
                 var candidates2 = puzzle.GetCandidates(true);
 

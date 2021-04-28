@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.Remoting.Messaging;
 
 namespace SudokuKata
 {
@@ -6,6 +7,7 @@ namespace SudokuKata
     {
         public bool CandidateChanged; 
         public bool CellChanged;
+        public static ChangesMadeStates None => new ChangesMadeStates();
 
         public void Reset()
         {
