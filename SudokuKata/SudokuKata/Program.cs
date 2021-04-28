@@ -42,13 +42,11 @@ namespace SudokuKata
 
             do
             {
-                changesMadeStates = ChangesMadeStates.None;
-
                 var candidates2 = puzzle.GetCandidates(true);
 
                 do
                 {
-                    changesMadeStates.Reset();
+                    changesMadeStates = ChangesMadeStates.None;
                     foreach (var step in GetSudokuSolverSteps())
                     {
                         changesMadeStates = changesMadeStates.DoIfUnchanged(step, rng, puzzle);
