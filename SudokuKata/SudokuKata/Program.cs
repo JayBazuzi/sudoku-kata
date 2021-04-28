@@ -47,7 +47,6 @@ namespace SudokuKata
 
                 var candidates2 = puzzle.GetCandidates(true);
                 // TODO: Add candidates into the board. Abstract SolvingSolutions 
-                var candidateMasks = candidates2.Board;
 
                 changesMadeStates.CandidateChanged = true;
                 while (changesMadeStates.CandidateChanged)
@@ -64,7 +63,7 @@ namespace SudokuKata
                     changesMadeStates.CandidateChanged = IsTryToFindGruopsOfDigitsApplesauce(changesMadeStates.CellChanged, puzzle, changesMadeStates.CandidateChanged);
                 }
 
-                changesMadeStates.CellChanged = LookIfBoardHasMultipleSolutions(rng, changesMadeStates.CellChanged, candidateMasks,
+                changesMadeStates.CellChanged = LookIfBoardHasMultipleSolutions(rng, changesMadeStates.CellChanged, candidates2.Board,
                     solvedBoard.GetBoardAsNumbers(), puzzle);
 
                 PrintBoardChange(changesMadeStates.CellChanged, puzzle);
