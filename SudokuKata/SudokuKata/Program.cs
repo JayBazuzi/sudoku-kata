@@ -40,13 +40,11 @@ namespace SudokuKata
         {
             var changesMadeStates = new ChangesMadeStates();
 
-            changesMadeStates.CellChanged = true;
-            while (changesMadeStates.CellChanged)
+            do
             {
                 changesMadeStates.CellChanged = false;
 
                 var candidates2 = puzzle.GetCandidates(true);
-                // TODO: Add candidates into the board. Abstract SolvingSolutions 
 
                 changesMadeStates.CandidateChanged = true;
                 while (changesMadeStates.CandidateChanged)
@@ -54,20 +52,25 @@ namespace SudokuKata
                     changesMadeStates.CellChanged |= PickCellsWithOnlyOneCandidateRemaining(rng, puzzle);
 
                     changesMadeStates.CellChanged = changesMadeStates.CellChanged ||
-                                    TryToFindANumberWhichCanOnlyAppearInOnePlaceInARowColumnBlock(rng, puzzle);
+                                                    TryToFindANumberWhichCanOnlyAppearInOnePlaceInARowColumnBlock(rng,
+                                                        puzzle);
 
                     changesMadeStates.CandidateChanged =
-                        TryToFindPairsOfDigitsInTheSameRowColumnBlockAndRemoveThemFromOtherCollidingCells(changesMadeStates.CellChanged,
+                        TryToFindPairsOfDigitsInTheSameRowColumnBlockAndRemoveThemFromOtherCollidingCells(
+                            changesMadeStates.CellChanged,
                             puzzle);
 
-                    changesMadeStates.CandidateChanged = IsTryToFindGruopsOfDigitsApplesauce(changesMadeStates.CellChanged, puzzle, changesMadeStates.CandidateChanged);
+                    changesMadeStates.CandidateChanged =
+                        IsTryToFindGruopsOfDigitsApplesauce(changesMadeStates.CellChanged, puzzle,
+                            changesMadeStates.CandidateChanged);
                 }
 
-                changesMadeStates.CellChanged = LookIfBoardHasMultipleSolutions(rng, changesMadeStates.CellChanged, candidates2.Board,
+                changesMadeStates.CellChanged = LookIfBoardHasMultipleSolutions(rng, changesMadeStates.CellChanged,
+                    candidates2.Board,
                     solvedBoard.GetBoardAsNumbers(), puzzle);
 
                 PrintBoardChange(changesMadeStates.CellChanged, puzzle);
-            }
+            } while (changesMadeStates.CellChanged);
         }
 
 
