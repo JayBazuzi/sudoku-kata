@@ -54,7 +54,7 @@ namespace SudokuKata
                 } while (changesMadeStates.CandidateChanged);
 
                 changesMadeStates = changesMadeStates.DoIfUnchanged(
-                    () => LookIfBoardHasMultipleSolutions(rng, changesMadeStates.CellChanged,
+                    () => LookIfBoardHasMultipleSolutions(rng, 
                     candidates2.Board,
                     solvedBoard.GetBoardAsNumbers(), puzzle));
 
@@ -150,7 +150,7 @@ namespace SudokuKata
             return puzzle;
         }
 
-        private static ChangesMadeStates LookIfBoardHasMultipleSolutions(Random rng, bool changeMade, int[] candidateMasks,
+        private static ChangesMadeStates LookIfBoardHasMultipleSolutions(Random rng, int[] candidateMasks,
             int[] finalState,
             SudokuBoard sudokuBoard)
         {
@@ -165,10 +165,7 @@ namespace SudokuKata
 
             #region Final attempt - look if the board has multiple solutions
 
-            if (changeMade)
-            {
-                return new ChangesMadeStates {CellChanged = true};
-            }
+            bool changeMade = false;
             // This is the last chance to do something in this iteration:
             // If this attempt fails, board will not be entirely solved.
 
