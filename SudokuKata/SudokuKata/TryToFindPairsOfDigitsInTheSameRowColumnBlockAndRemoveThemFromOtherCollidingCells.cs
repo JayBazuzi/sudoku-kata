@@ -6,7 +6,7 @@ namespace SudokuKata
 {
     internal class TryToFindPairsOfDigitsInTheSameRowColumnBlockAndRemoveThemFromOtherCollidingCells
     {
-        public static ChangesMadeStates Do(
+        public ChangesMadeStates Do(
             Random rng, SudokuBoard sudokuBoard)
         {
             var cellGroups = sudokuBoard.BuildCellGroups();

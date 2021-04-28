@@ -50,16 +50,16 @@ namespace SudokuKata
                 {
                     changesMadeStates.Reset();
                     changesMadeStates = changesMadeStates.DoIfUnchanged(
-                        () => PickCellsWithOnlyOneCandidateRemaining.Do(rng, puzzle));
+                        () => new PickCellsWithOnlyOneCandidateRemaining().Do(rng, puzzle));
                     changesMadeStates = changesMadeStates.DoIfUnchanged(
-                        () => TryToFindANumberWhichCanOnlyAppearInOnePlaceInARowColumnBlock.Do(rng, puzzle));
+                        () => new TryToFindANumberWhichCanOnlyAppearInOnePlaceInARowColumnBlock().Do(rng, puzzle));
 
                     changesMadeStates = changesMadeStates.DoIfUnchanged(
-                        () => TryToFindPairsOfDigitsInTheSameRowColumnBlockAndRemoveThemFromOtherCollidingCells.Do(rng,
+                        () => new TryToFindPairsOfDigitsInTheSameRowColumnBlockAndRemoveThemFromOtherCollidingCells().Do(rng,
                             puzzle));
 
                     changesMadeStates = changesMadeStates.DoIfUnchanged(
-                        () => RemoveDigitsWhenConstrainedToAGroupOfNCells.Do(rng, puzzle));
+                        () => new RemoveDigitsWhenConstrainedToAGroupOfNCells().Do(rng, puzzle));
                 } while (changesMadeStates.CandidateChanged);
 
                 changesMadeStates.CellChanged = LookIfBoardHasMultipleSolutions(rng, changesMadeStates.CellChanged,

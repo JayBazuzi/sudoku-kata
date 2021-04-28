@@ -6,7 +6,7 @@ namespace SudokuKata
 {
     internal class TryToFindANumberWhichCanOnlyAppearInOnePlaceInARowColumnBlock
     {
-        public static ChangesMadeStates Do(Random rng,
+        public ChangesMadeStates Do(Random rng,
             SudokuBoard puzzle)
         {
             var candidateMasks = puzzle.GetCandidates().Board;

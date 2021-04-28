@@ -7,7 +7,7 @@ namespace SudokuKata
 {
     internal class RemoveDigitsWhenConstrainedToAGroupOfNCells
     {
-        public static ChangesMadeStates Do(Random random, SudokuBoard sudokuBoard)
+        public ChangesMadeStates Do(Random random, SudokuBoard sudokuBoard)
         {
             var cellGroups = sudokuBoard.BuildCellGroups();
 

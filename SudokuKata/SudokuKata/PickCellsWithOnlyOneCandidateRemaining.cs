@@ -5,7 +5,7 @@ namespace SudokuKata
 {
     internal class PickCellsWithOnlyOneCandidateRemaining
     {
-        public static ChangesMadeStates Do(Random rng, SudokuBoard puzzle)
+        public ChangesMadeStates Do(Random rng, SudokuBoard puzzle)
         {
             var singleCandidateIndices = puzzle.GetCandidates().GetCellsWithOnlyOneCandidateRemaining();
 
