@@ -48,6 +48,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ChangesMadeStates.cs" />
+    <Compile Include="ISudokuSolverStep.cs" />
     <Compile Include="LookupStructures.cs" />
     <Compile Include="PickCellsWithOnlyOneCandidateRemaining.cs" />
     <Compile Include="RemoveDigitsWhenConstrainedToAGroupOfNCells.cs" />
