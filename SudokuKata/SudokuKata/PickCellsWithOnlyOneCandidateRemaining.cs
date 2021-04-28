@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace SudokuKata
 {
-    static internal class PickCellsWithOnlyOneCandidateRemaining
+    internal class PickCellsWithOnlyOneCandidateRemaining
     {
         public static ChangesMadeStates Do(Random rng, SudokuBoard puzzle)
         {

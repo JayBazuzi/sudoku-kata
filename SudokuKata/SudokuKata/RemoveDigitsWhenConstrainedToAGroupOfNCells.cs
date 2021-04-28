@@ -5,7 +5,7 @@ using System.Text;
 
 namespace SudokuKata
 {
-    static internal class RemoveDigitsWhenConstrainedToAGroupOfNCells
+    internal class RemoveDigitsWhenConstrainedToAGroupOfNCells
     {
         public static ChangesMadeStates Do(Random random, SudokuBoard sudokuBoard)
         {
