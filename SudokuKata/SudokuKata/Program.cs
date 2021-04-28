@@ -38,11 +38,11 @@ namespace SudokuKata
         private static void SolvePuzzle(Random rng, SudokuBoard puzzle,
             SudokuBoard solvedBoard)
         {
-            ChangesMadeStates changesMadeStates = new ChangesMadeStates();
+            ChangesMadeStates changesMadeStates ;
 
             do
             {
-                changesMadeStates.Reset();
+                changesMadeStates = new ChangesMadeStates();
 
                 var candidates2 = puzzle.GetCandidates(true);
 
