@@ -49,13 +49,7 @@ namespace SudokuKata
                 do
                 {
                     changesMadeStates.Reset();
-                    foreach (var step in new ISudokuSolverStep[]
-                    {
-                        new PickCellsWithOnlyOneCandidateRemaining(),
-                        new TryToFindANumberWhichCanOnlyAppearInOnePlaceInARowColumnBlock(),
-                        new TryToFindPairsOfDigitsInTheSameRowColumnBlockAndRemoveThemFromOtherCollidingCells(),
-                        new RemoveDigitsWhenConstrainedToAGroupOfNCells()
-                    })
+                    foreach (var step in GetSudokuSolverSteps())
                     {
                         changesMadeStates = changesMadeStates.DoIfUnchanged(() => step.Do(rng, puzzle));
                     }
@@ -67,6 +61,17 @@ namespace SudokuKata
 
                 PrintBoardChange(changesMadeStates.CellChanged, puzzle);
             } while (changesMadeStates.CellChanged);
+        }
+
+        private static ISudokuSolverStep[] GetSudokuSolverSteps()
+        {
+            return new ISudokuSolverStep[]
+            {
+                new PickCellsWithOnlyOneCandidateRemaining(),
+                new TryToFindANumberWhichCanOnlyAppearInOnePlaceInARowColumnBlock(),
+                new TryToFindPairsOfDigitsInTheSameRowColumnBlockAndRemoveThemFromOtherCollidingCells(),
+                new RemoveDigitsWhenConstrainedToAGroupOfNCells()
+            };
         }
 
 
