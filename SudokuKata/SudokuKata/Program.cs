@@ -166,7 +166,7 @@ namespace SudokuKata
 
             if (changeMade)
             {
-                return new ChangesMadeStates {CellChanged = changeMade};
+                return new ChangesMadeStates {CellChanged = true};
             }
             // This is the last chance to do something in this iteration:
             // If this attempt fails, board will not be entirely solved.
