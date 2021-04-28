@@ -48,9 +48,7 @@ namespace SudokuKata
 
                 do
                 {
-                    changesMadeStates = changesMadeStates.CellChanged
-                        ? changesMadeStates
-                        : PickCellsWithOnlyOneCandidateRemaining(rng, puzzle);
+                    changesMadeStates = changesMadeStates.DoIfCellUnchanged(() => PickCellsWithOnlyOneCandidateRemaining(rng, puzzle));
 
                     changesMadeStates.CellChanged = changesMadeStates.CellChanged ||
                                                     TryToFindANumberWhichCanOnlyAppearInOnePlaceInARowColumnBlock(rng,
