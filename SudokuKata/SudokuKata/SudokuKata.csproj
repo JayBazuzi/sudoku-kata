@@ -62,6 +62,7 @@
     <Compile Include="Stacks.cs" />
     <Compile Include="SudokuBoard.cs" />
     <Compile Include="TryToFindANumberWhichCanOnlyAppearInOnePlaceInARowColumnBlock.cs" />
+    <Compile Include="TryToFindPairsOfDigitsInTheSameRowColumnBlockAndRemoveThemFromOtherCollidingCells.cs" />
     <Compile Include="ViableMove.cs" />
   </ItemGroup>
   <ItemGroup>
