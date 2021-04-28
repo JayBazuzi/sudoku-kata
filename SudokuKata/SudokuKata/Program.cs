@@ -180,7 +180,6 @@ namespace SudokuKata
         private static ChangesMadeStates TryToFindANumberWhichCanOnlyAppearInOnePlaceInARowColumnBlock(Random rng,
             SudokuBoard puzzle)
         {
-            var wasChangeMade = false;
             var candidateMasks = puzzle.GetCandidates().Board;
             var boardAsNumbers = puzzle.GetBoardAsNumbers();
             var groupDescriptions = new List<string>();
