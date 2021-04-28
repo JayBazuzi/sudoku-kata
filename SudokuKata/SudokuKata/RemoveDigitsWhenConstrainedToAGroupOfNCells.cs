@@ -13,7 +13,7 @@ namespace SudokuKata
 
             var state = sudokuBoard.GetBoardAsNumbers();
             var candidateMasks = sudokuBoard.GetCandidates().Board;
-            var maskToOnesCount = Program.PrepareLookupStructures()._maskToOnesCount;
+            var maskToOnesCount = LookupStructures.Instance._maskToOnesCount;
 
             #region Try to find groups of digits of size N which only appear in N cells within row/column/block
 

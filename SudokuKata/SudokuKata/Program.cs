@@ -74,13 +74,6 @@ namespace SudokuKata
         }
 
 
-        public static LookupStructures PrepareLookupStructures()
-        {
-
-
-            return LookupStructures.Instance;
-        }
-
         private static void PrintLineOfEquals()
         {
             Console.WriteLine();

@@ -4,7 +4,7 @@ namespace SudokuKata
 {
     public class Candidates
     {
-        private static readonly LookupStructures _lookupStructures = Program.PrepareLookupStructures();
+        private static readonly LookupStructures _lookupStructures = LookupStructures.Instance;
 
         public Candidates(int[] board)
         {

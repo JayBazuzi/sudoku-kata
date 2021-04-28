@@ -11,7 +11,7 @@ namespace SudokuKata
             SudokuBoard sudokuBoard)
         {
             var state = sudokuBoard.GetBoardAsNumbers();
-            var maskToOnesCount = Program.PrepareLookupStructures()._maskToOnesCount;
+            var maskToOnesCount = LookupStructures.Instance._maskToOnesCount;
             Stack<int[]> stateStack;
             Stack<int> rowIndexStack;
             Stack<int> colIndexStack;
