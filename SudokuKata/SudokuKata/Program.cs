@@ -49,19 +49,16 @@ namespace SudokuKata
                 do
                 {
                     changesMadeStates.Reset();
-                    foreach (var step in new ISudokuSolverStep[]{ new PickCellsWithOnlyOneCandidateRemaining() , })
+                    foreach (var step in new ISudokuSolverStep[]
+                    {
+                        new PickCellsWithOnlyOneCandidateRemaining(),
+                        new TryToFindANumberWhichCanOnlyAppearInOnePlaceInARowColumnBlock(),
+                        new TryToFindPairsOfDigitsInTheSameRowColumnBlockAndRemoveThemFromOtherCollidingCells(),
+                        new RemoveDigitsWhenConstrainedToAGroupOfNCells()
+                    })
                     {
                         changesMadeStates = changesMadeStates.DoIfUnchanged(() => step.Do(rng, puzzle));
                     }
-                    changesMadeStates = changesMadeStates.DoIfUnchanged(
-                        () => new TryToFindANumberWhichCanOnlyAppearInOnePlaceInARowColumnBlock().Do(rng, puzzle));
-
-                    changesMadeStates = changesMadeStates.DoIfUnchanged(
-                        () => new TryToFindPairsOfDigitsInTheSameRowColumnBlockAndRemoveThemFromOtherCollidingCells().Do(rng,
-                            puzzle));
-
-                    changesMadeStates = changesMadeStates.DoIfUnchanged(
-                        () => new RemoveDigitsWhenConstrainedToAGroupOfNCells().Do(rng, puzzle));
                 } while (changesMadeStates.CandidateChanged);
 
                 changesMadeStates.CellChanged = LookIfBoardHasMultipleSolutions(rng, changesMadeStates.CellChanged,
