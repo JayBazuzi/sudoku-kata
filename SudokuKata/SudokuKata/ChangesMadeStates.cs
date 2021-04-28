@@ -10,12 +10,6 @@ namespace SudokuKata
         public static ChangesMadeStates None => new ChangesMadeStates();
         public bool IsChanged => CandidateChanged || CellChanged;
 
-        public void Reset()
-        {
-            CandidateChanged = false;
-            CellChanged = false;
-        }
-
         public ChangesMadeStates DoIfUnchanged(Func<ChangesMadeStates> func)
         {
             if (!IsChanged)
