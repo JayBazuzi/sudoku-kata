@@ -8,6 +8,7 @@ namespace SudokuKata
         public bool CandidateChanged; 
         public bool CellChanged;
         public static ChangesMadeStates None => new ChangesMadeStates();
+        public bool IsChanged => CandidateChanged || CellChanged;
 
         public void Reset()
         {

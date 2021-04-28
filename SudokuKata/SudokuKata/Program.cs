@@ -58,7 +58,7 @@ namespace SudokuKata
                     solvedBoard.GetBoardAsNumbers(), puzzle);
 
                 PrintBoardChange(changesMadeStates.CellChanged, puzzle);
-            } while (changesMadeStates.CellChanged);
+            } while (changesMadeStates.IsChanged);
         }
 
         private static ISudokuSolverStep[] GetSudokuSolverSteps()
