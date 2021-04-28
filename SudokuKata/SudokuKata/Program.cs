@@ -38,7 +38,7 @@ namespace SudokuKata
         private static void SolvePuzzle(Random rng, SudokuBoard puzzle,
             SudokuBoard solvedBoard)
         {
-            var changesMadeStates = new ChangesMadeStates();
+            ChangesMadeStates changesMadeStates = new ChangesMadeStates();
 
             do
             {
