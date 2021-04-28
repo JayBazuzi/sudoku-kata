@@ -58,7 +58,7 @@ namespace SudokuKata
                             puzzle));
 
                     changesMadeStates = changesMadeStates.DoIfUnchanged(
-                        () => IsTryToFindGruopsOfDigitsApplesauce(puzzle));
+                        () => IsTryToFindGruopsOfDigitsApplesauce(rng, puzzle));
                 } while (changesMadeStates.CandidateChanged);
 
                 changesMadeStates.CellChanged = LookIfBoardHasMultipleSolutions(rng, changesMadeStates.CellChanged,
@@ -367,7 +367,7 @@ namespace SudokuKata
             return puzzle;
         }
 
-        private static ChangesMadeStates IsTryToFindGruopsOfDigitsApplesauce( SudokuBoard sudokuBoard)
+        private static ChangesMadeStates IsTryToFindGruopsOfDigitsApplesauce(Random random, SudokuBoard sudokuBoard)
         {
             var cellGroups = sudokuBoard.BuildCellGroups();
 
