@@ -34,7 +34,7 @@ namespace SudokuKata
 
             if (!groups.Any())
             {
-                return new ChangesMadeStates();
+                return ChangesMadeStates.None;
             }
 
             var stepChangeMade = false;

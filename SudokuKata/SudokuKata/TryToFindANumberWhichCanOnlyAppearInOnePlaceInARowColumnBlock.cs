@@ -106,7 +106,7 @@ namespace SudokuKata
             }
             else
             {
-                return new ChangesMadeStates();
+                return ChangesMadeStates.None;
             }
         }
     }

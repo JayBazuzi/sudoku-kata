@@ -13,7 +13,7 @@ namespace SudokuKata
             var cell = singleCandidateIndices.Skip(skip).FirstOrDefault();
             if (cell == null)
             {
-                return new ChangesMadeStates();
+                return ChangesMadeStates.None;
             }
 
             puzzle.SetValue(cell.Row, cell.Col, cell.Value);
