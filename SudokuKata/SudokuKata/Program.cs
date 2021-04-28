@@ -48,11 +48,10 @@ namespace SudokuKata
 
                 do
                 {
-                    changesMadeStates =
-                        changesMadeStates.DoIfCellUnchanged(() => PickCellsWithOnlyOneCandidateRemaining(rng, puzzle));
-                    changesMadeStates = changesMadeStates.DoIfCellUnchanged(() =>
-                        TryToFindANumberWhichCanOnlyAppearInOnePlaceInARowColumnBlock(rng,
-                            puzzle));
+                    changesMadeStates = changesMadeStates.DoIfCellUnchanged(
+                        () => PickCellsWithOnlyOneCandidateRemaining(rng, puzzle));
+                    changesMadeStates = changesMadeStates.DoIfCellUnchanged(
+                        () => TryToFindANumberWhichCanOnlyAppearInOnePlaceInARowColumnBlock(rng, puzzle));
 
 
                     changesMadeStates.CandidateChanged =
@@ -273,14 +272,12 @@ namespace SudokuKata
                 puzzle.SetValue(row, col, digit);
 
                 Console.WriteLine(message);
-                return new ChangesMadeStates { CellChanged = true };
-
+                return new ChangesMadeStates {CellChanged = true};
             }
             else
             {
                 return new ChangesMadeStates();
             }
-
         }
 
         private static ChangesMadeStates PickCellsWithOnlyOneCandidateRemaining(Random rng, SudokuBoard puzzle)
