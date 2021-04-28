@@ -50,6 +50,7 @@
     <Compile Include="ChangesMadeStates.cs" />
     <Compile Include="LookupStructures.cs" />
     <Compile Include="PickCellsWithOnlyOneCandidateRemaining.cs" />
+    <Compile Include="RemoveDigitsWhenConstrainedToAGroupOfNCells.cs" />
     <Compile Include="SudokuConstraints_OrSomething.cs" />
     <Compile Include="Applesauce2.cs" />
     <Compile Include="Applesauce3.cs" />
