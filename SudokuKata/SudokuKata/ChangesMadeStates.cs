@@ -24,5 +24,17 @@ namespace SudokuKata
                 return this;
             }
         }
+
+        public ChangesMadeStates DoIfUnchanged(Func<ChangesMadeStates> func)
+        {
+            if (!CellChanged && !CandidateChanged)
+            {
+                return func();
+            }
+            else
+            {
+                return this;
+            }
+        }
     }
 }

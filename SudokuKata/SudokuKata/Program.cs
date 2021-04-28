@@ -57,9 +57,8 @@ namespace SudokuKata
                         () => TryToFindPairsOfDigitsInTheSameRowColumnBlockAndRemoveThemFromOtherCollidingCells(rng,
                             puzzle));
 
-                    changesMadeStates.CandidateChanged =
-                        IsTryToFindGruopsOfDigitsApplesauce(changesMadeStates.CellChanged, puzzle,
-                            changesMadeStates.CandidateChanged);
+                    changesMadeStates = changesMadeStates.DoIfUnchanged(
+                        () => IsTryToFindGruopsOfDigitsApplesauce(puzzle));
                 } while (changesMadeStates.CandidateChanged);
 
                 changesMadeStates.CellChanged = LookIfBoardHasMultipleSolutions(rng, changesMadeStates.CellChanged,
@@ -368,8 +367,7 @@ namespace SudokuKata
             return puzzle;
         }
 
-        private static bool IsTryToFindGruopsOfDigitsApplesauce(bool changeMade, SudokuBoard sudokuBoard,
-            bool stepChangeMade)
+        private static ChangesMadeStates IsTryToFindGruopsOfDigitsApplesauce( SudokuBoard sudokuBoard)
         {
             var cellGroups = sudokuBoard.BuildCellGroups();
 
@@ -382,10 +380,6 @@ namespace SudokuKata
             // When a set of N digits only appears in N cells within row/column/block, then no other digit can appear in the same set of cells
             // All other candidates can then be removed from those cells
 
-            if (changeMade || stepChangeMade)
-            {
-                return stepChangeMade;
-            }
 
             IEnumerable<int> masks =
                 maskToOnesCount
@@ -412,6 +406,7 @@ namespace SudokuKata
                     .Where(group => @group.CellsWithMask.Count() == maskToOnesCount[@group.Mask])
                     .ToList();
 
+            bool stepChangeMade = false;
             foreach (var groupWithNMasks in groupsWithNMasks)
             {
                 var mask = groupWithNMasks.Mask;
@@ -485,7 +480,7 @@ namespace SudokuKata
 
             #endregion
 
-            return stepChangeMade;
+            return new ChangesMadeStates {CandidateChanged = stepChangeMade};
         }
 
         private static bool LookIfBoardHasMultipleSolutions(Random rng, bool changeMade, int[] candidateMasks,
