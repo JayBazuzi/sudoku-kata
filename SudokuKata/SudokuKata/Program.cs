@@ -53,9 +53,8 @@ namespace SudokuKata
                     changesMadeStates = changesMadeStates.DoIfCellUnchanged(
                         () => TryToFindANumberWhichCanOnlyAppearInOnePlaceInARowColumnBlock(rng, puzzle));
 
-
                     changesMadeStates.CandidateChanged =
-                        TryToFindPairsOfDigitsInTheSameRowColumnBlockAndRemoveThemFromOtherCollidingCells(
+                        TryToFindPairsOfDigitsInTheSameRowColumnBlockAndRemoveThemFromOtherCollidingCells(rng,
                             changesMadeStates.CellChanged,
                             puzzle);
 
@@ -74,7 +73,7 @@ namespace SudokuKata
 
 
         private static bool TryToFindPairsOfDigitsInTheSameRowColumnBlockAndRemoveThemFromOtherCollidingCells(
-            bool wasChangeMade, SudokuBoard sudokuBoard)
+            Random changeMade, bool wasChangeMade, SudokuBoard sudokuBoard)
         {
             var cellGroups = sudokuBoard.BuildCellGroups();
             var candidateMasks = sudokuBoard.GetCandidates().Board;
