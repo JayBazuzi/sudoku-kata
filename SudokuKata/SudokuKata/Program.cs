@@ -273,10 +273,8 @@ namespace SudokuKata
                 candidateMasks[stateIndex] = 0;
                 puzzle.SetValue(row, col, digit);
 
-                wasChangeMade = true;
-
                 Console.WriteLine(message);
-                return new ChangesMadeStates { CellChanged = wasChangeMade };
+                return new ChangesMadeStates { CellChanged = true };
 
             }
             else
