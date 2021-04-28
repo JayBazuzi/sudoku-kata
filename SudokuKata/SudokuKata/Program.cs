@@ -53,10 +53,9 @@ namespace SudokuKata
                     changesMadeStates = changesMadeStates.DoIfCellUnchanged(
                         () => TryToFindANumberWhichCanOnlyAppearInOnePlaceInARowColumnBlock(rng, puzzle));
 
-                    changesMadeStates.CandidateChanged =
-                        TryToFindPairsOfDigitsInTheSameRowColumnBlockAndRemoveThemFromOtherCollidingCells(rng,
-                            changesMadeStates.CellChanged,
-                            puzzle);
+                    changesMadeStates = changesMadeStates.DoIfCellUnchanged(
+                        () => TryToFindPairsOfDigitsInTheSameRowColumnBlockAndRemoveThemFromOtherCollidingCells(rng,
+                            puzzle));
 
                     changesMadeStates.CandidateChanged =
                         IsTryToFindGruopsOfDigitsApplesauce(changesMadeStates.CellChanged, puzzle,
@@ -72,16 +71,12 @@ namespace SudokuKata
         }
 
 
-        private static bool TryToFindPairsOfDigitsInTheSameRowColumnBlockAndRemoveThemFromOtherCollidingCells(
-            Random changeMade, bool wasChangeMade, SudokuBoard sudokuBoard)
+        private static ChangesMadeStates TryToFindPairsOfDigitsInTheSameRowColumnBlockAndRemoveThemFromOtherCollidingCells(
+            Random rng, SudokuBoard sudokuBoard)
         {
             var cellGroups = sudokuBoard.BuildCellGroups();
             var candidateMasks = sudokuBoard.GetCandidates().Board;
             var maskToOnesCount = PrepareLookupStructures()._maskToOnesCount;
-            if (wasChangeMade)
-            {
-                return false;
-            }
 
             IEnumerable<int> twoDigitMasks =
                 candidateMasks.Where(mask => maskToOnesCount[mask] == 2).Distinct().ToList();
@@ -104,7 +99,7 @@ namespace SudokuKata
 
             if (!groups.Any())
             {
-                return false;
+                return new ChangesMadeStates();
             }
 
             var stepChangeMade = false;
@@ -172,7 +167,7 @@ namespace SudokuKata
                 }
             }
 
-            return stepChangeMade;
+            return new ChangesMadeStates{CandidateChanged = stepChangeMade};
         }
 
         private static ChangesMadeStates TryToFindANumberWhichCanOnlyAppearInOnePlaceInARowColumnBlock(Random rng,
