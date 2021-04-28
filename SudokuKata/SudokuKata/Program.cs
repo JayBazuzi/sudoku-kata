@@ -53,7 +53,7 @@ namespace SudokuKata
                     }
                 } while (changesMadeStates.CandidateChanged);
 
-                changesMadeStates.CellChanged = LookIfBoardHasMultipleSolutions(rng, changesMadeStates.CellChanged,
+                changesMadeStates = LookIfBoardHasMultipleSolutions(rng, changesMadeStates.CellChanged,
                     candidates2.Board,
                     solvedBoard.GetBoardAsNumbers(), puzzle);
 
@@ -149,7 +149,7 @@ namespace SudokuKata
             return puzzle;
         }
 
-        private static bool LookIfBoardHasMultipleSolutions(Random rng, bool changeMade, int[] candidateMasks,
+        private static ChangesMadeStates LookIfBoardHasMultipleSolutions(Random rng, bool changeMade, int[] candidateMasks,
             int[] finalState,
             SudokuBoard sudokuBoard)
         {
@@ -476,7 +476,7 @@ namespace SudokuKata
 
             #endregion
 
-            return changeMade;
+            return new ChangesMadeStates {CellChanged = changeMade};
         }
 
         private static void PrintBoardChange(bool changeMade, SudokuBoard sudokuBoard)
