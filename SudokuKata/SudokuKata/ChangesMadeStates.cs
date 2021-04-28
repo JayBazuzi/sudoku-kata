@@ -13,18 +13,6 @@ namespace SudokuKata
             CellChanged = false;
         }
 
-        public ChangesMadeStates DoIfCellUnchanged(Func<ChangesMadeStates> func)
-        {
-            if (!CellChanged)
-            {
-                return func();
-            }
-            else
-            {
-                return this;
-            }
-        }
-
         public ChangesMadeStates DoIfUnchanged(Func<ChangesMadeStates> func)
         {
             if (!CellChanged && !CandidateChanged)
