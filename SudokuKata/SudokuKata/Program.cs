@@ -53,7 +53,7 @@ namespace SudokuKata
                     changesMadeStates = changesMadeStates.DoIfCellUnchanged(
                         () => TryToFindANumberWhichCanOnlyAppearInOnePlaceInARowColumnBlock(rng, puzzle));
 
-                    changesMadeStates = changesMadeStates.DoIfCellUnchanged(
+                    changesMadeStates = changesMadeStates.DoIfUnchanged(
                         () => TryToFindPairsOfDigitsInTheSameRowColumnBlockAndRemoveThemFromOtherCollidingCells(rng,
                             puzzle));
 
