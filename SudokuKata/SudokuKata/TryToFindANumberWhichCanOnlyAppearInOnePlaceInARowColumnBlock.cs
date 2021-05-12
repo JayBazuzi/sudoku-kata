@@ -54,6 +54,7 @@ namespace SudokuKata
                 var indexInBlock = 0;
 
                 var row = rows.ElementAt(cellGroup);
+                var column = columns.ElementAt(cellGroup);
                 for (var indexInGroup = 0; indexInGroup < 9; indexInGroup++)
                 {
                     var candidateMasks = puzzle.GetCandidates().Board;
@@ -63,7 +64,7 @@ namespace SudokuKata
                         indexInRow = indexInGroup;
                     }
 
-                    if ((candidateMasks[9 * indexInGroup + cellGroup] & mask) != 0)
+                    if ((candidateMasks[column.ElementAt(indexInGroup).ToIndex()] & mask) != 0)
                     {
                         colNumberCount += 1;
                         indexInCol = indexInGroup;
