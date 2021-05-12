@@ -54,7 +54,6 @@
     <Compile Include="PickCellsWithOnlyOneCandidateRemaining.cs" />
     <Compile Include="RemoveDigitsWhenConstrainedToAGroupOfNCells.cs" />
     <Compile Include="SudokuConstraints_OrSomething.cs" />
-    <Compile Include="Applesauce2.cs" />
     <Compile Include="Applesauce3.cs" />
     <Compile Include="Candidates.cs" />
     <Compile Include="Cell.cs" />
