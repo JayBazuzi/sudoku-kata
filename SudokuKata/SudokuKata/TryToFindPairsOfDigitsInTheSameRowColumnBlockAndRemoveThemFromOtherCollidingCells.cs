@@ -24,7 +24,7 @@ namespace SudokuKata
                             .Where(group => group.Any(tuple =>
                                 candidateMasks[tuple.Index] != mask &&
                                 (candidateMasks[tuple.Index] & mask) > 0))
-                            .Select(group => new Applesauce2
+                            .Select(group => new 
                             {
                                 Mask = mask, Discriminator = group.Key,
                                 Description = group.First().Description,
