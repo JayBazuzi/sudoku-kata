@@ -32,7 +32,7 @@ namespace SudokuKata
                         cellGroups
                             .Where(group => group.All(cell =>
                                 state[cell.Index] == 0 || (mask & (1 << (state[cell.Index] - 1))) == 0))
-                            .Select(group => new Applesauce3
+                            .Select(group => new
                             {
                                 Mask = mask, Description = group.First().Description, Cells = group,
                                 CellsWithMask = group.Where(cell =>
