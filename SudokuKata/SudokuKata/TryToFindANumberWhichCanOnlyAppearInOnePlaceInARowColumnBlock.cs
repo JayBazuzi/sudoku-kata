@@ -10,8 +10,7 @@ namespace SudokuKata
             SudokuBoard puzzle)
         {
             var candidateMasks = puzzle.GetCandidates().Board;
-            var groupDescriptions = new List<string>();
-            var cellsWhichAreTheOnlyPossibleInABlock = new List<Cell>();
+            var cellsWhichAreTheOnlyPossibleInABlock = new List<Tuple<Cell, string>>();
 
             for (var digit = 1; digit <= 9; digit++)
             {
@@ -56,14 +55,14 @@ namespace SudokuKata
 
                     if (rowNumberCount == 1)
                     {
-                        groupDescriptions.Add($"Row #{cellGroup + 1}");
-                        cellsWhichAreTheOnlyPossibleInABlock.Add(new Cell(cellGroup, indexInRow, digit));
+                        var description = $"Row #{cellGroup + 1}";
+                        cellsWhichAreTheOnlyPossibleInABlock.Add(Tuple.Create(new Cell(cellGroup, indexInRow, digit), description));
                     }
 
                     if (colNumberCount == 1)
                     {
-                        groupDescriptions.Add($"Column #{cellGroup + 1}");
-                        cellsWhichAreTheOnlyPossibleInABlock.Add(new Cell(indexInCol, cellGroup, digit));
+                        var description = $"Column #{cellGroup + 1}";
+                        cellsWhichAreTheOnlyPossibleInABlock.Add(Tuple.Create(new Cell(indexInCol, cellGroup, digit), description));
                     }
 
                     if (blockNumberCount == 1)
@@ -71,8 +70,8 @@ namespace SudokuKata
                         var blockRow = cellGroup / 3;
                         var blockCol = cellGroup % 3;
 
-                        groupDescriptions.Add($"Block ({blockRow + 1}, {blockCol + 1})");
-                        cellsWhichAreTheOnlyPossibleInABlock.Add(new Cell(blockRow * 3 + indexInBlock / 3, blockCol * 3 + indexInBlock % 3, digit));
+                        var description =  $"Block ({blockRow + 1}, {blockCol + 1})";
+                        cellsWhichAreTheOnlyPossibleInABlock.Add(Tuple.Create(new Cell(blockRow * 3 + indexInBlock / 3, blockCol * 3 + indexInBlock % 3, digit), description));
                     }
                 } // for (cellGroup = 0..8)
             } // for (digit = 1..9)
@@ -80,8 +79,7 @@ namespace SudokuKata
             if (cellsWhichAreTheOnlyPossibleInABlock.Count > 0)
             {
                 var index = rng.Next(cellsWhichAreTheOnlyPossibleInABlock.Count);
-                var description = groupDescriptions.ElementAt(index);
-                var cell = cellsWhichAreTheOnlyPossibleInABlock[index];
+                var (cell, description) = cellsWhichAreTheOnlyPossibleInABlock[index];
 
                 var message = $"{description} can contain {cell.Value} only at ({cell.Row + 1}, {cell.Col + 1}).";
 
