@@ -27,7 +27,6 @@ namespace SudokuKata
 
         private static List<Tuple<Cell, string>> GetCellsWhichAreTheOnlyPossibleInABlock(SudokuBoard puzzle)
         {
-            var candidateMasks = puzzle.GetCandidates().Board;
             var cellsWhichAreTheOnlyPossibleInABlock = new List<Tuple<Cell, string>>();
 
             for (var digit = 1; digit <= 9; digit++)
@@ -52,6 +51,7 @@ namespace SudokuKata
                         var blockColIndex = cellGroup % 3 * 3 + indexInGroup % 3;
                         var blockStateIndex = blockRowIndex * 9 + blockColIndex;
 
+                        var candidateMasks = puzzle.GetCandidates().Board;
                         if ((candidateMasks[rowStateIndex] & mask) != 0)
                         {
                             rowNumberCount += 1;
