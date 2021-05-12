@@ -41,6 +41,7 @@ namespace SudokuKata
         {
             var rows = SudokuBoard.GetRows();
             var columns= SudokuBoard.GetColumns();
+            var blocks= SudokuBoard.GetBlocks();
             var mask = 1 << (digit - 1);
             for (var cellGroup = 0; cellGroup < 9; cellGroup++)
             {
@@ -55,6 +56,7 @@ namespace SudokuKata
 
                 var row = rows.ElementAt(cellGroup);
                 var column = columns.ElementAt(cellGroup);
+                var block = blocks.ElementAt(cellGroup);
                 for (var indexInGroup = 0; indexInGroup < 9; indexInGroup++)
                 {
                     var candidateMasks = puzzle.GetCandidates().Board;
@@ -70,11 +72,7 @@ namespace SudokuKata
                         indexInCol = indexInGroup;
                     }
 
-                    var blockRowIndex = cellGroup / 3 * 3 + indexInGroup / 3;
-                    var blockColIndex = cellGroup % 3 * 3 + indexInGroup % 3;
-                    var blockStateIndex = blockRowIndex * 9 + blockColIndex;
-
-                    if ((candidateMasks[blockStateIndex] & mask) != 0)
+                    if ((candidateMasks[block.ElementAt(indexInGroup).ToIndex()] & mask) != 0)
                     {
                         blockNumberCount += 1;
                         indexInBlock = indexInGroup;
