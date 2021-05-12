@@ -10,7 +10,6 @@ namespace SudokuKata
             SudokuBoard puzzle)
         {
             var candidateMasks = puzzle.GetCandidates().Board;
-            var boardAsNumbers = puzzle.GetBoardAsNumbers();
             var groupDescriptions = new List<string>();
             var candidateRowIndices = new List<int>();
             var candidateColIndices = new List<int>();
