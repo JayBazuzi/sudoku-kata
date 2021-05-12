@@ -39,6 +39,9 @@ namespace SudokuKata
 
         private static IEnumerable<Tuple<Cell, string>> GetCellsWhichAreTheOnlyPossibleInABlockForADigit(SudokuBoard puzzle, int digit)
         {
+            // TODO: make this beautiful
+            //  CheckGroup("rows", SudokuBoard.GetRows(), puzzle) X 3
+            //  
             var rows = SudokuBoard.GetRows();
             var columns= SudokuBoard.GetColumns();
             var blocks= SudokuBoard.GetBlocks();
