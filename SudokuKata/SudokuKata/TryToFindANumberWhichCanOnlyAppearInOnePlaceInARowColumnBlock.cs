@@ -96,9 +96,6 @@ namespace SudokuKata
 
                 var message = $"{description} can contain {digit} only at ({row + 1}, {col + 1}).";
 
-                var stateIndex = 9 * row + col;
-                boardAsNumbers[stateIndex] = digit;
-                candidateMasks[stateIndex] = 0;
                 var cell = new Cell(row, col, digit);
                 puzzle.SetValue(cell);
 
