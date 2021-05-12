@@ -34,5 +34,12 @@ namespace SudokuKata.Test
             var result = SudokuBoard.GetRows();
             Approvals.VerifyAll("rows", result, list => list.ToReadableString());
         }
+
+        [TestMethod]
+        public void GetColumns()
+        {
+            var result = SudokuBoard.GetColumns();
+            Approvals.VerifyAll("columns", result, list => list.ToReadableString());
+        }
     }
 }

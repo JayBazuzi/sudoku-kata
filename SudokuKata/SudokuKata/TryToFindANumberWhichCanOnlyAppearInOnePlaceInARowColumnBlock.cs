@@ -40,6 +40,7 @@ namespace SudokuKata
         private static IEnumerable<Tuple<Cell, string>> GetCellsWhichAreTheOnlyPossibleInABlockForADigit(SudokuBoard puzzle, int digit)
         {
             var rows = SudokuBoard.GetRows();
+            var columns= SudokuBoard.GetColumns();
             var mask = 1 << (digit - 1);
             for (var cellGroup = 0; cellGroup < 9; cellGroup++)
             {

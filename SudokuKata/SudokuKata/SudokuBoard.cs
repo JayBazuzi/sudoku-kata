@@ -266,5 +266,19 @@ namespace SudokuKata
                 yield return result;
             }
         }
+
+        public static IEnumerable<IEnumerable<Cell>> GetColumns()
+        {
+            for (int column = 0; column < 9; column++)
+            {
+                List<Cell> result = new List<Cell>();
+                for (int row = 0; row < 9; row++)
+                {
+                    result.Add(new Cell(row, column, 0));
+                }
+
+                yield return result;
+            }
+        }
     }
 }
