@@ -99,7 +99,8 @@ namespace SudokuKata
                 var stateIndex = 9 * row + col;
                 boardAsNumbers[stateIndex] = digit;
                 candidateMasks[stateIndex] = 0;
-                puzzle.SetValue(row, col, digit);
+                var cell = new Cell(row, col, digit);
+                puzzle.SetValue(cell);
 
                 Console.WriteLine(message);
                 return new ChangesMadeStates {CellChanged = true};

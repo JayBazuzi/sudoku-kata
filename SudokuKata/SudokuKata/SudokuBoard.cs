@@ -247,5 +247,10 @@ namespace SudokuKata
 
             return puzzle;
         }
+
+        public void SetValue(Cell cell)
+        {
+            this.SetValue(cell.Row, cell.Col, cell.Value);
+        }
     }
 }
