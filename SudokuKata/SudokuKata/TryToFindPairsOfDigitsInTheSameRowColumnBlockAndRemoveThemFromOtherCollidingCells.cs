@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace SudokuKata
 {
-    internal class TryToFindPairsOfDigitsInTheSameRowColumnBlockAndRemoveThemFromOtherCollidingCells: ISudokuSolverStep
+    internal class TryToFindPairsOfDigitsInTheSameRowColumnBlockAndRemoveThemFromOtherCollidingCells : ISudokuSolverStep
     {
         public ChangesMadeStates Do(
             Random rng, SudokuBoard sudokuBoard)
@@ -20,15 +20,15 @@ namespace SudokuKata
                 twoDigitMasks
                     .SelectMany(mask =>
                         cellGroups
-                            .Where(group => @group.Count(tuple => candidateMasks[tuple.Index] == mask) == 2)
-                            .Where(group => @group.Any(tuple =>
+                            .Where(group => group.Count(tuple => candidateMasks[tuple.Index] == mask) == 2)
+                            .Where(group => group.Any(tuple =>
                                 candidateMasks[tuple.Index] != mask &&
                                 (candidateMasks[tuple.Index] & mask) > 0))
                             .Select(group => new Applesauce2
                             {
-                                Mask = mask, Discriminator = @group.Key,
-                                Description = @group.First().Description,
-                                Cells = @group
+                                Mask = mask, Discriminator = group.Key,
+                                Description = group.First().Description,
+                                Cells = group
                             }))
                     .ToList();
 
@@ -41,16 +41,16 @@ namespace SudokuKata
             foreach (var group in groups)
             {
                 var cells =
-                    @group.Cells
+                    group.Cells
                         .Where(
                             cell =>
-                                candidateMasks[cell.Index] != @group.Mask &&
-                                (candidateMasks[cell.Index] & @group.Mask) > 0)
+                                candidateMasks[cell.Index] != group.Mask &&
+                                (candidateMasks[cell.Index] & group.Mask) > 0)
                         .ToList();
 
                 var maskCells =
-                    @group.Cells
-                        .Where(cell => candidateMasks[cell.Index] == @group.Mask)
+                    group.Cells
+                        .Where(cell => candidateMasks[cell.Index] == group.Mask)
                         .ToArray();
 
 
@@ -58,7 +58,7 @@ namespace SudokuKata
                 {
                     var upper = 0;
                     var lower = 0;
-                    var temp = @group.Mask;
+                    var temp = group.Mask;
 
                     var value = 1;
                     while (temp > 0)
@@ -74,11 +74,11 @@ namespace SudokuKata
                     }
 
                     Console.WriteLine(
-                        $"Values {lower} and {upper} in {@group.Description} are in cells ({maskCells[0].Row + 1}, {maskCells[0].Column + 1}) and ({maskCells[1].Row + 1}, {maskCells[1].Column + 1}).");
+                        $"Values {lower} and {upper} in {group.Description} are in cells ({maskCells[0].Row + 1}, {maskCells[0].Column + 1}) and ({maskCells[1].Row + 1}, {maskCells[1].Column + 1}).");
 
                     foreach (var cell in cells)
                     {
-                        var maskToRemove = candidateMasks[cell.Index] & @group.Mask;
+                        var maskToRemove = candidateMasks[cell.Index] & group.Mask;
                         var valuesToRemove = new List<int>();
                         var curValue = 1;
                         while (maskToRemove > 0)
@@ -96,13 +96,13 @@ namespace SudokuKata
                         Console.WriteLine(
                             $"{valuesReport} cannot appear in ({cell.Row + 1}, {cell.Column + 1}).");
 
-                        candidateMasks[cell.Index] &= ~@group.Mask;
+                        candidateMasks[cell.Index] &= ~group.Mask;
                         stepChangeMade = true;
                     }
                 }
             }
 
-            return new ChangesMadeStates{CandidateChanged = stepChangeMade};
+            return new ChangesMadeStates {CandidateChanged = stepChangeMade};
         }
     }
 }

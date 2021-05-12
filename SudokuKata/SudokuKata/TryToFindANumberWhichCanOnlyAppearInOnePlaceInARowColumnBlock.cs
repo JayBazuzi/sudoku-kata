@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace SudokuKata
 {
-    internal class TryToFindANumberWhichCanOnlyAppearInOnePlaceInARowColumnBlock: ISudokuSolverStep
+    internal class TryToFindANumberWhichCanOnlyAppearInOnePlaceInARowColumnBlock : ISudokuSolverStep
     {
         public ChangesMadeStates Do(Random rng,
             SudokuBoard puzzle)
@@ -104,10 +104,8 @@ namespace SudokuKata
                 Console.WriteLine(message);
                 return new ChangesMadeStates {CellChanged = true};
             }
-            else
-            {
-                return ChangesMadeStates.None;
-            }
+
+            return ChangesMadeStates.None;
         }
     }
 }

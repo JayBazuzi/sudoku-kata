@@ -1,11 +1,10 @@
 ﻿using System;
-using System.Runtime.Remoting.Messaging;
 
 namespace SudokuKata
 {
-    class ChangesMadeStates
+    internal class ChangesMadeStates
     {
-        public bool CandidateChanged; 
+        public bool CandidateChanged;
         public bool CellChanged;
         public static ChangesMadeStates None => new ChangesMadeStates();
         public bool IsChanged => CandidateChanged || CellChanged;
@@ -16,10 +15,8 @@ namespace SudokuKata
             {
                 return func();
             }
-            else
-            {
-                return this;
-            }
+
+            return this;
         }
 
         public ChangesMadeStates DoIfUnchanged(ISudokuSolverStep step, Random rng, SudokuBoard puzzle)

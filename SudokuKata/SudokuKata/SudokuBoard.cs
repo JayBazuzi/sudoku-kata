@@ -240,7 +240,7 @@ namespace SudokuKata
                 positions[removedPosition] = positions[indexToPick];
                 positions[indexToPick] = temp;
 
-                puzzle.SetValue(row, col, SudokuBoard.Unknown);
+                puzzle.SetValue(row, col, Unknown);
 
                 removedPosition += 1;
             }

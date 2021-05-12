@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace SudokuKata
 {
@@ -38,7 +35,7 @@ namespace SudokuKata
         private static void SolvePuzzle(Random rng, SudokuBoard puzzle,
             SudokuBoard solvedBoard)
         {
-            ChangesMadeStates changesMadeStates ;
+            ChangesMadeStates changesMadeStates;
 
             do
             {
@@ -54,9 +51,9 @@ namespace SudokuKata
                 } while (changesMadeStates.CandidateChanged);
 
                 changesMadeStates = changesMadeStates.DoIfUnchanged(
-                    () => CheckForMultipleSolutions.Do(rng, 
-                    candidates2.Board,
-                    solvedBoard.GetBoardAsNumbers(), puzzle));
+                    () => CheckForMultipleSolutions.Do(rng,
+                        candidates2.Board,
+                        solvedBoard.GetBoardAsNumbers(), puzzle));
 
                 PrintBoardChange(changesMadeStates.CellChanged, puzzle);
             } while (changesMadeStates.IsChanged);

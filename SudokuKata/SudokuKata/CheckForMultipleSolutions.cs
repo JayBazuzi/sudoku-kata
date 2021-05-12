@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace SudokuKata
 {
-    static internal class CheckForMultipleSolutions
+    internal static class CheckForMultipleSolutions
     {
         public static ChangesMadeStates Do(Random rng, int[] candidateMasks,
             int[] finalState,
@@ -21,7 +21,7 @@ namespace SudokuKata
 
             #region Final attempt - look if the board has multiple solutions
 
-            bool changeMade = false;
+            var changeMade = false;
             // This is the last chance to do something in this iteration:
             // If this attempt fails, board will not be entirely solved.
 

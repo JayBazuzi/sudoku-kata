@@ -4,6 +4,7 @@ namespace SudokuKata
 {
     public class LookupStructures
     {
+        public static readonly LookupStructures Instance = new LookupStructures();
         public Dictionary<int, int> _maskToOnesCount;
         public Dictionary<int, int> _singleBitToIndex;
 
@@ -27,10 +28,9 @@ namespace SudokuKata
             }
 
             #endregion
+
             _singleBitToIndex = singleBitToIndex;
             _maskToOnesCount = maskToOnesCount;
         }
-
-        public static readonly LookupStructures Instance = new LookupStructures();
     }
 }
