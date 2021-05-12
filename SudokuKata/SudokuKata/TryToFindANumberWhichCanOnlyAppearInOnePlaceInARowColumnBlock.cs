@@ -31,13 +31,13 @@ namespace SudokuKata
 
             for (var digit = 1; digit <= 9; digit++)
             {
-                cellsWhichAreTheOnlyPossibleInABlock.AddRange(NewMethod(puzzle, digit));
+                cellsWhichAreTheOnlyPossibleInABlock.AddRange(GetCellsWhichAreTheOnlyPossibleInABlockForADigit(puzzle, digit));
             }
 
             return cellsWhichAreTheOnlyPossibleInABlock;
         }
 
-        private static IEnumerable<Tuple<Cell, string>> NewMethod(SudokuBoard puzzle, int digit)
+        private static IEnumerable<Tuple<Cell, string>> GetCellsWhichAreTheOnlyPossibleInABlockForADigit(SudokuBoard puzzle, int digit)
         {
             var mask = 1 << (digit - 1);
             for (var cellGroup = 0; cellGroup < 9; cellGroup++)
