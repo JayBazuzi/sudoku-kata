@@ -9,6 +9,26 @@ namespace SudokuKata
         public ChangesMadeStates Do(Random rng,
             SudokuBoard puzzle)
         {
+            var cellsWhichAreTheOnlyPossibleInABlock = GetCellsWhichAreTheOnlyPossibleInABlock(puzzle);
+
+            if (cellsWhichAreTheOnlyPossibleInABlock.Count > 0)
+            {
+                var index = rng.Next(cellsWhichAreTheOnlyPossibleInABlock.Count);
+                var (cell, description) = cellsWhichAreTheOnlyPossibleInABlock[index];
+
+                var message = $"{description} can contain {cell.Value} only at ({cell.Row + 1}, {cell.Col + 1}).";
+
+                puzzle.SetValue(cell);
+
+                Console.WriteLine(message);
+                return new ChangesMadeStates {CellChanged = true};
+            }
+
+            return ChangesMadeStates.None;
+        }
+
+        private static List<Tuple<Cell, string>> GetCellsWhichAreTheOnlyPossibleInABlock(SudokuBoard puzzle)
+        {
             var candidateMasks = puzzle.GetCandidates().Board;
             var cellsWhichAreTheOnlyPossibleInABlock = new List<Tuple<Cell, string>>();
 
@@ -56,13 +76,15 @@ namespace SudokuKata
                     if (rowNumberCount == 1)
                     {
                         var description = $"Row #{cellGroup + 1}";
-                        cellsWhichAreTheOnlyPossibleInABlock.Add(Tuple.Create(new Cell(cellGroup, indexInRow, digit), description));
+                        cellsWhichAreTheOnlyPossibleInABlock.Add(Tuple.Create(new Cell(cellGroup, indexInRow, digit),
+                            description));
                     }
 
                     if (colNumberCount == 1)
                     {
                         var description = $"Column #{cellGroup + 1}";
-                        cellsWhichAreTheOnlyPossibleInABlock.Add(Tuple.Create(new Cell(indexInCol, cellGroup, digit), description));
+                        cellsWhichAreTheOnlyPossibleInABlock.Add(Tuple.Create(new Cell(indexInCol, cellGroup, digit),
+                            description));
                     }
 
                     if (blockNumberCount == 1)
@@ -70,26 +92,14 @@ namespace SudokuKata
                         var blockRow = cellGroup / 3;
                         var blockCol = cellGroup % 3;
 
-                        var description =  $"Block ({blockRow + 1}, {blockCol + 1})";
-                        cellsWhichAreTheOnlyPossibleInABlock.Add(Tuple.Create(new Cell(blockRow * 3 + indexInBlock / 3, blockCol * 3 + indexInBlock % 3, digit), description));
+                        var description = $"Block ({blockRow + 1}, {blockCol + 1})";
+                        cellsWhichAreTheOnlyPossibleInABlock.Add(Tuple.Create(
+                            new Cell(blockRow * 3 + indexInBlock / 3, blockCol * 3 + indexInBlock % 3, digit), description));
                     }
                 } // for (cellGroup = 0..8)
             } // for (digit = 1..9)
 
-            if (cellsWhichAreTheOnlyPossibleInABlock.Count > 0)
-            {
-                var index = rng.Next(cellsWhichAreTheOnlyPossibleInABlock.Count);
-                var (cell, description) = cellsWhichAreTheOnlyPossibleInABlock[index];
-
-                var message = $"{description} can contain {cell.Value} only at ({cell.Row + 1}, {cell.Col + 1}).";
-
-                puzzle.SetValue(cell);
-
-                Console.WriteLine(message);
-                return new ChangesMadeStates {CellChanged = true};
-            }
-
-            return ChangesMadeStates.None;
+            return cellsWhichAreTheOnlyPossibleInABlock;
         }
     }
 }
