@@ -11,9 +11,7 @@ namespace SudokuKata
         {
             var candidateMasks = puzzle.GetCandidates().Board;
             var groupDescriptions = new List<string>();
-            var candidateRowIndices = new List<int>();
-            var candidateColIndices = new List<int>();
-            var candidates = new List<int>();
+            var cells = new List<Cell>();
 
             for (var digit = 1; digit <= 9; digit++)
             {
@@ -59,17 +57,13 @@ namespace SudokuKata
                     if (rowNumberCount == 1)
                     {
                         groupDescriptions.Add($"Row #{cellGroup + 1}");
-                        candidateRowIndices.Add(cellGroup);
-                        candidateColIndices.Add(indexInRow);
-                        candidates.Add(digit);
+                        cells.Add(new Cell(cellGroup, indexInRow, digit));
                     }
 
                     if (colNumberCount == 1)
                     {
                         groupDescriptions.Add($"Column #{cellGroup + 1}");
-                        candidateRowIndices.Add(indexInCol);
-                        candidateColIndices.Add(cellGroup);
-                        candidates.Add(digit);
+                        cells.Add(new Cell(indexInCol, cellGroup, digit));
                     }
 
                     if (blockNumberCount == 1)
@@ -78,24 +72,19 @@ namespace SudokuKata
                         var blockCol = cellGroup % 3;
 
                         groupDescriptions.Add($"Block ({blockRow + 1}, {blockCol + 1})");
-                        candidateRowIndices.Add(blockRow * 3 + indexInBlock / 3);
-                        candidateColIndices.Add(blockCol * 3 + indexInBlock % 3);
-                        candidates.Add(digit);
+                        cells.Add(new Cell(blockRow * 3 + indexInBlock / 3, blockCol * 3 + indexInBlock % 3, digit));
                     }
                 } // for (cellGroup = 0..8)
             } // for (digit = 1..9)
 
-            if (candidates.Count > 0)
+            if (cells.Count > 0)
             {
-                var index = rng.Next(candidates.Count);
+                var index = rng.Next(cells.Count);
                 var description = groupDescriptions.ElementAt(index);
-                var row = candidateRowIndices.ElementAt(index);
-                var col = candidateColIndices.ElementAt(index);
-                var digit = candidates.ElementAt(index);
+                var cell = cells[index];
 
-                var message = $"{description} can contain {digit} only at ({row + 1}, {col + 1}).";
+                var message = $"{description} can contain {cell.Value} only at ({cell.Row + 1}, {cell.Col + 1}).";
 
-                var cell = new Cell(row, col, digit);
                 puzzle.SetValue(cell);
 
                 Console.WriteLine(message);
