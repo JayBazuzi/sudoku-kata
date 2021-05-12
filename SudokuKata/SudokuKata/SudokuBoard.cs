@@ -280,5 +280,21 @@ namespace SudokuKata
                 yield return result;
             }
         }
+
+        public static IEnumerable<IEnumerable<Cell>> GetBlocks()
+        {
+            for (int cellGroup = 0; cellGroup < 9; cellGroup++)
+            {
+                List<Cell> result = new List<Cell>();
+                for (int indexInGroup = 0; indexInGroup < 9; indexInGroup++)
+                {
+                    var blockRowIndex = cellGroup / 3 * 3 + indexInGroup / 3;
+                    var blockColIndex = cellGroup % 3 * 3 + indexInGroup % 3;
+                    var blockStateIndex = blockRowIndex * 9 + blockColIndex;
+                    result.Add(Cell.FromIndex(blockStateIndex, 0));
+                }
+                yield return result;
+            }
+        }
     }
 }
