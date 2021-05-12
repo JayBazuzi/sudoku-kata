@@ -1,6 +1,7 @@
 using System;
 using System.IO;
 using ApprovalTests;
+using ApprovalUtilities.Utilities;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace SudokuKata.Test
@@ -25,6 +26,13 @@ namespace SudokuKata.Test
         public void TestEmptyBoard()
         {
             Approvals.Verify(new SudokuBoard());
+        }
+
+        [TestMethod]
+        public void GetRows()
+        {
+            var result = SudokuBoard.GetRows();
+            Approvals.VerifyAll("rows", result, list => list.ToReadableString());
         }
     }
 }

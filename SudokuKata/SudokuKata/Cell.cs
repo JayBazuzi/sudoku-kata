@@ -25,5 +25,10 @@
         {
             return Row * 9 + Col;
         }
+
+        public override string ToString()
+        {
+            return $"({Row}, {Col})";
+        }
     }
 }

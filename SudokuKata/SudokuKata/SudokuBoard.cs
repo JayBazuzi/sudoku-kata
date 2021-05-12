@@ -252,5 +252,19 @@ namespace SudokuKata
         {
             this.SetValue(cell.Row, cell.Col, cell.Value);
         }
+
+        public static IEnumerable<IEnumerable<Cell>> GetRows()
+        {
+            for (int row = 0; row < 9; row++)
+            {
+                List<Cell> result = new List<Cell>();
+                for (int column = 0; column < 9; column++)
+                {
+                    result.Add(new Cell(row, column, 0));
+                }
+
+                yield return result;
+            }
+        }
     }
 }

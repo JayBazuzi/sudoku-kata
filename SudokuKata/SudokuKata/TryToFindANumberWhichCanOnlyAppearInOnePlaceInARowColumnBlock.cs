@@ -39,6 +39,7 @@ namespace SudokuKata
 
         private static IEnumerable<Tuple<Cell, string>> GetCellsWhichAreTheOnlyPossibleInABlockForADigit(SudokuBoard puzzle, int digit)
         {
+            var rows = SudokuBoard.GetRows();
             var mask = 1 << (digit - 1);
             for (var cellGroup = 0; cellGroup < 9; cellGroup++)
             {
@@ -51,10 +52,11 @@ namespace SudokuKata
                 var blockNumberCount = 0;
                 var indexInBlock = 0;
 
+                var row = rows.ElementAt(cellGroup);
                 for (var indexInGroup = 0; indexInGroup < 9; indexInGroup++)
                 {
                     var candidateMasks = puzzle.GetCandidates().Board;
-                    if ((candidateMasks[9 * cellGroup + indexInGroup] & mask) != 0)
+                    if ((candidateMasks[row.ElementAt(indexInGroup).ToIndex()] & mask) != 0)
                     {
                         rowNumberCount += 1;
                         indexInRow = indexInGroup;
