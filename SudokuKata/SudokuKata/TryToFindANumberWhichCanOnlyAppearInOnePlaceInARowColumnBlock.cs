@@ -16,11 +16,9 @@ namespace SudokuKata
                 var index = rng.Next(cellsWhichAreTheOnlyPossibleInABlock.Count);
                 var (cell, description) = cellsWhichAreTheOnlyPossibleInABlock[index];
 
-                var message = $"{description} can contain {cell.Value} only at ({cell.Row + 1}, {cell.Col + 1}).";
-
                 puzzle.SetValue(cell);
 
-                Console.WriteLine(message);
+                Console.WriteLine($"{description} can contain {cell.Value} only at ({cell.Row + 1}, {cell.Col + 1}).");
                 return new ChangesMadeStates {CellChanged = true};
             }
 
