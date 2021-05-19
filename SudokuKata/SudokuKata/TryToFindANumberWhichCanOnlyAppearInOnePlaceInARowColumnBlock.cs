@@ -141,6 +141,9 @@ namespace SudokuKata
                         var description = $"Block ({blockRow + 1}, {blockCol + 1})";
                         result = Tuple.Create(
                             new Cell(blockRow * 3 + indexInBlock / 3, blockCol * 3 + indexInBlock % 3, digit), description);
+                    }
+                    if (result != null)
+                    {
                         yield return result;
                     }
                 }
