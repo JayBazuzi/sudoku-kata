@@ -31,29 +31,28 @@ namespace SudokuKata
 
             for (var digit = 1; digit <= 9; digit++)
             {
-                cellsWhichAreTheOnlyPossibleInABlock.AddRange(GetCellsWhichAreTheOnlyPossibleInABlockForADigit(puzzle, digit));
+                cellsWhichAreTheOnlyPossibleInABlock.AddRange(
+                    GetCellsWhichAreTheOnlyPossibleInABlockForADigit(puzzle, digit));
             }
 
             return cellsWhichAreTheOnlyPossibleInABlock;
         }
 
-        private static IEnumerable<Tuple<Cell, string>> GetCellsWhichAreTheOnlyPossibleInABlockForADigit(SudokuBoard puzzle, int digit)
+        private static IEnumerable<Tuple<Cell, string>> GetCellsWhichAreTheOnlyPossibleInABlockForADigit(
+            SudokuBoard puzzle, int digit)
         {
             // TODO: make this beautiful
             //  CheckGroup("rows", SudokuBoard.GetRows(), puzzle) X 3
             //  
             var rows = SudokuBoard.GetRows().ToList();
-            var columns= SudokuBoard.GetColumns().ToList();
-            var blocks= SudokuBoard.GetBlocks().ToList();
+            var columns = SudokuBoard.GetColumns().ToList();
+            var blocks = SudokuBoard.GetBlocks().ToList();
             var mask = 1 << (digit - 1);
             for (var cellGroup = 0; cellGroup < 9; cellGroup++)
             {
                 var rowNumberCount = 0;
                 var indexInRow = 0;
 
-                var colNumberCount = 0;
-
-                var indexInBlock = 0;
 
                 for (var indexInGroup = 0; indexInGroup < 9; indexInGroup++)
                 {
@@ -71,11 +70,12 @@ namespace SudokuKata
                 if (rowNumberCount == 1)
                 {
                     var description = $"Row #{cellGroup + 1}";
-                    yield return (Tuple.Create(new Cell(cellGroup, indexInRow, digit),
-                        description));
+                    yield return Tuple.Create(new Cell(cellGroup, indexInRow, digit),
+                        description);
                 }
 
                 var indexInCol = 0;
+                var colNumberCount = 0;
                 for (var indexInGroup = 0; indexInGroup < 9; indexInGroup++)
                 {
                     var candidateMasks = puzzle.GetCandidates().Board;
@@ -86,17 +86,17 @@ namespace SudokuKata
                         colNumberCount += 1;
                         indexInCol = indexInGroup;
                     }
-
                 }
 
                 if (colNumberCount == 1)
                 {
                     var description = $"Column #{cellGroup + 1}";
-                    yield return (Tuple.Create(new Cell(indexInCol, cellGroup, digit),
-                        description));
+                    yield return Tuple.Create(new Cell(indexInCol, cellGroup, digit),
+                        description);
                 }
 
                 var blockNumberCount = 0;
+                var indexInBlock = 0;
                 for (var indexInGroup = 0; indexInGroup < 9; indexInGroup++)
                 {
                     var candidateMasks = puzzle.GetCandidates().Board;
@@ -107,14 +107,15 @@ namespace SudokuKata
                         indexInBlock = indexInGroup;
                     }
                 }
+
                 if (blockNumberCount == 1)
                 {
                     var blockRow = cellGroup / 3;
                     var blockCol = cellGroup % 3;
 
                     var description = $"Block ({blockRow + 1}, {blockCol + 1})";
-                    yield return (Tuple.Create(
-                        new Cell(blockRow * 3 + indexInBlock / 3, blockCol * 3 + indexInBlock % 3, digit), description));
+                    yield return Tuple.Create(
+                        new Cell(blockRow * 3 + indexInBlock / 3, blockCol * 3 + indexInBlock % 3, digit), description);
                 }
             } // for (cellGroup = 0..8)
         }
