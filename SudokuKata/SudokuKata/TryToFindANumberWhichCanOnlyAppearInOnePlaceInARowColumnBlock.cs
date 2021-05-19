@@ -64,30 +64,29 @@ namespace SudokuKata
             List<IEnumerable<Cell>> group, int cellGroup, Func<int, string> getDescription)
         {
             Tuple<Cell, string> result = null;
+            var rowNumberCount = 0;
+            var indexInRow = 0;
+            var block = group.ElementAt(cellGroup).ToList();
+            for (var indexInGroup = 0; indexInGroup < 9; indexInGroup++)
             {
-                var rowNumberCount = 0;
-                var indexInRow = 0;
-                var block = group.ElementAt(cellGroup).ToList();
-                for (var indexInGroup = 0; indexInGroup < 9; indexInGroup++)
+                var candidateMasks = puzzle.GetCandidates().Board;
+
+                var mask = 1 << (digit - 1);
+                if ((candidateMasks[block.ElementAt(indexInGroup).ToIndex()] & mask) != 0)
                 {
-                    var candidateMasks = puzzle.GetCandidates().Board;
-
-                    var mask = 1 << (digit - 1);
-                    if ((candidateMasks[block.ElementAt(indexInGroup).ToIndex()] & mask) != 0)
-                    {
-                        rowNumberCount += 1;
-                        indexInRow = indexInGroup;
-                    }
-                }
-
-
-                if (rowNumberCount == 1)
-                {
-                    var description = getDescription(cellGroup);
-                    result = Tuple.Create(
-                        new Cell(block[indexInRow].Row, block[indexInRow].Col, digit), description);
+                    rowNumberCount += 1;
+                    indexInRow = indexInGroup;
                 }
             }
+
+
+            if (rowNumberCount == 1)
+            {
+                var description = getDescription(cellGroup);
+                result = Tuple.Create(
+                    new Cell(block[indexInRow].Row, block[indexInRow].Col, digit), description);
+            }
+
             return result;
         }
     }
