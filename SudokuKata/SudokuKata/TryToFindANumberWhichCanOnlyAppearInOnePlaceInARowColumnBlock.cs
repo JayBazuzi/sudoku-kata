@@ -138,8 +138,9 @@ namespace SudokuKata
                         var blockCol = cellGroup % 3;
 
                         var description = $"Block ({blockRow + 1}, {blockCol + 1})";
-                        yield return Tuple.Create(
+                        var result = Tuple.Create(
                             new Cell(blockRow * 3 + indexInBlock / 3, blockCol * 3 + indexInBlock % 3, digit), description);
+                        yield return result;
                     }
                 }
             } // for (cellGroup = 0..8)
