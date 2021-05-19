@@ -47,7 +47,6 @@ namespace SudokuKata
             var rows = SudokuBoard.GetRows().ToList();
             var columns = SudokuBoard.GetColumns().ToList();
             var blocks = SudokuBoard.GetBlocks().ToList();
-            var mask = 1 << (digit - 1);
             for (var cellGroup = 0; cellGroup < 9; cellGroup++)
             {
                 Tuple<Cell, string> result = null;
@@ -60,6 +59,7 @@ namespace SudokuKata
                     var candidateMasks = puzzle.GetCandidates().Board;
 
                     var row = rows.ElementAt(cellGroup);
+                    var mask = 1 << (digit - 1);
                     if ((candidateMasks[row.ElementAt(indexInGroup).ToIndex()] & mask) != 0)
                     {
                         rowNumberCount += 1;
@@ -86,6 +86,7 @@ namespace SudokuKata
                     var candidateMasks = puzzle.GetCandidates().Board;
 
                     var column = columns.ElementAt(cellGroup);
+                    var mask = 1 << (digit - 1);
                     if ((candidateMasks[column.ElementAt(indexInGroup).ToIndex()] & mask) != 0)
                     {
                         colNumberCount += 1;
@@ -106,6 +107,7 @@ namespace SudokuKata
                 {
                     var candidateMasks = puzzle.GetCandidates().Board;
                     var block = blocks.ElementAt(cellGroup);
+                    var mask = 1 << (digit - 1);
                     if ((candidateMasks[block.ElementAt(indexInGroup).ToIndex()] & mask) != 0)
                     {
                         blockNumberCount += 1;
