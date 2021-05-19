@@ -135,7 +135,8 @@ namespace SudokuKata
 
                     if (blockNumberCount == 1)
                     {
-                        var description = ((Func<int, string>)(c => $"Block ({c/ 3 + 1}, {c% 3 + 1})"))(cellGroup);
+                        var getDescription = (Func<int, string>)(c => $"Block ({c/ 3 + 1}, {c% 3 + 1})");
+                        var description = getDescription(cellGroup);
                         result = Tuple.Create(
                             new Cell(block[indexInBlock].Row, block[indexInBlock].Col, digit), description);
                     }
