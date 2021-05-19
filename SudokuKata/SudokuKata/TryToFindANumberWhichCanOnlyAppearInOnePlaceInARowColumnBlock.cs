@@ -73,7 +73,10 @@ namespace SudokuKata
                     var description = $"Row #{cellGroup + 1}";
                     result = Tuple.Create(new Cell(cellGroup, indexInRow, digit),
                         description);
-                    yield return result;
+                    if (result != null)
+                    {
+                        yield return result;
+                    }
                 }
 
                 var indexInCol = 0;
