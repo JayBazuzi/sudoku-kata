@@ -49,21 +49,15 @@ namespace SudokuKata
             {
                 Tuple<Cell, string> result;
                 result = GetIfOnlyOneChoiceIsPossibleFromGroup(puzzle, digit, rows, cellGroup, c => $"Row #{c + 1}");
-                {
-                    results.Add(result);
-                }
+                results.Add(result);
 
                 result = GetIfOnlyOneChoiceIsPossibleFromGroup(puzzle, digit, columns, cellGroup,
                     c => $"Column #{c + 1}");
-                {
-                    results.Add(result);
-                }
+                results.Add(result);
 
                 result = GetIfOnlyOneChoiceIsPossibleFromGroup(puzzle, digit, blocks, cellGroup,
                     c => $"Block ({c / 3 + 1}, {c % 3 + 1})");
-                {
-                    results.Add(result);
-                }
+                results.Add(result);
             }
 
             return results.Where(r => r != null);
