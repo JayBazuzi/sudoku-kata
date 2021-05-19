@@ -68,9 +68,7 @@ namespace SudokuKata
             var block = group.ElementAt(groupIndex).ToList();
             for (var indexInGroup = 0; indexInGroup < 9; indexInGroup++)
             {
-                var isDigitPossible = puzzle.IsDigitPossible(digit, block.ElementAt(indexInGroup));
-
-                if (isDigitPossible)
+                if (puzzle.IsDigitPossible(digit, block.ElementAt(indexInGroup)))
                 {
                     possibleDigitCount += 1;
                     lastMatchingGroupIndex = indexInGroup;
