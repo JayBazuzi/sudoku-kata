@@ -13,6 +13,7 @@ namespace SudokuKata
             var candidateMasks = sudokuBoard.GetCandidates().Board;
             var maskToOnesCount = LookupStructures.Instance._maskToOnesCount;
 
+            // TODO: start cleaning here
             IEnumerable<int> twoDigitMasks =
                 candidateMasks.Where(mask => maskToOnesCount[mask] == 2).Distinct().ToList();
 
