@@ -61,12 +61,12 @@ namespace SudokuKata
         }
 
         private static Tuple<Cell, string> GetIfOnlyOneChoiceIsPossibleFromGroup(SudokuBoard puzzle, int digit,
-            List<IEnumerable<Cell>> group, int cellGroup, Func<int, string> getDescription)
+            List<IEnumerable<Cell>> group, int groupIndex, Func<int, string> getDescription)
         {
             Tuple<Cell, string> result = null;
             var rowNumberCount = 0;
             var indexInRow = 0;
-            var block = group.ElementAt(cellGroup).ToList();
+            var block = group.ElementAt(groupIndex).ToList();
             for (var indexInGroup = 0; indexInGroup < 9; indexInGroup++)
             {
                 var candidateMasks = puzzle.GetCandidates().Board;
@@ -82,7 +82,7 @@ namespace SudokuKata
 
             if (rowNumberCount == 1)
             {
-                var description = getDescription(cellGroup);
+                var description = getDescription(groupIndex);
                 result = Tuple.Create(
                     new Cell(block[indexInRow].Row, block[indexInRow].Col, digit), description);
             }
