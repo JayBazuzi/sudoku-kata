@@ -49,36 +49,38 @@ namespace SudokuKata
             var blocks = SudokuBoard.GetBlocks().ToList();
             for (var cellGroup = 0; cellGroup < 9; cellGroup++)
             {
-                Tuple<Cell, string> result = null;
                 {
-                    var rowNumberCount = 0;
-                    var indexInRow = 0;
-
-
-                    for (var indexInGroup = 0; indexInGroup < 9; indexInGroup++)
+                    Tuple<Cell, string> result = null;
                     {
-                        var candidateMasks = puzzle.GetCandidates().Board;
+                        var rowNumberCount = 0;
+                        var indexInRow = 0;
 
-                        var row = rows.ElementAt(cellGroup);
-                        var mask = 1 << (digit - 1);
-                        if ((candidateMasks[row.ElementAt(indexInGroup).ToIndex()] & mask) != 0)
+
+                        for (var indexInGroup = 0; indexInGroup < 9; indexInGroup++)
                         {
-                            rowNumberCount += 1;
-                            indexInRow = indexInGroup;
+                            var candidateMasks = puzzle.GetCandidates().Board;
+
+                            var row = rows.ElementAt(cellGroup);
+                            var mask = 1 << (digit - 1);
+                            if ((candidateMasks[row.ElementAt(indexInGroup).ToIndex()] & mask) != 0)
+                            {
+                                rowNumberCount += 1;
+                                indexInRow = indexInGroup;
+                            }
+                        }
+
+
+                        if (rowNumberCount == 1)
+                        {
+                            var description = $"Row #{cellGroup + 1}";
+                            result = Tuple.Create(new Cell(cellGroup, indexInRow, digit),
+                                description);
                         }
                     }
-
-
-                    if (rowNumberCount == 1)
+                    if (result != null)
                     {
-                        var description = $"Row #{cellGroup + 1}";
-                        result = Tuple.Create(new Cell(cellGroup, indexInRow, digit),
-                            description);
+                        yield return result;
                     }
-                }
-                if (result != null)
-                {
-                    yield return result;
                 }
 
                 var indexInCol = 0;
