@@ -86,10 +86,11 @@ namespace SudokuKata
                 {
                     Tuple<Cell, string> result = null;
                     Func<int, string> getDescription = c => $"Column #{c + 1}";
+                    var group = columns;
+
                     {
                         var rowNumberCount = 0;
                         var indexInRow = 0;
-                        var group = columns;
                         var block = group.ElementAt(cellGroup).ToList();
                         for (var indexInGroup = 0; indexInGroup < 9; indexInGroup++)
                         {
