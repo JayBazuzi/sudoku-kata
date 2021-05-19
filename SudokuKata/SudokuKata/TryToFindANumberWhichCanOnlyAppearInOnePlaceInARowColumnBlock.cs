@@ -121,10 +121,10 @@ namespace SudokuKata
                     Tuple<Cell, string> result = null;
                     var blockNumberCount = 0;
                     var indexInBlock = 0;
+                    var block = blocks.ElementAt(cellGroup);
                     for (var indexInGroup = 0; indexInGroup < 9; indexInGroup++)
                     {
                         var candidateMasks = puzzle.GetCandidates().Board;
-                        var block = blocks.ElementAt(cellGroup);
                         var mask = 1 << (digit - 1);
                         if ((candidateMasks[block.ElementAt(indexInGroup).ToIndex()] & mask) != 0)
                         {
@@ -140,7 +140,7 @@ namespace SudokuKata
 
                         var description = $"Block ({blockRow + 1}, {blockCol + 1})";
                         result = Tuple.Create(
-                            new Cell(blockRow * 3 + indexInBlock / 3, blockCol * 3 + indexInBlock % 3, digit), description);
+                            new Cell( blockRow * 3 + indexInBlock / 3, blockCol * 3 + indexInBlock % 3, digit), description);
                     }
                     if (result != null)
                     {
