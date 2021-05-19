@@ -85,6 +85,7 @@ namespace SudokuKata
 
                 {
                     Tuple<Cell, string> result = null;
+                    Func<int, string> getDescription = c => $"Column #{c + 1}";
                     {
                         var rowNumberCount = 0;
                         var indexInRow = 0;
@@ -104,7 +105,7 @@ namespace SudokuKata
 
                         if (rowNumberCount == 1)
                         {
-                            var description = $"Column #{cellGroup + 1}";
+                            var description = getDescription(cellGroup);
                             result = Tuple.Create(
                                 new Cell(block[indexInRow].Row, block[indexInRow].Col, digit), description);
                         }
