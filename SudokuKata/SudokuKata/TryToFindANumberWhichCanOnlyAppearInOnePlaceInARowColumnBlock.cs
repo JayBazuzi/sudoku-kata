@@ -47,7 +47,8 @@ namespace SudokuKata
             var results = new List<Tuple<Cell, string>>();
             for (var cellGroup = 0; cellGroup < 9; cellGroup++)
             {
-                results.Add(GetIfOnlyOneChoiceIsPossibleFromGroup(puzzle, digit, rows, cellGroup, c => $"Row #{c + 1}"));
+                results.Add(GetIfOnlyOneChoiceIsPossibleFromGroup(puzzle, digit, rows, cellGroup,
+                    c => $"Row #{c + 1}"));
 
                 results.Add(GetIfOnlyOneChoiceIsPossibleFromGroup(puzzle, digit, columns, cellGroup,
                     c => $"Column #{c + 1}"));
