@@ -118,6 +118,7 @@ namespace SudokuKata
                 }
 
                 {
+                    Tuple<Cell, string> result = null;
                     var blockNumberCount = 0;
                     var indexInBlock = 0;
                     for (var indexInGroup = 0; indexInGroup < 9; indexInGroup++)
@@ -132,7 +133,6 @@ namespace SudokuKata
                         }
                     }
 
-                    Tuple<Cell, string> result;
                     if (blockNumberCount == 1)
                     {
                         var blockRow = cellGroup / 3;
