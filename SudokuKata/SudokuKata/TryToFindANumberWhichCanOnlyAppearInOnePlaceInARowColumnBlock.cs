@@ -50,15 +50,8 @@ namespace SudokuKata
             for (var cellGroup = 0; cellGroup < 9; cellGroup++)
             {
                 {
-                    var result = GetIfOnlyOneChoiceIsPossibleFromGroup(puzzle, digit, rows, cellGroup, c => $"Row #{c + 1}");
-                    if (result != null)
-                    {
-                        yield return result;
-                    }
-                }
-       
-                {
-                    var result = GetIfOnlyOneChoiceIsPossibleFromGroup(puzzle, digit, columns, cellGroup, c => $"Column #{c + 1}");
+                    var result =
+                        GetIfOnlyOneChoiceIsPossibleFromGroup(puzzle, digit, rows, cellGroup, c => $"Row #{c + 1}");
                     if (result != null)
                     {
                         yield return result;
@@ -66,7 +59,17 @@ namespace SudokuKata
                 }
 
                 {
-                    var result = GetIfOnlyOneChoiceIsPossibleFromGroup(puzzle, digit, blocks, cellGroup, (Func<int, string>)(c => $"Block ({c / 3 + 1}, {c % 3 + 1})"));
+                    var result = GetIfOnlyOneChoiceIsPossibleFromGroup(puzzle, digit, columns, cellGroup,
+                        c => $"Column #{c + 1}");
+                    if (result != null)
+                    {
+                        yield return result;
+                    }
+                }
+
+                {
+                    var result = GetIfOnlyOneChoiceIsPossibleFromGroup(puzzle, digit, blocks, cellGroup,
+                        c => $"Block ({c / 3 + 1}, {c % 3 + 1})");
                     if (result != null)
                     {
                         yield return result;
@@ -75,13 +78,14 @@ namespace SudokuKata
             } // for (cellGroup = 0..8)
         }
 
-        private static Tuple<Cell, string> GetIfOnlyOneChoiceIsPossibleFromGroup(SudokuBoard puzzle, int digit, List<IEnumerable<Cell>> @group, int cellGroup, Func<int, string> getDescription)
+        private static Tuple<Cell, string> GetIfOnlyOneChoiceIsPossibleFromGroup(SudokuBoard puzzle, int digit,
+            List<IEnumerable<Cell>> group, int cellGroup, Func<int, string> getDescription)
         {
             Tuple<Cell, string> result = null;
             {
                 var rowNumberCount = 0;
                 var indexInRow = 0;
-                var block = @group.ElementAt(cellGroup).ToList();
+                var block = group.ElementAt(cellGroup).ToList();
                 for (var indexInGroup = 0; indexInGroup < 9; indexInGroup++)
                 {
                     var candidateMasks = puzzle.GetCandidates().Board;
