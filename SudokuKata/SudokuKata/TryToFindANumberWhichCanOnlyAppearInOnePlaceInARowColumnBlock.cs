@@ -84,34 +84,10 @@ namespace SudokuKata
                 }
 
                 {
-                    Tuple<Cell, string> result = null;
                     Func<int, string> getDescription = c => $"Column #{c + 1}";
                     var group = columns;
 
-                    {
-                        var rowNumberCount = 0;
-                        var indexInRow = 0;
-                        var block = group.ElementAt(cellGroup).ToList();
-                        for (var indexInGroup = 0; indexInGroup < 9; indexInGroup++)
-                        {
-                            var candidateMasks = puzzle.GetCandidates().Board;
-
-                            var mask = 1 << (digit - 1);
-                            if ((candidateMasks[block.ElementAt(indexInGroup).ToIndex()] & mask) != 0)
-                            {
-                                rowNumberCount += 1;
-                                indexInRow = indexInGroup;
-                            }
-                        }
-
-
-                        if (rowNumberCount == 1)
-                        {
-                            var description = getDescription(cellGroup);
-                            result = Tuple.Create(
-                                new Cell(block[indexInRow].Row, block[indexInRow].Col, digit), description);
-                        }
-                    }
+                    var result = GetIfOnlyOneChoiceIsPossibleFromGroup(puzzle, digit, @group, cellGroup, getDescription);
                     if (result != null)
                     {
                         yield return result;
@@ -147,6 +123,36 @@ namespace SudokuKata
                     }
                 }
             } // for (cellGroup = 0..8)
+        }
+
+        private static Tuple<Cell, string> GetIfOnlyOneChoiceIsPossibleFromGroup(SudokuBoard puzzle, int digit, List<IEnumerable<Cell>> @group, int cellGroup, Func<int, string> getDescription)
+        {
+            Tuple<Cell, string> result = null;
+            {
+                var rowNumberCount = 0;
+                var indexInRow = 0;
+                var block = @group.ElementAt(cellGroup).ToList();
+                for (var indexInGroup = 0; indexInGroup < 9; indexInGroup++)
+                {
+                    var candidateMasks = puzzle.GetCandidates().Board;
+
+                    var mask = 1 << (digit - 1);
+                    if ((candidateMasks[block.ElementAt(indexInGroup).ToIndex()] & mask) != 0)
+                    {
+                        rowNumberCount += 1;
+                        indexInRow = indexInGroup;
+                    }
+                }
+
+
+                if (rowNumberCount == 1)
+                {
+                    var description = getDescription(cellGroup);
+                    result = Tuple.Create(
+                        new Cell(block[indexInRow].Row, block[indexInRow].Col, digit), description);
+                }
+            }
+            return result;
         }
     }
 }
