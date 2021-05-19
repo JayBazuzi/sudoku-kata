@@ -65,7 +65,7 @@ namespace SudokuKata
         {
             Tuple<Cell, string> result = null;
             var possibleDigitCount = 0;
-            var indexInRow = 0;
+            var lastMatchingGroupIndex = 0;
             var block = group.ElementAt(groupIndex).ToList();
             for (var indexInGroup = 0; indexInGroup < 9; indexInGroup++)
             {
@@ -75,7 +75,7 @@ namespace SudokuKata
                 if ((candidateMasks[block.ElementAt(indexInGroup).ToIndex()] & mask) != 0)
                 {
                     possibleDigitCount += 1;
-                    indexInRow = indexInGroup;
+                    lastMatchingGroupIndex = indexInGroup;
                 }
             }
 
@@ -84,7 +84,7 @@ namespace SudokuKata
             {
                 var description = getDescription(groupIndex);
                 result = Tuple.Create(
-                    new Cell(block[indexInRow].Row, block[indexInRow].Col, digit), description);
+                    new Cell(block[lastMatchingGroupIndex].Row, block[lastMatchingGroupIndex].Col, digit), description);
             }
 
             return result;
