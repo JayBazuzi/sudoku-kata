@@ -49,33 +49,25 @@ namespace SudokuKata
             var blocks = SudokuBoard.GetBlocks().ToList();
             for (var cellGroup = 0; cellGroup < 9; cellGroup++)
             {
+                Tuple<Cell, string> result;
+                result = GetIfOnlyOneChoiceIsPossibleFromGroup(puzzle, digit, rows, cellGroup, c => $"Row #{c + 1}");
+                if (result != null)
                 {
-                    Tuple<Cell, string> result;
-                    result = GetIfOnlyOneChoiceIsPossibleFromGroup(puzzle, digit, rows, cellGroup, c => $"Row #{c + 1}");
-                    if (result != null)
-                    {
-                        yield return result;
-                    }
+                    yield return result;
                 }
 
+                result = GetIfOnlyOneChoiceIsPossibleFromGroup(puzzle, digit, columns, cellGroup,
+                    c => $"Column #{c + 1}");
+                if (result != null)
                 {
-                    Tuple<Cell, string> result;
-                    result = GetIfOnlyOneChoiceIsPossibleFromGroup(puzzle, digit, columns, cellGroup,
-                        c => $"Column #{c + 1}");
-                    if (result != null)
-                    {
-                        yield return result;
-                    }
+                    yield return result;
                 }
 
+                result = GetIfOnlyOneChoiceIsPossibleFromGroup(puzzle, digit, blocks, cellGroup,
+                    c => $"Block ({c / 3 + 1}, {c % 3 + 1})");
+                if (result != null)
                 {
-                    Tuple<Cell, string> result;
-                    result = GetIfOnlyOneChoiceIsPossibleFromGroup(puzzle, digit, blocks, cellGroup,
-                        c => $"Block ({c / 3 + 1}, {c % 3 + 1})");
-                    if (result != null)
-                    {
-                        yield return result;
-                    }
+                    yield return result;
                 }
             } // for (cellGroup = 0..8)
         }
