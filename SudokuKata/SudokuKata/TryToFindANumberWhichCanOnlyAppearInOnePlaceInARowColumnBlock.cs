@@ -52,7 +52,6 @@ namespace SudokuKata
                 var indexInRow = 0;
 
                 var colNumberCount = 0;
-                var indexInCol = 0;
 
                 var indexInBlock = 0;
 
@@ -76,6 +75,7 @@ namespace SudokuKata
                         description));
                 }
 
+                var indexInCol = 0;
                 for (var indexInGroup = 0; indexInGroup < 9; indexInGroup++)
                 {
                     var candidateMasks = puzzle.GetCandidates().Board;
