@@ -84,10 +84,7 @@ namespace SudokuKata
                 }
 
                 {
-                    Func<int, string> getDescription = c => $"Column #{c + 1}";
-                    var group = columns;
-
-                    var result = GetIfOnlyOneChoiceIsPossibleFromGroup(puzzle, digit, @group, cellGroup, getDescription);
+                    var result = GetIfOnlyOneChoiceIsPossibleFromGroup(puzzle, digit, columns, cellGroup, c => $"Column #{c + 1}");
                     if (result != null)
                     {
                         yield return result;
