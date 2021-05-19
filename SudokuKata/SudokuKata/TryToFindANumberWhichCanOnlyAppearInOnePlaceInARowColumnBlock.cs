@@ -66,28 +66,7 @@ namespace SudokuKata
                 }
 
                 {
-                    var getDescription = (Func<int, string>)(c => $"Block ({c / 3 + 1}, {c % 3 + 1})");
-                    Tuple<Cell, string> result = null;
-                    var blockNumberCount = 0;
-                    var indexInBlock = 0;
-                    var block = blocks.ElementAt(cellGroup).ToList();
-                    for (var indexInGroup = 0; indexInGroup < 9; indexInGroup++)
-                    {
-                        var candidateMasks = puzzle.GetCandidates().Board;
-                        var mask = 1 << (digit - 1);
-                        if ((candidateMasks[block.ElementAt(indexInGroup).ToIndex()] & mask) != 0)
-                        {
-                            blockNumberCount += 1;
-                            indexInBlock = indexInGroup;
-                        }
-                    }
-
-                    if (blockNumberCount == 1)
-                    {
-                        var description = getDescription(cellGroup);
-                        result = Tuple.Create(
-                            new Cell(block[indexInBlock].Row, block[indexInBlock].Col, digit), description);
-                    }
+                    var result = GetIfOnlyOneChoiceIsPossibleFromGroup(puzzle, digit, blocks, cellGroup, (Func<int, string>)(c => $"Block ({c / 3 + 1}, {c % 3 + 1})"));
                     if (result != null)
                     {
                         yield return result;
