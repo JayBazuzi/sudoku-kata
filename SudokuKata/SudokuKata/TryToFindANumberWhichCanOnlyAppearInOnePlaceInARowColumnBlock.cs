@@ -69,7 +69,7 @@ namespace SudokuKata
                 }
             }
 
-            return results;
+            return results.Where(r => r != null);
         }
 
         private static Tuple<Cell, string> GetIfOnlyOneChoiceIsPossibleFromGroup(SudokuBoard puzzle, int digit,
