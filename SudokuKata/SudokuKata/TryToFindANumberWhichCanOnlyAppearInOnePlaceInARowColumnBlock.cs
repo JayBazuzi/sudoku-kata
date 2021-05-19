@@ -41,9 +41,6 @@ namespace SudokuKata
         private static IEnumerable<Tuple<Cell, string>> GetCellsWhichAreTheOnlyPossibleInABlockForADigit(
             SudokuBoard puzzle, int digit)
         {
-            // TODO: make this beautiful
-            //  CheckGroup("rows", SudokuBoard.GetRows(), puzzle) X 3
-            //  
             var rows = SudokuBoard.GetRows().ToList();
             var columns = SudokuBoard.GetColumns().ToList();
             var blocks = SudokuBoard.GetBlocks().ToList();
@@ -69,7 +66,7 @@ namespace SudokuKata
                 {
                     yield return result;
                 }
-            } // for (cellGroup = 0..8)
+            }
         }
 
         private static Tuple<Cell, string> GetIfOnlyOneChoiceIsPossibleFromGroup(SudokuBoard puzzle, int digit,
