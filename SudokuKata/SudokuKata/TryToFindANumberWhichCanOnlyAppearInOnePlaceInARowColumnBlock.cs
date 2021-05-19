@@ -42,9 +42,9 @@ namespace SudokuKata
             // TODO: make this beautiful
             //  CheckGroup("rows", SudokuBoard.GetRows(), puzzle) X 3
             //  
-            var rows = SudokuBoard.GetRows();
-            var columns= SudokuBoard.GetColumns();
-            var blocks= SudokuBoard.GetBlocks();
+            var rows = SudokuBoard.GetRows().ToList();
+            var columns= SudokuBoard.GetColumns().ToList();
+            var blocks= SudokuBoard.GetBlocks().ToList();
             var mask = 1 << (digit - 1);
             for (var cellGroup = 0; cellGroup < 9; cellGroup++)
             {
@@ -56,18 +56,18 @@ namespace SudokuKata
 
                 var indexInBlock = 0;
 
-                var row = rows.ElementAt(cellGroup);
-                var column = columns.ElementAt(cellGroup);
-                var block = blocks.ElementAt(cellGroup);
                 for (var indexInGroup = 0; indexInGroup < 9; indexInGroup++)
                 {
                     var candidateMasks = puzzle.GetCandidates().Board;
+
+                    var row = rows.ElementAt(cellGroup);
                     if ((candidateMasks[row.ElementAt(indexInGroup).ToIndex()] & mask) != 0)
                     {
                         rowNumberCount += 1;
                         indexInRow = indexInGroup;
                     }
 
+                    var column = columns.ElementAt(cellGroup);
                     if ((candidateMasks[column.ElementAt(indexInGroup).ToIndex()] & mask) != 0)
                     {
                         colNumberCount += 1;
@@ -95,6 +95,7 @@ namespace SudokuKata
                 for (var indexInGroup = 0; indexInGroup < 9; indexInGroup++)
                 {
                     var candidateMasks = puzzle.GetCandidates().Board;
+                    var block = blocks.ElementAt(cellGroup);
                     if ((candidateMasks[block.ElementAt(indexInGroup).ToIndex()] & mask) != 0)
                     {
                         blockNumberCount += 1;
