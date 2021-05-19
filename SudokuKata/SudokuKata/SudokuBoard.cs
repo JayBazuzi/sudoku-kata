@@ -296,5 +296,14 @@ namespace SudokuKata
                 yield return result;
             }
         }
+
+        public bool IsDigitPossible(int digit, Cell cell)
+        {
+            var candidateMasks = GetCandidates().Board;
+
+            var mask = 1 << (digit - 1);
+            var isDigitPossible = (candidateMasks[cell.ToIndex()] & mask) != 0;
+            return isDigitPossible;
+        }
     }
 }

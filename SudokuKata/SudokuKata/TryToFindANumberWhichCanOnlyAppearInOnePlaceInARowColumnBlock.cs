@@ -70,7 +70,7 @@ namespace SudokuKata
             {
                 var cell = block.ElementAt(indexInGroup);
 
-                var isDigitPossible = IsDigitPossible(puzzle, digit, cell);
+                var isDigitPossible = puzzle.IsDigitPossible(digit, cell);
 
                 if (isDigitPossible)
                 {
@@ -87,15 +87,6 @@ namespace SudokuKata
             }
 
             return null;
-        }
-
-        private static bool IsDigitPossible(SudokuBoard puzzle, int digit, Cell cell)
-        {
-            var candidateMasks = puzzle.GetCandidates().Board;
-
-            var mask = 1 << (digit - 1);
-            var isDigitPossible = (candidateMasks[cell.ToIndex()] & mask) != 0;
-            return isDigitPossible;
         }
     }
 }
