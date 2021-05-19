@@ -71,7 +71,8 @@ namespace SudokuKata
                 var candidateMasks = puzzle.GetCandidates().Board;
 
                 var mask = 1 << (digit - 1);
-                if ((candidateMasks[block.ElementAt(indexInGroup).ToIndex()] & mask) != 0)
+                var isDigitPossible = (candidateMasks[block.ElementAt(indexInGroup).ToIndex()] & mask) != 0;
+                if (isDigitPossible)
                 {
                     possibleDigitCount += 1;
                     lastMatchingGroupIndex = indexInGroup;
