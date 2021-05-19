@@ -81,9 +81,8 @@ namespace SudokuKata
 
             if (possibleDigitCount == 1)
             {
-                var description = getDescription(groupIndex);
                 return Tuple.Create(
-                    new Cell(block[lastMatchingGroupIndex].Row, block[lastMatchingGroupIndex].Col, digit), description);
+                    new Cell(block[lastMatchingGroupIndex].Row, block[lastMatchingGroupIndex].Col, digit), getDescription(groupIndex));
             }
 
             return null;
