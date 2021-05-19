@@ -68,10 +68,13 @@ namespace SudokuKata
             var block = group.ElementAt(groupIndex).ToList();
             for (var indexInGroup = 0; indexInGroup < 9; indexInGroup++)
             {
+                var cell = block.ElementAt(indexInGroup);
+
                 var candidateMasks = puzzle.GetCandidates().Board;
 
                 var mask = 1 << (digit - 1);
-                var isDigitPossible = (candidateMasks[block.ElementAt(indexInGroup).ToIndex()] & mask) != 0;
+                var isDigitPossible = (candidateMasks[cell.ToIndex()] & mask) != 0;
+
                 if (isDigitPossible)
                 {
                     possibleDigitCount += 1;
