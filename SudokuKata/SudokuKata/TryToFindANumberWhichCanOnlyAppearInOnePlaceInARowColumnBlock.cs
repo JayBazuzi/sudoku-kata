@@ -83,11 +83,13 @@ namespace SudokuKata
             if (possibleDigitCount == 1)
             {
                 var description = getDescription(groupIndex);
-                result = Tuple.Create(
+                return Tuple.Create(
                     new Cell(block[lastMatchingGroupIndex].Row, block[lastMatchingGroupIndex].Col, digit), description);
             }
-
-            return result;
+            else
+            {
+                return result;
+            }
         }
     }
 }
