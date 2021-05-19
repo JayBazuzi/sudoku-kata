@@ -135,10 +135,7 @@ namespace SudokuKata
 
                     if (blockNumberCount == 1)
                     {
-                        var blockRow = cellGroup / 3;
-                        var blockCol = cellGroup % 3;
-
-                        var description = $"Block ({blockRow + 1}, {blockCol + 1})";
+                        var description = $"Block ({cellGroup / 3 + 1}, {cellGroup % 3 + 1})";
                         result = Tuple.Create(
                             new Cell(block[indexInBlock].Row, block[indexInBlock].Col, digit), description);
                     }
