@@ -80,13 +80,6 @@ namespace SudokuKata
                 {
                     var candidateMasks = puzzle.GetCandidates().Board;
 
-                    var row = rows.ElementAt(cellGroup);
-                    if ((candidateMasks[row.ElementAt(indexInGroup).ToIndex()] & mask) != 0)
-                    {
-                        rowNumberCount += 1;
-                        indexInRow = indexInGroup;
-                    }
-
                     var column = columns.ElementAt(cellGroup);
                     if ((candidateMasks[column.ElementAt(indexInGroup).ToIndex()] & mask) != 0)
                     {
