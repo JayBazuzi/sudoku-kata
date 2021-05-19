@@ -50,7 +50,7 @@ namespace SudokuKata
             var mask = 1 << (digit - 1);
             for (var cellGroup = 0; cellGroup < 9; cellGroup++)
             {
-                Tuple<Cell, string> result;
+                Tuple<Cell, string> result = null;
                 var rowNumberCount = 0;
                 var indexInRow = 0;
 
@@ -73,10 +73,10 @@ namespace SudokuKata
                     var description = $"Row #{cellGroup + 1}";
                     result = Tuple.Create(new Cell(cellGroup, indexInRow, digit),
                         description);
-                    if (result != null)
-                    {
-                        yield return result;
-                    }
+                }
+                if (result != null)
+                {
+                    yield return result;
                 }
 
                 var indexInCol = 0;
