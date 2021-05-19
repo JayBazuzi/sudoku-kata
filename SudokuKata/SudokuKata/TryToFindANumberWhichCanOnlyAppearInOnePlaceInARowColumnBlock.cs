@@ -44,29 +44,32 @@ namespace SudokuKata
             var rows = SudokuBoard.GetRows().ToList();
             var columns = SudokuBoard.GetColumns().ToList();
             var blocks = SudokuBoard.GetBlocks().ToList();
+            var results = new List<Tuple<Cell, string>>();
             for (var cellGroup = 0; cellGroup < 9; cellGroup++)
             {
                 Tuple<Cell, string> result;
                 result = GetIfOnlyOneChoiceIsPossibleFromGroup(puzzle, digit, rows, cellGroup, c => $"Row #{c + 1}");
                 if (result != null)
                 {
-                    yield return result;
+                    results.Add(result);
                 }
 
                 result = GetIfOnlyOneChoiceIsPossibleFromGroup(puzzle, digit, columns, cellGroup,
                     c => $"Column #{c + 1}");
                 if (result != null)
                 {
-                    yield return result;
+                    results.Add(result);
                 }
 
                 result = GetIfOnlyOneChoiceIsPossibleFromGroup(puzzle, digit, blocks, cellGroup,
                     c => $"Block ({c / 3 + 1}, {c % 3 + 1})");
                 if (result != null)
                 {
-                    yield return result;
+                    results.Add(result);
                 }
             }
+
+            return results;
         }
 
         private static Tuple<Cell, string> GetIfOnlyOneChoiceIsPossibleFromGroup(SudokuBoard puzzle, int digit,
