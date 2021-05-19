@@ -66,14 +66,6 @@ namespace SudokuKata
                         rowNumberCount += 1;
                         indexInRow = indexInGroup;
                     }
-
-                    var column = columns.ElementAt(cellGroup);
-                    if ((candidateMasks[column.ElementAt(indexInGroup).ToIndex()] & mask) != 0)
-                    {
-                        colNumberCount += 1;
-                        indexInCol = indexInGroup;
-                    }
-
                 }
 
 
@@ -82,6 +74,26 @@ namespace SudokuKata
                     var description = $"Row #{cellGroup + 1}";
                     yield return (Tuple.Create(new Cell(cellGroup, indexInRow, digit),
                         description));
+                }
+
+                for (var indexInGroup = 0; indexInGroup < 9; indexInGroup++)
+                {
+                    var candidateMasks = puzzle.GetCandidates().Board;
+
+                    var row = rows.ElementAt(cellGroup);
+                    if ((candidateMasks[row.ElementAt(indexInGroup).ToIndex()] & mask) != 0)
+                    {
+                        rowNumberCount += 1;
+                        indexInRow = indexInGroup;
+                    }
+
+                    var column = columns.ElementAt(cellGroup);
+                    if ((candidateMasks[column.ElementAt(indexInGroup).ToIndex()] & mask) != 0)
+                    {
+                        colNumberCount += 1;
+                        indexInCol = indexInGroup;
+                    }
+
                 }
 
                 if (colNumberCount == 1)
