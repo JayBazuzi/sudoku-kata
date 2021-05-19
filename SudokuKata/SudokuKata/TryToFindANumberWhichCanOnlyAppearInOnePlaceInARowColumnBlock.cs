@@ -89,7 +89,8 @@ namespace SudokuKata
                     {
                         var rowNumberCount = 0;
                         var indexInRow = 0;
-                        var block = columns.ElementAt(cellGroup).ToList();
+                        var group = columns;
+                        var block = group.ElementAt(cellGroup).ToList();
                         for (var indexInGroup = 0; indexInGroup < 9; indexInGroup++)
                         {
                             var candidateMasks = puzzle.GetCandidates().Board;
