@@ -70,7 +70,8 @@ namespace SudokuKata
                 if (rowNumberCount == 1)
                 {
                     var description = $"Row #{cellGroup + 1}";
-                    var result = Tuple.Create(new Cell(cellGroup, indexInRow, digit),
+                    Tuple<Cell, string> result;
+                    result = Tuple.Create(new Cell(cellGroup, indexInRow, digit),
                         description);
                     yield return result;
                 }
