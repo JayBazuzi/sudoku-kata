@@ -85,10 +85,8 @@ namespace SudokuKata
                 return Tuple.Create(
                     new Cell(block[lastMatchingGroupIndex].Row, block[lastMatchingGroupIndex].Col, digit), description);
             }
-            else
-            {
-                return null;
-            }
+
+            return null;
         }
     }
 }
