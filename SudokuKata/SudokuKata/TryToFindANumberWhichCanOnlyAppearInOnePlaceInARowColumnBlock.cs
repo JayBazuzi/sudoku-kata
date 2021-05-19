@@ -83,26 +83,38 @@ namespace SudokuKata
                     }
                 }
 
-                var indexInCol = 0;
-                var colNumberCount = 0;
-                for (var indexInGroup = 0; indexInGroup < 9; indexInGroup++)
                 {
-                    var candidateMasks = puzzle.GetCandidates().Board;
-
-                    var column = columns.ElementAt(cellGroup);
-                    var mask = 1 << (digit - 1);
-                    if ((candidateMasks[column.ElementAt(indexInGroup).ToIndex()] & mask) != 0)
+                    Tuple<Cell, string> result = null;
                     {
-                        colNumberCount += 1;
-                        indexInCol = indexInGroup;
-                    }
-                }
+                        var rowNumberCount = 0;
+                        var indexInRow = 0;
 
-                if (colNumberCount == 1)
-                {
-                    var description = $"Column #{cellGroup + 1}";
-                    yield return Tuple.Create(new Cell(indexInCol, cellGroup, digit),
-                        description);
+
+                        for (var indexInGroup = 0; indexInGroup < 9; indexInGroup++)
+                        {
+                            var candidateMasks = puzzle.GetCandidates().Board;
+
+                            var row = columns.ElementAt(cellGroup);
+                            var mask = 1 << (digit - 1);
+                            if ((candidateMasks[row.ElementAt(indexInGroup).ToIndex()] & mask) != 0)
+                            {
+                                rowNumberCount += 1;
+                                indexInRow = indexInGroup;
+                            }
+                        }
+
+
+                        if (rowNumberCount == 1)
+                        {
+                            var description = $"Column #{cellGroup + 1}";
+                            result = Tuple.Create(new Cell( indexInRow, cellGroup, digit),
+                                description);
+                        }
+                    }
+                    if (result != null)
+                    {
+                        yield return result;
+                    }
                 }
 
                 var blockNumberCount = 0;
