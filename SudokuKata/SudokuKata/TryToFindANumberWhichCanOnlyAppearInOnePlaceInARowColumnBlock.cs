@@ -54,12 +54,44 @@ namespace SudokuKata
                 var colNumberCount = 0;
                 var indexInCol = 0;
 
-                var blockNumberCount = 0;
                 var indexInBlock = 0;
 
                 var row = rows.ElementAt(cellGroup);
                 var column = columns.ElementAt(cellGroup);
                 var block = blocks.ElementAt(cellGroup);
+                for (var indexInGroup = 0; indexInGroup < 9; indexInGroup++)
+                {
+                    var candidateMasks = puzzle.GetCandidates().Board;
+                    if ((candidateMasks[row.ElementAt(indexInGroup).ToIndex()] & mask) != 0)
+                    {
+                        rowNumberCount += 1;
+                        indexInRow = indexInGroup;
+                    }
+
+                    if ((candidateMasks[column.ElementAt(indexInGroup).ToIndex()] & mask) != 0)
+                    {
+                        colNumberCount += 1;
+                        indexInCol = indexInGroup;
+                    }
+
+                }
+
+
+                if (rowNumberCount == 1)
+                {
+                    var description = $"Row #{cellGroup + 1}";
+                    yield return (Tuple.Create(new Cell(cellGroup, indexInRow, digit),
+                        description));
+                }
+
+                if (colNumberCount == 1)
+                {
+                    var description = $"Column #{cellGroup + 1}";
+                    yield return (Tuple.Create(new Cell(indexInCol, cellGroup, digit),
+                        description));
+                }
+
+                var blockNumberCount = 0;
                 for (var indexInGroup = 0; indexInGroup < 9; indexInGroup++)
                 {
                     var candidateMasks = puzzle.GetCandidates().Board;
@@ -81,21 +113,6 @@ namespace SudokuKata
                         indexInBlock = indexInGroup;
                     }
                 }
-
-                if (rowNumberCount == 1)
-                {
-                    var description = $"Row #{cellGroup + 1}";
-                    yield return (Tuple.Create(new Cell(cellGroup, indexInRow, digit),
-                        description));
-                }
-
-                if (colNumberCount == 1)
-                {
-                    var description = $"Column #{cellGroup + 1}";
-                    yield return (Tuple.Create(new Cell(indexInCol, cellGroup, digit),
-                        description));
-                }
-
                 if (blockNumberCount == 1)
                 {
                     var blockRow = cellGroup / 3;
