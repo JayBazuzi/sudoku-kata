@@ -117,28 +117,30 @@ namespace SudokuKata
                     }
                 }
 
-                var blockNumberCount = 0;
-                var indexInBlock = 0;
-                for (var indexInGroup = 0; indexInGroup < 9; indexInGroup++)
                 {
-                    var candidateMasks = puzzle.GetCandidates().Board;
-                    var block = blocks.ElementAt(cellGroup);
-                    var mask = 1 << (digit - 1);
-                    if ((candidateMasks[block.ElementAt(indexInGroup).ToIndex()] & mask) != 0)
+                    var blockNumberCount = 0;
+                    var indexInBlock = 0;
+                    for (var indexInGroup = 0; indexInGroup < 9; indexInGroup++)
                     {
-                        blockNumberCount += 1;
-                        indexInBlock = indexInGroup;
+                        var candidateMasks = puzzle.GetCandidates().Board;
+                        var block = blocks.ElementAt(cellGroup);
+                        var mask = 1 << (digit - 1);
+                        if ((candidateMasks[block.ElementAt(indexInGroup).ToIndex()] & mask) != 0)
+                        {
+                            blockNumberCount += 1;
+                            indexInBlock = indexInGroup;
+                        }
                     }
-                }
 
-                if (blockNumberCount == 1)
-                {
-                    var blockRow = cellGroup / 3;
-                    var blockCol = cellGroup % 3;
+                    if (blockNumberCount == 1)
+                    {
+                        var blockRow = cellGroup / 3;
+                        var blockCol = cellGroup % 3;
 
-                    var description = $"Block ({blockRow + 1}, {blockCol + 1})";
-                    yield return Tuple.Create(
-                        new Cell(blockRow * 3 + indexInBlock / 3, blockCol * 3 + indexInBlock % 3, digit), description);
+                        var description = $"Block ({blockRow + 1}, {blockCol + 1})";
+                        yield return Tuple.Create(
+                            new Cell(blockRow * 3 + indexInBlock / 3, blockCol * 3 + indexInBlock % 3, digit), description);
+                    }
                 }
             } // for (cellGroup = 0..8)
         }
