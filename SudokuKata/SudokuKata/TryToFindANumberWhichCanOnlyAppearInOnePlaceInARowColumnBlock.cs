@@ -63,7 +63,6 @@ namespace SudokuKata
         private static Tuple<Cell, string> GetIfOnlyOneChoiceIsPossibleFromGroup(SudokuBoard puzzle, int digit,
             List<IEnumerable<Cell>> group, int groupIndex, Func<int, string> getDescription)
         {
-            Tuple<Cell, string> result = null;
             var possibleDigitCount = 0;
             var lastMatchingGroupIndex = 0;
             var block = group.ElementAt(groupIndex).ToList();
@@ -88,7 +87,7 @@ namespace SudokuKata
             }
             else
             {
-                return result;
+                return null;
             }
         }
     }
