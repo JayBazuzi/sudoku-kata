@@ -64,7 +64,7 @@ namespace SudokuKata
             List<IEnumerable<Cell>> group, int groupIndex, Func<int, string> getDescription)
         {
             Tuple<Cell, string> result = null;
-            var rowNumberCount = 0;
+            var possibleDigitCount = 0;
             var indexInRow = 0;
             var block = group.ElementAt(groupIndex).ToList();
             for (var indexInGroup = 0; indexInGroup < 9; indexInGroup++)
@@ -74,13 +74,13 @@ namespace SudokuKata
                 var mask = 1 << (digit - 1);
                 if ((candidateMasks[block.ElementAt(indexInGroup).ToIndex()] & mask) != 0)
                 {
-                    rowNumberCount += 1;
+                    possibleDigitCount += 1;
                     indexInRow = indexInGroup;
                 }
             }
 
 
-            if (rowNumberCount == 1)
+            if (possibleDigitCount == 1)
             {
                 var description = getDescription(groupIndex);
                 result = Tuple.Create(
