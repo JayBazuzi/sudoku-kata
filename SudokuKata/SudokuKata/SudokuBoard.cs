@@ -172,7 +172,7 @@ namespace SudokuKata
                     Row = index / 9,
                     Column = index % 9
                 })
-                .GroupBy(tuple => tuple.Discriminator);
+                .GroupBy(tuple => tuple.Index / 9);
 
             var columnIndices = indexes
                 .Select(index => new SudokuConstraints_OrSomething
