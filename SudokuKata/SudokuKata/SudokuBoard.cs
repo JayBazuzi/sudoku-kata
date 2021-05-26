@@ -159,11 +159,11 @@ namespace SudokuKata
 
         public List<IGrouping<int, SudokuConstraints_OrSomething>> BuildCellGroups()
         {
-            var boardAsNumbers = Enumerable.Range(0, 81);
+            var indexes = Enumerable.Range(0, 81);
 
             #region Build a collection (named cellGroups) which maps cell indices into distinct groups (rows/columns/blocks)
 
-            var rowsIndices = boardAsNumbers
+            var rowsIndices = indexes
                 .Select(index => new SudokuConstraints_OrSomething
                 {
                     Discriminator = index / 9, Description = $"row #{index / 9 + 1}", Index = index,
@@ -172,7 +172,7 @@ namespace SudokuKata
                 })
                 .GroupBy(tuple => tuple.Discriminator);
 
-            var columnIndices = boardAsNumbers
+            var columnIndices = indexes
                 .Select(index => new SudokuConstraints_OrSomething
                 {
                     Discriminator = 9 + index % 9, Description = $"column #{index % 9 + 1}", Index = index,
@@ -181,7 +181,7 @@ namespace SudokuKata
                 })
                 .GroupBy(tuple => tuple.Discriminator);
 
-            var blockIndices = boardAsNumbers
+            var blockIndices = indexes
                 .Select(index => new
                 {
                     Row = index / 9,
