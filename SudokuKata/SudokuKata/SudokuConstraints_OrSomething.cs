@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace SudokuKata
 {
@@ -12,6 +13,15 @@ namespace SudokuKata
         {
             Cell = cell;
             Description = description;
+            Index = cell.ToIndex();
+            Row = cell.Row;
+            Column = cell.Col;
+        }
+
+        public SudokuConstraints_OrSomething(Func<Cell, string> getDescription, Cell cell)
+        {
+            Cell = cell;
+            Description = getDescription(cell);
             Index = cell.ToIndex();
             Row = cell.Row;
             Column = cell.Col;
