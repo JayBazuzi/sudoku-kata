@@ -9,17 +9,25 @@ namespace SudokuKata
         {
             Cell = cell;
             Description = getDescription(cell);
-            Index = cell.ToIndex();
-            Row = cell.Row;
-            Column = cell.Column;
         }
 
         public Cell Cell { get; }
 
         public string Description { get; set; }
-        public int Index { get; set; }
-        public int Row { get; set; }
-        public int Column { get; set; }
+        public int Index
+        {
+            get => Cell.ToIndex();
+        }
+
+        public int Row
+        {
+            get => Cell.Row;
+        }
+
+        public int Column
+        {
+            get => Cell.Column;
+        }
 
         public override string ToString()
         {
