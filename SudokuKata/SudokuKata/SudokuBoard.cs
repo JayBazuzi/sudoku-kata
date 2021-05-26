@@ -166,7 +166,9 @@ namespace SudokuKata
             var rowsIndices = indexes
                 .Select(index => new SudokuConstraints_OrSomething
                 {
-                    Discriminator = index / 9, Description = $"row #{index / 9 + 1}", Index = index,
+                    Discriminator = index / 9,
+                    Description = $"row #{index / 9 + 1}",
+                    Index = index,
                     Row = index / 9,
                     Column = index % 9
                 })
@@ -175,7 +177,9 @@ namespace SudokuKata
             var columnIndices = indexes
                 .Select(index => new SudokuConstraints_OrSomething
                 {
-                    Discriminator = 9 + index % 9, Description = $"column #{index % 9 + 1}", Index = index,
+                    Discriminator = 9 + index % 9,
+                    Description = $"column #{index % 9 + 1}",
+                    Index = index,
                     Row = index / 9,
                     Column = index % 9
                 })
@@ -191,7 +195,8 @@ namespace SudokuKata
                 .Select(tuple => new SudokuConstraints_OrSomething
                 {
                     Discriminator = 18 + 3 * (tuple.Row / 3) + tuple.Column / 3,
-                    Description = $"block ({tuple.Row / 3 + 1}, {tuple.Column / 3 + 1})", Index = tuple.Index,
+                    Description = $"block ({tuple.Row / 3 + 1}, {tuple.Column / 3 + 1})",
+                    Index = tuple.Index,
                     Row = tuple.Row,
                     Column = tuple.Column
                 })
