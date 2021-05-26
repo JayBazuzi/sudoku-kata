@@ -4,6 +4,21 @@ namespace SudokuKata
 {
     public class SudokuConstraints_OrSomething
     {
+        public SudokuConstraints_OrSomething()
+        {
+        }
+
+        public SudokuConstraints_OrSomething(string description, Cell cell)
+        {
+            Cell = cell;
+            Description = description;
+            Index = cell.ToIndex();
+            Row = cell.Row;
+            Column = cell.Col;
+        }
+
+        public Cell Cell { get; }
+
         public string Description { get; set; }
         public int Index { get; set; }
         public int Row { get; set; }
@@ -18,7 +33,7 @@ namespace SudokuKata
         public override bool Equals(object value)
         {
             var type = value as SudokuConstraints_OrSomething;
-            return type != null && 
+            return type != null &&
                    EqualityComparer<string>.Default.Equals(type.Description, Description) &&
                    EqualityComparer<int>.Default.Equals(type.Index, Index) &&
                    EqualityComparer<int>.Default.Equals(type.Row, Row) &&

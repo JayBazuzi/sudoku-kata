@@ -164,13 +164,7 @@ namespace SudokuKata
             #region Build a collection (named cellGroups) which maps cell indices into distinct groups (rows/columns/blocks)
 
             var rowsIndices = indexes
-                .Select(index => new SudokuConstraints_OrSomething
-                {
-                    Description = $"row #{index / 9 + 1}",
-                    Index = index,
-                    Row = index / 9,
-                    Column = index % 9
-                })
+                .Select(index => new SudokuConstraints_OrSomething($"row #{index / 9 + 1}", Cell.FromIndex(index, 0)))
                 .GroupBy(tuple => tuple.Index / 9);
 
             var columnIndices = indexes
