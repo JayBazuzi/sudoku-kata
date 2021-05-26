@@ -183,7 +183,7 @@ namespace SudokuKata
                     Row = index / 9,
                     Column = index % 9
                 })
-                .GroupBy(tuple => tuple.Discriminator);
+                .GroupBy(tuple => 9 + tuple.Index % 9);
 
             var blockIndices = indexes
                 .Select(index => new
@@ -200,7 +200,7 @@ namespace SudokuKata
                     Row = tuple.Row,
                     Column = tuple.Column
                 })
-                .GroupBy(tuple => tuple.Discriminator);
+                .GroupBy(tuple => 18 + 3 * (tuple.Row / 3) + tuple.Column / 3);
 
             var cellGroups = rowsIndices.Concat(columnIndices).Concat(blockIndices).ToList();
 
