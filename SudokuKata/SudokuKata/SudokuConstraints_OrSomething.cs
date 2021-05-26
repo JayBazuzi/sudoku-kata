@@ -4,7 +4,6 @@ namespace SudokuKata
 {
     public class SudokuConstraints_OrSomething
     {
-        public int Discriminator { get; set; }
         public string Description { get; set; }
         public int Index { get; set; }
         public int Row { get; set; }
@@ -13,13 +12,13 @@ namespace SudokuKata
         public override string ToString()
         {
             return
-                $"{{ Discriminator = {Discriminator}, Description = {Description}, Index = {Index}, Row = {Row}, Column = {Column} }}";
+                $"{{ Description = {Description}, Index = {Index}, Row = {Row}, Column = {Column} }}";
         }
 
         public override bool Equals(object value)
         {
             var type = value as SudokuConstraints_OrSomething;
-            return type != null && EqualityComparer<int>.Default.Equals(type.Discriminator, Discriminator) &&
+            return type != null && 
                    EqualityComparer<string>.Default.Equals(type.Description, Description) &&
                    EqualityComparer<int>.Default.Equals(type.Index, Index) &&
                    EqualityComparer<int>.Default.Equals(type.Row, Row) &&
@@ -29,7 +28,6 @@ namespace SudokuKata
         public override int GetHashCode()
         {
             var num = 0x7a2f0b42;
-            num = -1521134295 * num + EqualityComparer<int>.Default.GetHashCode(Discriminator);
             num = -1521134295 * num + EqualityComparer<string>.Default.GetHashCode(Description);
             num = -1521134295 * num + EqualityComparer<int>.Default.GetHashCode(Index);
             num = -1521134295 * num + EqualityComparer<int>.Default.GetHashCode(Row);
