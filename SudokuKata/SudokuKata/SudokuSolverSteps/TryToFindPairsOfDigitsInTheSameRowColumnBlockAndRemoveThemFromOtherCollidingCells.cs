@@ -27,7 +27,7 @@ namespace SudokuKata
                                 (candidateMasks[tuple.Index] & mask) > 0))
                             .Select(group => new 
                             {
-                                Mask = mask, Discriminator = group.Key,
+                                Mask = mask, 
                                 Description = group.First().Description,
                                 Cells = group
                             }))
