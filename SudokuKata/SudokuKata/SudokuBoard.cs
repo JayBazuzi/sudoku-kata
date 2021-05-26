@@ -172,19 +172,7 @@ namespace SudokuKata
                 .GroupBy(tuple => 9 + tuple.Index % 9);
 
             var blockIndices = indexes
-                .Select(index => new
-                {
-                    Row = index / 9,
-                    Column = index % 9,
-                    Index = index
-                })
-                .Select(tuple => new SudokuConstraints_OrSomething
-                {
-                    Description = $"block ({tuple.Row / 3 + 1}, {tuple.Column / 3 + 1})",
-                    Index = tuple.Index,
-                    Row = tuple.Row,
-                    Column = tuple.Column
-                })
+                .Select(index => new SudokuConstraints_OrSomething(tuple => $"block ({tuple.Row / 3 + 1}, {tuple.Column / 3 + 1})", Cell.FromIndex(index, 0)))
                 .GroupBy(tuple => 18 + 3 * (tuple.Row / 3) + tuple.Column / 3);
 
             var cellGroups = rowsIndices.Concat(columnIndices).Concat(blockIndices).ToList();
