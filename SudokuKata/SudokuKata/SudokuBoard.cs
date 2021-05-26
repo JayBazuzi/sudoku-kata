@@ -164,15 +164,15 @@ namespace SudokuKata
 
             var rowsIndices = indexes
                 .Select(index => new CellWithDescription(c => $"row #{c.Row + 1}", Cell.FromIndex(index)))
-                .GroupBy(c => c.Cell.Row).Select(g => g.ToList()).ToList();
+                .GroupBy(c => c.Cell.Row).Select(g => g.ToList());
 
             var columnIndices = indexes
                 .Select(index => new CellWithDescription(c => $"column #{c.Column + 1}", Cell.FromIndex(index)))
-                .GroupBy(c => c.Cell.Column).Select(g => g.ToList()).ToList();
+                .GroupBy(c => c.Cell.Column).Select(g => g.ToList());
 
             var blockIndices = indexes
                 .Select(index => new CellWithDescription(c => $"block ({c.Row / 3 + 1}, {c.Column / 3 + 1})", Cell.FromIndex(index)))
-                .GroupBy(c => c.Cell.Block).Select(g => g.ToList()).ToList();
+                .GroupBy(c => c.Cell.Block).Select(g => g.ToList());
 
             var cellGroups = rowsIndices.Concat(columnIndices).Concat(blockIndices).ToList();
 
