@@ -26,6 +26,14 @@
             return Row * 9 + Column;
         }
 
+        public int Block
+        {
+            get
+            {
+                return 3 * (Row / 3) + Column / 3;
+            }
+        }
+
         public override string ToString()
         {
             return $"({Row}, {Column})";

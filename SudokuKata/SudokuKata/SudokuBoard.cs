@@ -172,7 +172,7 @@ namespace SudokuKata
 
             var blockIndices = indexes
                 .Select(index => new CellWithDescription(tuple => $"block ({tuple.Row / 3 + 1}, {tuple.Column / 3 + 1})", Cell.FromIndex(index)))
-                .GroupBy(c => 3 * (c.Row / 3) + c.Column / 3);
+                .GroupBy(c => c.Cell.Block);
 
             var cellGroups = rowsIndices.Concat(columnIndices).Concat(blockIndices).ToList();
 
