@@ -18,7 +18,7 @@ namespace SudokuKata
 
                 puzzle.SetValue(cell);
 
-                Console.WriteLine($"{description} can contain {cell.Value} only at ({cell.Row + 1}, {cell.Col + 1}).");
+                Console.WriteLine($"{description} can contain {cell.Value} only at ({cell.Row + 1}, {cell.Column + 1}).");
                 return new ChangesMadeStates {CellChanged = true};
             }
 
@@ -79,7 +79,7 @@ namespace SudokuKata
             if (possibleDigitCount == 1)
             {
                 return Tuple.Create(
-                    new Cell(block[lastMatchingGroupIndex].Row, block[lastMatchingGroupIndex].Col, digit), getDescription(groupIndex));
+                    new Cell(block[lastMatchingGroupIndex].Row, block[lastMatchingGroupIndex].Column, digit), getDescription(groupIndex));
             }
 
             return null;

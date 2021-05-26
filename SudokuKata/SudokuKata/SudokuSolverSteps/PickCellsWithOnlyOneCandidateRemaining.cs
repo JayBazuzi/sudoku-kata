@@ -16,9 +16,9 @@ namespace SudokuKata
                 return ChangesMadeStates.None;
             }
 
-            puzzle.SetValue(cell.Row, cell.Col, cell.Value);
+            puzzle.SetValue(cell.Row, cell.Column, cell.Value);
 
-            Console.WriteLine("({0}, {1}) can only contain {2}.", cell.Row + 1, cell.Col + 1, cell.Value);
+            Console.WriteLine("({0}, {1}) can only contain {2}.", cell.Row + 1, cell.Column + 1, cell.Value);
 
             return new ChangesMadeStates {CellChanged = true};
         }

@@ -15,7 +15,7 @@ namespace SudokuKata
             Description = description;
             Index = cell.ToIndex();
             Row = cell.Row;
-            Column = cell.Col;
+            Column = cell.Column;
         }
 
         public SudokuConstraints_OrSomething(Func<Cell, string> getDescription, Cell cell)
@@ -24,7 +24,7 @@ namespace SudokuKata
             Description = getDescription(cell);
             Index = cell.ToIndex();
             Row = cell.Row;
-            Column = cell.Col;
+            Column = cell.Column;
         }
 
         public Cell Cell { get; }

@@ -2,14 +2,14 @@
 {
     public class Cell
     {
-        public readonly int Col;
+        public readonly int Column;
         public readonly int Row;
         public readonly int Value;
 
         public Cell(int row, int col, int value)
         {
             Row = row;
-            Col = col;
+            Column = col;
             Value = value;
         }
 
@@ -23,12 +23,12 @@
 
         public int ToIndex()
         {
-            return Row * 9 + Col;
+            return Row * 9 + Column;
         }
 
         public override string ToString()
         {
-            return $"({Row}, {Col})";
+            return $"({Row}, {Column})";
         }
     }
 }

@@ -168,7 +168,7 @@ namespace SudokuKata
                 .GroupBy(tuple => tuple.Index / 9);
 
             var columnIndices = indexes
-                .Select(index => new SudokuConstraints_OrSomething(c => $"column #{c.Col + 1}", Cell.FromIndex(index, 0)))
+                .Select(index => new SudokuConstraints_OrSomething(c => $"column #{c.Column + 1}", Cell.FromIndex(index, 0)))
                 .GroupBy(tuple => 9 + tuple.Index % 9);
 
             var blockIndices = indexes
@@ -240,7 +240,7 @@ namespace SudokuKata
 
         public void SetValue(Cell cell)
         {
-            SetValue(cell.Row, cell.Col, cell.Value);
+            SetValue(cell.Row, cell.Column, cell.Value);
         }
 
         public static IEnumerable<IEnumerable<Cell>> GetRows()
