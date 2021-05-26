@@ -3,9 +3,9 @@ using System.Collections.Generic;
 
 namespace SudokuKata
 {
-    public class SudokuConstraints_OrSomething
+    public class CellWithDescription
     {
-        public SudokuConstraints_OrSomething(Func<Cell, string> getDescription, Cell cell)
+        public CellWithDescription(Func<Cell, string> getDescription, Cell cell)
         {
             Cell = cell;
             Description = getDescription(cell);

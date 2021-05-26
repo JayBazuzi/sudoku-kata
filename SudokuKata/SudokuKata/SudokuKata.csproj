@@ -53,7 +53,7 @@
     <Compile Include="LookupStructures.cs" />
     <Compile Include="SudokuSolverSteps\PickCellsWithOnlyOneCandidateRemaining.cs" />
     <Compile Include="SudokuSolverSteps\RemoveDigitsWhenConstrainedToAGroupOfNCells.cs" />
-    <Compile Include="SudokuConstraints_OrSomething.cs" />
+    <Compile Include="CellWithDescription.cs" />
     <Compile Include="Candidates.cs" />
     <Compile Include="Cell.cs" />
     <Compile Include="Command.cs" />

@@ -157,21 +157,21 @@ namespace SudokuKata
             return candidates;
         }
 
-        public static List<IGrouping<int, SudokuConstraints_OrSomething>> BuildCellGroups()
+        public static List<IGrouping<int, CellWithDescription>> BuildCellGroups()
         {
             var indexes = Enumerable.Range(0, 81);
 
 
             var rowsIndices = indexes
-                .Select(index => new SudokuConstraints_OrSomething(c => $"row #{c.Row + 1}", Cell.FromIndex(index)))
+                .Select(index => new CellWithDescription(c => $"row #{c.Row + 1}", Cell.FromIndex(index)))
                 .GroupBy(tuple => tuple.Index / 9);
 
             var columnIndices = indexes
-                .Select(index => new SudokuConstraints_OrSomething(c => $"column #{c.Column + 1}", Cell.FromIndex(index)))
+                .Select(index => new CellWithDescription(c => $"column #{c.Column + 1}", Cell.FromIndex(index)))
                 .GroupBy(tuple => tuple.Index % 9);
 
             var blockIndices = indexes
-                .Select(index => new SudokuConstraints_OrSomething(tuple => $"block ({tuple.Row / 3 + 1}, {tuple.Column / 3 + 1})", Cell.FromIndex(index)))
+                .Select(index => new CellWithDescription(tuple => $"block ({tuple.Row / 3 + 1}, {tuple.Column / 3 + 1})", Cell.FromIndex(index)))
                 .GroupBy(c => 3 * (c.Row / 3) + c.Column / 3);
 
             var cellGroups = rowsIndices.Concat(columnIndices).Concat(blockIndices).ToList();
