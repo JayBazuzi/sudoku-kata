@@ -30,7 +30,7 @@
         {
             get
             {
-                return 3 * (Row / 3) + Column / 3;
+                return (3 * (Row / 3)) + (Column / 3);
             }
         }
 
