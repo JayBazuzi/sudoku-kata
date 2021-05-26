@@ -163,9 +163,8 @@ namespace SudokuKata
 
             #region Build a collection (named cellGroups) which maps cell indices into distinct groups (rows/columns/blocks)
 
-
             var rowsIndices = boardAsNumbers
-                .Select((index) => new SudokuConstraints_OrSomething
+                .Select(index => new SudokuConstraints_OrSomething
                 {
                     Discriminator = index / 9, Description = $"row #{index / 9 + 1}", Index = index,
                     Row = index / 9,
@@ -174,7 +173,7 @@ namespace SudokuKata
                 .GroupBy(tuple => tuple.Discriminator);
 
             var columnIndices = boardAsNumbers
-                .Select(( index) => new SudokuConstraints_OrSomething
+                .Select(index => new SudokuConstraints_OrSomething
                 {
                     Discriminator = 9 + index % 9, Description = $"column #{index % 9 + 1}", Index = index,
                     Row = index / 9,
@@ -183,7 +182,7 @@ namespace SudokuKata
                 .GroupBy(tuple => tuple.Discriminator);
 
             var blockIndices = boardAsNumbers
-                .Select(( index) => new
+                .Select(index => new
                 {
                     Row = index / 9,
                     Column = index % 9,
@@ -251,15 +250,15 @@ namespace SudokuKata
 
         public void SetValue(Cell cell)
         {
-            this.SetValue(cell.Row, cell.Col, cell.Value);
+            SetValue(cell.Row, cell.Col, cell.Value);
         }
 
         public static IEnumerable<IEnumerable<Cell>> GetRows()
         {
-            for (int row = 0; row < 9; row++)
+            for (var row = 0; row < 9; row++)
             {
-                List<Cell> result = new List<Cell>();
-                for (int column = 0; column < 9; column++)
+                var result = new List<Cell>();
+                for (var column = 0; column < 9; column++)
                 {
                     result.Add(new Cell(row, column, 0));
                 }
@@ -270,10 +269,10 @@ namespace SudokuKata
 
         public static IEnumerable<IEnumerable<Cell>> GetColumns()
         {
-            for (int column = 0; column < 9; column++)
+            for (var column = 0; column < 9; column++)
             {
-                List<Cell> result = new List<Cell>();
-                for (int row = 0; row < 9; row++)
+                var result = new List<Cell>();
+                for (var row = 0; row < 9; row++)
                 {
                     result.Add(new Cell(row, column, 0));
                 }
@@ -284,16 +283,17 @@ namespace SudokuKata
 
         public static IEnumerable<IEnumerable<Cell>> GetBlocks()
         {
-            for (int cellGroup = 0; cellGroup < 9; cellGroup++)
+            for (var cellGroup = 0; cellGroup < 9; cellGroup++)
             {
-                List<Cell> result = new List<Cell>();
-                for (int indexInGroup = 0; indexInGroup < 9; indexInGroup++)
+                var result = new List<Cell>();
+                for (var indexInGroup = 0; indexInGroup < 9; indexInGroup++)
                 {
                     var blockRowIndex = cellGroup / 3 * 3 + indexInGroup / 3;
                     var blockColIndex = cellGroup % 3 * 3 + indexInGroup % 3;
                     var blockStateIndex = blockRowIndex * 9 + blockColIndex;
                     result.Add(Cell.FromIndex(blockStateIndex, 0));
                 }
+
                 yield return result;
             }
         }
