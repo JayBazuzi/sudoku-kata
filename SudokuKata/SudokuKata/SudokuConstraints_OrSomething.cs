@@ -5,19 +5,6 @@ namespace SudokuKata
 {
     public class SudokuConstraints_OrSomething
     {
-        public SudokuConstraints_OrSomething()
-        {
-        }
-
-        public SudokuConstraints_OrSomething(string description, Cell cell)
-        {
-            Cell = cell;
-            Description = description;
-            Index = cell.ToIndex();
-            Row = cell.Row;
-            Column = cell.Column;
-        }
-
         public SudokuConstraints_OrSomething(Func<Cell, string> getDescription, Cell cell)
         {
             Cell = cell;
