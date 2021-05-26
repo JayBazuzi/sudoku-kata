@@ -163,7 +163,9 @@ namespace SudokuKata
 
             #region Build a collection (named cellGroups) which maps cell indices into distinct groups (rows/columns/blocks)
 
-            var rowsIndices = boardAsNumbers
+            var range = Enumerable.Range(0, 81);
+
+            var rowsIndices = range
                 .Select((value, index) => new SudokuConstraints_OrSomething
                 {
                     Discriminator = index / 9, Description = $"row #{index / 9 + 1}", Index = index,
