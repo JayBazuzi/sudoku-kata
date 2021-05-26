@@ -168,7 +168,7 @@ namespace SudokuKata
                 .GroupBy(tuple => tuple.Index / 9);
 
             var columnIndices = indexes
-                .Select(index => new SudokuConstraints_OrSomething($"column #{index % 9 + 1}", Cell.FromIndex(index, 0)))
+                .Select(index => new SudokuConstraints_OrSomething(c => $"column #{c.Col + 1}", Cell.FromIndex(index, 0)))
                 .GroupBy(tuple => 9 + tuple.Index % 9);
 
             var blockIndices = indexes
