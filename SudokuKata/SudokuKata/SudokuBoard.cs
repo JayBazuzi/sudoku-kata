@@ -165,7 +165,7 @@ namespace SudokuKata
 
 
             var rowsIndices = boardAsNumbers
-                .Select((value, index) => new SudokuConstraints_OrSomething
+                .Select((index) => new SudokuConstraints_OrSomething
                 {
                     Discriminator = index / 9, Description = $"row #{index / 9 + 1}", Index = index,
                     Row = index / 9,
@@ -174,7 +174,7 @@ namespace SudokuKata
                 .GroupBy(tuple => tuple.Discriminator);
 
             var columnIndices = boardAsNumbers
-                .Select((value, index) => new SudokuConstraints_OrSomething
+                .Select(( index) => new SudokuConstraints_OrSomething
                 {
                     Discriminator = 9 + index % 9, Description = $"column #{index % 9 + 1}", Index = index,
                     Row = index / 9,
@@ -183,7 +183,7 @@ namespace SudokuKata
                 .GroupBy(tuple => tuple.Discriminator);
 
             var blockIndices = boardAsNumbers
-                .Select((value, index) => new
+                .Select(( index) => new
                 {
                     Row = index / 9,
                     Column = index % 9,
