@@ -48,5 +48,13 @@ namespace SudokuKata.Test
             var result = SudokuBoard.GetBlocks();
             Approvals.VerifyAll("blocks", result, list => list.ToReadableString());
         }
+
+        [TestMethod]
+        public void BuildCellGroupsTest()
+        {
+            var result = SudokuBoard.BuildCellGroups();
+            Approvals.VerifyAll(result, "results", _ => _.ToReadableString());
+
+        }
     }
 }
