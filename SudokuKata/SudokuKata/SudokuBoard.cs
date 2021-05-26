@@ -159,13 +159,12 @@ namespace SudokuKata
 
         public List<IGrouping<int, SudokuConstraints_OrSomething>> BuildCellGroups()
         {
-            var boardAsNumbers = GetBoardAsNumbers();
+            var boardAsNumbers = Enumerable.Range(0, 81);
 
             #region Build a collection (named cellGroups) which maps cell indices into distinct groups (rows/columns/blocks)
 
-            var range = Enumerable.Range(0, 81);
 
-            var rowsIndices = range
+            var rowsIndices = boardAsNumbers
                 .Select((value, index) => new SudokuConstraints_OrSomething
                 {
                     Discriminator = index / 9, Description = $"row #{index / 9 + 1}", Index = index,
