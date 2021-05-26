@@ -9,7 +9,7 @@ namespace SudokuKata
         public ChangesMadeStates Do(
             Random rng, SudokuBoard sudokuBoard)
         {
-            var cellGroups = sudokuBoard.BuildCellGroups();
+            var cellGroups = SudokuBoard.BuildCellGroups();
             var candidateMasks = sudokuBoard.GetCandidates().Board;
             var maskToOnesCount = LookupStructures.Instance._maskToOnesCount;
 

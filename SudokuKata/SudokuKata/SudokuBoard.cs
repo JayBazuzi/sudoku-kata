@@ -157,7 +157,7 @@ namespace SudokuKata
             return candidates;
         }
 
-        public List<IGrouping<int, SudokuConstraints_OrSomething>> BuildCellGroups()
+        public static List<IGrouping<int, SudokuConstraints_OrSomething>> BuildCellGroups()
         {
             var indexes = Enumerable.Range(0, 81);
 

@@ -9,7 +9,7 @@ namespace SudokuKata
     {
         public ChangesMadeStates Do(Random random, SudokuBoard sudokuBoard)
         {
-            var cellGroups = sudokuBoard.BuildCellGroups();
+            var cellGroups = SudokuBoard.BuildCellGroups();
 
             var state = sudokuBoard.GetBoardAsNumbers();
             var candidateMasks = sudokuBoard.GetCandidates().Board;
