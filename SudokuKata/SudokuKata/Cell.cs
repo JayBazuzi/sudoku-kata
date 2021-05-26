@@ -6,14 +6,14 @@
         public readonly int Row;
         public readonly int Value;
 
-        public Cell(int row, int col, int value)
+        public Cell(int row, int col, int value = 0)
         {
             Row = row;
             Column = col;
             Value = value;
         }
 
-        public static Cell FromIndex(int index, int value)
+        public static Cell FromIndex(int index, int value = 0)
         {
             var row = index / 9;
             var col = index % 9;

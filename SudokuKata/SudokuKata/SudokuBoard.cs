@@ -163,15 +163,15 @@ namespace SudokuKata
 
 
             var rowsIndices = indexes
-                .Select(index => new SudokuConstraints_OrSomething(c => $"row #{c.Row + 1}", Cell.FromIndex(index, 0)))
+                .Select(index => new SudokuConstraints_OrSomething(c => $"row #{c.Row + 1}", Cell.FromIndex(index)))
                 .GroupBy(tuple => tuple.Index / 9);
 
             var columnIndices = indexes
-                .Select(index => new SudokuConstraints_OrSomething(c => $"column #{c.Column + 1}", Cell.FromIndex(index, 0)))
+                .Select(index => new SudokuConstraints_OrSomething(c => $"column #{c.Column + 1}", Cell.FromIndex(index)))
                 .GroupBy(tuple => tuple.Index % 9);
 
             var blockIndices = indexes
-                .Select(index => new SudokuConstraints_OrSomething(tuple => $"block ({tuple.Row / 3 + 1}, {tuple.Column / 3 + 1})", Cell.FromIndex(index, 0)))
+                .Select(index => new SudokuConstraints_OrSomething(tuple => $"block ({tuple.Row / 3 + 1}, {tuple.Column / 3 + 1})", Cell.FromIndex(index)))
                 .GroupBy(c => 3 * (c.Row / 3) + c.Column / 3);
 
             var cellGroups = rowsIndices.Concat(columnIndices).Concat(blockIndices).ToList();
@@ -235,7 +235,7 @@ namespace SudokuKata
                 var result = new List<Cell>();
                 for (var column = 0; column < 9; column++)
                 {
-                    result.Add(new Cell(row, column, 0));
+                    result.Add(new Cell(row, column));
                 }
 
                 yield return result;
@@ -249,7 +249,7 @@ namespace SudokuKata
                 var result = new List<Cell>();
                 for (var row = 0; row < 9; row++)
                 {
-                    result.Add(new Cell(row, column, 0));
+                    result.Add(new Cell(row, column));
                 }
 
                 yield return result;
@@ -266,7 +266,7 @@ namespace SudokuKata
                     var blockRowIndex = cellGroup / 3 * 3 + indexInGroup / 3;
                     var blockColIndex = cellGroup % 3 * 3 + indexInGroup % 3;
                     var blockStateIndex = blockRowIndex * 9 + blockColIndex;
-                    result.Add(Cell.FromIndex(blockStateIndex, 0));
+                    result.Add(Cell.FromIndex(blockStateIndex));
                 }
 
                 yield return result;
