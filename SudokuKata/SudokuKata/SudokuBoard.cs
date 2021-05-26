@@ -161,7 +161,6 @@ namespace SudokuKata
         {
             var indexes = Enumerable.Range(0, 81);
 
-            #region Build a collection (named cellGroups) which maps cell indices into distinct groups (rows/columns/blocks)
 
             var rowsIndices = indexes
                 .Select(index => new SudokuConstraints_OrSomething(c => $"row #{c.Row + 1}", Cell.FromIndex(index, 0)))
@@ -176,8 +175,6 @@ namespace SudokuKata
                 .GroupBy(c => 3 * (c.Row / 3) + c.Column / 3);
 
             var cellGroups = rowsIndices.Concat(columnIndices).Concat(blockIndices).ToList();
-
-            #endregion
 
             return cellGroups;
         }
