@@ -2,7 +2,7 @@ using System;
 
 namespace SudokuKata
 {
-    internal interface ISudokuSolverStep
+    public interface ISudokuSolverStep
     {
         ChangesMadeStates Do(Random rng, SudokuBoard puzzle);
     }

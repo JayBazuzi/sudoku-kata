@@ -2,7 +2,7 @@
 
 namespace SudokuKata
 {
-    internal class ChangesMadeStates
+    public class ChangesMadeStates
     {
         public bool CandidateChanged;
         public bool CellChanged;

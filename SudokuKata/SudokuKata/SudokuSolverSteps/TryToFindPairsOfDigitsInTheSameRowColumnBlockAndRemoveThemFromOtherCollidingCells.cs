@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace SudokuKata
 {
-    internal class TryToFindPairsOfDigitsInTheSameRowColumnBlockAndRemoveThemFromOtherCollidingCells : ISudokuSolverStep
+    public class TryToFindPairsOfDigitsInTheSameRowColumnBlockAndRemoveThemFromOtherCollidingCells : ISudokuSolverStep
     {
         public ChangesMadeStates Do(
             Random rng, SudokuBoard sudokuBoard)
@@ -105,7 +105,7 @@ namespace SudokuKata
             return stepChangeMade;
         }
 
-        private static List<int> GetDigitsForMask(int maskToRemove)
+        public static List<int> GetDigitsForMask(int maskToRemove)
         {
             var valuesToRemove = new List<int>();
             var curValue = 1;
