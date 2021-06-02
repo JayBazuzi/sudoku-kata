@@ -45,7 +45,7 @@ namespace SudokuKata
                         .Where(
                             cell =>
                                 candidateMasks[cell.Index] != group.Mask &&
-                                (candidateMasks[cell.Index] & group.Mask) != 0)
+                                SudokuBoard.IsDigitPossible(candidateMasks, group.Mask, cell.Index))
                         .ToList();
 
                 var maskCells =
