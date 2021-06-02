@@ -41,17 +41,18 @@ namespace SudokuKata
             foreach (var group in groups)
             {
                 var cellWithDescriptions = @group.Cells;
+                var mask = @group.Mask;
                 var cells =
                     cellWithDescriptions
                         .Where(
                             cell =>
-                                candidateMasks[cell.Index] != group.Mask &&
-                                SudokuBoard.IsDigitPossible(candidateMasks, group.Mask, cell.Index))
+                                candidateMasks[cell.Index] != mask &&
+                                SudokuBoard.IsDigitPossible(candidateMasks, mask, cell.Index))
                         .ToList();
 
                 var maskCells =
                     cellWithDescriptions
-                        .Where(cell => candidateMasks[cell.Index] == group.Mask)
+                        .Where(cell => candidateMasks[cell.Index] == mask)
                         .ToArray();
 
 
@@ -59,7 +60,7 @@ namespace SudokuKata
                 {
                     var upper = 0;
                     var lower = 0;
-                    var temp = group.Mask;
+                    var temp = mask;
 
                     var value = 1;
                     while (temp != 0)
@@ -79,7 +80,7 @@ namespace SudokuKata
 
                     foreach (var cell in cells)
                     {
-                        var maskToRemove = candidateMasks[cell.Index] & group.Mask;
+                        var maskToRemove = candidateMasks[cell.Index] & mask;
                         var valuesToRemove = new List<int>();
                         var curValue = 1;
                         while (maskToRemove != 0)
@@ -97,7 +98,7 @@ namespace SudokuKata
                         Console.WriteLine(
                             $"{valuesReport} cannot appear in ({cell.Row + 1}, {cell.Column + 1}).");
 
-                        candidateMasks[cell.Index] &= ~group.Mask;
+                        candidateMasks[cell.Index] &= ~mask;
                         stepChangeMade = true;
                     }
                 }
