@@ -28,7 +28,6 @@ namespace SudokuKata
                             .Select(group => new 
                             {
                                 Mask = mask, 
-                                Description = group.First().Description,
                                 Cells = group
                             }))
                     .ToList();
