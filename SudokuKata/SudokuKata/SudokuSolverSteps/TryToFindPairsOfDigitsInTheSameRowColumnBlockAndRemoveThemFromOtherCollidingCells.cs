@@ -90,29 +90,37 @@ namespace SudokuKata
                 foreach (var cell in cells)
                 {
                     var maskToRemove = candidateMasks[cell.Index] & mask;
-                    var valuesToRemove = new List<int>();
-                    var curValue = 1;
-                    while (maskToRemove != 0)
-                    {
-                        if ((maskToRemove & 1) != 0)
-                        {
-                            valuesToRemove.Add(curValue);
-                        }
-
-                        maskToRemove = maskToRemove >> 1;
-                        curValue += 1;
-                    }
+                    var valuesToRemove = GetDigitsForMask(maskToRemove);
 
                     var valuesReport = string.Join(", ", valuesToRemove.ToArray());
                     Console.WriteLine(
                         $"{valuesReport} cannot appear in ({cell.Row + 1}, {cell.Column + 1}).");
 
                     candidateMasks[cell.Index] &= ~mask;
+                    //sudokuBoard.RemovePossibilities(cell, sudokuBoard.GetDigitsForMask())
                     stepChangeMade = true;
                 }
             }
 
             return stepChangeMade;
+        }
+
+        private static List<int> GetDigitsForMask(int maskToRemove)
+        {
+            var valuesToRemove = new List<int>();
+            var curValue = 1;
+            while (maskToRemove != 0)
+            {
+                if ((maskToRemove & 1) != 0)
+                {
+                    valuesToRemove.Add(curValue);
+                }
+
+                maskToRemove = maskToRemove >> 1;
+                curValue += 1;
+            }
+
+            return valuesToRemove;
         }
     }
 }
