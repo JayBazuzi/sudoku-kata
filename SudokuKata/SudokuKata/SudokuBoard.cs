@@ -282,7 +282,7 @@ namespace SudokuKata
             return isDigitPossible;
         }
 
-        private static bool IsDigitPossible(Cell cell, int[] candidateMasks, int mask)
+        public static bool IsDigitPossible(Cell cell, int[] candidateMasks, int mask)
         {
             var isDigitPossible = (candidateMasks[cell.ToIndex()] & mask) != 0;
             return isDigitPossible;
