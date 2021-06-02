@@ -69,11 +69,8 @@ namespace SudokuKata
 
             if (cells.Any())
             {
-                var upper = digitsToRemove.Max();
-                var lower = digitsToRemove.Min();
-                
                 Console.WriteLine(
-                    $"Values {lower} and {upper} in {cellWithDescriptions.First().Description} are in cells ({maskCells[0].Row + 1}, {maskCells[0].Column + 1}) and ({maskCells[1].Row + 1}, {maskCells[1].Column + 1}).");
+                    $"Values {digitsToRemove.Min()} and {digitsToRemove.Max()} in {cellWithDescriptions.First().Description} are in cells ({maskCells[0].Row + 1}, {maskCells[0].Column + 1}) and ({maskCells[1].Row + 1}, {maskCells[1].Column + 1}).");
 
                 foreach (var cell in cells)
                 {
