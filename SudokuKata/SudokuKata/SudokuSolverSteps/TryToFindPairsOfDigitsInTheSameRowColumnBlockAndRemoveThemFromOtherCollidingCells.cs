@@ -75,7 +75,7 @@ namespace SudokuKata
                     }
 
                     Console.WriteLine(
-                        $"Values {lower} and {upper} in {group.Description} are in cells ({maskCells[0].Row + 1}, {maskCells[0].Column + 1}) and ({maskCells[1].Row + 1}, {maskCells[1].Column + 1}).");
+                        $"Values {lower} and {upper} in {group.Cells.First().Description} are in cells ({maskCells[0].Row + 1}, {maskCells[0].Column + 1}) and ({maskCells[1].Row + 1}, {maskCells[1].Column + 1}).");
 
                     foreach (var cell in cells)
                     {
