@@ -56,8 +56,7 @@ namespace SudokuKata
                 cellWithDescriptions
                     .Where(
                         cell =>
-                            // Check that we're not removing the cells that *only* have these two digits.
-                            candidateMasks[cell.Index] != mask &&
+                            Enumerable.Range(1, 9).Except(digitsToRemove).Any(d => sudokuBoard.IsDigitPossible(d, cell.Cell)) &&
                             sudokuBoard.IsAnyDigitPossible(cell.Cell, digitsToRemove))
                     .ToList();
 
