@@ -284,8 +284,7 @@ namespace SudokuKata
 
         public static int GetMaskForDigit(int digit)
         {
-            var mask = 1 << (digit - 1);
-            return mask;
+            return 1 << (digit - 1);
         }
     }
 }
