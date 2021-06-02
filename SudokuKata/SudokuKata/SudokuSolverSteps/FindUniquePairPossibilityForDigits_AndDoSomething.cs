@@ -51,13 +51,14 @@ namespace SudokuKata
         private static bool Applesauce(SudokuBoard sudokuBoard, List<CellWithDescription> cellWithDescriptions,
             int[] candidateMasks, int mask, bool stepChangeMade)
         {
+            var digitsToRemove = SudokuBoard.GetDigitsForMask(mask);
             var cells =
                 cellWithDescriptions
                     .Where(
                         cell =>
                             // Check that we're not removing the cells that *only* have these two digits.
                             candidateMasks[cell.Index] != mask &&
-                            sudokuBoard.IsAnyDigitPossible(cell.Cell, SudokuBoard.GetDigitsForMask(mask)))
+                            sudokuBoard.IsAnyDigitPossible(cell.Cell, digitsToRemove))
                     .ToList();
 
             var maskCells =
@@ -90,7 +91,7 @@ namespace SudokuKata
 
                 foreach (var cell in cells)
                 {
-                    var valuesToRemove = SudokuBoard.GetDigitsForMask(mask)
+                    var valuesToRemove = digitsToRemove
                         .Where(d => sudokuBoard.IsDigitPossible(d, cell.Cell)).ToList();
 
                     var valuesReport = string.Join(", ", valuesToRemove.ToArray());
