@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace SudokuKata
 {
-    internal class TryToFindANumberWhichCanOnlyAppearInOnePlaceInARowColumnBlock : ISudokuSolverStep
+    internal class FindUniquePossibilityForDigit_AndDoSomething : ISudokuSolverStep
     {
         public ChangesMadeStates Do(Random rng,
             SudokuBoard puzzle)

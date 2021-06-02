@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace SudokuKata
 {
-    public class TryToFindPairsOfDigitsInTheSameRowColumnBlockAndRemoveThemFromOtherCollidingCells : ISudokuSolverStep
+    public class IfTwoCellsInAConstraintShareExactlyTwoPossibilities_ThenRemoveThosePossibilitiesFromOtherCellsInTheConstraint : ISudokuSolverStep
     {
         public ChangesMadeStates Do(
             Random rng, SudokuBoard sudokuBoard)

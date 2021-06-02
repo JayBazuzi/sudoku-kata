@@ -64,8 +64,8 @@ namespace SudokuKata
             return new ISudokuSolverStep[]
             {
                 new PickCellsWithOnlyOneCandidateRemaining(),
-                new TryToFindANumberWhichCanOnlyAppearInOnePlaceInARowColumnBlock(),
-                new TryToFindPairsOfDigitsInTheSameRowColumnBlockAndRemoveThemFromOtherCollidingCells(),
+                new FindUniquePossibilityForDigit_AndDoSomething(),
+                new IfTwoCellsInAConstraintShareExactlyTwoPossibilities_ThenRemoveThosePossibilitiesFromOtherCellsInTheConstraint(),
                 new RemoveDigitsWhenConstrainedToAGroupOfNCells()
             };
         }

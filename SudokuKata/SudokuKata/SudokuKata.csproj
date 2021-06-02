@@ -62,8 +62,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Stacks.cs" />
     <Compile Include="SudokuBoard.cs" />
-    <Compile Include="SudokuSolverSteps\TryToFindANumberWhichCanOnlyAppearInOnePlaceInARowColumnBlock.cs" />
-    <Compile Include="SudokuSolverSteps\TryToFindPairsOfDigitsInTheSameRowColumnBlockAndRemoveThemFromOtherCollidingCells.cs" />
+    <Compile Include="SudokuSolverSteps\FindUniquePossibilityForDigit_AndDoSomething.cs" />
+    <Compile Include="SudokuSolverSteps\IfTwoCellsInAConstraintShareExactlyTwoPossibilities_ThenRemoveThosePossibilitiesFromOtherCellsInTheConstraint.cs" />
     <Compile Include="ViableMove.cs" />
   </ItemGroup>
   <ItemGroup>
