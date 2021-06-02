@@ -90,8 +90,8 @@ namespace SudokuKata
 
                 foreach (var cell in cells)
                 {
-                    var maskToRemove = candidateMasks[cell.Index] & mask;
-                    var valuesToRemove = SudokuBoard.GetDigitsForMask(maskToRemove);
+                    var valuesToRemove = SudokuBoard.GetDigitsForMask(mask)
+                        .Where(d => sudokuBoard.IsDigitPossible(d, cell.Cell)).ToList();
 
                     var valuesReport = string.Join(", ", valuesToRemove.ToArray());
                     Console.WriteLine(
