@@ -65,9 +65,7 @@ namespace SudokuKata.Test
             CombinationApprovals.VerifyAllCombinations(
                 (a, b, c) =>
                 {
-                    var mask = SudokuBoard.GetMaskForDigit(a) | 
-                               SudokuBoard.GetMaskForDigit(b) |
-                               SudokuBoard.GetMaskForDigit(c);
+                    var mask = SudokuBoard.GetMaskForDigits(a, b, c);
                     return TryToFindPairsOfDigitsInTheSameRowColumnBlockAndRemoveThemFromOtherCollidingCells
                         .GetDigitsForMask(mask).ToReadableString();
                 },

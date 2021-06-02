@@ -96,8 +96,7 @@ namespace SudokuKata
                     Console.WriteLine(
                         $"{valuesReport} cannot appear in ({cell.Row + 1}, {cell.Column + 1}).");
 
-                    candidateMasks[cell.Index] &= ~mask;
-                    //sudokuBoard.RemovePossibilities(cell, sudokuBoard.GetDigitsForMask())
+                    sudokuBoard.RemovePossibilities(cell, valuesToRemove);
                     stepChangeMade = true;
                 }
             }

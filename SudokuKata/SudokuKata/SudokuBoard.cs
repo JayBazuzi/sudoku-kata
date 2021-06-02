@@ -292,5 +292,17 @@ namespace SudokuKata
         {
             return 1 << (digit - 1);
         }
+
+        public void RemovePossibilities(CellWithDescription cell, List<int> valuesToRemove)
+        {
+            var candidateMasks = GetCandidates().Board;
+            candidateMasks[cell.Index] &= ~GetMaskForDigits(valuesToRemove.ToArray());
+
+        }
+
+        public static int GetMaskForDigits(params int[] digits)
+        {
+            return digits.Aggregate(0, (current, digit) => current | GetMaskForDigit(digit));
+        }
     }
 }
