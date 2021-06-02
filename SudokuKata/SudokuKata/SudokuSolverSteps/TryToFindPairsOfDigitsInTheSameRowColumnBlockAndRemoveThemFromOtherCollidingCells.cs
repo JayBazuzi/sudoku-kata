@@ -48,7 +48,7 @@ namespace SudokuKata
             return new ChangesMadeStates {CandidateChanged = stepChangeMade};
         }
 
-        private static bool Applesauce(SudokuBoard withDescriptions, List<CellWithDescription> cellWithDescriptions,
+        private static bool Applesauce(SudokuBoard sudokuBoard, List<CellWithDescription> cellWithDescriptions,
             int[] candidateMasks, int mask, bool stepChangeMade)
         {
             var cells =
