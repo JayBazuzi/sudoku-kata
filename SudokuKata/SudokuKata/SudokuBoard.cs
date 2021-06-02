@@ -277,9 +277,15 @@ namespace SudokuKata
         {
             var candidateMasks = GetCandidates().Board;
 
-            var mask = 1 << (digit - 1);
+            var mask = GetMaskForDigit(digit);
             var isDigitPossible = (candidateMasks[cell.ToIndex()] & mask) != 0;
             return isDigitPossible;
+        }
+
+        public static int GetMaskForDigit(int digit)
+        {
+            var mask = 1 << (digit - 1);
+            return mask;
         }
     }
 }
