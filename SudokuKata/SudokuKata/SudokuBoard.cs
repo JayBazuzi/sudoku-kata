@@ -278,11 +278,11 @@ namespace SudokuKata
             var candidateMasks = GetCandidates().Board;
 
             var mask = GetMaskForDigit(digit);
-            var isDigitPossible = IsDigitPossible(cell, candidateMasks, mask, cell.ToIndex());
+            var isDigitPossible = IsDigitPossible(candidateMasks, mask, cell.ToIndex());
             return isDigitPossible;
         }
 
-        public static bool IsDigitPossible(Cell cell, int[] candidateMasks, int mask, int cellIndex)
+        public static bool IsDigitPossible(int[] candidateMasks, int mask, int cellIndex)
         {
             var isDigitPossible = (candidateMasks[cellIndex] & mask) != 0;
             return isDigitPossible;
