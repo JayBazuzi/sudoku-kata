@@ -24,7 +24,7 @@ namespace SudokuKata
                             .Where(group => group.Count(tuple => candidateMasks[tuple.Index] == mask) == 2)
                             .Where(group => group.Any(tuple =>
                                 candidateMasks[tuple.Index] != mask &&
-                                (candidateMasks[tuple.Index] & mask) > 0))
+                                (candidateMasks[tuple.Index] & mask) != 0))
                             .Select(group => new 
                             {
                                 Mask = mask, 
@@ -45,7 +45,7 @@ namespace SudokuKata
                         .Where(
                             cell =>
                                 candidateMasks[cell.Index] != group.Mask &&
-                                (candidateMasks[cell.Index] & group.Mask) > 0)
+                                (candidateMasks[cell.Index] & group.Mask) != 0)
                         .ToList();
 
                 var maskCells =
@@ -61,9 +61,9 @@ namespace SudokuKata
                     var temp = group.Mask;
 
                     var value = 1;
-                    while (temp > 0)
+                    while (temp != 0)
                     {
-                        if ((temp & 1) > 0)
+                        if ((temp & 1) != 0)
                         {
                             lower = upper;
                             upper = value;
@@ -81,9 +81,9 @@ namespace SudokuKata
                         var maskToRemove = candidateMasks[cell.Index] & group.Mask;
                         var valuesToRemove = new List<int>();
                         var curValue = 1;
-                        while (maskToRemove > 0)
+                        while (maskToRemove != 0)
                         {
-                            if ((maskToRemove & 1) > 0)
+                            if ((maskToRemove & 1) != 0)
                             {
                                 valuesToRemove.Add(curValue);
                             }
