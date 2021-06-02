@@ -71,19 +71,7 @@ namespace SudokuKata
             {
                 var upper = digitsToRemove.Max();
                 var lower = digitsToRemove.Min();
-                var temp = mask;
-
-                var value = 1;
-                while (temp != 0)
-                {
-                    if ((temp & 1) != 0)
-                    {
-                    }
-
-                    temp = temp >> 1;
-                    value += 1;
-                }
-
+                
                 Console.WriteLine(
                     $"Values {lower} and {upper} in {cellWithDescriptions.First().Description} are in cells ({maskCells[0].Row + 1}, {maskCells[0].Column + 1}) and ({maskCells[1].Row + 1}, {maskCells[1].Column + 1}).");
 
