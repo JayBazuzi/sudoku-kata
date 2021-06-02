@@ -69,8 +69,8 @@ namespace SudokuKata
 
             if (cells.Any())
             {
-                var upper = 0;
-                var lower = 0;
+                var upper = digitsToRemove.Max();
+                var lower = digitsToRemove.Min();
                 var temp = mask;
 
                 var value = 1;
@@ -78,8 +78,6 @@ namespace SudokuKata
                 {
                     if ((temp & 1) != 0)
                     {
-                        lower = upper;
-                        upper = value;
                     }
 
                     temp = temp >> 1;
