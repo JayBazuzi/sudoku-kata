@@ -13,7 +13,6 @@ namespace SudokuKata
             var candidateMasks = sudokuBoard.GetCandidates().Board;
             var maskToOnesCount = LookupStructures.Instance._maskToOnesCount;
 
-            // TODO: start cleaning here
             IEnumerable<int> twoDigitMasks =
                 candidateMasks.Where(mask => maskToOnesCount[mask] == 2).Distinct().ToList();
 
@@ -51,6 +50,7 @@ namespace SudokuKata
         private static bool Applesauce(SudokuBoard sudokuBoard, List<CellWithDescription> cellWithDescriptions,
             int[] candidateMasks, int mask, bool stepChangeMade)
         {
+            // TODO: get risk of mask and candidateMasks
             var digitsToRemove = SudokuBoard.GetDigitsForMask(mask);
             var cells =
                 cellWithDescriptions
