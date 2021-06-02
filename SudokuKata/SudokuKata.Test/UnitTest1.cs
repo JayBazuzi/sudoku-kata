@@ -66,7 +66,7 @@ namespace SudokuKata.Test
                 (a, b, c) =>
                 {
                     var mask = SudokuBoard.GetMaskForDigits(a, b, c);
-                    return TryToFindPairsOfDigitsInTheSameRowColumnBlockAndRemoveThemFromOtherCollidingCells
+                    return SudokuBoard
                         .GetDigitsForMask(mask).ToReadableString();
                 },
                 digits, digits, digits

@@ -24,7 +24,7 @@ namespace SudokuKata
                             .Where(group => group.Count(tuple => candidateMasks[tuple.Index] == mask) == 2)
                             .Where(group => group.Any(tuple =>
                                 candidateMasks[tuple.Index] != mask &&
-                                SudokuBoard.IsDigitPossible(candidateMasks, mask, tuple.Index)))
+                                SudokuBoard.IsAnyDigitPossible(candidateMasks, mask, tuple.Index)))
                             .Select(group => new
                             {
                                 Mask = mask,
@@ -56,7 +56,7 @@ namespace SudokuKata
                     .Where(
                         cell =>
                             candidateMasks[cell.Index] != mask &&
-                            SudokuBoard.IsDigitPossible(candidateMasks, mask, cell.Index))
+                            sudokuBoard.IsAnyDigitPossible(cell.Cell, SudokuBoard.GetDigitsForMask(mask)))
                     .ToList();
 
             var maskCells =
@@ -90,7 +90,7 @@ namespace SudokuKata
                 foreach (var cell in cells)
                 {
                     var maskToRemove = candidateMasks[cell.Index] & mask;
-                    var valuesToRemove = GetDigitsForMask(maskToRemove);
+                    var valuesToRemove = SudokuBoard.GetDigitsForMask(maskToRemove);
 
                     var valuesReport = string.Join(", ", valuesToRemove.ToArray());
                     Console.WriteLine(
@@ -102,24 +102,6 @@ namespace SudokuKata
             }
 
             return stepChangeMade;
-        }
-
-        public static List<int> GetDigitsForMask(int maskToRemove)
-        {
-            var valuesToRemove = new List<int>();
-            var curValue = 1;
-            while (maskToRemove != 0)
-            {
-                if ((maskToRemove & 1) != 0)
-                {
-                    valuesToRemove.Add(curValue);
-                }
-
-                maskToRemove = maskToRemove >> 1;
-                curValue += 1;
-            }
-
-            return valuesToRemove;
         }
     }
 }

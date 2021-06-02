@@ -171,7 +171,8 @@ namespace SudokuKata
                 .GroupBy(c => c.Cell.Column).Select(g => g.ToList());
 
             var blockIndices = indexes
-                .Select(index => new CellWithDescription(c => $"block ({c.Row / 3 + 1}, {c.Column / 3 + 1})", Cell.FromIndex(index)))
+                .Select(index =>
+                    new CellWithDescription(c => $"block ({c.Row / 3 + 1}, {c.Column / 3 + 1})", Cell.FromIndex(index)))
                 .GroupBy(c => c.Cell.Block).Select(g => g.ToList());
 
             var cellGroups = rowsIndices.Concat(columnIndices).Concat(blockIndices).ToList();
@@ -278,11 +279,11 @@ namespace SudokuKata
             var candidateMasks = GetCandidates().Board;
 
             var mask = GetMaskForDigit(digit);
-            var isDigitPossible = IsDigitPossible(candidateMasks, mask, cell.ToIndex());
+            var isDigitPossible = IsAnyDigitPossible(candidateMasks, mask, cell.ToIndex());
             return isDigitPossible;
         }
 
-        public static bool IsDigitPossible(int[] candidateMasks, int mask, int cellIndex)
+        public static bool IsAnyDigitPossible(int[] candidateMasks, int mask, int cellIndex)
         {
             var isDigitPossible = (candidateMasks[cellIndex] & mask) != 0;
             return isDigitPossible;
@@ -297,12 +298,34 @@ namespace SudokuKata
         {
             var candidateMasks = GetCandidates().Board;
             candidateMasks[cell.Index] &= ~GetMaskForDigits(valuesToRemove.ToArray());
-
         }
 
         public static int GetMaskForDigits(params int[] digits)
         {
             return digits.Aggregate(0, (current, digit) => current | GetMaskForDigit(digit));
+        }
+
+        public bool IsAnyDigitPossible(Cell cell, List<int> digits)
+        {
+            return digits.Any(d => IsDigitPossible(d, cell));
+        }
+
+        public static List<int> GetDigitsForMask(int maskToRemove)
+        {
+            var valuesToRemove = new List<int>();
+            var curValue = 1;
+            while (maskToRemove != 0)
+            {
+                if ((maskToRemove & 1) != 0)
+                {
+                    valuesToRemove.Add(curValue);
+                }
+
+                maskToRemove = maskToRemove >> 1;
+                curValue += 1;
+            }
+
+            return valuesToRemove;
         }
     }
 }
