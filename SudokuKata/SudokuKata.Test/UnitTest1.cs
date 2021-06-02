@@ -1,6 +1,8 @@
 using System;
 using System.IO;
+using System.Linq;
 using ApprovalTests;
+using ApprovalTests.Combinations;
 using ApprovalUtilities.Utilities;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -54,7 +56,23 @@ namespace SudokuKata.Test
         {
             var result = SudokuBoard.BuildCellGroups();
             Approvals.VerifyAll(result, "results", _ => _.ToReadableString());
+        }
 
+        [TestMethod]
+        public void GetDigitsForMaskTest()
+        {
+            var digits = Enumerable.Range(1, 9);
+            CombinationApprovals.VerifyAllCombinations(
+                (a, b, c) =>
+                {
+                    var mask = SudokuBoard.GetMaskForDigit(a) | 
+                               SudokuBoard.GetMaskForDigit(b) |
+                               SudokuBoard.GetMaskForDigit(c);
+                    return TryToFindPairsOfDigitsInTheSameRowColumnBlockAndRemoveThemFromOtherCollidingCells
+                        .GetDigitsForMask(mask).ToReadableString();
+                },
+                digits, digits, digits
+            );
         }
     }
 }
