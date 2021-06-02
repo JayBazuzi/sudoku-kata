@@ -24,10 +24,10 @@ namespace SudokuKata
                             .Where(group => group.Count(tuple => candidateMasks[tuple.Index] == mask) == 2)
                             .Where(group => group.Any(tuple =>
                                 candidateMasks[tuple.Index] != mask &&
-                                (candidateMasks[tuple.Index] & mask) != 0))
-                            .Select(group => new 
+                                SudokuBoard.IsDigitPossible(candidateMasks, mask, tuple.Index)))
+                            .Select(group => new
                             {
-                                Mask = mask, 
+                                Mask = mask,
                                 Cells = group
                             }))
                     .ToList();
