@@ -40,8 +40,8 @@ namespace SudokuKata
             var stepChangeMade = false;
             foreach (var group in groups)
             {
-                var cellWithDescriptions = @group.Cells;
-                var mask = @group.Mask;
+                var cellWithDescriptions = group.Cells;
+                var mask = group.Mask;
                 stepChangeMade = Applesauce(cellWithDescriptions, candidateMasks, mask, stepChangeMade);
             }
 
