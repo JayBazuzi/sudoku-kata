@@ -65,7 +65,7 @@ namespace SudokuKata
             {
                 new PickCellsWithOnlyOneCandidateRemaining(),
                 new FindUniquePossibilityForDigit_AndDoSomething(),
-                new IfTwoCellsInAConstraintShareExactlyTwoPossibilities_ThenRemoveThosePossibilitiesFromOtherCellsInTheConstraint(),
+                new FindUniquePairPossibilityForDigits_AndDoSomething(),
                 new RemoveDigitsWhenConstrainedToAGroupOfNCells()
             };
         }

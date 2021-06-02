@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace SudokuKata
 {
-    public class IfTwoCellsInAConstraintShareExactlyTwoPossibilities_ThenRemoveThosePossibilitiesFromOtherCellsInTheConstraint : ISudokuSolverStep
+    public class FindUniquePairPossibilityForDigits_AndDoSomething : ISudokuSolverStep
     {
         public ChangesMadeStates Do(
             Random rng, SudokuBoard sudokuBoard)

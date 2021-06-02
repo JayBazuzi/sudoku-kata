@@ -63,7 +63,7 @@
     <Compile Include="Stacks.cs" />
     <Compile Include="SudokuBoard.cs" />
     <Compile Include="SudokuSolverSteps\FindUniquePossibilityForDigit_AndDoSomething.cs" />
-    <Compile Include="SudokuSolverSteps\IfTwoCellsInAConstraintShareExactlyTwoPossibilities_ThenRemoveThosePossibilitiesFromOtherCellsInTheConstraint.cs" />
+    <Compile Include="SudokuSolverSteps\FindUniquePairPossibilityForDigits_AndDoSomething.cs" />
     <Compile Include="ViableMove.cs" />
   </ItemGroup>
   <ItemGroup>
