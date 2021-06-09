@@ -20,12 +20,12 @@ namespace SudokuKata
                     .ToList();
 
             var groups = twoDigitMasks
-                .SelectMany(mask =>
+                .SelectMany(possibleDigits =>
                     cellGroups
                         .Select(group => new
                         {
                             Cells = group,
-                            PossibileDigits = mask,
+                            PossibileDigits = possibleDigits,
                         }))
                 .Where(group => group.Cells.Count(tuple => sudokuBoard.IsExactly(tuple.Cell, group.PossibileDigits)) == 2)
                 .Where(group => group.Cells.Any(tuple =>
