@@ -15,8 +15,8 @@ namespace SudokuKata
 
             var twoDigitMasks =
                 candidateMasks.Where(mask => maskToOnesCount[mask] == 2)
-                    .Distinct()
                     .Select(SudokuBoard.GetDigitsForMask)
+                    .Distinct()
                     .ToList();
 
             var groups = twoDigitMasks
