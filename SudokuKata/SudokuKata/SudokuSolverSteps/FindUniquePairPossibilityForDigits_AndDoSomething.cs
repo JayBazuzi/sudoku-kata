@@ -41,13 +41,13 @@ namespace SudokuKata
             {
                 var cellWithDescriptions = group.Cells;
                 var mask = group.Mask;
-                stepChangeMade = Applesauce(sudokuBoard, cellWithDescriptions, stepChangeMade, SudokuBoard.GetDigitsForMask(mask));
+                stepChangeMade |= Applesauce(sudokuBoard, cellWithDescriptions, SudokuBoard.GetDigitsForMask(mask));
             }
 
             return new ChangesMadeStates {CandidateChanged = stepChangeMade};
         }
 
-        private static bool Applesauce(SudokuBoard sudokuBoard, List<CellWithDescription> cellWithDescriptions, bool stepChangeMade, List<int> digitsToRemove)
+        private static bool Applesauce(SudokuBoard sudokuBoard, List<CellWithDescription> cellWithDescriptions, List<int> digitsToRemove)
         {
             // TODO: get risk of mask
             var cells =
@@ -63,7 +63,7 @@ namespace SudokuKata
                     .Where(cell => sudokuBoard.IsExactly(cell.Cell, digitsToRemove))
                     .ToArray();
 
-
+            var stepChange = false;
             if (cells.Any())
             {
                 Console.WriteLine(
@@ -79,11 +79,11 @@ namespace SudokuKata
                         $"{valuesReport} cannot appear in ({cell.Row + 1}, {cell.Column + 1}).");
 
                     sudokuBoard.RemovePossibilities(cell, valuesToRemove);
-                    stepChangeMade = true;
+                    stepChange = true;
                 }
             }
 
-            return stepChangeMade;
+            return stepChange;
         }
     }
 }
