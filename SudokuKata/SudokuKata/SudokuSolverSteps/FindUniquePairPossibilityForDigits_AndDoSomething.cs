@@ -63,27 +63,30 @@ namespace SudokuKata
                     .Where(cell => sudokuBoard.IsExactly(cell.Cell, digitsToRemove))
                     .ToArray();
 
-            var stepChange = false;
-            if (cells.Any())
+            if (!cells.Any())
             {
+                return false;
+            }
+
+            Console.WriteLine(
+                $"Values {digitsToRemove.Min()} and {digitsToRemove.Max()} in {cellWithDescriptions.First().Description} are in cells ({maskCells[0].Row + 1}, {maskCells[0].Column + 1}) and ({maskCells[1].Row + 1}, {maskCells[1].Column + 1}).");
+
+            var stepChange = false;
+            foreach (var cell in cells)
+            {
+                var valuesToRemove = digitsToRemove
+                    .Where(d => sudokuBoard.IsDigitPossible(d, cell.Cell)).ToList();
+
+                var valuesReport = string.Join(", ", valuesToRemove.ToArray());
                 Console.WriteLine(
-                    $"Values {digitsToRemove.Min()} and {digitsToRemove.Max()} in {cellWithDescriptions.First().Description} are in cells ({maskCells[0].Row + 1}, {maskCells[0].Column + 1}) and ({maskCells[1].Row + 1}, {maskCells[1].Column + 1}).");
+                    $"{valuesReport} cannot appear in ({cell.Row + 1}, {cell.Column + 1}).");
 
-                foreach (var cell in cells)
-                {
-                    var valuesToRemove = digitsToRemove
-                        .Where(d => sudokuBoard.IsDigitPossible(d, cell.Cell)).ToList();
-
-                    var valuesReport = string.Join(", ", valuesToRemove.ToArray());
-                    Console.WriteLine(
-                        $"{valuesReport} cannot appear in ({cell.Row + 1}, {cell.Column + 1}).");
-
-                    sudokuBoard.RemovePossibilities(cell, valuesToRemove);
-                    stepChange = true;
-                }
+                sudokuBoard.RemovePossibilities(cell, valuesToRemove);
+                stepChange = true;
             }
 
             return stepChange;
+
         }
     }
 }
