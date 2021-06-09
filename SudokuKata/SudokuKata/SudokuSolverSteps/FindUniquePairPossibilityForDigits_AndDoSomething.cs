@@ -49,14 +49,14 @@ namespace SudokuKata
 
         private static bool RemovePairs(SudokuBoard sudokuBoard, List<CellWithDescription> cellWithDescriptions, List<int> digitsToRemove)
         {
-            var cells =
+            var cellsWithAdditionalPossibilities =
                 cellWithDescriptions
                     .Where(
                         cell =>
                             Enumerable.Range(1, 9).Except(digitsToRemove).Any(d => sudokuBoard.IsDigitPossible(d, cell.Cell)) &&
                             sudokuBoard.IsAnyDigitPossible(cell.Cell, digitsToRemove))
                     .ToList();
-            if (!cells.Any())
+            if (!cellsWithAdditionalPossibilities.Any())
             {
                 return false;
             }
@@ -71,7 +71,7 @@ namespace SudokuKata
                 $"Values {digitsToRemove.Min()} and {digitsToRemove.Max()} in {cellWithDescriptions.First().Description} are in cells ({maskCells[0].Row + 1}, {maskCells[0].Column + 1}) and ({maskCells[1].Row + 1}, {maskCells[1].Column + 1}).");
 
             var stepChange = false;
-            foreach (var cell in cells)
+            foreach (var cell in cellsWithAdditionalPossibilities)
             {
                 var valuesToRemove = digitsToRemove
                     .Where(d => sudokuBoard.IsDigitPossible(d, cell.Cell)).ToList();
