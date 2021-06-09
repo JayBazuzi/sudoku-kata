@@ -276,7 +276,7 @@ namespace SudokuKata
 
         public bool IsDigitPossible(int digit, Cell cell)
         {
-            var candidateMasks = GetCandidates().Board;
+            var candidateMasks = GetCandidates().Masks;
 
             var mask = GetMaskForDigit(digit);
             var isDigitPossible = IsAnyDigitPossible(candidateMasks, mask, cell.ToIndex());
@@ -296,7 +296,7 @@ namespace SudokuKata
 
         public void RemovePossibilities(CellWithDescription cell, List<int> valuesToRemove)
         {
-            var candidateMasks = GetCandidates().Board;
+            var candidateMasks = GetCandidates().Masks;
             candidateMasks[cell.Index] &= ~GetMaskForDigits(valuesToRemove.ToArray());
         }
 

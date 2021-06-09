@@ -10,7 +10,7 @@ namespace SudokuKata
             Random rng, SudokuBoard sudokuBoard)
         {
             var cellGroups = SudokuBoard.BuildCellGroups();
-            var candidateMasks = sudokuBoard.GetCandidates().Board;
+            var candidateMasks = sudokuBoard.GetCandidates().Masks;
             var maskToOnesCount = LookupStructures.Instance._maskToOnesCount;
 
             IEnumerable<int> twoDigitMasks =

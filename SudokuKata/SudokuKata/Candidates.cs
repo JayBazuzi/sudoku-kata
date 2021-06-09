@@ -8,14 +8,14 @@ namespace SudokuKata
 
         public Candidates(int[] board)
         {
-            Board = board;
+            Masks = board;
         }
 
-        public int[] Board { get; }
+        public int[] Masks { get; }
 
         public Cell[] GetCellsWithOnlyOneCandidateRemaining()
         {
-            return Board
+            return Masks
                 .Select((mask, index) => new
                 {
                     CandidatesCount = _lookupStructures._maskToOnesCount[mask],
