@@ -61,7 +61,7 @@ namespace SudokuKata
 
             var maskCells =
                 cellWithDescriptions
-                    .Where(cell => sudokuBoard.GetCandidates().Board[cell.Index] == mask)
+                    .Where(cell => sudokuBoard.IsExactly(cell.Cell, digitsToRemove))
                     .ToArray();
 
 

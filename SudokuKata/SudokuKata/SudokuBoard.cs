@@ -328,9 +328,10 @@ namespace SudokuKata
             return valuesToRemove;
         }
 
-        public bool IsAllDigitPossible(Cell cell, List<int> digits)
+        public bool IsExactly(Cell cell, List<int> digits)
         {
-            return digits.All(d => IsDigitPossible(d, cell));
+            var notPossible= Enumerable.Range(1, 9).Except(digits);
+            return digits.All(d => IsDigitPossible(d, cell)) && notPossible.All(d => !IsDigitPossible(d, cell));
         }
     }
 }
