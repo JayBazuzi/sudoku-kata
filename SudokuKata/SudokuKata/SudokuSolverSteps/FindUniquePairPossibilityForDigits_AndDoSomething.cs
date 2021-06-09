@@ -12,7 +12,7 @@ namespace SudokuKata
             var cellGroups = SudokuBoard.BuildCellGroups();
 
             var twoDigitMasks = sudokuBoard.GetPossibilities()
-                .Where(mask => mask.Count == 2)
+                .Where(p => p.Count == 2)
                 .Distinct()
                 .ToList();
 
