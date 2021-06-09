@@ -27,8 +27,7 @@ namespace SudokuKata
                         }))
                 .Where(group => group.Cells.Count(tuple => sudokuBoard.IsExactly(tuple.Cell, group.PossibileDigits)) == 2)
                 .Where(group => group.Cells.Any(tuple =>
-                    candidateMasks[tuple.Index] != group.Mask &&
-                    SudokuBoard.IsAnyDigitPossible(candidateMasks, group.Mask, tuple.Index)))
+                    sudokuBoard.IsAnyDigitPossible(tuple.Cell, SudokuBoard.GetRemainingDigits(group.PossibileDigits))))
                 .ToList();
 
             if (!groups.Any())
