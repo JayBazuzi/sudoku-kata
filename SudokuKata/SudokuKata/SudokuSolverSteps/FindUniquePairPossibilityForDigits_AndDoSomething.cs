@@ -21,7 +21,6 @@ namespace SudokuKata
                     cellGroups
                         .Select(group => new
                         {
-                            Mask = mask,
                             Cells = group,
                             PossibileDigits = SudokuBoard.GetDigitsForMask(mask),
                         }))
