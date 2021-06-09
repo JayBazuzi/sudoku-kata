@@ -26,7 +26,8 @@ namespace SudokuKata
                         .Select(group => new
                         {
                             Mask = mask,
-                            Cells = group
+                            Cells = group,
+                            PossibileDigits = SudokuBoard.GetDigitsForMask(mask),
                         }))
                 .ToList();
 
@@ -40,7 +41,7 @@ namespace SudokuKata
             {
                 var cellWithDescriptions = group.Cells;
                 var mask = group.Mask;
-                stepChangeMade |= RemovePairs(sudokuBoard, cellWithDescriptions, SudokuBoard.GetDigitsForMask(mask));
+                stepChangeMade |= RemovePairs(sudokuBoard, cellWithDescriptions, group.PossibileDigits);
             }
 
             return new ChangesMadeStates {CandidateChanged = stepChangeMade};
