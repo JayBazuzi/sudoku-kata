@@ -16,7 +16,7 @@ namespace SudokuKata
                 .Distinct()
                 .ToList();
 
-            var groups = twoDigitMasks
+            var constraintsWithUniquePairPossibilities = twoDigitMasks
                 .SelectMany(possibleDigits =>
                     cellGroups
                         .Select(group => new
@@ -30,13 +30,13 @@ namespace SudokuKata
                     sudokuBoard.IsAnyDigitPossible(tuple.Cell, SudokuBoard.GetRemainingDigits(group.PossibileDigits))))
                 .ToList();
 
-            if (!groups.Any())
+            if (!constraintsWithUniquePairPossibilities.Any())
             {
                 return ChangesMadeStates.None;
             }
 
             var stepChangeMade = false;
-            foreach (var group in groups)
+            foreach (var group in constraintsWithUniquePairPossibilities)
             {
                 var cellWithDescriptions = group.Cells;
                 stepChangeMade |= RemovePairs(sudokuBoard, cellWithDescriptions, group.PossibileDigits);
