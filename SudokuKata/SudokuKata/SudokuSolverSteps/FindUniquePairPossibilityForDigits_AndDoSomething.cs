@@ -41,14 +41,13 @@ namespace SudokuKata
             {
                 var cellWithDescriptions = group.Cells;
                 var mask = group.Mask;
-                stepChangeMade = Applesauce(sudokuBoard, cellWithDescriptions, candidateMasks, mask, stepChangeMade);
+                stepChangeMade = Applesauce(sudokuBoard, cellWithDescriptions, mask, stepChangeMade);
             }
 
             return new ChangesMadeStates {CandidateChanged = stepChangeMade};
         }
 
-        private static bool Applesauce(SudokuBoard sudokuBoard, List<CellWithDescription> cellWithDescriptions,
-            int[] candidateMasks2, int mask, bool stepChangeMade)
+        private static bool Applesauce(SudokuBoard sudokuBoard, List<CellWithDescription> cellWithDescriptions, int mask, bool stepChangeMade)
         {
             var candidateMasks = sudokuBoard.GetCandidates().Board;
 
