@@ -11,7 +11,6 @@ namespace SudokuKata
         {
             var cellGroups = SudokuBoard.BuildCellGroups();
             var candidateMasks = sudokuBoard.GetCandidates().Masks;
-            var maskToOnesCount = LookupStructures.Instance._maskToOnesCount;
 
             var twoDigitMasks = candidateMasks
                 .Select(SudokuBoard.GetDigitsForMask)
