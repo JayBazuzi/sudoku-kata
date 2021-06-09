@@ -56,16 +56,16 @@ namespace SudokuKata
                             Enumerable.Range(1, 9).Except(digitsToRemove).Any(d => sudokuBoard.IsDigitPossible(d, cell.Cell)) &&
                             sudokuBoard.IsAnyDigitPossible(cell.Cell, digitsToRemove))
                     .ToList();
+            if (!cells.Any())
+            {
+                return false;
+            }
 
             var maskCells =
                 cellWithDescriptions
                     .Where(cell => sudokuBoard.IsExactly(cell.Cell, digitsToRemove))
                     .ToArray();
 
-            if (!cells.Any())
-            {
-                return false;
-            }
 
             Console.WriteLine(
                 $"Values {digitsToRemove.Min()} and {digitsToRemove.Max()} in {cellWithDescriptions.First().Description} are in cells ({maskCells[0].Row + 1}, {maskCells[0].Column + 1}) and ({maskCells[1].Row + 1}, {maskCells[1].Column + 1}).");
