@@ -10,10 +10,9 @@ namespace SudokuKata
             Random rng, SudokuBoard sudokuBoard)
         {
             var cellGroups = SudokuBoard.BuildCellGroups();
-            var candidateMasks = sudokuBoard.GetCandidates().Masks;
+            var candidateMasks = sudokuBoard.GetCandidates().Masks.Select(SudokuBoard.GetDigitsForMask);
 
             var twoDigitMasks = candidateMasks
-                .Select(SudokuBoard.GetDigitsForMask)
                 .Where(mask => mask.Count == 2)
                 .Distinct()
                 .ToList();
