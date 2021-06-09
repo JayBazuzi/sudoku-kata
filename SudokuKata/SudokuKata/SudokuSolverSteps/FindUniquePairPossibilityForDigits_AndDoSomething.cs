@@ -25,7 +25,6 @@ namespace SudokuKata
                             SudokuBoard.IsAnyDigitPossible(candidateMasks, mask, tuple.Index)))
                         .Select(group => new
                         {
-                            Mask = mask,
                             Cells = group,
                             PossibileDigits = SudokuBoard.GetDigitsForMask(mask),
                         }))
