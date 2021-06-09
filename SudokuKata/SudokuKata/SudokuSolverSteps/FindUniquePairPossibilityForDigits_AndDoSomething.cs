@@ -53,7 +53,7 @@ namespace SudokuKata
                 cellWithDescriptions
                     .Where(
                         cell =>
-                            sudokuBoard.IsAnyDigitPossible(cell.Cell, SudokuBoard.GetRemainingDigits(digitsToRemove).ToList()) &&
+                            sudokuBoard.IsAnyDigitPossible(cell.Cell, SudokuBoard.GetRemainingDigits(digitsToRemove)) &&
                             sudokuBoard.IsAnyDigitPossible(cell.Cell, digitsToRemove))
                     .ToList();
             if (!cellsWithAdditionalPossibilities.Any())

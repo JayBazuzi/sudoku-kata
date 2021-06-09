@@ -305,7 +305,7 @@ namespace SudokuKata
             return digits.Aggregate(0, (current, digit) => current | GetMaskForDigit(digit));
         }
 
-        public bool IsAnyDigitPossible(Cell cell, List<int> digits)
+        public bool IsAnyDigitPossible(Cell cell, IEnumerable<int> digits)
         {
             return digits.Any(d => IsDigitPossible(d, cell));
         }
