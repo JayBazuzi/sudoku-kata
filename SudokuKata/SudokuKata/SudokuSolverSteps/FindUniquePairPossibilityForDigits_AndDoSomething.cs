@@ -13,8 +13,7 @@ namespace SudokuKata
 
             var pairPossibilities = sudokuBoard.GetPossibilities()
                 .Where(p => p.Count == 2)
-                .Distinct()
-                .ToList();
+                .Distinct();
 
             var constraintsWithUniquePairPossibilities = pairPossibilities
                 .SelectMany(possibleDigits =>
