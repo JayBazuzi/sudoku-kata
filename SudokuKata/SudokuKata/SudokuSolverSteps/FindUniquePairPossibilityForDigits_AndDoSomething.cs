@@ -16,20 +16,19 @@ namespace SudokuKata
             IEnumerable<int> twoDigitMasks =
                 candidateMasks.Where(mask => maskToOnesCount[mask] == 2).Distinct().ToList();
 
-            var groups =
-                twoDigitMasks
-                    .SelectMany(mask =>
-                        cellGroups
-                            .Where(group => group.Count(tuple => candidateMasks[tuple.Index] == mask) == 2)
-                            .Where(group => group.Any(tuple =>
-                                candidateMasks[tuple.Index] != mask &&
-                                SudokuBoard.IsAnyDigitPossible(candidateMasks, mask, tuple.Index)))
-                            .Select(group => new
-                            {
-                                Mask = mask,
-                                Cells = group
-                            }))
-                    .ToList();
+            var groups = twoDigitMasks
+                .SelectMany(mask =>
+                    cellGroups
+                        .Where(group => group.Count(tuple => candidateMasks[tuple.Index] == mask) == 2)
+                        .Where(group => group.Any(tuple =>
+                            candidateMasks[tuple.Index] != mask &&
+                            SudokuBoard.IsAnyDigitPossible(candidateMasks, mask, tuple.Index)))
+                        .Select(group => new
+                        {
+                            Mask = mask,
+                            Cells = group
+                        }))
+                .ToList();
 
             if (!groups.Any())
             {
