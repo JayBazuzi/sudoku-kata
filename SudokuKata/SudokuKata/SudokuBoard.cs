@@ -330,8 +330,14 @@ namespace SudokuKata
 
         public bool IsExactly(Cell cell, List<int> digits)
         {
-            var notPossible= Enumerable.Range(1, 9).Except(digits);
+            var notPossible = GetRemainingDigits(digits);
             return digits.All(d => IsDigitPossible(d, cell)) && !notPossible.Any(d => IsDigitPossible(d, cell));
+        }
+
+        public static IEnumerable<int> GetRemainingDigits(List<int> digits)
+        {
+            var notPossible = Enumerable.Range(1, 9).Except(digits);
+            return notPossible;
         }
     }
 }
