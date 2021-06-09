@@ -13,11 +13,11 @@ namespace SudokuKata
             var candidateMasks = sudokuBoard.GetCandidates().Masks;
             var maskToOnesCount = LookupStructures.Instance._maskToOnesCount;
 
-            var twoDigitMasks =
-                candidateMasks.Where(mask => maskToOnesCount[mask] == 2)
-                    .Select(SudokuBoard.GetDigitsForMask)
-                    .Distinct()
-                    .ToList();
+            var twoDigitMasks = candidateMasks
+                .Select(SudokuBoard.GetDigitsForMask)
+                .Where(mask => mask.Count == 2)
+                .Distinct()
+                .ToList();
 
             var groups = twoDigitMasks
                 .SelectMany(possibleDigits =>
@@ -27,7 +27,8 @@ namespace SudokuKata
                             Cells = group,
                             PossibileDigits = possibleDigits,
                         }))
-                .Where(group => group.Cells.Count(tuple => sudokuBoard.IsExactly(tuple.Cell, group.PossibileDigits)) == 2)
+                .Where(group =>
+                    group.Cells.Count(tuple => sudokuBoard.IsExactly(tuple.Cell, group.PossibileDigits)) == 2)
                 .Where(group => group.Cells.Any(tuple =>
                     sudokuBoard.IsAnyDigitPossible(tuple.Cell, SudokuBoard.GetRemainingDigits(group.PossibileDigits))))
                 .ToList();
