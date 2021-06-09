@@ -47,15 +47,14 @@ namespace SudokuKata
             return new ChangesMadeStates {CandidateChanged = stepChangeMade};
         }
 
-        private static bool RemovePairs(SudokuBoard sudokuBoard, List<CellWithDescription> cellWithDescriptions, List<int> digitsToRemove)
+        private static bool RemovePairs(SudokuBoard sudokuBoard, List<CellWithDescription> cellWithDescriptions,
+            List<int> digitsToRemove)
         {
-            var cellsWithAdditionalPossibilities =
-                cellWithDescriptions
-                    .Where(
-                        cell =>
-                            sudokuBoard.IsAnyDigitPossible(cell.Cell, SudokuBoard.GetRemainingDigits(digitsToRemove)) &&
-                            sudokuBoard.IsAnyDigitPossible(cell.Cell, digitsToRemove))
-                    .ToList();
+            var remainingDigits = SudokuBoard.GetRemainingDigits(digitsToRemove);
+            var cellsWithAdditionalPossibilities = cellWithDescriptions
+                .Where(cell => sudokuBoard.IsAnyDigitPossible(cell.Cell, remainingDigits))
+                .Where(cell => sudokuBoard.IsAnyDigitPossible(cell.Cell, digitsToRemove))
+                .ToList();
             if (!cellsWithAdditionalPossibilities.Any())
             {
                 return false;
@@ -85,7 +84,6 @@ namespace SudokuKata
             }
 
             return stepChange;
-
         }
     }
 }
