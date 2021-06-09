@@ -310,18 +310,18 @@ namespace SudokuKata
             return digits.Any(d => IsDigitPossible(d, cell));
         }
 
-        public static List<int> GetDigitsForMask(int maskToRemove)
+        public static List<int> GetDigitsForMask(int mask)
         {
             var valuesToRemove = new List<int>();
             var curValue = 1;
-            while (maskToRemove != 0)
+            while (mask != 0)
             {
-                if ((maskToRemove & 1) != 0)
+                if ((mask & 1) != 0)
                 {
                     valuesToRemove.Add(curValue);
                 }
 
-                maskToRemove = maskToRemove >> 1;
+                mask = mask >> 1;
                 curValue += 1;
             }
 
