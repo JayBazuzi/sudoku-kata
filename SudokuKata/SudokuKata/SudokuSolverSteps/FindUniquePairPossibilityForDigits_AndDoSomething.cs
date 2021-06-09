@@ -41,13 +41,13 @@ namespace SudokuKata
             {
                 var cellWithDescriptions = group.Cells;
                 var mask = group.Mask;
-                stepChangeMade |= Applesauce(sudokuBoard, cellWithDescriptions, SudokuBoard.GetDigitsForMask(mask));
+                stepChangeMade |= RemovePairs(sudokuBoard, cellWithDescriptions, SudokuBoard.GetDigitsForMask(mask));
             }
 
             return new ChangesMadeStates {CandidateChanged = stepChangeMade};
         }
 
-        private static bool Applesauce(SudokuBoard sudokuBoard, List<CellWithDescription> cellWithDescriptions, List<int> digitsToRemove)
+        private static bool RemovePairs(SudokuBoard sudokuBoard, List<CellWithDescription> cellWithDescriptions, List<int> digitsToRemove)
         {
             var cells =
                 cellWithDescriptions
