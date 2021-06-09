@@ -49,9 +49,7 @@ namespace SudokuKata
 
         private static bool Applesauce(SudokuBoard sudokuBoard, List<CellWithDescription> cellWithDescriptions, int mask, bool stepChangeMade)
         {
-            var candidateMasks = sudokuBoard.GetCandidates().Board;
-
-            // TODO: get risk of mask and candidateMasks
+            // TODO: get risk of mask
             var digitsToRemove = SudokuBoard.GetDigitsForMask(mask);
             var cells =
                 cellWithDescriptions
@@ -63,7 +61,7 @@ namespace SudokuKata
 
             var maskCells =
                 cellWithDescriptions
-                    .Where(cell => candidateMasks[cell.Index] == mask)
+                    .Where(cell => sudokuBoard.GetCandidates().Board[cell.Index] == mask)
                     .ToArray();
 
 
