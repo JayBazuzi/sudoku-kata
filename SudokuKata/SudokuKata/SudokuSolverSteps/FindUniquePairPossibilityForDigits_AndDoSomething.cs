@@ -48,8 +48,10 @@ namespace SudokuKata
         }
 
         private static bool Applesauce(SudokuBoard sudokuBoard, List<CellWithDescription> cellWithDescriptions,
-            int[] candidateMasks, int mask, bool stepChangeMade)
+            int[] candidateMasks2, int mask, bool stepChangeMade)
         {
+            var candidateMasks = sudokuBoard.GetCandidates().Board;
+
             // TODO: get risk of mask and candidateMasks
             var digitsToRemove = SudokuBoard.GetDigitsForMask(mask);
             var cells =

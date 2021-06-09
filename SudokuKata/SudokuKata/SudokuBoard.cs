@@ -327,5 +327,10 @@ namespace SudokuKata
 
             return valuesToRemove;
         }
+
+        public bool IsAllDigitPossible(Cell cell, List<int> digits)
+        {
+            return digits.All(d => IsDigitPossible(d, cell));
+        }
     }
 }
