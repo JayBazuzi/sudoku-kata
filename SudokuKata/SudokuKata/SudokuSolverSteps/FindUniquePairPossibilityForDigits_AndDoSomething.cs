@@ -40,7 +40,6 @@ namespace SudokuKata
             foreach (var group in groups)
             {
                 var cellWithDescriptions = group.Cells;
-                var mask = group.Mask;
                 stepChangeMade |= RemovePairs(sudokuBoard, cellWithDescriptions, group.PossibileDigits);
             }
 
