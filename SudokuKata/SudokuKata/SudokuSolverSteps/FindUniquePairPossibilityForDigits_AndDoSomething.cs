@@ -49,7 +49,6 @@ namespace SudokuKata
 
         private static bool Applesauce(SudokuBoard sudokuBoard, List<CellWithDescription> cellWithDescriptions, List<int> digitsToRemove)
         {
-            // TODO: get risk of mask
             var cells =
                 cellWithDescriptions
                     .Where(
