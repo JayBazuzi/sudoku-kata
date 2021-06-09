@@ -10,7 +10,7 @@ namespace SudokuKata
             Random rng, SudokuBoard sudokuBoard)
         {
             var cellGroups = SudokuBoard.BuildCellGroups();
-            var candidateMasks = GetPossibilities(sudokuBoard);
+            var candidateMasks = sudokuBoard.GetPossibilities();
 
             var twoDigitMasks = candidateMasks
                 .Where(mask => mask.Count == 2)
@@ -44,12 +44,6 @@ namespace SudokuKata
             }
 
             return new ChangesMadeStates {CandidateChanged = stepChangeMade};
-        }
-
-        private static IEnumerable<List<int>> GetPossibilities(SudokuBoard sudokuBoard)
-        {
-            var candidateMasks = sudokuBoard.GetCandidates().Masks.Select(SudokuBoard.GetDigitsForMask);
-            return candidateMasks;
         }
 
         private static bool RemovePairs(SudokuBoard sudokuBoard, List<CellWithDescription> cellWithDescriptions,

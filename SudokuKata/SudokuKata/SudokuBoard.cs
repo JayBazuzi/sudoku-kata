@@ -339,5 +339,11 @@ namespace SudokuKata
             var notPossible = Enumerable.Range(1, 9).Except(digits);
             return notPossible;
         }
+
+        public IEnumerable<List<int>> GetPossibilities()
+        {
+            var candidateMasks = GetCandidates().Masks.Select(SudokuBoard.GetDigitsForMask);
+            return candidateMasks;
+        }
     }
 }
