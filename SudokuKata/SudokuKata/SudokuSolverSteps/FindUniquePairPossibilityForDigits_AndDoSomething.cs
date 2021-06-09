@@ -11,12 +11,12 @@ namespace SudokuKata
         {
             var cellGroups = SudokuBoard.BuildCellGroups();
 
-            var twoDigitMasks = sudokuBoard.GetPossibilities()
+            var pairPossibilities = sudokuBoard.GetPossibilities()
                 .Where(p => p.Count == 2)
                 .Distinct()
                 .ToList();
 
-            var constraintsWithUniquePairPossibilities = twoDigitMasks
+            var constraintsWithUniquePairPossibilities = pairPossibilities
                 .SelectMany(possibleDigits =>
                     cellGroups
                         .Select(group => new
