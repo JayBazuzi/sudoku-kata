@@ -24,7 +24,7 @@ namespace SudokuKata
 
             IEnumerable<int> masks =
                 maskToOnesCount
-                    .Where(tuple => tuple.Value > 1)
+                    .Where(tuple => 1 < tuple.Value)
                     .Select(tuple => tuple.Key).ToList();
 
             var groupsWithNMasks =
