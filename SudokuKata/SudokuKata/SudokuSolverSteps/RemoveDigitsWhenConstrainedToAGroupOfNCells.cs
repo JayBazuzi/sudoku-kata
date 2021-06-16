@@ -62,12 +62,13 @@ namespace SudokuKata
 
                 foreach (var cell in groupWithNMasks.CellsWithMask)
                 {
-                    var maskToClear = candidateMasks[cell.Index] & ~groupWithNMasks.Mask;
-                    if (maskToClear == 0)
+                    var isAnyDigitPossible = sudokuBoard.IsAnyDigitPossible(cell.Cell, groupWithNMasks.RemainingDigits);
+                    if (!isAnyDigitPossible)
                     {
                         continue;
                     }
 
+                    var maskToClear = candidateMasks[cell.Index] & ~groupWithNMasks.Mask;
                     candidateMasks[cell.Index] &= groupWithNMasks.Mask;
                     stepChangeMade = true;
 
