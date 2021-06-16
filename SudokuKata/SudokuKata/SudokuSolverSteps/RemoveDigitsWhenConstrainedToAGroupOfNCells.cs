@@ -54,31 +54,40 @@ namespace SudokuKata
                 var cells = groupWithNMasks.Cells;
                 var cellsWithMask = groupWithNMasks.CellsWithMask;
                 var description = groupWithNMasks.Description;
-                if (cells.Any(cell =>
-                        sudokuBoard.IsAnyDigitPossible(cell.Cell, digits) &&
-                        sudokuBoard.IsAnyDigitPossible(cell.Cell, remainingDigits)))
-                {
-                    var digitsAsText = string.Join(", ", digits);
-                    var cellsAsText = cellsWithMask.Select(cell => $"({cell.Row + 1}, {cell.Column + 1})").JoinWith(" ");
-                    Console.WriteLine($"In {description} values {digitsAsText} appear only in cells {cellsAsText} and other values cannot appear in those cells.");
-                }
-
-                foreach (var cell in cellsWithMask)
-                {
-                    var possible = remainingDigits.Where(d => sudokuBoard.IsDigitPossible(d, cell.Cell)).ToList();
-                    if (!possible.Any())
-                    {
-                        continue;
-                    }
-
-                    sudokuBoard.RemovePossibilities(cell, possible);
-                    stepChangeMade = true;
-
-                    Console.WriteLine($"{string.Join(", ", possible)} cannot appear in cell ({cell.Row + 1}, {cell.Column + 1}).");
-                }
+                stepChangeMade = RemoveDigitsWhenConstrainedToAGroupOfNCells_ForGroup(sudokuBoard, cells, digits, remainingDigits, cellsWithMask, description, stepChangeMade);
             }
 
             return new ChangesMadeStates {CandidateChanged = stepChangeMade};
+        }
+
+        private static bool RemoveDigitsWhenConstrainedToAGroupOfNCells_ForGroup(SudokuBoard sudokuBoard, List<CellWithDescription> cells, List<int> digits, IEnumerable<int> remainingDigits,
+            List<CellWithDescription> cellsWithMask, string description, bool stepChangeMade)
+        {
+            if (cells.Any(cell =>
+                sudokuBoard.IsAnyDigitPossible(cell.Cell, digits) &&
+                sudokuBoard.IsAnyDigitPossible(cell.Cell, remainingDigits)))
+            {
+                var digitsAsText = string.Join(", ", digits);
+                var cellsAsText = cellsWithMask.Select(cell => $"({cell.Row + 1}, {cell.Column + 1})").JoinWith(" ");
+                Console.WriteLine(
+                    $"In {description} values {digitsAsText} appear only in cells {cellsAsText} and other values cannot appear in those cells.");
+            }
+
+            foreach (var cell in cellsWithMask)
+            {
+                var possible = remainingDigits.Where(d => sudokuBoard.IsDigitPossible(d, cell.Cell)).ToList();
+                if (!possible.Any())
+                {
+                    continue;
+                }
+
+                sudokuBoard.RemovePossibilities(cell, possible);
+                stepChangeMade = true;
+
+                Console.WriteLine($"{string.Join(", ", possible)} cannot appear in cell ({cell.Row + 1}, {cell.Column + 1}).");
+            }
+
+            return stepChangeMade;
         }
     }
 }
