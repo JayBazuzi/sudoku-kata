@@ -36,6 +36,7 @@ namespace SudokuKata
                             .Select(group => new
                             {
                                 Mask = mask,
+                                Digits = SudokuBoard.GetDigitsForMask(mask),
                                 group.First().Description,
                                 Cells = group,
                                 CellsWithMask = group.Where(cell =>
@@ -56,7 +57,7 @@ namespace SudokuKata
 
                 if (groupWithNMasks.Cells
                     .Any(cell =>
-                        (candidateMasks[cell.Index] & mask) != 0 &&
+                        SudokuBoard.IsAnyDigitPossible(candidateMasks, mask, cell.Index) &&
                         (candidateMasks[cell.Index] & ~mask) != 0))
                 {
                     var message = new StringBuilder();
