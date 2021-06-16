@@ -49,12 +49,7 @@ namespace SudokuKata
             var stepChangeMade = false;
             foreach (var g in groupsWithNMasks)
             {
-                var digits = g.Digits;
-                var remainingDigits = g.RemainingDigits;
-                var cells = g.Cells;
-                var cellsWithMask = g.CellsWithMask;
-                var description = g.Description;
-                stepChangeMade = RemoveDigitsWhenConstrainedToAGroupOfNCells_ForGroup(sudokuBoard, cells, digits, remainingDigits, cellsWithMask, description, stepChangeMade);
+                stepChangeMade = RemoveDigitsWhenConstrainedToAGroupOfNCells_ForGroup(sudokuBoard, g.Cells, g.Digits, g.RemainingDigits, g.CellsWithMask, g.Description, stepChangeMade);
             }
 
             return new ChangesMadeStates {CandidateChanged = stepChangeMade};
