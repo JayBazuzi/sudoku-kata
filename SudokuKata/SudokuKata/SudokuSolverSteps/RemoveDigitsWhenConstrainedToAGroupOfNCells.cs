@@ -36,7 +36,6 @@ namespace SudokuKata
                                 var digits = SudokuBoard.GetDigitsForMask(mask);
                                 return new
                                 {
-                                    Mask = mask,
                                     Digits = digits,
                                     RemainingDigits = SudokuBoard.GetRemainingDigits(digits),
                                     Cells = cells,
