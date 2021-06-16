@@ -54,8 +54,6 @@ namespace SudokuKata
             var stepChangeMade = false;
             foreach (var groupWithNMasks in groupsWithNMasks)
             {
-                var mask = groupWithNMasks.Mask;
-
                 if (groupWithNMasks.Cells
                     .Any(cell =>
                         sudokuBoard.IsAnyDigitPossible(cell.Cell, groupWithNMasks.Digits) &&
@@ -63,22 +61,7 @@ namespace SudokuKata
                 {
                     var message = new StringBuilder();
                     message.Append($"In {groupWithNMasks.Description} values ");
-
-                    var separator = string.Empty;
-                    var temp = mask;
-                    var curValue = 1;
-                    while (temp > 0)
-                    {
-                        if ((temp & 1) > 0)
-                        {
-                            message.Append($"{separator}{curValue}");
-                            separator = ", ";
-                        }
-
-                        temp = temp >> 1;
-                        curValue += 1;
-                    }
-
+                    message.Append(string.Join(", ", groupWithNMasks.Digits));
                     message.Append(" appear only in cells");
                     foreach (var cell in groupWithNMasks.CellsWithMask)
                     {
