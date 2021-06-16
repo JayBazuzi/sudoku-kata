@@ -53,13 +53,13 @@ namespace SudokuKata
                 var remainingDigits = groupWithNMasks.RemainingDigits;
                 var cells = groupWithNMasks.Cells;
                 var cellsWithMask = groupWithNMasks.CellsWithMask;
+                var description = groupWithNMasks.Description;
                 if (cells.Any(cell =>
                         sudokuBoard.IsAnyDigitPossible(cell.Cell, digits) &&
                         sudokuBoard.IsAnyDigitPossible(cell.Cell, remainingDigits)))
                 {
                     var digitsAsText = string.Join(", ", digits);
                     var cellsAsText = cellsWithMask.Select(cell => $"({cell.Row + 1}, {cell.Column + 1})").JoinWith(" ");
-                    var description = groupWithNMasks.Description;
                     Console.WriteLine($"In {description} values {digitsAsText} appear only in cells {cellsAsText} and other values cannot appear in those cells.");
                 }
 
