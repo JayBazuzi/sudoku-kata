@@ -294,7 +294,7 @@ namespace SudokuKata
             return 1 << (digit - 1);
         }
 
-        public void RemovePossibilities(CellWithDescription cell, List<int> valuesToRemove)
+        public void RemovePossibilities(CellWithDescription cell, IEnumerable<int> valuesToRemove)
         {
             var candidateMasks = GetCandidates().Masks;
             candidateMasks[cell.Index] &= ~GetMaskForDigits(valuesToRemove.ToArray());
