@@ -51,7 +51,7 @@ namespace SudokuKata
             foreach (var g in groupsWithNMasks)
             {
                 stepChangeMade |= RemoveDigitsWhenConstrainedToAGroupOfNCells_ForGroup(sudokuBoard, g.Cells, g.Digits,
-                    g.RemainingDigits, g.CellsWithMask, g.Cells.First().Description);
+                    g.RemainingDigits, g.CellsWithMask);
             }
 
             return new ChangesMadeStates {CandidateChanged = stepChangeMade};
@@ -59,8 +59,9 @@ namespace SudokuKata
 
         private static bool RemoveDigitsWhenConstrainedToAGroupOfNCells_ForGroup(SudokuBoard sudokuBoard,
             List<CellWithDescription> cells, List<int> digits, IEnumerable<int> remainingDigits,
-            List<CellWithDescription> cellsWithMask, string description)
+            List<CellWithDescription> cellsWithMask)
         {
+            var description = cells.First().Description;
             if (cells.Any(cell =>
                 sudokuBoard.IsAnyDigitPossible(cell.Cell, digits) &&
                 sudokuBoard.IsAnyDigitPossible(cell.Cell, remainingDigits)))
