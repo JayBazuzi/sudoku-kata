@@ -44,7 +44,7 @@ namespace SudokuKata
                                         .Where(cell => sudokuBoard.IsAnyDigitPossible(cell.Cell, digits)).ToList()
                                 };
                             }))
-                    .Where(group => group.CellsWithMask.Count() == maskToOnesCount[group.Mask])
+                    .Where(group => group.CellsWithMask.Count() == group.Digits.Count)
                     .ToList();
 
             var stepChangeMade = false;
