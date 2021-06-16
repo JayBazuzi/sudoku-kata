@@ -31,7 +31,7 @@ namespace SudokuKata
                         cellGroups
                             .Where(group => group.All(cell =>
                                 state[cell.Index] == 0 || (mask & (1 << (state[cell.Index] - 1))) == 0))
-                            .Select(group =>
+                            .Select(cells =>
                             {
                                 var digits = SudokuBoard.GetDigitsForMask(mask);
                                 return new
@@ -40,9 +40,9 @@ namespace SudokuKata
                                     Digits = digits,
                                     RemainingDigits =
                                         SudokuBoard.GetRemainingDigits(digits),
-                                    group.First().Description,
-                                    Cells = group,
-                                    CellsWithMask = group
+                                    cells.First().Description,
+                                    Cells = cells,
+                                    CellsWithMask = cells
                                         .Where(cell => sudokuBoard.IsAnyDigitPossible(cell.Cell, digits)).ToList()
                                 };
                             }))
