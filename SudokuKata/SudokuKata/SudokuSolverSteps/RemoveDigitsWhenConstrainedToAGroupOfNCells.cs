@@ -71,10 +71,7 @@ namespace SudokuKata
                     sudokuBoard.RemovePossibilities(cell, possible);
                     stepChangeMade = true;
 
-                    var message = new StringBuilder();
-                    var possiblesAsText = string.Join(", ", possible);
-                    message.Append($"{possiblesAsText} cannot appear in cell ({cell.Row + 1}, {cell.Column + 1}).");
-                    Console.WriteLine(message.ToString());
+                    Console.WriteLine($"{string.Join(", ", possible)} cannot appear in cell ({cell.Row + 1}, {cell.Column + 1}).");
                 }
             }
 
