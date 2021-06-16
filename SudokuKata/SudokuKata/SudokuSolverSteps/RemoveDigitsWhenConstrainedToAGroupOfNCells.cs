@@ -63,7 +63,7 @@ namespace SudokuKata
                     var digitsAsText = string.Join(", ", groupWithNMasks.Digits);
                     var cellsAsText = groupWithNMasks.CellsWithMask.Select(cell => $" ({cell.Row + 1}, {cell.Column + 1})").JoinWith("");
                     var message = $"In {groupWithNMasks.Description} values {digitsAsText} appear only in cells{cellsAsText} and other values cannot appear in those cells.";
-                    Console.WriteLine(message.ToString());
+                    Console.WriteLine(message);
                 }
 
                 foreach (var cell in groupWithNMasks.CellsWithMask)
