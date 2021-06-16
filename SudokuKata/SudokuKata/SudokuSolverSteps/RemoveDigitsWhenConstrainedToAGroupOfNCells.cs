@@ -47,13 +47,13 @@ namespace SudokuKata
                     .ToList();
 
             var stepChangeMade = false;
-            foreach (var groupWithNMasks in groupsWithNMasks)
+            foreach (var g in groupsWithNMasks)
             {
-                var digits = groupWithNMasks.Digits;
-                var remainingDigits = groupWithNMasks.RemainingDigits;
-                var cells = groupWithNMasks.Cells;
-                var cellsWithMask = groupWithNMasks.CellsWithMask;
-                var description = groupWithNMasks.Description;
+                var digits = g.Digits;
+                var remainingDigits = g.RemainingDigits;
+                var cells = g.Cells;
+                var cellsWithMask = g.CellsWithMask;
+                var description = g.Description;
                 stepChangeMade = RemoveDigitsWhenConstrainedToAGroupOfNCells_ForGroup(sudokuBoard, cells, digits, remainingDigits, cellsWithMask, description, stepChangeMade);
             }
 
