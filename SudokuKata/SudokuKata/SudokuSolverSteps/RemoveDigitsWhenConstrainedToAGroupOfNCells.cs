@@ -35,7 +35,9 @@ namespace SudokuKata
                                 state[cell.Index] == 0 || (mask & (1 << (state[cell.Index] - 1))) == 0))
                             .Select(group => new
                             {
-                                Mask = mask, Description = group.First().Description, Cells = group,
+                                Mask = mask,
+                                group.First().Description,
+                                Cells = group,
                                 CellsWithMask = group.Where(cell =>
                                         state[cell.Index] == 0 && (candidateMasks[cell.Index] & mask) != 0)
                                     .ToList(),
