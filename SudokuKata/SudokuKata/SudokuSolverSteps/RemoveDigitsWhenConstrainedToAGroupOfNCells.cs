@@ -61,8 +61,8 @@ namespace SudokuKata
                         sudokuBoard.IsAnyDigitPossible(cell.Cell, groupWithNMasks.RemainingDigits)))
                 {
                     var digitsAsText = string.Join(", ", groupWithNMasks.Digits);
-                    var cellsAsText = groupWithNMasks.CellsWithMask.Select(cell => $" ({cell.Row + 1}, {cell.Column + 1})").JoinWith("");
-                    Console.WriteLine($"In {groupWithNMasks.Description} values {digitsAsText} appear only in cells{cellsAsText} and other values cannot appear in those cells.");
+                    var cellsAsText = groupWithNMasks.CellsWithMask.Select(cell => $"({cell.Row + 1}, {cell.Column + 1}) ").JoinWith("");
+                    Console.WriteLine($"In {groupWithNMasks.Description} values {digitsAsText} appear only in cells {cellsAsText}and other values cannot appear in those cells.");
                 }
 
                 foreach (var cell in groupWithNMasks.CellsWithMask)
