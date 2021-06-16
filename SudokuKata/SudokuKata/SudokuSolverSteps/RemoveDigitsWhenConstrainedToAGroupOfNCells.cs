@@ -9,7 +9,6 @@ namespace SudokuKata
     {
         public ChangesMadeStates Do(Random random, SudokuBoard sudokuBoard)
         {
-            // TODO: clean up here next
             var cellGroups = SudokuBoard.BuildCellGroups();
 
             var state = sudokuBoard.GetBoardAsNumbers();
@@ -18,12 +17,12 @@ namespace SudokuKata
             // When a set of N digits only appears in N cells within row/column/block, then no other digit can appear in the same set of cells
             // All other candidates can then be removed from those cells
 
-
             IEnumerable<int> masks =
                 maskToOnesCount
                     .Where(tuple => 1 < tuple.Value)
                     .Select(tuple => tuple.Key).ToList();
 
+            // TODO: clean up here next
             var groupsWithNMasks =
                 masks
                     .SelectMany(mask =>
