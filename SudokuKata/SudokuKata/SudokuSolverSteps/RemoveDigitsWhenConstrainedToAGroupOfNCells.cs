@@ -49,14 +49,14 @@ namespace SudokuKata
             var stepChangeMade = false;
             foreach (var g in groupsWithNMasks)
             {
-                stepChangeMade = RemoveDigitsWhenConstrainedToAGroupOfNCells_ForGroup(sudokuBoard, g.Cells, g.Digits, g.RemainingDigits, g.CellsWithMask, g.Description, stepChangeMade);
+                stepChangeMade |= RemoveDigitsWhenConstrainedToAGroupOfNCells_ForGroup(sudokuBoard, g.Cells, g.Digits, g.RemainingDigits, g.CellsWithMask, g.Description);
             }
 
             return new ChangesMadeStates {CandidateChanged = stepChangeMade};
         }
 
         private static bool RemoveDigitsWhenConstrainedToAGroupOfNCells_ForGroup(SudokuBoard sudokuBoard, List<CellWithDescription> cells, List<int> digits, IEnumerable<int> remainingDigits,
-            List<CellWithDescription> cellsWithMask, string description, bool stepChangeMade)
+            List<CellWithDescription> cellsWithMask, string description)
         {
             if (cells.Any(cell =>
                 sudokuBoard.IsAnyDigitPossible(cell.Cell, digits) &&
@@ -68,6 +68,7 @@ namespace SudokuKata
                     $"In {description} values {digitsAsText} appear only in cells {cellsAsText} and other values cannot appear in those cells.");
             }
 
+            var stepChangeMade = false;
             foreach (var cell in cellsWithMask)
             {
                 var possible = remainingDigits.Where(d => sudokuBoard.IsDigitPossible(d, cell.Cell)).ToList();
