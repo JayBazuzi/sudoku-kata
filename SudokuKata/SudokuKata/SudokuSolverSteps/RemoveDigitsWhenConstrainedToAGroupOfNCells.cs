@@ -39,8 +39,7 @@ namespace SudokuKata
                                 RemainingDigits = SudokuBoard.GetRemainingDigits(SudokuBoard.GetDigitsForMask(mask)),
                                 group.First().Description,
                                 Cells = group,
-                                CellsWithMask = group.Where(cell =>
-                                        state[cell.Index] == 0 && (candidateMasks[cell.Index] & mask) != 0)
+                                CellsWithMask = group.Where(cell => sudokuBoard.IsAnyDigitPossible(cell.Cell, SudokuBoard.GetDigitsForMask(mask)))
                                     .ToList(),
                             }))
                     .Where(group => group.CellsWithMask.Count() == maskToOnesCount[group.Mask])
