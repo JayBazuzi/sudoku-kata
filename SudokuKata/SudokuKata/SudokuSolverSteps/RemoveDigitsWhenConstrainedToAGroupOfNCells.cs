@@ -62,7 +62,7 @@ namespace SudokuKata
 
                 foreach (var cell in groupWithNMasks.CellsWithMask)
                 {
-                    var isAnyDigitPossible = sudokuBoard.IsAnyDigitPossible(cell.Cell, groupWithNMasks.RemainingDigits);
+                    var isAnyDigitPossible = groupWithNMasks.RemainingDigits.Any(d => sudokuBoard.IsDigitPossible(d, cell.Cell));
                     if (!isAnyDigitPossible)
                     {
                         continue;
