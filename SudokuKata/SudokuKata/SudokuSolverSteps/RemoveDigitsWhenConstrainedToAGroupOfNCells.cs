@@ -49,18 +49,23 @@ namespace SudokuKata
             var stepChangeMade = false;
             foreach (var groupWithNMasks in groupsWithNMasks)
             {
-                if (groupWithNMasks.Cells.Any(cell =>
-                        sudokuBoard.IsAnyDigitPossible(cell.Cell, groupWithNMasks.Digits) &&
-                        sudokuBoard.IsAnyDigitPossible(cell.Cell, groupWithNMasks.RemainingDigits)))
+                var digits = groupWithNMasks.Digits;
+                var remainingDigits = groupWithNMasks.RemainingDigits;
+                var cells = groupWithNMasks.Cells;
+                var cellsWithMask = groupWithNMasks.CellsWithMask;
+                if (cells.Any(cell =>
+                        sudokuBoard.IsAnyDigitPossible(cell.Cell, digits) &&
+                        sudokuBoard.IsAnyDigitPossible(cell.Cell, remainingDigits)))
                 {
-                    var digitsAsText = string.Join(", ", groupWithNMasks.Digits);
-                    var cellsAsText = groupWithNMasks.CellsWithMask.Select(cell => $"({cell.Row + 1}, {cell.Column + 1})").JoinWith(" ");
-                    Console.WriteLine($"In {groupWithNMasks.Description} values {digitsAsText} appear only in cells {cellsAsText} and other values cannot appear in those cells.");
+                    var digitsAsText = string.Join(", ", digits);
+                    var cellsAsText = cellsWithMask.Select(cell => $"({cell.Row + 1}, {cell.Column + 1})").JoinWith(" ");
+                    var description = groupWithNMasks.Description;
+                    Console.WriteLine($"In {description} values {digitsAsText} appear only in cells {cellsAsText} and other values cannot appear in those cells.");
                 }
 
-                foreach (var cell in groupWithNMasks.CellsWithMask)
+                foreach (var cell in cellsWithMask)
                 {
-                    var possible = groupWithNMasks.RemainingDigits.Where(d => sudokuBoard.IsDigitPossible(d, cell.Cell)).ToList();
+                    var possible = remainingDigits.Where(d => sudokuBoard.IsDigitPossible(d, cell.Cell)).ToList();
                     if (!possible.Any())
                     {
                         continue;
