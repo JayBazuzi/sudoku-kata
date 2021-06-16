@@ -69,7 +69,7 @@ namespace SudokuKata
                     }
 
                     var maskToClear = candidateMasks[cell.Index] & ~groupWithNMasks.Mask;
-                    candidateMasks[cell.Index] &= groupWithNMasks.Mask;
+                    sudokuBoard.RemovePossibilities(cell, groupWithNMasks.RemainingDigits.ToList());
                     stepChangeMade = true;
 
                     var valueToClear = 1;
