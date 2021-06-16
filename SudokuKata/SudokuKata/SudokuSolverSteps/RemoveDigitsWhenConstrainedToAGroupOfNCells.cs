@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using ApprovalUtilities.Utilities;
 
 namespace SudokuKata
@@ -41,12 +40,10 @@ namespace SudokuKata
                                     Digits = digits,
                                     RemainingDigits =
                                         SudokuBoard.GetRemainingDigits(digits),
-                                    @group.First().Description,
-                                    Cells = @group,
-                                    CellsWithMask = @group.Where(cell =>
-                                            sudokuBoard.IsAnyDigitPossible(cell.Cell,
-                                                digits))
-                                        .ToList(),
+                                    group.First().Description,
+                                    Cells = group,
+                                    CellsWithMask = group
+                                        .Where(cell => sudokuBoard.IsAnyDigitPossible(cell.Cell, digits)).ToList()
                                 };
                             }))
                     .Where(group => group.CellsWithMask.Count() == maskToOnesCount[group.Mask])
@@ -55,13 +52,15 @@ namespace SudokuKata
             var stepChangeMade = false;
             foreach (var g in groupsWithNMasks)
             {
-                stepChangeMade |= RemoveDigitsWhenConstrainedToAGroupOfNCells_ForGroup(sudokuBoard, g.Cells, g.Digits, g.RemainingDigits, g.CellsWithMask, g.Description);
+                stepChangeMade |= RemoveDigitsWhenConstrainedToAGroupOfNCells_ForGroup(sudokuBoard, g.Cells, g.Digits,
+                    g.RemainingDigits, g.CellsWithMask, g.Description);
             }
 
             return new ChangesMadeStates {CandidateChanged = stepChangeMade};
         }
 
-        private static bool RemoveDigitsWhenConstrainedToAGroupOfNCells_ForGroup(SudokuBoard sudokuBoard, List<CellWithDescription> cells, List<int> digits, IEnumerable<int> remainingDigits,
+        private static bool RemoveDigitsWhenConstrainedToAGroupOfNCells_ForGroup(SudokuBoard sudokuBoard,
+            List<CellWithDescription> cells, List<int> digits, IEnumerable<int> remainingDigits,
             List<CellWithDescription> cellsWithMask, string description)
         {
             if (cells.Any(cell =>
@@ -86,7 +85,8 @@ namespace SudokuKata
                 sudokuBoard.RemovePossibilities(cell, possible);
                 stepChangeMade = true;
 
-                Console.WriteLine($"{string.Join(", ", possible)} cannot appear in cell ({cell.Row + 1}, {cell.Column + 1}).");
+                Console.WriteLine(
+                    $"{string.Join(", ", possible)} cannot appear in cell ({cell.Row + 1}, {cell.Column + 1}).");
             }
 
             return stepChangeMade;
