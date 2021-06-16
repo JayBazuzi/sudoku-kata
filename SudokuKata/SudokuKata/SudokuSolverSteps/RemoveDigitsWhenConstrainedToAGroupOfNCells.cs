@@ -58,7 +58,7 @@ namespace SudokuKata
                 if (groupWithNMasks.Cells
                     .Any(cell =>
                         sudokuBoard.IsAnyDigitPossible(cell.Cell, groupWithNMasks.Digits) &&
-                        (candidateMasks[cell.Index] & ~mask) != 0))
+                        sudokuBoard.IsAnyDigitPossible(cell.Cell, SudokuBoard.GetRemainingDigits(groupWithNMasks.Digits))))
                 {
                     var message = new StringBuilder();
                     message.Append($"In {groupWithNMasks.Description} values ");
