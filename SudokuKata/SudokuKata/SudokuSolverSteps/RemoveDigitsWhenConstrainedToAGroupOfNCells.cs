@@ -55,8 +55,7 @@ namespace SudokuKata
             var stepChangeMade = false;
             foreach (var groupWithNMasks in groupsWithNMasks)
             {
-                if (groupWithNMasks.Cells
-                    .Any(cell =>
+                if (groupWithNMasks.Cells.Any(cell =>
                         sudokuBoard.IsAnyDigitPossible(cell.Cell, groupWithNMasks.Digits) &&
                         sudokuBoard.IsAnyDigitPossible(cell.Cell, groupWithNMasks.RemainingDigits)))
                 {
