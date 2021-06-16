@@ -57,7 +57,7 @@ namespace SudokuKata
 
                 if (groupWithNMasks.Cells
                     .Any(cell =>
-                        SudokuBoard.IsAnyDigitPossible(candidateMasks, mask, cell.Index) &&
+                        sudokuBoard.IsAnyDigitPossible(cell.Cell, groupWithNMasks.Digits) &&
                         (candidateMasks[cell.Index] & ~mask) != 0))
                 {
                     var message = new StringBuilder();
