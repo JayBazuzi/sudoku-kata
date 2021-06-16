@@ -37,6 +37,7 @@ namespace SudokuKata
                             {
                                 Mask = mask,
                                 Digits = SudokuBoard.GetDigitsForMask(mask),
+                                RemainingDigits = SudokuBoard.GetRemainingDigits(SudokuBoard.GetDigitsForMask(mask)),
                                 group.First().Description,
                                 Cells = group,
                                 CellsWithMask = group.Where(cell =>
@@ -58,7 +59,7 @@ namespace SudokuKata
                 if (groupWithNMasks.Cells
                     .Any(cell =>
                         sudokuBoard.IsAnyDigitPossible(cell.Cell, groupWithNMasks.Digits) &&
-                        sudokuBoard.IsAnyDigitPossible(cell.Cell, SudokuBoard.GetRemainingDigits(groupWithNMasks.Digits))))
+                        sudokuBoard.IsAnyDigitPossible(cell.Cell, groupWithNMasks.RemainingDigits)))
                 {
                     var message = new StringBuilder();
                     message.Append($"In {groupWithNMasks.Description} values ");
