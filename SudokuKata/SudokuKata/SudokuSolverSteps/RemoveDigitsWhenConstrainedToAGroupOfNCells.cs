@@ -38,8 +38,7 @@ namespace SudokuKata
                                 {
                                     Mask = mask,
                                     Digits = digits,
-                                    RemainingDigits =
-                                        SudokuBoard.GetRemainingDigits(digits),
+                                    RemainingDigits = SudokuBoard.GetRemainingDigits(digits),
                                     cells.First().Description,
                                     Cells = cells,
                                     CellsWithMask = cells
