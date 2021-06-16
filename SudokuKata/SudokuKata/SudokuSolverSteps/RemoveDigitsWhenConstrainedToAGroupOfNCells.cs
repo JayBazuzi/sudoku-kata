@@ -22,7 +22,6 @@ namespace SudokuKata
                     .Where(tuple => 1 < tuple.Value)
                     .Select(tuple => tuple.Key).ToList();
 
-            // TODO: clean up here next
             var groupsWithNMasks =
                 masks
                     .SelectMany(mask =>
@@ -30,6 +29,7 @@ namespace SudokuKata
                             .Where(group => group.All(cell =>
                             {
                                 var digit = state[cell.Index];
+                                // TODO: Figure this out
                                 return digit == 0 || (mask & SudokuBoard.GetMaskForDigit(digit)) == 0;
                             }))
                             .Select(cells =>
