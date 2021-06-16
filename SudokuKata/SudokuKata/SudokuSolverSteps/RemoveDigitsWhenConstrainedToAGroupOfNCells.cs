@@ -72,7 +72,8 @@ namespace SudokuKata
                     stepChangeMade = true;
 
                     var message = new StringBuilder();
-                    message.Append(string.Join(", ", possible));
+                    var possiblesAsText = string.Join(", ", possible);
+                    message.Append(possiblesAsText);
                     message.Append($" cannot appear in cell ({cell.Row + 1}, {cell.Column + 1}).");
                     Console.WriteLine(message.ToString());
                 }
