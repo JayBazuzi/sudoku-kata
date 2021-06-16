@@ -30,7 +30,7 @@ namespace SudokuKata
                             .Where(group => group.All(cell =>
                             {
                                 var digit = state[cell.Index];
-                                return digit == 0 || (mask & (1 << (digit - 1))) == 0;
+                                return digit == 0 || (mask & SudokuBoard.GetMaskForDigit(digit)) == 0;
                             }))
                             .Select(cells =>
                             {
