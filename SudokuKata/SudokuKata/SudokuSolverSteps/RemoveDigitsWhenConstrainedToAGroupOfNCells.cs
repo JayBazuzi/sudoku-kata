@@ -17,8 +17,6 @@ namespace SudokuKata
             var candidateMasks = sudokuBoard.GetCandidates().Masks;
             var maskToOnesCount = LookupStructures.Instance._maskToOnesCount;
 
-            #region Try to find groups of digits of size N which only appear in N cells within row/column/block
-
             // When a set of N digits only appears in N cells within row/column/block, then no other digit can appear in the same set of cells
             // All other candidates can then be removed from those cells
 
@@ -74,8 +72,6 @@ namespace SudokuKata
                     Console.WriteLine($"{string.Join(", ", possible)} cannot appear in cell ({cell.Row + 1}, {cell.Column + 1}).");
                 }
             }
-
-            #endregion
 
             return new ChangesMadeStates {CandidateChanged = stepChangeMade};
         }
