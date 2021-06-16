@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using ApprovalUtilities.Utilities;
 
 namespace SudokuKata
 {
@@ -61,10 +62,10 @@ namespace SudokuKata
                 {
                     var digitsAsText = string.Join(", ", groupWithNMasks.Digits);
                     var message = new StringBuilder($"In {groupWithNMasks.Description} values {digitsAsText} appear only in cells");
-                    foreach (var cell in groupWithNMasks.CellsWithMask)
-                    {
-                        message.Append($" ({cell.Row + 1}, {cell.Column + 1})");
-                    }
+
+
+                    var cellsAsText = groupWithNMasks.CellsWithMask.Select(cell => $" ({cell.Row + 1}, {cell.Column + 1})").JoinWith("");
+                    message.Append(cellsAsText);
 
                     message.Append(" and other values cannot appear in those cells.");
 
