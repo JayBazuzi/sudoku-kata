@@ -44,10 +44,6 @@ namespace SudokuKata
                                 CellsWithMask = group.Where(cell =>
                                         state[cell.Index] == 0 && (candidateMasks[cell.Index] & mask) != 0)
                                     .ToList(),
-                                CleanableCellsCount = group.Count(
-                                    cell => state[cell.Index] == 0 &&
-                                            (candidateMasks[cell.Index] & mask) != 0 &&
-                                            (candidateMasks[cell.Index] & ~mask) != 0)
                             }))
                     .Where(group => group.CellsWithMask.Count() == maskToOnesCount[group.Mask])
                     .ToList();
