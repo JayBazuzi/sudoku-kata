@@ -61,7 +61,8 @@ namespace SudokuKata
                 {
                     var message = new StringBuilder();
                     message.Append($"In {groupWithNMasks.Description} values ");
-                    message.Append(string.Join(", ", groupWithNMasks.Digits));
+                    var digitsAsText = string.Join(", ", groupWithNMasks.Digits);
+                    message.Append(digitsAsText);
                     message.Append(" appear only in cells");
                     foreach (var cell in groupWithNMasks.CellsWithMask)
                     {
