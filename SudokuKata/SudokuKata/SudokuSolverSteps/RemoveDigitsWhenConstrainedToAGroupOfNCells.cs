@@ -59,11 +59,8 @@ namespace SudokuKata
                         sudokuBoard.IsAnyDigitPossible(cell.Cell, groupWithNMasks.Digits) &&
                         sudokuBoard.IsAnyDigitPossible(cell.Cell, groupWithNMasks.RemainingDigits)))
                 {
-                    var message = new StringBuilder();
-                    message.Append($"In {groupWithNMasks.Description} values ");
                     var digitsAsText = string.Join(", ", groupWithNMasks.Digits);
-                    message.Append(digitsAsText);
-                    message.Append(" appear only in cells");
+                    var message = new StringBuilder($"In {groupWithNMasks.Description} values {digitsAsText} appear only in cells");
                     foreach (var cell in groupWithNMasks.CellsWithMask)
                     {
                         message.Append($" ({cell.Row + 1}, {cell.Column + 1})");
