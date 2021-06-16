@@ -34,17 +34,18 @@ namespace SudokuKata
                                 state[cell.Index] == 0 || (mask & (1 << (state[cell.Index] - 1))) == 0))
                             .Select(group =>
                             {
+                                var digits = SudokuBoard.GetDigitsForMask(mask);
                                 return new
                                 {
                                     Mask = mask,
-                                    Digits = SudokuBoard.GetDigitsForMask(mask),
+                                    Digits = digits,
                                     RemainingDigits =
-                                        SudokuBoard.GetRemainingDigits(SudokuBoard.GetDigitsForMask(mask)),
+                                        SudokuBoard.GetRemainingDigits(digits),
                                     @group.First().Description,
                                     Cells = @group,
                                     CellsWithMask = @group.Where(cell =>
                                             sudokuBoard.IsAnyDigitPossible(cell.Cell,
-                                                SudokuBoard.GetDigitsForMask(mask)))
+                                                digits))
                                         .ToList(),
                                 };
                             }))
