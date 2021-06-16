@@ -39,7 +39,6 @@ namespace SudokuKata
                                     Mask = mask,
                                     Digits = digits,
                                     RemainingDigits = SudokuBoard.GetRemainingDigits(digits),
-                                    cells.First().Description,
                                     Cells = cells,
                                     CellsWithMask = cells
                                         .Where(cell => sudokuBoard.IsAnyDigitPossible(cell.Cell, digits)).ToList()
@@ -52,7 +51,7 @@ namespace SudokuKata
             foreach (var g in groupsWithNMasks)
             {
                 stepChangeMade |= RemoveDigitsWhenConstrainedToAGroupOfNCells_ForGroup(sudokuBoard, g.Cells, g.Digits,
-                    g.RemainingDigits, g.CellsWithMask, g.Description);
+                    g.RemainingDigits, g.CellsWithMask, g.Cells.First().Description);
             }
 
             return new ChangesMadeStates {CandidateChanged = stepChangeMade};
