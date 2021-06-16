@@ -72,23 +72,8 @@ namespace SudokuKata
                     sudokuBoard.RemovePossibilities(cell, possible);
                     stepChangeMade = true;
 
-                    var valueToClear = 1;
-
-                    var separator = string.Empty;
                     var message = new StringBuilder();
-
-                    while (maskToClear > 0)
-                    {
-                        if ((maskToClear & 1) > 0)
-                        {
-                            message.Append($"{separator}{valueToClear}");
-                            separator = ", ";
-                        }
-
-                        maskToClear = maskToClear >> 1;
-                        valueToClear += 1;
-                    }
-
+                    message.Append(string.Join(", ", possible));
                     message.Append($" cannot appear in cell ({cell.Row + 1}, {cell.Column + 1}).");
                     Console.WriteLine(message.ToString());
                 }
