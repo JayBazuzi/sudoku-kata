@@ -28,7 +28,10 @@ namespace SudokuKata
                     .SelectMany(mask =>
                         cellGroups
                             .Where(group => group.All(cell =>
-                                state[cell.Index] == 0 || (mask & (1 << (state[cell.Index] - 1))) == 0))
+                            {
+                                var digit = state[cell.Index];
+                                return digit == 0 || (mask & (1 << (digit - 1))) == 0;
+                            }))
                             .Select(cells =>
                             {
                                 var digits = SudokuBoard.GetDigitsForMask(mask);
