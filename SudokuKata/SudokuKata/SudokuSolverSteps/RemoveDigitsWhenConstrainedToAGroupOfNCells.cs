@@ -12,9 +12,9 @@ namespace SudokuKata
         {
             var cellGroups = SudokuBoard.BuildCellGroups();
 
-            var digitsForMasks = GetAllCombinationsOfNumbersFromOneToNine();
+            var digitPossibilities = GetAllCombinationsOfNumbersFromOneToNine();
             var groupsWithNMasks =
-                digitsForMasks
+                digitPossibilities
                     .SelectMany(digitsForMask =>
                         cellGroups
                             .Where(group => group.All(cell =>
