@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using ApprovalUtilities.Utilities;
 
@@ -8,30 +7,6 @@ namespace SudokuKata
 {
     public class RemoveDigitsWhenConstrainedToAGroupOfNCells : ISudokuSolverStep
     {
-        public class CellGroupsForDigits
-        {
-            public List<int> Digits { get; }
-            public IEnumerable<int> RemainingDigits { get; }
-            public List<CellWithDescription> Cells { get; }
-            public List<CellWithDescription> CellsWhereADigitIsPossible { get; }
-
-            public CellGroupsForDigits(List<int> digits, IEnumerable<int> remainingDigits, List<CellWithDescription> cells, List<CellWithDescription> cellsWhereADigitIsPossible)
-            {
-                Digits = digits;
-                RemainingDigits = remainingDigits;
-                Cells = cells;
-                CellsWhereADigitIsPossible = cellsWhereADigitIsPossible;
-            }
-
-            public static CellGroupsForDigits Create(SudokuBoard sudokuBoard, List<int> possibleDigits, List<CellWithDescription> cells)
-            {
-                var remainingDigits = SudokuBoard.GetRemainingDigits(possibleDigits);
-                var cellWithDescriptions = cells
-                    .Where(cell => sudokuBoard.IsAnyDigitPossible(cell.Cell, possibleDigits)).ToList();
-                return new CellGroupsForDigits(possibleDigits, remainingDigits, cells, cellWithDescriptions);
-            }
-        }
-
         public ChangesMadeStates Do(Random random, SudokuBoard sudokuBoard)
         {
             var groupsWhichAreConstrainedToNCells = FindGroupsWhichAreConstrainedForDigits(sudokuBoard);
@@ -54,14 +29,15 @@ namespace SudokuKata
                 digitPossibilities
                     .SelectMany(possibleDigits =>
                         cellGroups
-                            .Where(group => @group.All(cell => NoDigitsAreSolved(sudokuBoard, cell, possibleDigits)))
+                            .Where(group => group.All(cell => NoDigitsAreSolved(sudokuBoard, cell, possibleDigits)))
                             .Select(cells => CellGroupsForDigits.Create(sudokuBoard, possibleDigits, cells)))
-                    .Where(group => @group.CellsWhereADigitIsPossible.Count() == @group.Digits.Count)
+                    .Where(group => group.CellsWhereADigitIsPossible.Count() == group.Digits.Count)
                     .ToList();
             return groupsWhichAreConstrainedToNCells;
         }
 
-        private static bool NoDigitsAreSolved(SudokuBoard sudokuBoard, CellWithDescription cell, List<int> digitsForMask)
+        private static bool NoDigitsAreSolved(SudokuBoard sudokuBoard, CellWithDescription cell,
+            List<int> digitsForMask)
         {
             var digit = sudokuBoard.GetValueForCell(cell.Cell);
             var digitIsNotWhatWeAreLookingFor = !digitsForMask.Contains(digit);
@@ -85,7 +61,8 @@ namespace SudokuKata
                 sudokuBoard.IsAnyDigitPossible(cell.Cell, g.RemainingDigits)))
             {
                 var digitsAsText = string.Join(", ", g.Digits);
-                var cellsAsText = g.CellsWhereADigitIsPossible.Select(cell => $"({cell.Row + 1}, {cell.Column + 1})").JoinWith(" ");
+                var cellsAsText = g.CellsWhereADigitIsPossible.Select(cell => $"({cell.Row + 1}, {cell.Column + 1})")
+                    .JoinWith(" ");
                 Console.WriteLine(
                     $"In {description} values {digitsAsText} appear only in cells {cellsAsText} and other values cannot appear in those cells.");
             }
@@ -107,6 +84,32 @@ namespace SudokuKata
             }
 
             return stepChangeMade;
+        }
+
+        public class CellGroupsForDigits
+        {
+            public CellGroupsForDigits(List<int> digits, IEnumerable<int> remainingDigits,
+                List<CellWithDescription> cells, List<CellWithDescription> cellsWhereADigitIsPossible)
+            {
+                Digits = digits;
+                RemainingDigits = remainingDigits;
+                Cells = cells;
+                CellsWhereADigitIsPossible = cellsWhereADigitIsPossible;
+            }
+
+            public List<int> Digits { get; }
+            public IEnumerable<int> RemainingDigits { get; }
+            public List<CellWithDescription> Cells { get; }
+            public List<CellWithDescription> CellsWhereADigitIsPossible { get; }
+
+            public static CellGroupsForDigits Create(SudokuBoard sudokuBoard, List<int> possibleDigits,
+                List<CellWithDescription> cells)
+            {
+                var remainingDigits = SudokuBoard.GetRemainingDigits(possibleDigits);
+                var cellWithDescriptions = cells
+                    .Where(cell => sudokuBoard.IsAnyDigitPossible(cell.Cell, possibleDigits)).ToList();
+                return new CellGroupsForDigits(possibleDigits, remainingDigits, cells, cellWithDescriptions);
+            }
         }
     }
 }
