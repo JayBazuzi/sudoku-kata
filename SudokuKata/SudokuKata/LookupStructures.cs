@@ -10,8 +10,6 @@ namespace SudokuKata
 
         public LookupStructures()
         {
-            #region Prepare lookup structures that will be used in further execution
-
             var maskToOnesCount = new Dictionary<int, int>();
             maskToOnesCount[0] = 0;
             for (var i = 1; i < 1 << 9; i++)
@@ -26,8 +24,6 @@ namespace SudokuKata
             {
                 singleBitToIndex[1 << i] = i;
             }
-
-            #endregion
 
             _singleBitToIndex = singleBitToIndex;
             _maskToOnesCount = maskToOnesCount;
