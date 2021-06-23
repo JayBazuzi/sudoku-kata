@@ -25,18 +25,19 @@ namespace SudokuKata
 
             var groupsWithNMasks =
                 masks
-                    .SelectMany(mask =>
+                    .Select(mask => SudokuBoard.GetDigitsForMask(mask))
+                    .SelectMany(digitsForMask =>
                         cellGroups
                             .Where(group => group.All(cell =>
                             {
                                 var digit = sudokuBoard.GetValueForCell(cell.Cell);
-                                var digitIsNotWhatWeAreLookingFor = !SudokuBoard.GetDigitsForMask(mask).Contains(digit);
+                                var digitIsNotWhatWeAreLookingFor = !digitsForMask.Contains(digit);
                                 var cellIsUnsolved = digit == SudokuBoard.Unknown;
                                 return cellIsUnsolved || digitIsNotWhatWeAreLookingFor;
                             }))
                             .Select(cells =>
                             {
-                                var digits = SudokuBoard.GetDigitsForMask(mask);
+                                var digits = digitsForMask;
                                 return new
                                 {
                                     Digits = digits,
