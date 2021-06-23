@@ -17,10 +17,7 @@ namespace SudokuKata
                 digitPossibilities
                     .SelectMany(digitsForMask =>
                         cellGroups
-                            .Where(group => group.All(cell =>
-                            {
-                                return NoDigitsAreSolved(sudokuBoard, cell, digitsForMask);
-                            }))
+                            .Where(group => group.All(cell => NoDigitsAreSolved(sudokuBoard, cell, digitsForMask)))
                             .Select(cells =>
                             {
                                 var digits = digitsForMask;
