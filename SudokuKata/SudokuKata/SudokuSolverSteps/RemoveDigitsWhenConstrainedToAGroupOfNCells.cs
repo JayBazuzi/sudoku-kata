@@ -30,7 +30,6 @@ namespace SudokuKata
                             .Where(group => group.All(cell =>
                             {
                                 var digit = sudokuBoard.GetValueForCell(cell.Cell);
-                                // TODO: Figure this out
                                 return digit == SudokuBoard.Unknown || !SudokuBoard.GetDigitsForMask(mask).Contains(digit);
                             }))
                             .Select(cells =>
