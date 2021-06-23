@@ -19,6 +19,7 @@ namespace SudokuKata
             Stack<int> lastDigitStack;
             Command command;
 
+// TODO - clean this up
             #region Final attempt - look if the board has multiple solutions
 
             var changeMade = false;
