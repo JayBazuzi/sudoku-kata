@@ -13,7 +13,7 @@ namespace SudokuKata
             var cellGroups = SudokuBoard.BuildCellGroups();
 
             var digitPossibilities = GetAllCombinationsOfNumbersFromOneToNine();
-            var groupsWithNMasks =
+            var groupsWhichAreConstrainedToNCells =
                 digitPossibilities
                     .SelectMany(possibleDigits =>
                         cellGroups
@@ -33,7 +33,7 @@ namespace SudokuKata
                     .ToList();
 
             var stepChangeMade = false;
-            foreach (var g in groupsWithNMasks)
+            foreach (var g in groupsWhichAreConstrainedToNCells)
             {
                 stepChangeMade |= RemoveDigitsWhenConstrainedToAGroupOfNCells_ForGroup(sudokuBoard, g.Cells, g.Digits,
                     g.RemainingDigits, g.CellsWhereADigitIsPossible);
