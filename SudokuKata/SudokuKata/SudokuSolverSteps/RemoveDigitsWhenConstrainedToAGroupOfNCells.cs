@@ -41,8 +41,7 @@ namespace SudokuKata
             var stepChangeMade = false;
             foreach (var g in groupsWhichAreConstrainedToNCells)
             {
-                stepChangeMade |= RemoveDigitsWhenConstrainedToAGroupOfNCells_ForGroup(sudokuBoard, g.Cells, g.Digits,
-                    g.RemainingDigits, g.CellsWhereADigitIsPossible);
+                stepChangeMade |= RemoveDigitsWhenConstrainedToAGroupOfNCells_ForGroup(sudokuBoard, g);
             }
 
             return new ChangesMadeStates {CandidateChanged = stepChangeMade};
@@ -72,24 +71,23 @@ namespace SudokuKata
         }
 
         private static bool RemoveDigitsWhenConstrainedToAGroupOfNCells_ForGroup(SudokuBoard sudokuBoard,
-            List<CellWithDescription> cells, List<int> digits, IEnumerable<int> remainingDigits,
-            List<CellWithDescription> cellsWithMask)
+            Applesauce g)
         {
-            var description = cells.First().Description;
-            if (cells.Any(cell =>
-                sudokuBoard.IsAnyDigitPossible(cell.Cell, digits) &&
-                sudokuBoard.IsAnyDigitPossible(cell.Cell, remainingDigits)))
+            var description = g.Cells.First().Description;
+            if (g.Cells.Any(cell =>
+                sudokuBoard.IsAnyDigitPossible(cell.Cell, g.Digits) &&
+                sudokuBoard.IsAnyDigitPossible(cell.Cell, g.RemainingDigits)))
             {
-                var digitsAsText = string.Join(", ", digits);
-                var cellsAsText = cellsWithMask.Select(cell => $"({cell.Row + 1}, {cell.Column + 1})").JoinWith(" ");
+                var digitsAsText = string.Join(", ", g.Digits);
+                var cellsAsText = g.CellsWhereADigitIsPossible.Select(cell => $"({cell.Row + 1}, {cell.Column + 1})").JoinWith(" ");
                 Console.WriteLine(
                     $"In {description} values {digitsAsText} appear only in cells {cellsAsText} and other values cannot appear in those cells.");
             }
 
             var stepChangeMade = false;
-            foreach (var cell in cellsWithMask)
+            foreach (var cell in g.CellsWhereADigitIsPossible)
             {
-                var possible = remainingDigits.Where(d => sudokuBoard.IsDigitPossible(d, cell.Cell)).ToList();
+                var possible = g.RemainingDigits.Where(d => sudokuBoard.IsDigitPossible(d, cell.Cell)).ToList();
                 if (!possible.Any())
                 {
                     continue;
