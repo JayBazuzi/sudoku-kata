@@ -15,12 +15,12 @@ namespace SudokuKata
             var digitPossibilities = GetAllCombinationsOfNumbersFromOneToNine();
             var groupsWithNMasks =
                 digitPossibilities
-                    .SelectMany(digitsForMask =>
+                    .SelectMany(possibleDigits =>
                         cellGroups
-                            .Where(group => group.All(cell => NoDigitsAreSolved(sudokuBoard, cell, digitsForMask)))
+                            .Where(group => group.All(cell => NoDigitsAreSolved(sudokuBoard, cell, possibleDigits)))
                             .Select(cells =>
                             {
-                                var digits = digitsForMask;
+                                var digits = possibleDigits;
                                 return new
                                 {
                                     Digits = digits,
