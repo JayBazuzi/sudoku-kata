@@ -23,9 +23,10 @@ namespace SudokuKata
                     .Where(tuple => 1 < tuple.Value)
                     .Select(tuple => tuple.Key).ToList();
 
+            var digitsForMasks = masks
+                .Select(SudokuBoard.GetDigitsForMask);
             var groupsWithNMasks =
-                masks
-                    .Select(SudokuBoard.GetDigitsForMask)
+                digitsForMasks
                     .SelectMany(digitsForMask =>
                         cellGroups
                             .Where(group => group.All(cell =>
