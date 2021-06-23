@@ -53,14 +53,8 @@ namespace SudokuKata
         {
             var maskToOnesCount = LookupStructures.Instance._maskToOnesCount;
 
-            IEnumerable<int> masks =
-                maskToOnesCount
-                    .Where(tuple => 1 < tuple.Value)
-                    .Select(tuple => tuple.Key).ToList();
-
-            var digitsForMasks = masks
-                .Select(SudokuBoard.GetDigitsForMask);
-            return digitsForMasks;
+            return maskToOnesCount.Select(m => SudokuBoard.GetDigitsForMask(m.Key))
+                .Where(d => d.Count > 1);
         }
 
         private static bool RemoveDigitsWhenConstrainedToAGroupOfNCells_ForGroup(SudokuBoard sudokuBoard,
