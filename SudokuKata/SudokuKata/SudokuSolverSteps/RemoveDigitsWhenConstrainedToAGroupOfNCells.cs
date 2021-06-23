@@ -19,10 +19,7 @@ namespace SudokuKata
                         cellGroups
                             .Where(group => group.All(cell =>
                             {
-                                var digit = sudokuBoard.GetValueForCell(cell.Cell);
-                                var digitIsNotWhatWeAreLookingFor = !digitsForMask.Contains(digit);
-                                var cellIsUnsolved = digit == SudokuBoard.Unknown;
-                                return cellIsUnsolved || digitIsNotWhatWeAreLookingFor;
+                                return NoDigitsAreSolved(sudokuBoard, cell, digitsForMask);
                             }))
                             .Select(cells =>
                             {
@@ -47,6 +44,14 @@ namespace SudokuKata
             }
 
             return new ChangesMadeStates {CandidateChanged = stepChangeMade};
+        }
+
+        private static bool NoDigitsAreSolved(SudokuBoard sudokuBoard, CellWithDescription cell, List<int> digitsForMask)
+        {
+            var digit = sudokuBoard.GetValueForCell(cell.Cell);
+            var digitIsNotWhatWeAreLookingFor = !digitsForMask.Contains(digit);
+            var cellIsUnsolved = digit == SudokuBoard.Unknown;
+            return cellIsUnsolved || digitIsNotWhatWeAreLookingFor;
         }
 
         public static IEnumerable<List<int>> GetAllCombinationsOfNumbersFromOneToNine()
