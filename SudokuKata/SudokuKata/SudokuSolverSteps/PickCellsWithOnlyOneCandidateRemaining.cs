@@ -7,6 +7,7 @@ namespace SudokuKata
     {
         public ChangesMadeStates Do(Random rng, SudokuBoard puzzle)
         {
+            // TODO: stop using GetCandidates here
             var singleCandidateIndices = puzzle.GetCandidates().GetCellsWithOnlyOneCandidateRemaining();
 
             var skip = singleCandidateIndices.Length == 0 ? 0 : rng.Next(singleCandidateIndices.Length);
