@@ -22,6 +22,14 @@ namespace SudokuKata
                 Cells = cells;
                 CellsWhereADigitIsPossible = cellsWhereADigitIsPossible;
             }
+
+            public static CellGroupsForDigits ToApplesauce(SudokuBoard sudokuBoard, List<int> possibleDigits, List<CellWithDescription> cells)
+            {
+                var remainingDigits = SudokuBoard.GetRemainingDigits(possibleDigits);
+                var cellWithDescriptions = cells
+                    .Where(cell => sudokuBoard.IsAnyDigitPossible(cell.Cell, possibleDigits)).ToList();
+                return new CellGroupsForDigits(possibleDigits, remainingDigits, cells, cellWithDescriptions);
+            }
         }
 
         public ChangesMadeStates Do(Random random, SudokuBoard sudokuBoard)
@@ -34,7 +42,7 @@ namespace SudokuKata
                     .SelectMany(possibleDigits =>
                         cellGroups
                             .Where(group => group.All(cell => NoDigitsAreSolved(sudokuBoard, cell, possibleDigits)))
-                            .Select(cells => ToApplesauce(sudokuBoard, possibleDigits, cells)))
+                            .Select(cells => CellGroupsForDigits.ToApplesauce(sudokuBoard, possibleDigits, cells)))
                     .Where(group => group.CellsWhereADigitIsPossible.Count() == group.Digits.Count)
                     .ToList();
 
@@ -45,14 +53,6 @@ namespace SudokuKata
             }
 
             return new ChangesMadeStates {CandidateChanged = stepChangeMade};
-        }
-
-        private static CellGroupsForDigits ToApplesauce(SudokuBoard sudokuBoard, List<int> possibleDigits, List<CellWithDescription> cells)
-        {
-            var remainingDigits = SudokuBoard.GetRemainingDigits(possibleDigits);
-            var cellWithDescriptions = cells
-                .Where(cell => sudokuBoard.IsAnyDigitPossible(cell.Cell, possibleDigits)).ToList();
-            return new CellGroupsForDigits(possibleDigits, remainingDigits, cells, cellWithDescriptions);
         }
 
         private static bool NoDigitsAreSolved(SudokuBoard sudokuBoard, CellWithDescription cell, List<int> digitsForMask)
