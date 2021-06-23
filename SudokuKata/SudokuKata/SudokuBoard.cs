@@ -346,12 +346,7 @@ namespace SudokuKata
             return candidateMasks;
         }
 
-        public bool IsCellKnown_OrSomething(Cell cell)
-        {
-            return GetValueForCell(cell) == Unknown;
-        }
-
-        private int GetValueForCell(Cell cell)
+        public int GetValueForCell(Cell cell)
         {
             return _board[cell.Row, cell.Column];
         }
