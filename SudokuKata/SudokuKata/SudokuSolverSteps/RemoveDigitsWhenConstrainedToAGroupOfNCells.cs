@@ -53,7 +53,7 @@ namespace SudokuKata
         {
             var masks = LookupStructures.Instance._maskToOnesCount.Keys;
 
-            return masks.Select(m => SudokuBoard.GetDigitsForMask(m))
+            return masks.Select(SudokuBoard.GetDigitsForMask)
                 .Where(d => d.Count > 1);
         }
 
