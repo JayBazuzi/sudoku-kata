@@ -30,7 +30,8 @@ namespace SudokuKata
                             {
                                 var digit = state[cell.Index];
                                 // TODO: Figure this out
-                                return digit == 0 || (mask & SudokuBoard.GetMaskForDigit(digit)) == 0;
+                                var applesauce = (mask & SudokuBoard.GetMaskForDigit(digit)) == 0;
+                                return digit == 0 || applesauce;
                             }))
                             .Select(cells =>
                             {
