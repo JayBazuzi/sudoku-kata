@@ -29,9 +29,9 @@ namespace SudokuKata
                         cellGroups
                             .Where(group => group.All(cell =>
                             {
-                                var digit = state[cell.Index];
+                                var digit = sudokuBoard.GetValueForCell(cell.Cell);
                                 // TODO: Figure this out
-                                var applesauce = sudokuBoard.GetValueForCell(cell.Cell) == SudokuBoard.Unknown;
+                                var applesauce = digit == SudokuBoard.Unknown;
                                 return applesauce || !SudokuBoard.GetDigitsForMask(mask).Contains(digit);
                             }))
                             .Select(cells =>
