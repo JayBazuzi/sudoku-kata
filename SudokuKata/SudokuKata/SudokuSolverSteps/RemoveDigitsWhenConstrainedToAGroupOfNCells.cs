@@ -6,13 +6,13 @@ using ApprovalUtilities.Utilities;
 
 namespace SudokuKata
 {
-    internal class RemoveDigitsWhenConstrainedToAGroupOfNCells : ISudokuSolverStep
+    public class RemoveDigitsWhenConstrainedToAGroupOfNCells : ISudokuSolverStep
     {
         public ChangesMadeStates Do(Random random, SudokuBoard sudokuBoard)
         {
             var cellGroups = SudokuBoard.BuildCellGroups();
 
-            var digitsForMasks = GetDigitsForMasks_orSomething();
+            var digitsForMasks = GetAllCombinationsOfNumbersFromOneToNine();
             var groupsWithNMasks =
                 digitsForMasks
                     .SelectMany(digitsForMask =>
@@ -49,7 +49,7 @@ namespace SudokuKata
             return new ChangesMadeStates {CandidateChanged = stepChangeMade};
         }
 
-        private static IEnumerable<List<int>> GetDigitsForMasks_orSomething()
+        public static IEnumerable<List<int>> GetAllCombinationsOfNumbersFromOneToNine()
         {
             var maskToOnesCount = LookupStructures.Instance._maskToOnesCount;
 

@@ -72,5 +72,12 @@ namespace SudokuKata.Test
                 digits, digits, digits
             );
         }
+
+        [TestMethod]
+        public void GetDigitsForMasks_orSomething_LockingTest()
+        {
+            var result = RemoveDigitsWhenConstrainedToAGroupOfNCells.GetAllCombinationsOfNumbersFromOneToNine();
+            Approvals.VerifyAll("", result, r => r.ToReadableString());
+        }
     }
 }
