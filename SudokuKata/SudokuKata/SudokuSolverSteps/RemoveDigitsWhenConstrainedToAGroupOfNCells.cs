@@ -34,7 +34,7 @@ namespace SudokuKata
                     .SelectMany(possibleDigits =>
                         cellGroups
                             .Where(group => group.All(cell => NoDigitsAreSolved(sudokuBoard, cell, possibleDigits)))
-                            .Select(cells => { return ToApplesauce(sudokuBoard, possibleDigits, cells); }))
+                            .Select(cells => ToApplesauce(sudokuBoard, possibleDigits, cells)))
                     .Where(group => group.CellsWhereADigitIsPossible.Count() == group.Digits.Count)
                     .ToList();
 
