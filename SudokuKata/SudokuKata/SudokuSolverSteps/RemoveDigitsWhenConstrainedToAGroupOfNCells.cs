@@ -12,7 +12,6 @@ namespace SudokuKata
         {
             var cellGroups = SudokuBoard.BuildCellGroups();
 
-            var state = sudokuBoard.GetBoardAsNumbers();
             var maskToOnesCount = LookupStructures.Instance._maskToOnesCount;
 
             // When a set of N digits only appears in N cells within row/column/block, then no other digit can appear in the same set of cells
