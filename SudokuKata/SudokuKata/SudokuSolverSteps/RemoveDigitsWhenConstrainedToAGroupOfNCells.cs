@@ -8,6 +8,22 @@ namespace SudokuKata
 {
     public class RemoveDigitsWhenConstrainedToAGroupOfNCells : ISudokuSolverStep
     {
+        public class Applesauce
+        {
+            public List<int> Digits { get; }
+            public IEnumerable<int> RemainingDigits { get; }
+            public List<CellWithDescription> Cells { get; }
+            public List<CellWithDescription> CellsWhereADigitIsPossible { get; }
+
+            public Applesauce(List<int> digits, IEnumerable<int> remainingDigits, List<CellWithDescription> cells, List<CellWithDescription> cellsWhereADigitIsPossible)
+            {
+                Digits = digits;
+                RemainingDigits = remainingDigits;
+                Cells = cells;
+                CellsWhereADigitIsPossible = cellsWhereADigitIsPossible;
+            }
+        }
+
         public ChangesMadeStates Do(Random random, SudokuBoard sudokuBoard)
         {
             var cellGroups = SudokuBoard.BuildCellGroups();
@@ -23,13 +39,7 @@ namespace SudokuKata
                                 var remainingDigits = SudokuBoard.GetRemainingDigits(possibleDigits);
                                 var cellWithDescriptions = cells
                                     .Where(cell => sudokuBoard.IsAnyDigitPossible(cell.Cell, possibleDigits)).ToList();
-                                return new
-                                {
-                                    Digits = possibleDigits,
-                                    RemainingDigits = remainingDigits,
-                                    Cells = cells,
-                                    CellsWhereADigitIsPossible = cellWithDescriptions
-                                };
+                                return new Applesauce(possibleDigits, remainingDigits, cells, cellWithDescriptions);
                             }))
                     .Where(group => group.CellsWhereADigitIsPossible.Count() == group.Digits.Count)
                     .ToList();
