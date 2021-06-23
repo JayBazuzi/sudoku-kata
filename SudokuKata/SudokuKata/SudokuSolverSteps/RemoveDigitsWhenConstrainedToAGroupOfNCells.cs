@@ -12,18 +12,7 @@ namespace SudokuKata
         {
             var cellGroups = SudokuBoard.BuildCellGroups();
 
-            var maskToOnesCount = LookupStructures.Instance._maskToOnesCount;
-
-            // When a set of N digits only appears in N cells within row/column/block, then no other digit can appear in the same set of cells
-            // All other candidates can then be removed from those cells
-
-            IEnumerable<int> masks =
-                maskToOnesCount
-                    .Where(tuple => 1 < tuple.Value)
-                    .Select(tuple => tuple.Key).ToList();
-
-            var digitsForMasks = masks
-                .Select(SudokuBoard.GetDigitsForMask);
+            var digitsForMasks = GetDigitsForMasks_orSomething();
             var groupsWithNMasks =
                 digitsForMasks
                     .SelectMany(digitsForMask =>
@@ -58,6 +47,23 @@ namespace SudokuKata
             }
 
             return new ChangesMadeStates {CandidateChanged = stepChangeMade};
+        }
+
+        private static IEnumerable<List<int>> GetDigitsForMasks_orSomething()
+        {
+            var maskToOnesCount = LookupStructures.Instance._maskToOnesCount;
+
+            // When a set of N digits only appears in N cells within row/column/block, then no other digit can appear in the same set of cells
+            // All other candidates can then be removed from those cells
+
+            IEnumerable<int> masks =
+                maskToOnesCount
+                    .Where(tuple => 1 < tuple.Value)
+                    .Select(tuple => tuple.Key).ToList();
+
+            var digitsForMasks = masks
+                .Select(SudokuBoard.GetDigitsForMask);
+            return digitsForMasks;
         }
 
         private static bool RemoveDigitsWhenConstrainedToAGroupOfNCells_ForGroup(SudokuBoard sudokuBoard,
