@@ -20,14 +20,13 @@ namespace SudokuKata
                             .Where(group => group.All(cell => NoDigitsAreSolved(sudokuBoard, cell, possibleDigits)))
                             .Select(cells =>
                             {
-                                var digits = possibleDigits;
                                 return new
                                 {
-                                    Digits = digits,
-                                    RemainingDigits = SudokuBoard.GetRemainingDigits(digits),
+                                    Digits = possibleDigits,
+                                    RemainingDigits = SudokuBoard.GetRemainingDigits(possibleDigits),
                                     Cells = cells,
                                     CellsWithMask = cells
-                                        .Where(cell => sudokuBoard.IsAnyDigitPossible(cell.Cell, digits)).ToList()
+                                        .Where(cell => sudokuBoard.IsAnyDigitPossible(cell.Cell, possibleDigits)).ToList()
                                 };
                             }))
                     .Where(group => group.CellsWithMask.Count() == group.Digits.Count)
