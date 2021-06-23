@@ -31,7 +31,7 @@ namespace SudokuKata
                             {
                                 var digit = state[cell.Index];
                                 // TODO: Figure this out
-                                var applesauce = digit == 0;
+                                var applesauce = sudokuBoard.IsCellKnown_OrSomething(cell.Cell);
                                 return applesauce || !SudokuBoard.GetDigitsForMask(mask).Contains(digit);
                             }))
                             .Select(cells =>
