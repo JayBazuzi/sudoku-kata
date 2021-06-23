@@ -51,9 +51,8 @@ namespace SudokuKata
 
         public static IEnumerable<List<int>> GetAllCombinationsOfNumbersFromOneToNine()
         {
-            var masks = LookupStructures.Instance._maskToOnesCount.Keys;
-
-            return masks.Select(SudokuBoard.GetDigitsForMask)
+            return LookupStructures.Instance._maskToOnesCount.Keys
+                .Select(SudokuBoard.GetDigitsForMask)
                 .Where(d => d.Count > 1);
         }
 
