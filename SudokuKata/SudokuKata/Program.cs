@@ -82,14 +82,10 @@ namespace SudokuKata
         {
             if (changeMade)
             {
-                #region Print the board as it looks after one change was made to it
-
                 Console.WriteLine(sudokuBoard);
 
                 Console.WriteLine("Code: {0}", sudokuBoard.ToCodeString());
                 Console.WriteLine();
-
-                #endregion
             }
         }
 
