@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using ApprovalUtilities.Utilities;
 
@@ -30,8 +31,7 @@ namespace SudokuKata
                             {
                                 var digit = state[cell.Index];
                                 // TODO: Figure this out
-                                var applesauce = (mask & SudokuBoard.GetMaskForDigit(digit)) == 0;
-                                return digit == 0 || applesauce;
+                                return digit == 0 || !SudokuBoard.GetDigitsForMask(mask).Contains(digit);
                             }))
                             .Select(cells =>
                             {
