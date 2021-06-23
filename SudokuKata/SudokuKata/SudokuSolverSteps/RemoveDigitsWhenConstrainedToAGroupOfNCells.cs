@@ -8,14 +8,14 @@ namespace SudokuKata
 {
     public class RemoveDigitsWhenConstrainedToAGroupOfNCells : ISudokuSolverStep
     {
-        public class Applesauce
+        public class CellGroupsForDigits
         {
             public List<int> Digits { get; }
             public IEnumerable<int> RemainingDigits { get; }
             public List<CellWithDescription> Cells { get; }
             public List<CellWithDescription> CellsWhereADigitIsPossible { get; }
 
-            public Applesauce(List<int> digits, IEnumerable<int> remainingDigits, List<CellWithDescription> cells, List<CellWithDescription> cellsWhereADigitIsPossible)
+            public CellGroupsForDigits(List<int> digits, IEnumerable<int> remainingDigits, List<CellWithDescription> cells, List<CellWithDescription> cellsWhereADigitIsPossible)
             {
                 Digits = digits;
                 RemainingDigits = remainingDigits;
@@ -47,12 +47,12 @@ namespace SudokuKata
             return new ChangesMadeStates {CandidateChanged = stepChangeMade};
         }
 
-        private static Applesauce ToApplesauce(SudokuBoard sudokuBoard, List<int> possibleDigits, List<CellWithDescription> cells)
+        private static CellGroupsForDigits ToApplesauce(SudokuBoard sudokuBoard, List<int> possibleDigits, List<CellWithDescription> cells)
         {
             var remainingDigits = SudokuBoard.GetRemainingDigits(possibleDigits);
             var cellWithDescriptions = cells
                 .Where(cell => sudokuBoard.IsAnyDigitPossible(cell.Cell, possibleDigits)).ToList();
-            return new Applesauce(possibleDigits, remainingDigits, cells, cellWithDescriptions);
+            return new CellGroupsForDigits(possibleDigits, remainingDigits, cells, cellWithDescriptions);
         }
 
         private static bool NoDigitsAreSolved(SudokuBoard sudokuBoard, CellWithDescription cell, List<int> digitsForMask)
@@ -71,7 +71,7 @@ namespace SudokuKata
         }
 
         private static bool RemoveDigitsWhenConstrainedToAGroupOfNCells_ForGroup(SudokuBoard sudokuBoard,
-            Applesauce g)
+            CellGroupsForDigits g)
         {
             var description = g.Cells.First().Description;
             if (g.Cells.Any(cell =>
