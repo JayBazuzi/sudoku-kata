@@ -25,18 +25,18 @@ namespace SudokuKata
                                     Digits = possibleDigits,
                                     RemainingDigits = SudokuBoard.GetRemainingDigits(possibleDigits),
                                     Cells = cells,
-                                    CellsWithMask = cells
+                                    CellsWhereADigitIsPossible = cells
                                         .Where(cell => sudokuBoard.IsAnyDigitPossible(cell.Cell, possibleDigits)).ToList()
                                 };
                             }))
-                    .Where(group => group.CellsWithMask.Count() == group.Digits.Count)
+                    .Where(group => group.CellsWhereADigitIsPossible.Count() == group.Digits.Count)
                     .ToList();
 
             var stepChangeMade = false;
             foreach (var g in groupsWithNMasks)
             {
                 stepChangeMade |= RemoveDigitsWhenConstrainedToAGroupOfNCells_ForGroup(sudokuBoard, g.Cells, g.Digits,
-                    g.RemainingDigits, g.CellsWithMask);
+                    g.RemainingDigits, g.CellsWhereADigitIsPossible);
             }
 
             return new ChangesMadeStates {CandidateChanged = stepChangeMade};
