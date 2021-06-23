@@ -25,7 +25,7 @@ namespace SudokuKata
 
             var groupsWithNMasks =
                 masks
-                    .Select(mask => SudokuBoard.GetDigitsForMask(mask))
+                    .Select(SudokuBoard.GetDigitsForMask)
                     .SelectMany(digitsForMask =>
                         cellGroups
                             .Where(group => group.All(cell =>
