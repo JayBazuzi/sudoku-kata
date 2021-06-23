@@ -23,7 +23,7 @@ namespace SudokuKata
                 CellsWhereADigitIsPossible = cellsWhereADigitIsPossible;
             }
 
-            public static CellGroupsForDigits ToApplesauce(SudokuBoard sudokuBoard, List<int> possibleDigits, List<CellWithDescription> cells)
+            public static CellGroupsForDigits Create(SudokuBoard sudokuBoard, List<int> possibleDigits, List<CellWithDescription> cells)
             {
                 var remainingDigits = SudokuBoard.GetRemainingDigits(possibleDigits);
                 var cellWithDescriptions = cells
@@ -42,7 +42,7 @@ namespace SudokuKata
                     .SelectMany(possibleDigits =>
                         cellGroups
                             .Where(group => group.All(cell => NoDigitsAreSolved(sudokuBoard, cell, possibleDigits)))
-                            .Select(cells => CellGroupsForDigits.ToApplesauce(sudokuBoard, possibleDigits, cells)))
+                            .Select(cells => CellGroupsForDigits.Create(sudokuBoard, possibleDigits, cells)))
                     .Where(group => group.CellsWhereADigitIsPossible.Count() == group.Digits.Count)
                     .ToList();
 
