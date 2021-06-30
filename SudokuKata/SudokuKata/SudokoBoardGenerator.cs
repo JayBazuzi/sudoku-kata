@@ -129,7 +129,7 @@ internal static class SudokoBoardGenerator
                     }
                 } // for (i = 0..8)
 
-                var candidatesCount = isDigitUsed.Where(used => !used).Count();
+                var candidatesCount = isDigitUsed.Count(used => !used);
 
                 if (candidatesCount == 0)
                 {
