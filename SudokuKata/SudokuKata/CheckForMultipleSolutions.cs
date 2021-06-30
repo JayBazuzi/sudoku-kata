@@ -29,8 +29,8 @@ namespace SudokuKata
             var candidateDigit1 = new Queue<int>();
             var candidateDigit2 = new Queue<int>();
 
-            var applesauce2 = sudokuBoard.GetCellsWithPossibilities().Where(c => c.Possibilities.Count == 2);
-            foreach (var possibility in applesauce2)
+            var cellsWithTwoPossible = sudokuBoard.GetCellsWithPossibilities().Where(c => c.Possibilities.Count == 2);
+            foreach (var possibility in cellsWithTwoPossible)
             {
                 var i = possibility.Cell.ToIndex();
                 var row = possibility.Cell.Row;
