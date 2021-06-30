@@ -15,7 +15,6 @@ namespace SudokuKata
             var state = sudokuBoard.GetBoardAsNumbers();
 
             // TODO - clean this up
-            #region Final attempt - look if the board has multiple solutions
 
             // This is the last chance to do something in this iteration:
             // If this attempt fails, board will not be entirely solved.
@@ -269,8 +268,6 @@ namespace SudokuKata
                     $"Guessing that {digit1} and {digit2} are arbitrary in {description} (multiple solutions): Pick {finalState[index1]}->({row1 + 1}, {col1 + 1}), {finalState[index2]}->({row2 + 1}, {col2 + 1}).");
                 return new ChangesMadeStates { CellChanged = true };
             }
-
-            #endregion
 
             return new ChangesMadeStates {CellChanged = false};
         }
