@@ -228,6 +228,12 @@ namespace SudokuKata
                 }
             } // while (candidateIndex1.Any())
 
+            return Applesauce1(rng, finalState, sudokuBoard, stateIndexesAndValues, state);
+        }
+
+        private static ChangesMadeStates Applesauce1(Random rng, int[] finalState, SudokuBoard sudokuBoard,
+            List<Tuple<int, int, int, int>> stateIndexesAndValues, int[] state)
+        {
             if (stateIndexesAndValues.Any())
             {
                 var pos = rng.Next(stateIndexesAndValues.Count());
@@ -266,7 +272,7 @@ namespace SudokuKata
 
                 Console.WriteLine(
                     $"Guessing that {digit1} and {digit2} are arbitrary in {description} (multiple solutions): Pick {finalState[index1]}->({row1 + 1}, {col1 + 1}), {finalState[index2]}->({row2 + 1}, {col2 + 1}).");
-                return new ChangesMadeStates { CellChanged = true };
+                return new ChangesMadeStates {CellChanged = true};
             }
 
             return new ChangesMadeStates {CellChanged = false};
