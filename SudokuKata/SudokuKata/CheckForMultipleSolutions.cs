@@ -17,7 +17,6 @@ namespace SudokuKata
             // TODO - clean this up
             #region Final attempt - look if the board has multiple solutions
 
-            var changeMade = false;
             // This is the last chance to do something in this iteration:
             // If this attempt fails, board will not be entirely solved.
 
@@ -257,7 +256,6 @@ namespace SudokuKata
 
                 state[index1] = finalState[index1];
                 state[index2] = finalState[index2];
-                changeMade = true;
 
                 for (var i = 0; i < state.Length; i++)
                 {
