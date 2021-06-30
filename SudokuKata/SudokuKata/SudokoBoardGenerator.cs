@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using SudokuKata;
+using SudokuKata.Board;
 
 internal static class SudokoBoardGenerator
 {

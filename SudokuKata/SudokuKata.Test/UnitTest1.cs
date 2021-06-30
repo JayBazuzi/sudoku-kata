@@ -5,6 +5,7 @@ using ApprovalTests;
 using ApprovalTests.Combinations;
 using ApprovalUtilities.Utilities;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using SudokuKata.Board;
 
 namespace SudokuKata.Test
 {

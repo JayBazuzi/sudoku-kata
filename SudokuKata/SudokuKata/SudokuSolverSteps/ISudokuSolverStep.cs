@@ -1,4 +1,5 @@
 using System;
+using SudokuKata.Board;
 
 namespace SudokuKata
 {

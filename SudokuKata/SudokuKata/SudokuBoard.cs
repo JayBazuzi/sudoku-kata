@@ -2,29 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace SudokuKata
+namespace SudokuKata.Board
 {
-    internal static class _
-    {
-        public static int[,] SetAll(this int[,] that, int value)
-        {
-            return that.ForEachRowColumn((row, column) => that[row, column] = value);
-        }
-
-        public static int[,] ForEachRowColumn(this int[,] board, Action<int, int> actionOnRowAndColumn)
-        {
-            for (var row = 0; row < board.GetLength(0); row++)
-            {
-                for (var column = 0; column < board.GetLength(1); column++)
-                {
-                    actionOnRowAndColumn(row, column);
-                }
-            }
-
-            return board;
-        }
-    }
-
     public class SudokuBoard
     {
         public const int Unknown = 0;
@@ -355,6 +334,30 @@ namespace SudokuKata
         {
             return GetPossibilities()
                 .Select((possibilities, index) => new CellWithPossiblities(index, possibilities));
+        }
+    }
+}
+
+namespace SudokuKata
+{
+    internal static class _
+    {
+        public static int[,] SetAll(this int[,] that, int value)
+        {
+            return that.ForEachRowColumn((row, column) => that[row, column] = value);
+        }
+
+        public static int[,] ForEachRowColumn(this int[,] board, Action<int, int> actionOnRowAndColumn)
+        {
+            for (var row = 0; row < board.GetLength(0); row++)
+            {
+                for (var column = 0; column < board.GetLength(1); column++)
+                {
+                    actionOnRowAndColumn(row, column);
+                }
+            }
+
+            return board;
         }
     }
 }
