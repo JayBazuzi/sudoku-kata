@@ -40,6 +40,8 @@ namespace SudokuKata
                 for (var j = i + 1; j < candidateMasks.Length; j++)
                 {
                     var applesauce = candidateMasks[j] == candidateMasks[i];
+                    var applesauce2 = applesauce;
+                    Debug.Assert(applesauce2 == applesauce);
                     if (applesauce)
                     {
                         var row1 = j / 9;
