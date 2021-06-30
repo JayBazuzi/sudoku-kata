@@ -33,12 +33,12 @@ namespace SudokuKata
             foreach (var possibility in applesauce2)
             {
                 var i = possibility.Cell.ToIndex();
-                var row = i / 9;
-                var col = i % 9;
+                var row = possibility.Cell.Row;
+                var col = possibility.Cell.Column;
                 var blockIndex = 3 * (row / 3) + col / 3;
 
-                var upper = SudokuBoard.GetDigitsForMask(candidateMasks[i]).Max();
-                var lower = SudokuBoard.GetDigitsForMask(candidateMasks[i]).Min();
+                var upper = possibility.Possibilities.Max();
+                var lower = possibility.Possibilities.Min();
 
                 for (var j = i + 1; j < candidateMasks.Length; j++)
                 {
