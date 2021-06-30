@@ -1,7 +1,4 @@
-﻿using System.Linq;
-using SudokuKata.Board;
-
-namespace SudokuKata
+﻿namespace SudokuKata
 {
     public class Candidates
     {
@@ -13,24 +10,5 @@ namespace SudokuKata
         }
 
         public int[] Masks { get; }
-
-        public Cell[] GetCellsWithOnlyOneCandidateRemaining()
-        {
-            return Masks
-                .Select((mask, index) => new
-                {
-                    CandidatesCount = _lookupStructures._maskToOnesCount[mask],
-                    Index = index,
-                    candidateMask = mask
-                })
-                .Where(tuple => tuple.CandidatesCount == 1)
-                .Select(tuple => new
-                {
-                    tuple.Index,
-                    candidate = _lookupStructures._singleBitToIndex[tuple.candidateMask]
-                })
-                .Select(tuple => Cell.FromIndex(tuple.Index, tuple.candidate + 1))
-                .ToArray();
-        }
     }
 }
