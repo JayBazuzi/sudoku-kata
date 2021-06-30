@@ -290,10 +290,9 @@ namespace SudokuKata
             var cellsWithTwoPossible = sudokuBoard.GetCellsWithPossibilities().Where(c => c.Possibilities.Count == 2);
             foreach (var possibility in cellsWithTwoPossible)
             {
-                var i = possibility.Cell.ToIndex();
-                var row = possibility.Cell.Row;
-                var col = possibility.Cell.Column;
-                var blockIndex = 3 * (row / 3) + col / 3;
+                var cell = possibility.Cell;
+                var i = cell.ToIndex();
+                var blockIndex = 3 * (cell.Row / 3) + cell.Column / 3;
 
                 var upper = possibility.Possibilities.Max();
                 var lower = possibility.Possibilities.Min();
@@ -308,7 +307,7 @@ namespace SudokuKata
                         var col1 = j % 9;
                         var blockIndex1 = 3 * (row1 / 3) + col1 / 3;
 
-                        if (row == row1 || col == col1 || blockIndex == blockIndex1)
+                        if (cell.Row == row1 || cell.Column == col1 || blockIndex == blockIndex1)
                         {
                             candidatesOfIndexesAndDigits.Enqueue(Tuple.Create(i, j, lower, upper));
                         }
