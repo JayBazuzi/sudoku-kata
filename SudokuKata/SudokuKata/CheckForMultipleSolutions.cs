@@ -24,10 +24,6 @@ namespace SudokuKata
             // Try to see if there are pairs of values that can be exchanged arbitrarily
             // This happens when board has more than one valid solution
 
-            //var candidateIndex1 = new Queue<int>();
-            var candidateIndex2 = new Queue<int>();
-            var candidateDigit1 = new Queue<int>();
-            var candidateDigit2 = new Queue<int>();
             var candidatesOfIndexesAndDigits = new Queue<Tuple<int, int, int, int>>();
 
             var cellsWithTwoPossible = sudokuBoard.GetCellsWithPossibilities().Where(c => c.Possibilities.Count == 2);
@@ -51,10 +47,6 @@ namespace SudokuKata
 
                         if (row == row1 || col == col1 || blockIndex == blockIndex1)
                         {
-                            //candidateIndex1.Enqueue(i);
-                            candidateIndex2.Enqueue(j);
-                            candidateDigit1.Enqueue(lower);
-                            candidateDigit2.Enqueue(upper);
                             candidatesOfIndexesAndDigits.Enqueue(Tuple.Create(i, j, lower, upper));
                         }
                     }
@@ -71,11 +63,7 @@ namespace SudokuKata
 
             while (candidatesOfIndexesAndDigits.Any())
             {
-                var index1 = candidatesOfIndexesAndDigits.Dequeue().Item1;
-                var index2 = candidateIndex2.Dequeue();
-                var digit1 = candidateDigit1.Dequeue();
-                var digit2 = candidateDigit2.Dequeue();
-
+                var (index1, index2, digit1, digit2) = candidatesOfIndexesAndDigits.Dequeue();
 
                 var alternateState = new int[finalState.Length];
                 Array.Copy(state, alternateState, alternateState.Length);
