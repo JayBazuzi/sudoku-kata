@@ -292,7 +292,6 @@ namespace SudokuKata
             {
                 var cell = possibility.Cell;
                 var i = cell.ToIndex();
-                var blockIndex = cell.Block;
 
                 var upper = possibility.Possibilities.Max();
                 var lower = possibility.Possibilities.Min();
@@ -307,7 +306,7 @@ namespace SudokuKata
                         var col1 = j % 9;
                         var blockIndex1 = 3 * (row1 / 3) + col1 / 3;
 
-                        if (cell.Row == row1 || cell.Column == col1 || blockIndex == blockIndex1)
+                        if (cell.Row == row1 || cell.Column == col1 || cell.Block == blockIndex1)
                         {
                             candidatesOfIndexesAndDigits.Enqueue(Tuple.Create(i, j, lower, upper));
                         }
