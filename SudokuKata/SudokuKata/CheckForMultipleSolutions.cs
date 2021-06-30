@@ -28,10 +28,11 @@ namespace SudokuKata
             // At this point we have the lists with pairs of cells that might pick one of two digits each
             // Now we have to check whether that is really true - does the board have two solutions?
 
-            var stateIndex1 = new List<int>();
-            var stateIndex2 = new List<int>();
-            var value1 = new List<int>();
-            var value2 = new List<int>();
+            var stateIndexesAndValues = new List<Tuple<int, int, int, int>>();
+            //var stateIndex1 = new List<int>();
+            //var stateIndex2 = new List<int>();
+            //var value1 = new List<int>();
+            //var value2 = new List<int>();
 
             while (candidatesOfIndexesAndDigits.Any())
             {
@@ -220,20 +221,18 @@ namespace SudokuKata
                 if (command == Command.Complete)
                 {
                     // Board was solved successfully even with two digits swapped
-                    stateIndex1.Add(index1);
-                    stateIndex2.Add(index2);
-                    value1.Add(digit1);
-                    value2.Add(digit2);
+                    stateIndexesAndValues.Add(Tuple.Create(
+                        index1,
+                        index2,
+                        digit1,
+                        digit2));
                 }
             } // while (candidateIndex1.Any())
 
-            if (stateIndex1.Any())
+            if (stateIndexesAndValues.Any())
             {
-                var pos = rng.Next(stateIndex1.Count());
-                var index1 = stateIndex1.ElementAt(pos);
-                var index2 = stateIndex2.ElementAt(pos);
-                var digit1 = value1.ElementAt(pos);
-                var digit2 = value2.ElementAt(pos);
+                var pos = rng.Next(stateIndexesAndValues.Count());
+                var (index1, index2, digit1, digit2) = stateIndexesAndValues.ElementAt(pos);
                 var row1 = index1 / 9;
                 var col1 = index1 % 9;
                 var row2 = index2 / 9;
