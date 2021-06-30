@@ -298,6 +298,7 @@ namespace SudokuKata
 
                 for (var j = i + 1; j < 81; j++)
                 {
+                    // TODO: clean this up
                     var matchingTwoPossiblesCell =
                         possibility.Possibilities.SequenceEqual(sudokuBoard.GetPossibilities().ElementAt(j));
                     if (matchingTwoPossiblesCell)
