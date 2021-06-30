@@ -37,7 +37,7 @@ namespace SudokuKata
                 var upper = possibility.Possibilities.Max();
                 var lower = possibility.Possibilities.Min();
 
-                for (var j = i + 1; j < candidateMasks.Length; j++)
+                for (var j = i + 1; j < 81; j++)
                 {
                     var matchingTwoPossiblesCell = possibility.Possibilities.SequenceEqual(sudokuBoard.GetPossibilities().ElementAt(j));
                     if (matchingTwoPossiblesCell)
