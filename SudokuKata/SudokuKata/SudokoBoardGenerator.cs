@@ -39,7 +39,7 @@ internal static class SudokoBoardGenerator
             case Command.Expand:
                 return DoExpand(rng, stacks, sudokuBoard);
             case Command.Collapse:
-                return DoCollapse(stacks, sudokuBoard);
+                return DoCollapse(stacks);
             case Command.Move:
                 return DoMove(stacks, sudokuBoard);
 
@@ -70,7 +70,7 @@ internal static class SudokoBoardGenerator
         return Command.Collapse;
     }
 
-    private static Command DoCollapse(Stacks stacks, SudokuBoard sudokuBoard)
+    private static Command DoCollapse(Stacks stacks)
     {
         stacks.StateStack.Pop();
         stacks.RowIndexStack.Pop();
