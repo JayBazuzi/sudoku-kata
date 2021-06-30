@@ -37,24 +37,8 @@ namespace SudokuKata
                     var col = i % 9;
                     var blockIndex = 3 * (row / 3) + col / 3;
 
-                    var temp = candidateMasks[i];
-                    var lower = 0;
-                    var upper = 0;
-                    for (var digit = 1; 0 < temp; digit++)
-                    {
-                        if ((temp & 1) != 0)
-                        {
-                            lower = upper;
-                            upper = digit;
-                        }
-
-                        temp = temp >> 1;
-                    }
-
-                    var upper2 = SudokuBoard.GetDigitsForMask(candidateMasks[i]).Max();
-                    var lower2 = SudokuBoard.GetDigitsForMask(candidateMasks[i]).Min();
-                    Debug.Assert(upper==upper2);
-                    Debug.Assert(lower==lower2);
+                    var upper = SudokuBoard.GetDigitsForMask(candidateMasks[i]).Max();
+                    var lower = SudokuBoard.GetDigitsForMask(candidateMasks[i]).Min();
 
                     for (var j = i + 1; j < candidateMasks.Length; j++)
                     {
