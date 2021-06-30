@@ -12,7 +12,6 @@ namespace SudokuKata
             SudokuBoard sudokuBoard)
         {
             var state = sudokuBoard.GetBoardAsNumbers();
-            var maskToOnesCount = LookupStructures.Instance._maskToOnesCount;
 
             // TODO - clean this up
             #region Final attempt - look if the board has multiple solutions
@@ -31,7 +30,7 @@ namespace SudokuKata
 
             for (var i = 0; i < candidateMasks.Length - 1; i++)
             {
-                if (maskToOnesCount[candidateMasks[i]] == 2)
+                if (LookupStructures.Instance._maskToOnesCount[candidateMasks[i]] == 2)
                 {
                     var row = i / 9;
                     var col = i % 9;
