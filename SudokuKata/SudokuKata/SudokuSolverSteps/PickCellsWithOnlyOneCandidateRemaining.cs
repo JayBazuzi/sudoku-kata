@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 
@@ -29,17 +28,5 @@ namespace SudokuKata
             return new ChangesMadeStates {CellChanged = true};
         }
 
-    }
-
-    public class CellWithPossiblities
-    {
-        public readonly List<int> Possibilities;
-        public readonly Cell Cell;
-
-        public CellWithPossiblities(int index, List<int> possibilities)
-        {
-            this.Possibilities = possibilities;
-            this.Cell = Cell.FromIndex(index);
-        }
     }
 }

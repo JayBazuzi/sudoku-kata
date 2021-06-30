@@ -49,6 +49,7 @@
   <ItemGroup>
     <Compile Include="ChangesMadeStates.cs" />
     <Compile Include="CheckForMultipleSolutions.cs" />
+    <Compile Include="SudokuSolverSteps\CellWithPossiblities.cs" />
     <Compile Include="SudokuSolverSteps\ISudokuSolverStep.cs" />
     <Compile Include="LookupStructures.cs" />
     <Compile Include="SudokuSolverSteps\PickCellsWithOnlyOneCandidateRemaining.cs" />
