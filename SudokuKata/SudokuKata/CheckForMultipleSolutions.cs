@@ -13,14 +13,8 @@ namespace SudokuKata
         {
             var state = sudokuBoard.GetBoardAsNumbers();
             var maskToOnesCount = LookupStructures.Instance._maskToOnesCount;
-            Stack<int[]> stateStack;
-            Stack<int> rowIndexStack;
-            Stack<int> colIndexStack;
-            Stack<bool[]> usedDigitsStack;
-            Stack<int> lastDigitStack;
-            Command command;
 
-// TODO - clean this up
+            // TODO - clean this up
             #region Final attempt - look if the board has multiple solutions
 
             var changeMade = false;
@@ -109,13 +103,13 @@ namespace SudokuKata
                 // What follows below is a complete copy-paste of the solver which appears at the beginning of this method
                 // However, the algorithm couldn't be applied directly and it had to be modified.
                 // Implementation below assumes that the board might not have a solution.
-                stateStack = new Stack<int[]>();
-                rowIndexStack = new Stack<int>();
-                colIndexStack = new Stack<int>();
-                usedDigitsStack = new Stack<bool[]>();
-                lastDigitStack = new Stack<int>();
+                var stateStack = new Stack<int[]>();
+                var rowIndexStack = new Stack<int>();
+                var colIndexStack = new Stack<int>();
+                var usedDigitsStack = new Stack<bool[]>();
+                var lastDigitStack = new Stack<int>();
 
-                command = Command.Expand;
+                var command = Command.Expand;
                 while (command != Command.Complete && command != Command.Fail)
                 {
                     if (command == Command.Expand)
