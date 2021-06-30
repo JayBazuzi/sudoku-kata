@@ -27,6 +27,14 @@ namespace SudokuKata
             // At this point we have the lists with pairs of cells that might pick one of two digits each
             // Now we have to check whether that is really true - does the board have two solutions?
 
+            var stateIndexesAndValues = Applesauce2(rng, finalState, sudokuBoard, candidatesOfIndexesAndDigits, state);
+
+            return Applesauce1(rng, finalState, sudokuBoard, stateIndexesAndValues, state);
+        }
+
+        private static List<Tuple<int, int, int, int>> Applesauce2(Random rng, int[] finalState, SudokuBoard sudokuBoard,
+            Queue<Tuple<int, int, int, int>> candidatesOfIndexesAndDigits, int[] state)
+        {
             var stateIndexesAndValues = new List<Tuple<int, int, int, int>>();
             //var stateIndex1 = new List<int>();
             //var stateIndex2 = new List<int>();
@@ -228,7 +236,7 @@ namespace SudokuKata
                 }
             } // while (candidateIndex1.Any())
 
-            return Applesauce1(rng, finalState, sudokuBoard, stateIndexesAndValues, state);
+            return stateIndexesAndValues;
         }
 
         private static ChangesMadeStates Applesauce1(Random rng, int[] finalState, SudokuBoard sudokuBoard,
