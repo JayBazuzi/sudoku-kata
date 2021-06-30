@@ -257,8 +257,6 @@ namespace SudokuKata
 
                 state[index1] = finalState[index1];
                 state[index2] = finalState[index2];
-                candidateMasks[index1] = 0;
-                candidateMasks[index2] = 0;
                 changeMade = true;
 
                 for (var i = 0; i < state.Length; i++)
