@@ -24,35 +24,7 @@ namespace SudokuKata
             // Try to see if there are pairs of values that can be exchanged arbitrarily
             // This happens when board has more than one valid solution
 
-            var candidatesOfIndexesAndDigits = new Queue<Tuple<int, int, int, int>>();
-
-            var cellsWithTwoPossible = sudokuBoard.GetCellsWithPossibilities().Where(c => c.Possibilities.Count == 2);
-            foreach (var possibility in cellsWithTwoPossible)
-            {
-                var i = possibility.Cell.ToIndex();
-                var row = possibility.Cell.Row;
-                var col = possibility.Cell.Column;
-                var blockIndex = 3 * (row / 3) + col / 3;
-
-                var upper = possibility.Possibilities.Max();
-                var lower = possibility.Possibilities.Min();
-
-                for (var j = i + 1; j < 81; j++)
-                {
-                    var matchingTwoPossiblesCell = possibility.Possibilities.SequenceEqual(sudokuBoard.GetPossibilities().ElementAt(j));
-                    if (matchingTwoPossiblesCell)
-                    {
-                        var row1 = j / 9;
-                        var col1 = j % 9;
-                        var blockIndex1 = 3 * (row1 / 3) + col1 / 3;
-
-                        if (row == row1 || col == col1 || blockIndex == blockIndex1)
-                        {
-                            candidatesOfIndexesAndDigits.Enqueue(Tuple.Create(i, j, lower, upper));
-                        }
-                    }
-                }
-            }
+            var candidatesOfIndexesAndDigits = GetDeadlockedCellsWithTwoPossibilities(sudokuBoard);
 
             // At this point we have the lists with pairs of cells that might pick one of two digits each
             // Now we have to check whether that is really true - does the board have two solutions?
@@ -308,6 +280,42 @@ namespace SudokuKata
             #endregion
 
             return new ChangesMadeStates {CellChanged = changeMade};
+        }
+
+        private static Queue<Tuple<int, int, int, int>> GetDeadlockedCellsWithTwoPossibilities(SudokuBoard sudokuBoard)
+        {
+            var candidatesOfIndexesAndDigits = new Queue<Tuple<int, int, int, int>>();
+
+            var cellsWithTwoPossible = sudokuBoard.GetCellsWithPossibilities().Where(c => c.Possibilities.Count == 2);
+            foreach (var possibility in cellsWithTwoPossible)
+            {
+                var i = possibility.Cell.ToIndex();
+                var row = possibility.Cell.Row;
+                var col = possibility.Cell.Column;
+                var blockIndex = 3 * (row / 3) + col / 3;
+
+                var upper = possibility.Possibilities.Max();
+                var lower = possibility.Possibilities.Min();
+
+                for (var j = i + 1; j < 81; j++)
+                {
+                    var matchingTwoPossiblesCell =
+                        possibility.Possibilities.SequenceEqual(sudokuBoard.GetPossibilities().ElementAt(j));
+                    if (matchingTwoPossiblesCell)
+                    {
+                        var row1 = j / 9;
+                        var col1 = j % 9;
+                        var blockIndex1 = 3 * (row1 / 3) + col1 / 3;
+
+                        if (row == row1 || col == col1 || blockIndex == blockIndex1)
+                        {
+                            candidatesOfIndexesAndDigits.Enqueue(Tuple.Create(i, j, lower, upper));
+                        }
+                    }
+                }
+            }
+
+            return candidatesOfIndexesAndDigits;
         }
     }
 }
