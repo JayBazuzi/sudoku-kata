@@ -294,7 +294,7 @@ namespace SudokuKata
                 var row2 = index2 / 9;
                 var col2 = index2 % 9;
 
-                var description = string.Empty;
+                string description;
 
                 if (index1 / 9 == index2 / 9)
                 {
