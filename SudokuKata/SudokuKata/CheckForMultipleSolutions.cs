@@ -270,7 +270,8 @@ namespace SudokuKata
                     sudokuBoard.SetValue(tempRow, tempCol, value);
                     if (0 < state[i])
                     {
-                        sudokuBoard.SetValue(tempRow, tempCol, state[i]);
+                        value = state[i];
+                        sudokuBoard.SetValue(tempRow, tempCol, value);
                     }
                 }
 
