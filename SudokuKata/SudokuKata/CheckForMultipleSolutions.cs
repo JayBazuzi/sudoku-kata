@@ -31,9 +31,7 @@ namespace SudokuKata
 
             for (var i = 0; i < candidateMasks.Length - 1; i++)
             {
-                var applesauce = LookupStructures.Instance._maskToOnesCount[candidateMasks[i]] == 2;
-                var applesauce2 = sudokuBoard.GetPossibilities().ElementAt(i).Count == 2;
-                Debug.Assert(applesauce == applesauce2);
+                var applesauce = sudokuBoard.GetPossibilities().ElementAt(i).Count == 2;
                 if (applesauce)
                 {
                     var row = i / 9;
