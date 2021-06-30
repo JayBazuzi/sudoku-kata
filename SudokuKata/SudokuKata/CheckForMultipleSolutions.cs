@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using SudokuKata.Board;
 
@@ -39,7 +40,7 @@ namespace SudokuKata
                     var temp = candidateMasks[i];
                     var lower = 0;
                     var upper = 0;
-                    for (var digit = 1; temp > 0; digit++)
+                    for (var digit = 1; 0 < temp; digit++)
                     {
                         if ((temp & 1) != 0)
                         {
