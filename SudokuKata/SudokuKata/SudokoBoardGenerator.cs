@@ -37,7 +37,7 @@ internal static class SudokoBoardGenerator
         switch (command)
         {
             case Command.Expand:
-                return DoExpand(rng, stacks, sudokuBoard);
+                return DoExpand(rng, stacks);
             case Command.Collapse:
                 return DoCollapse(stacks);
             case Command.Move:
@@ -81,7 +81,7 @@ internal static class SudokoBoardGenerator
         return Command.Move;
     }
 
-    private static Command DoExpand(Random rng, Stacks stacks, SudokuBoard sudokuBoard)
+    private static Command DoExpand(Random rng, Stacks stacks)
     {
         var currentState = new int[9 * 9];
 
