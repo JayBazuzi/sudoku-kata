@@ -36,10 +36,6 @@ namespace SudokuKata
             Queue<Tuple<int, int, int, int>> candidatesOfIndexesAndDigits, int[] state)
         {
             var stateIndexesAndValues = new List<Tuple<int, int, int, int>>();
-            //var stateIndex1 = new List<int>();
-            //var stateIndex2 = new List<int>();
-            //var value1 = new List<int>();
-            //var value2 = new List<int>();
 
             while (candidatesOfIndexesAndDigits.Any())
             {
