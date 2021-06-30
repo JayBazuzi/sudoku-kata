@@ -267,7 +267,7 @@ namespace SudokuKata
                     var tempCol = i % 9;
 
                     sudokuBoard.SetValue(tempRow, tempCol, SudokuBoard.Unknown);
-                    if (state[i] > 0)
+                    if (0 < state[i])
                     {
                         sudokuBoard.SetValue(tempRow, tempCol, state[i]);
                     }
