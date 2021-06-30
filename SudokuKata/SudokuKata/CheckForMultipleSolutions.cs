@@ -39,9 +39,7 @@ namespace SudokuKata
 
                 for (var j = i + 1; j < candidateMasks.Length; j++)
                 {
-                    var applesauce = candidateMasks[j] == candidateMasks[i];
-                    var applesauce2 = possibility.Possibilities.SequenceEqual(sudokuBoard.GetPossibilities().ElementAt(j));
-                    Debug.Assert(applesauce2 == applesauce);
+                    var applesauce = possibility.Possibilities.SequenceEqual(sudokuBoard.GetPossibilities().ElementAt(j));
                     if (applesauce)
                     {
                         var row1 = j / 9;
