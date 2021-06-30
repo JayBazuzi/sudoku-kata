@@ -39,7 +39,8 @@ namespace SudokuKata
 
                 for (var j = i + 1; j < candidateMasks.Length; j++)
                 {
-                    if (candidateMasks[j] == candidateMasks[i])
+                    var applesauce = candidateMasks[j] == candidateMasks[i];
+                    if (applesauce)
                     {
                         var row1 = j / 9;
                         var col1 = j % 9;
