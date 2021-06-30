@@ -62,7 +62,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Stacks.cs" />
-    <Compile Include="SudokuBoard.cs" />
+    <Compile Include="Board\SudokuBoard.cs" />
     <Compile Include="SudokuSolverSteps\FindUniquePossibilityForDigit_AndDoSomething.cs" />
     <Compile Include="SudokuSolverSteps\FindUniquePairPossibilityForDigits_AndDoSomething.cs" />
     <Compile Include="ViableMove.cs" />

@@ -336,10 +336,7 @@ namespace SudokuKata.Board
                 .Select((possibilities, index) => new CellWithPossiblities(index, possibilities));
         }
     }
-}
 
-namespace SudokuKata
-{
     internal static class _
     {
         public static int[,] SetAll(this int[,] that, int value)
