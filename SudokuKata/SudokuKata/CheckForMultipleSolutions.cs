@@ -267,12 +267,11 @@ namespace SudokuKata
                     var tempCol = i % 9;
 
                     var value = SudokuBoard.Unknown;
-                    sudokuBoard.SetValue(tempRow, tempCol, value);
                     if (0 < state[i])
                     {
                         value = state[i];
-                        sudokuBoard.SetValue(tempRow, tempCol, value);
                     }
+                    sudokuBoard.SetValue(tempRow, tempCol, value);
                 }
 
                 Console.WriteLine(
