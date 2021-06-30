@@ -27,6 +27,7 @@ namespace SudokuKata
             // At this point we have the lists with pairs of cells that might pick one of two digits each
             // Now we have to check whether that is really true - does the board have two solutions?
 
+            // TODO: clean up these
             var stateIndexesAndValues = Applesauce2(rng, finalState, sudokuBoard, candidatesOfIndexesAndDigits, state);
 
             return Applesauce1(rng, finalState, sudokuBoard, stateIndexesAndValues, state);
