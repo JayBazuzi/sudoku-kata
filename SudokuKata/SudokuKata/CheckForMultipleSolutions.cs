@@ -29,33 +29,31 @@ namespace SudokuKata
             var candidateDigit1 = new Queue<int>();
             var candidateDigit2 = new Queue<int>();
 
-            for (var i = 0; i < candidateMasks.Length - 1; i++)
+            var applesauce2 = sudokuBoard.GetCellsWithPossibilities().Where(c => c.Possibilities.Count == 2);
+            foreach (var possibility in applesauce2)
             {
-                var applesauce = sudokuBoard.GetCellsWithPossibilities().ElementAt(i).Possibilities.Count == 2;
-                if (applesauce)
+                var i = possibility.Cell.ToIndex();
+                var row = i / 9;
+                var col = i % 9;
+                var blockIndex = 3 * (row / 3) + col / 3;
+
+                var upper = SudokuBoard.GetDigitsForMask(candidateMasks[i]).Max();
+                var lower = SudokuBoard.GetDigitsForMask(candidateMasks[i]).Min();
+
+                for (var j = i + 1; j < candidateMasks.Length; j++)
                 {
-                    var row = i / 9;
-                    var col = i % 9;
-                    var blockIndex = 3 * (row / 3) + col / 3;
-
-                    var upper = SudokuBoard.GetDigitsForMask(candidateMasks[i]).Max();
-                    var lower = SudokuBoard.GetDigitsForMask(candidateMasks[i]).Min();
-
-                    for (var j = i + 1; j < candidateMasks.Length; j++)
+                    if (candidateMasks[j] == candidateMasks[i])
                     {
-                        if (candidateMasks[j] == candidateMasks[i])
-                        {
-                            var row1 = j / 9;
-                            var col1 = j % 9;
-                            var blockIndex1 = 3 * (row1 / 3) + col1 / 3;
+                        var row1 = j / 9;
+                        var col1 = j % 9;
+                        var blockIndex1 = 3 * (row1 / 3) + col1 / 3;
 
-                            if (row == row1 || col == col1 || blockIndex == blockIndex1)
-                            {
-                                candidateIndex1.Enqueue(i);
-                                candidateIndex2.Enqueue(j);
-                                candidateDigit1.Enqueue(lower);
-                                candidateDigit2.Enqueue(upper);
-                            }
+                        if (row == row1 || col == col1 || blockIndex == blockIndex1)
+                        {
+                            candidateIndex1.Enqueue(i);
+                            candidateIndex2.Enqueue(j);
+                            candidateDigit1.Enqueue(lower);
+                            candidateDigit2.Enqueue(upper);
                         }
                     }
                 }
