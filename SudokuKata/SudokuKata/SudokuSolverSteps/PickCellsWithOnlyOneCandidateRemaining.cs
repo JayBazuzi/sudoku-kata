@@ -9,8 +9,7 @@ namespace SudokuKata
     {
         public ChangesMadeStates Do(Random rng, SudokuBoard puzzle)
         {
-            var singleCandidates = puzzle.GetPossibilities()
-                .Select((possibilities, index) => new CellWithPossiblities(index, possibilities))
+            var singleCandidates = GetCellsWithPossibilities(puzzle)
                 .Where(c => c.Possibilities.Count == 1)
                 .ToArray();
 
@@ -28,6 +27,12 @@ namespace SudokuKata
             Console.WriteLine("({0}, {1}) can only contain {2}.", cell.Row + 1, cell.Column + 1, cell.Value);
 
             return new ChangesMadeStates {CellChanged = true};
+        }
+
+        private static IEnumerable<CellWithPossiblities> GetCellsWithPossibilities(SudokuBoard puzzle)
+        {
+            return puzzle.GetPossibilities()
+                .Select((possibilities, index) => new CellWithPossiblities(index, possibilities));
         }
     }
 
