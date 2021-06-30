@@ -9,7 +9,7 @@ namespace SudokuKata
     {
         public ChangesMadeStates Do(Random rng, SudokuBoard puzzle)
         {
-            var singleCandidates = GetCellsWithPossibilities(puzzle)
+            var singleCandidates = puzzle.GetCellsWithPossibilities()
                 .Where(c => c.Possibilities.Count == 1)
                 .ToArray();
 
@@ -29,14 +29,9 @@ namespace SudokuKata
             return new ChangesMadeStates {CellChanged = true};
         }
 
-        private static IEnumerable<CellWithPossiblities> GetCellsWithPossibilities(SudokuBoard puzzle)
-        {
-            return puzzle.GetPossibilities()
-                .Select((possibilities, index) => new CellWithPossiblities(index, possibilities));
-        }
     }
 
-    internal class CellWithPossiblities
+    public class CellWithPossiblities
     {
         public readonly List<int> Possibilities;
         public readonly Cell Cell;

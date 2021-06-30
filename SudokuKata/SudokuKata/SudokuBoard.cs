@@ -350,5 +350,11 @@ namespace SudokuKata
         {
             return _board[cell.Row, cell.Column];
         }
+
+        public IEnumerable<CellWithPossiblities> GetCellsWithPossibilities()
+        {
+            return GetPossibilities()
+                .Select((possibilities, index) => new CellWithPossiblities(index, possibilities));
+        }
     }
 }
