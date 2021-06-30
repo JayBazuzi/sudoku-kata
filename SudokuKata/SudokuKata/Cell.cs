@@ -38,5 +38,10 @@
         {
             return $"({Row}, {Column})";
         }
+
+        public Cell WithValue(int value)
+        {
+            return new Cell(Row, Column, value);
+        }
     }
 }
