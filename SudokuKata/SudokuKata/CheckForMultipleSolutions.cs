@@ -292,7 +292,7 @@ namespace SudokuKata
             {
                 var cell = possibility.Cell;
                 var i = cell.ToIndex();
-                var blockIndex = 3 * (cell.Row / 3) + cell.Column / 3;
+                var blockIndex = cell.Block;
 
                 var upper = possibility.Possibilities.Max();
                 var lower = possibility.Possibilities.Min();
