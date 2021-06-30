@@ -1,4 +1,4 @@
-﻿namespace SudokuKata
+﻿namespace SudokuKata.Board
 {
     public class Cell
     {

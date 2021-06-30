@@ -1,7 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 
-namespace SudokuKata
+namespace SudokuKata.Board
 {
     public class CellWithDescription
     {
