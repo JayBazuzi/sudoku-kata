@@ -51,6 +51,11 @@ namespace SudokuKata
                         temp = temp >> 1;
                     }
 
+                    var upper2 = SudokuBoard.GetDigitsForMask(candidateMasks[i]).Max();
+                    var lower2 = SudokuBoard.GetDigitsForMask(candidateMasks[i]).Min();
+                    Debug.Assert(upper==upper2);
+                    Debug.Assert(lower==lower2);
+
                     for (var j = i + 1; j < candidateMasks.Length; j++)
                     {
                         if (candidateMasks[j] == candidateMasks[i])
