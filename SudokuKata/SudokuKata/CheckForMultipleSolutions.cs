@@ -31,7 +31,7 @@ namespace SudokuKata
 
             for (var i = 0; i < candidateMasks.Length - 1; i++)
             {
-                var applesauce = sudokuBoard.GetPossibilities().ElementAt(i).Count == 2;
+                var applesauce = sudokuBoard.GetCellsWithPossibilities().ElementAt(i).Possibilities.Count == 2;
                 if (applesauce)
                 {
                     var row = i / 9;
