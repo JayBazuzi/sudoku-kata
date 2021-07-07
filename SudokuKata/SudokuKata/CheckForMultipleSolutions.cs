@@ -245,14 +245,14 @@ namespace SudokuKata
 
             var (cell1, cell2, digit1, digit2) = stateIndexesAndValues.GetRandomElement(rng);
 
-            ApplyFinalStateValuesForCells1and2_AndApplyAllOfStateToSudokuBoard(sudokuBoard, finalState, state, cell1, cell2);
+            MergeTheStateWithValuesOfFinalStateFromCells1And2(sudokuBoard, finalState, state, cell1, cell2);
 
             Console.WriteLine(
                 $"Guessing that {digit1} and {digit2} are arbitrary in {GetDescription(cell1, cell2)} (multiple solutions): Pick {finalState[cell1.ToIndex()]}->({cell1.Row + 1}, {cell1.Column + 1}), {finalState[cell2.ToIndex()]}->({cell2.Row + 1}, {cell2.Column + 1}).");
             return new ChangesMadeStates {CellChanged = true};
         }
 
-        private static void ApplyFinalStateValuesForCells1and2_AndApplyAllOfStateToSudokuBoard(SudokuBoard sudokuBoard,
+        private static void MergeTheStateWithValuesOfFinalStateFromCells1And2(SudokuBoard sudokuBoard,
             int[] finalState,
             int[] state,
             Cell cell1,
