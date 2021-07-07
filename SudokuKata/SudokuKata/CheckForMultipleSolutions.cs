@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using SudokuKata.Board;
 
@@ -272,14 +271,13 @@ namespace SudokuKata
             {
                 return $"row #{cell1.Row + 1}";
             }
-            else if (cell1.IsSameColumn(cell2))
+
+            if (cell1.IsSameColumn(cell2))
             {
                 return $"column #{cell1.Column + 1}";
             }
-            else
-            {
-                return $"block ({cell1.Row / 3 + 1}, {cell1.Column / 3 + 1})";
-            }
+
+            return $"block ({cell1.Row / 3 + 1}, {cell1.Column / 3 + 1})";
         }
 
         private static Queue<Tuple<Cell, Cell, int, int>> GetDeadlockedCellsWithTwoPossibilities(
