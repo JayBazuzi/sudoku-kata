@@ -32,10 +32,10 @@ namespace SudokuKata
             return Applesauce1(rng, finalState, sudokuBoard, stateIndexesAndValues, state);
         }
 
-        private static List<Tuple<int, int, int, int>> Applesauce2(Random rng, int[] finalState, SudokuBoard sudokuBoard,
+        private static List<Tuple<Cell, int, int, int>> Applesauce2(Random rng, int[] finalState, SudokuBoard sudokuBoard,
             Queue<Tuple<Cell, int, int, int>> candidatesOfIndexesAndDigits, int[] state)
         {
-            var stateIndexesAndValues = new List<Tuple<int, int, int, int>>();
+            var stateIndexesAndValues = new List<Tuple<Cell, int, int, int>>();
 
             while (candidatesOfIndexesAndDigits.Any())
             {
@@ -225,7 +225,7 @@ namespace SudokuKata
                 {
                     // Board was solved successfully even with two digits swapped
                     stateIndexesAndValues.Add(Tuple.Create(
-                        index1.ToIndex(),
+                        index1,
                         index2,
                         digit1,
                         digit2));
@@ -236,33 +236,33 @@ namespace SudokuKata
         }
 
         private static ChangesMadeStates Applesauce1(Random rng, int[] finalState, SudokuBoard sudokuBoard,
-            List<Tuple<int, int, int, int>> stateIndexesAndValues, int[] state)
+            List<Tuple<Cell, int, int, int>> stateIndexesAndValues, int[] state)
         {
             if (stateIndexesAndValues.Any())
             {
                 var pos = rng.Next(stateIndexesAndValues.Count());
-                var (index1, index2, digit1, digit2) = stateIndexesAndValues.ElementAt(pos);
-                var row1 = index1 / 9;
-                var col1 = index1 % 9;
+                var (cell1, index2, digit1, digit2) = stateIndexesAndValues.ElementAt(pos);
+                var row1 = cell1.Row;
+                var col1 = cell1.Column;
                 var row2 = index2 / 9;
                 var col2 = index2 % 9;
 
                 string description;
 
-                if (index1 / 9 == index2 / 9)
+                if (row1 == index2 / 9)
                 {
-                    description = $"row #{index1 / 9 + 1}";
+                    description = $"row #{row1 + 1}";
                 }
-                else if (index1 % 9 == index2 % 9)
+                else if (col1 == index2 % 9)
                 {
-                    description = $"column #{index1 % 9 + 1}";
+                    description = $"column #{col1 + 1}";
                 }
                 else
                 {
                     description = $"block ({row1 / 3 + 1}, {col1 / 3 + 1})";
                 }
 
-                state[index1] = finalState[index1];
+                state[cell1.ToIndex()] = finalState[cell1.ToIndex()];
                 state[index2] = finalState[index2];
 
                 for (var i = 0; i < state.Length; i++)
@@ -275,7 +275,7 @@ namespace SudokuKata
                 }
 
                 Console.WriteLine(
-                    $"Guessing that {digit1} and {digit2} are arbitrary in {description} (multiple solutions): Pick {finalState[index1]}->({row1 + 1}, {col1 + 1}), {finalState[index2]}->({row2 + 1}, {col2 + 1}).");
+                    $"Guessing that {digit1} and {digit2} are arbitrary in {description} (multiple solutions): Pick {finalState[cell1.ToIndex()]}->({row1 + 1}, {col1 + 1}), {finalState[index2]}->({row2 + 1}, {col2 + 1}).");
                 return new ChangesMadeStates {CellChanged = true};
             }
 
