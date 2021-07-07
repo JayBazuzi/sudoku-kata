@@ -246,20 +246,7 @@ namespace SudokuKata
             var pos = rng.Next(stateIndexesAndValues.Count());
             var (cell1, cell2, digit1, digit2) = stateIndexesAndValues.ElementAt(pos);
 
-            string description;
-
-            if (cell1.IsSameRow(cell2))
-            {
-                description = $"row #{cell1.Row + 1}";
-            }
-            else if (cell1.IsSameColumn(cell2))
-            {
-                description = $"column #{cell1.Column + 1}";
-            }
-            else
-            {
-                description = $"block ({cell1.Row / 3 + 1}, {cell1.Column / 3 + 1})";
-            }
+            var description = GetDescription(cell1, cell2);
 
             state[cell1.ToIndex()] = finalState[cell1.ToIndex()];
             state[cell2.ToIndex()] = finalState[cell2.ToIndex()];
@@ -277,6 +264,26 @@ namespace SudokuKata
                 $"Guessing that {digit1} and {digit2} are arbitrary in {description} (multiple solutions): Pick {finalState[cell1.ToIndex()]}->({cell1.Row + 1}, {cell1.Column + 1}), {finalState[cell2.ToIndex()]}->({cell2.Row + 1}, {cell2.Column + 1}).");
             return new ChangesMadeStates {CellChanged = true};
 
+        }
+
+        private static string GetDescription(Cell cell1, Cell cell2)
+        {
+            string description;
+
+            if (cell1.IsSameRow(cell2))
+            {
+                description = $"row #{cell1.Row + 1}";
+            }
+            else if (cell1.IsSameColumn(cell2))
+            {
+                description = $"column #{cell1.Column + 1}";
+            }
+            else
+            {
+                description = $"block ({cell1.Row / 3 + 1}, {cell1.Column / 3 + 1})";
+            }
+
+            return description;
         }
 
         private static Queue<Tuple<Cell, Cell, int, int>> GetDeadlockedCellsWithTwoPossibilities(SudokuBoard sudokuBoard)
