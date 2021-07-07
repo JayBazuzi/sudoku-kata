@@ -25,7 +25,6 @@ namespace SudokuKata
             // At this point we have the lists with pairs of cells that might pick one of two digits each
             // Now we have to check whether that is really true - does the board have two solutions?
 
-            // TODO: clean up these
             var stateIndexesAndValues = Applesauce2(rng, finalState, sudokuBoard, candidatesOfIndexesAndDigits, state);
 
             return MergeTheStateWithValuesOfFinalStateFromCells1And2ForPossibleElementAndLog(rng, finalState, sudokuBoard, stateIndexesAndValues, state);
@@ -35,6 +34,9 @@ namespace SudokuKata
             SudokuBoard sudokuBoard,
             Queue<Tuple<Cell, Cell, int, int>> candidatesOfIndexesAndDigits, int[] state)
         {
+            // TODO: clean up this method
+            //      - Try to make it not mutate the sudokuBoard, so we can clean up MergeTheStateWithValuesOfFinalStateFromCells1And2()
+
             var stateIndexesAndValues = new List<Tuple<Cell, Cell, int, int>>();
 
             while (candidatesOfIndexesAndDigits.Any())
@@ -258,6 +260,7 @@ namespace SudokuKata
             Cell cell1,
             Cell cell2)
         {
+            // Reset sudokuBoard to the initial state (we think)
             sudokuBoard.SetAllValuesOfBoard(state);
             sudokuBoard.SetValue(cell1.Row, cell1.Column, finalState[cell1.ToIndex()]);
             sudokuBoard.SetValue(cell2.Row, cell2.Column, finalState[cell2.ToIndex()]);
