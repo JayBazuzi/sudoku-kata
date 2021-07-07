@@ -33,7 +33,7 @@ namespace SudokuKata
         }
 
         private static List<Tuple<int, int, int, int>> Applesauce2(Random rng, int[] finalState, SudokuBoard sudokuBoard,
-            Queue<Tuple<int, int, int, int>> candidatesOfIndexesAndDigits, int[] state)
+            Queue<Tuple<Cell, int, int, int>> candidatesOfIndexesAndDigits, int[] state)
         {
             var stateIndexesAndValues = new List<Tuple<int, int, int, int>>();
 
@@ -44,14 +44,14 @@ namespace SudokuKata
                 var alternateState = new int[finalState.Length];
                 Array.Copy(state, alternateState, alternateState.Length);
 
-                if (finalState[index1] == digit1)
+                if (finalState[index1.ToIndex()] == digit1)
                 {
-                    alternateState[index1] = digit2;
+                    alternateState[index1.ToIndex()] = digit2;
                     alternateState[index2] = digit1;
                 }
                 else
                 {
-                    alternateState[index1] = digit1;
+                    alternateState[index1.ToIndex()] = digit1;
                     alternateState[index2] = digit2;
                 }
 
@@ -225,7 +225,7 @@ namespace SudokuKata
                 {
                     // Board was solved successfully even with two digits swapped
                     stateIndexesAndValues.Add(Tuple.Create(
-                        index1,
+                        index1.ToIndex(),
                         index2,
                         digit1,
                         digit2));
@@ -282,9 +282,9 @@ namespace SudokuKata
             return new ChangesMadeStates {CellChanged = false};
         }
 
-        private static Queue<Tuple<int, int, int, int>> GetDeadlockedCellsWithTwoPossibilities(SudokuBoard sudokuBoard)
+        private static Queue<Tuple<Cell, int, int, int>> GetDeadlockedCellsWithTwoPossibilities(SudokuBoard sudokuBoard)
         {
-            var candidatesOfIndexesAndDigits = new Queue<Tuple<int, int, int, int>>();
+            var candidatesOfIndexesAndDigits = new Queue<Tuple<Cell, int, int, int>>();
 
             var cellsWithTwoPossible = sudokuBoard.GetCellsWithPossibilities().Where(c => c.Possibilities.Count == 2);
             foreach (var possibility in cellsWithTwoPossible)
@@ -300,7 +300,7 @@ namespace SudokuKata
                     {
                         var upper = possibility.Possibilities.Max();
                         var lower = possibility.Possibilities.Min();
-                        candidatesOfIndexesAndDigits.Enqueue(Tuple.Create(cell1.ToIndex(), cell2.ToIndex(), lower, upper));
+                        candidatesOfIndexesAndDigits.Enqueue(Tuple.Create(cell1, cell2.ToIndex(), lower, upper));
                     }
                 }
             }
