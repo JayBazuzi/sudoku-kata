@@ -291,9 +291,6 @@ namespace SudokuKata
             {
                 var cell1 = possibility.Cell;
 
-                var upper = possibility.Possibilities.Max();
-                var lower = possibility.Possibilities.Min();
-
                 foreach(var cell2 in Cell.ForBoard().Skip(cell1.ToIndex()+1))
                 {
                     var matchingTwoPossiblesCell =
@@ -301,6 +298,8 @@ namespace SudokuKata
                     var isMatchingGroup = cell1.IsSameRow(cell2) || cell1.IsSameColumn(cell2) || cell1.IsCellBlock(cell2);
                     if (isMatchingGroup && matchingTwoPossiblesCell)
                     {
+                        var upper = possibility.Possibilities.Max();
+                        var lower = possibility.Possibilities.Min();
                         candidatesOfIndexesAndDigits.Enqueue(Tuple.Create(cell1.ToIndex(), cell2.ToIndex(), lower, upper));
                     }
                 }
