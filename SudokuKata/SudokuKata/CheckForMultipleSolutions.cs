@@ -298,11 +298,9 @@ namespace SudokuKata
                 foreach(var cell2 in Cell.ForBoard().Skip(i+1))
                 {
                     // TODO: clean this up
-                    var possibilities2 = sudokuBoard.GetPossibilities().ElementAt(cell2.ToIndex());
                     var possibilities2a = sudokuBoard.GetPossibilities(cell2);
-                    Debug.Assert( possibilities2.ToReadableString() == possibilities2a.ToReadableString());
                     var matchingTwoPossiblesCell =
-                        possibility.Possibilities.SequenceEqual(possibilities2);
+                        possibility.Possibilities.SequenceEqual(possibilities2a);
                     if (matchingTwoPossiblesCell)
                     {
                         if (cell.Row == cell2.Row || cell.Column == cell2.Column || cell.Block == cell2.Block)
