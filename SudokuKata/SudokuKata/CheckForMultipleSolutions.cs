@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using SudokuKata.Board;
 
@@ -260,6 +261,11 @@ namespace SudokuKata
             state[cell1.ToIndex()] = finalState[cell1.ToIndex()];
             state[cell2.ToIndex()] = finalState[cell2.ToIndex()];
 
+            SetAllValuesOfBoard(sudokuBoard, state);
+        }
+
+        private static void SetAllValuesOfBoard(SudokuBoard sudokuBoard, int[] state)
+        {
             for (var i = 0; i < state.Length; i++)
             {
                 var tempRow = i / 9;
