@@ -303,7 +303,8 @@ namespace SudokuKata
                         possibility.Possibilities.SequenceEqual(possibilities2a);
                     if (matchingTwoPossiblesCell)
                     {
-                        if (cell.IsSameRow(cell2) || cell.IsSameColumn(cell2) || cell.IsCellBlock(cell2))
+                        var isMatchingGroup = cell.IsSameRow(cell2) || cell.IsSameColumn(cell2) || cell.IsCellBlock(cell2);
+                        if (isMatchingGroup)
                         {
                             candidatesOfIndexesAndDigits.Enqueue(Tuple.Create(i, cell2.ToIndex(), lower, upper));
                         }
