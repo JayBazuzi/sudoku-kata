@@ -268,8 +268,6 @@ namespace SudokuKata
 
         private static string GetDescription(Cell cell1, Cell cell2)
         {
-            string description;
-
             if (cell1.IsSameRow(cell2))
             {
                 return $"row #{cell1.Row + 1}";
