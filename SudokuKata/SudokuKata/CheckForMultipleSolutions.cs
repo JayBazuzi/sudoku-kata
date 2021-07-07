@@ -241,11 +241,11 @@ namespace SudokuKata
             if (stateIndexesAndValues.Any())
             {
                 var pos = rng.Next(stateIndexesAndValues.Count());
-                var (cell1, index2, digit1, digit2) = stateIndexesAndValues.ElementAt(pos);
+                var (cell1, cell2, digit1, digit2) = stateIndexesAndValues.ElementAt(pos);
                 var row1 = cell1.Row;
                 var col1 = cell1.Column;
-                var row2 = index2.Row;
-                var col2 = index2.Column;
+                var row2 = cell2.Row;
+                var col2 = cell2.Column;
 
                 string description;
 
@@ -263,7 +263,7 @@ namespace SudokuKata
                 }
 
                 state[cell1.ToIndex()] = finalState[cell1.ToIndex()];
-                state[index2.ToIndex()] = finalState[index2.ToIndex()];
+                state[cell2.ToIndex()] = finalState[cell2.ToIndex()];
 
                 for (var i = 0; i < state.Length; i++)
                 {
@@ -275,7 +275,7 @@ namespace SudokuKata
                 }
 
                 Console.WriteLine(
-                    $"Guessing that {digit1} and {digit2} are arbitrary in {description} (multiple solutions): Pick {finalState[cell1.ToIndex()]}->({row1 + 1}, {col1 + 1}), {finalState[index2.ToIndex()]}->({row2 + 1}, {col2 + 1}).");
+                    $"Guessing that {digit1} and {digit2} are arbitrary in {description} (multiple solutions): Pick {finalState[cell1.ToIndex()]}->({row1 + 1}, {col1 + 1}), {finalState[cell2.ToIndex()]}->({row2 + 1}, {col2 + 1}).");
                 return new ChangesMadeStates {CellChanged = true};
             }
 
