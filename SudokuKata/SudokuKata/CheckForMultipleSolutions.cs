@@ -272,18 +272,16 @@ namespace SudokuKata
 
             if (cell1.IsSameRow(cell2))
             {
-                description = $"row #{cell1.Row + 1}";
+                return $"row #{cell1.Row + 1}";
             }
             else if (cell1.IsSameColumn(cell2))
             {
-                description = $"column #{cell1.Column + 1}";
+                return $"column #{cell1.Column + 1}";
             }
             else
             {
-                description = $"block ({cell1.Row / 3 + 1}, {cell1.Column / 3 + 1})";
+                return $"block ({cell1.Row / 3 + 1}, {cell1.Column / 3 + 1})";
             }
-
-            return description;
         }
 
         private static Queue<Tuple<Cell, Cell, int, int>> GetDeadlockedCellsWithTwoPossibilities(
