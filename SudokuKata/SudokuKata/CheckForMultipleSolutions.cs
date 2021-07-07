@@ -242,24 +242,20 @@ namespace SudokuKata
             {
                 var pos = rng.Next(stateIndexesAndValues.Count());
                 var (cell1, cell2, digit1, digit2) = stateIndexesAndValues.ElementAt(pos);
-                var row1 = cell1.Row;
-                var col1 = cell1.Column;
-                var row2 = cell2.Row;
-                var col2 = cell2.Column;
 
                 string description;
 
                 if (cell1.IsSameRow(cell2))
                 {
-                    description = $"row #{row1 + 1}";
+                    description = $"row #{cell1.Row + 1}";
                 }
                 else if (cell1.IsSameColumn(cell2))
                 {
-                    description = $"column #{col1 + 1}";
+                    description = $"column #{cell1.Column + 1}";
                 }
                 else
                 {
-                    description = $"block ({row1 / 3 + 1}, {col1 / 3 + 1})";
+                    description = $"block ({cell1.Row / 3 + 1}, {cell1.Column / 3 + 1})";
                 }
 
                 state[cell1.ToIndex()] = finalState[cell1.ToIndex()];
@@ -275,7 +271,7 @@ namespace SudokuKata
                 }
 
                 Console.WriteLine(
-                    $"Guessing that {digit1} and {digit2} are arbitrary in {description} (multiple solutions): Pick {finalState[cell1.ToIndex()]}->({row1 + 1}, {col1 + 1}), {finalState[cell2.ToIndex()]}->({row2 + 1}, {col2 + 1}).");
+                    $"Guessing that {digit1} and {digit2} are arbitrary in {description} (multiple solutions): Pick {finalState[cell1.ToIndex()]}->({cell1.Row + 1}, {cell1.Column + 1}), {finalState[cell2.ToIndex()]}->({cell2.Row + 1}, {cell2.Column + 1}).");
                 return new ChangesMadeStates {CellChanged = true};
             }
 
