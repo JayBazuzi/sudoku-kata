@@ -303,7 +303,7 @@ namespace SudokuKata
                         possibility.Possibilities.SequenceEqual(possibilities2a);
                     if (matchingTwoPossiblesCell)
                     {
-                        if (IsSameRow(cell, cell2) || IsSameColumn(cell, cell2) || IsCellBlock(cell, cell2))
+                        if (cell.IsSameRow(cell2) || cell.IsSameColumn(cell2) || cell.IsCellBlock(cell2))
                         {
                             candidatesOfIndexesAndDigits.Enqueue(Tuple.Create(i, cell2.ToIndex(), lower, upper));
                         }
@@ -312,21 +312,6 @@ namespace SudokuKata
             }
 
             return candidatesOfIndexesAndDigits;
-        }
-
-        private static bool IsCellBlock(Cell cell, Cell cell2)
-        {
-            return cell.Block == cell2.Block;
-        }
-
-        private static bool IsSameColumn(Cell cell, Cell cell2)
-        {
-            return cell.Column == cell2.Column;
-        }
-
-        private static bool IsSameRow(Cell cell, Cell cell2)
-        {
-            return cell.Row == cell2.Row;
         }
     }
 }

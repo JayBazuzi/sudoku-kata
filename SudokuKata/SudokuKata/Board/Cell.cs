@@ -51,5 +51,20 @@ namespace SudokuKata.Board
         {
             return Enumerable.Range(0, 81).Select(FromIndex);
         }
+
+        public bool IsCellBlock(Cell cell2)
+        {
+            return Block == cell2.Block;
+        }
+
+        public bool IsSameColumn(Cell cell2)
+        {
+            return Column == cell2.Column;
+        }
+
+        public bool IsSameRow(Cell cell2)
+        {
+            return Row == cell2.Row;
+        }
     }
 }
