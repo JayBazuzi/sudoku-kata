@@ -245,23 +245,24 @@ namespace SudokuKata
 
             var (cell1, cell2, digit1, digit2) = stateIndexesAndValues.GetRandomElement(rng);
 
-            DoSomethingToCellsForApplesauce1(sudokuBoard, finalState, state, cell1, cell2);
+            ApplyFinalStateValuesForCells1and2_AndApplyAllOfStateToSudokuBoard(sudokuBoard, finalState, state, cell1, cell2);
 
             Console.WriteLine(
                 $"Guessing that {digit1} and {digit2} are arbitrary in {GetDescription(cell1, cell2)} (multiple solutions): Pick {finalState[cell1.ToIndex()]}->({cell1.Row + 1}, {cell1.Column + 1}), {finalState[cell2.ToIndex()]}->({cell2.Row + 1}, {cell2.Column + 1}).");
             return new ChangesMadeStates {CellChanged = true};
         }
 
-        private static void DoSomethingToCellsForApplesauce1(SudokuBoard sudokuBoard,
+        private static void ApplyFinalStateValuesForCells1and2_AndApplyAllOfStateToSudokuBoard(SudokuBoard sudokuBoard,
             int[] finalState,
             int[] state,
             Cell cell1,
             Cell cell2)
         {
-            state[cell1.ToIndex()] = finalState[cell1.ToIndex()];
-            state[cell2.ToIndex()] = finalState[cell2.ToIndex()];
-
+            //state[cell1.ToIndex()] = finalState[cell1.ToIndex()];
+            //state[cell2.ToIndex()] = finalState[cell2.ToIndex()];
             sudokuBoard.SetAllValuesOfBoard(state);
+            sudokuBoard.SetValue(cell1.Row, cell1.Column, finalState[cell1.ToIndex()]);
+            sudokuBoard.SetValue(cell2.Row, cell2.Column, finalState[cell2.ToIndex()]);
         }
 
         private static string GetDescription(Cell cell1, Cell cell2)
