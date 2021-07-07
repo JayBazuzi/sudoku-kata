@@ -261,19 +261,7 @@ namespace SudokuKata
             state[cell1.ToIndex()] = finalState[cell1.ToIndex()];
             state[cell2.ToIndex()] = finalState[cell2.ToIndex()];
 
-            SetAllValuesOfBoard(sudokuBoard, state);
-        }
-
-        private static void SetAllValuesOfBoard(SudokuBoard sudokuBoard, int[] state)
-        {
-            for (var i = 0; i < state.Length; i++)
-            {
-                var tempRow = i / 9;
-                var tempCol = i % 9;
-
-                var value = state[i];
-                sudokuBoard.SetValue(tempRow, tempCol, value);
-            }
+            sudokuBoard.SetAllValuesOfBoard(state);
         }
 
         private static string GetDescription(Cell cell1, Cell cell2)

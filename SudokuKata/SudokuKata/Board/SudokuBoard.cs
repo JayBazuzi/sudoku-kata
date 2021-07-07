@@ -340,6 +340,18 @@ namespace SudokuKata.Board
             return GetPossibilities()
                 .Select((possibilities, index) => new CellWithPossiblities(index, possibilities));
         }
+
+        public void SetAllValuesOfBoard(int[] state)
+        {
+            for (var i = 0; i < state.Length; i++)
+            {
+                var tempRow = i / 9;
+                var tempCol = i % 9;
+
+                var value = state[i];
+                SetValue(tempRow, tempCol, value);
+            }
+        }
     }
 
     internal static class _
