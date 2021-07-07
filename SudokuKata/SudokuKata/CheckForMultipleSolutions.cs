@@ -289,20 +289,20 @@ namespace SudokuKata
             var cellsWithTwoPossible = sudokuBoard.GetCellsWithPossibilities().Where(c => c.Possibilities.Count == 2);
             foreach (var possibility in cellsWithTwoPossible)
             {
-                var cell = possibility.Cell;
+                var cell1 = possibility.Cell;
 
                 var upper = possibility.Possibilities.Max();
                 var lower = possibility.Possibilities.Min();
 
-                foreach(var cell2 in Cell.ForBoard().Skip(cell.ToIndex()+1))
+                foreach(var cell2 in Cell.ForBoard().Skip(cell1.ToIndex()+1))
                 {
                     // TODO: clean this up
                     var matchingTwoPossiblesCell =
                         possibility.Possibilities.SequenceEqual(sudokuBoard.GetPossibilities(cell2));
-                    var isMatchingGroup = cell.IsSameRow(cell2) || cell.IsSameColumn(cell2) || cell.IsCellBlock(cell2);
+                    var isMatchingGroup = cell1.IsSameRow(cell2) || cell1.IsSameColumn(cell2) || cell1.IsCellBlock(cell2);
                     if (isMatchingGroup && matchingTwoPossiblesCell)
                     {
-                        candidatesOfIndexesAndDigits.Enqueue(Tuple.Create(cell.ToIndex(), cell2.ToIndex(), lower, upper));
+                        candidatesOfIndexesAndDigits.Enqueue(Tuple.Create(cell1.ToIndex(), cell2.ToIndex(), lower, upper));
                     }
                 }
             }
