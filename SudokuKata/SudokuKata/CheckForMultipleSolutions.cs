@@ -290,12 +290,11 @@ namespace SudokuKata
             foreach (var possibility in cellsWithTwoPossible)
             {
                 var cell = possibility.Cell;
-                var i = cell.ToIndex();
 
                 var upper = possibility.Possibilities.Max();
                 var lower = possibility.Possibilities.Min();
 
-                foreach(var cell2 in Cell.ForBoard().Skip(i+1))
+                foreach(var cell2 in Cell.ForBoard().Skip(cell.ToIndex()+1))
                 {
                     // TODO: clean this up
                     var matchingTwoPossiblesCell =
@@ -303,7 +302,7 @@ namespace SudokuKata
                     var isMatchingGroup = cell.IsSameRow(cell2) || cell.IsSameColumn(cell2) || cell.IsCellBlock(cell2);
                     if (isMatchingGroup && matchingTwoPossiblesCell)
                     {
-                        candidatesOfIndexesAndDigits.Enqueue(Tuple.Create(i, cell2.ToIndex(), lower, upper));
+                        candidatesOfIndexesAndDigits.Enqueue(Tuple.Create(cell.ToIndex(), cell2.ToIndex(), lower, upper));
                     }
                 }
             }
