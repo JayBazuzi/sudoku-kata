@@ -258,8 +258,6 @@ namespace SudokuKata
             Cell cell1,
             Cell cell2)
         {
-            //state[cell1.ToIndex()] = finalState[cell1.ToIndex()];
-            //state[cell2.ToIndex()] = finalState[cell2.ToIndex()];
             sudokuBoard.SetAllValuesOfBoard(state);
             sudokuBoard.SetValue(cell1.Row, cell1.Column, finalState[cell1.ToIndex()]);
             sudokuBoard.SetValue(cell2.Row, cell2.Column, finalState[cell2.ToIndex()]);
