@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace SudokuKata.Board
 {
@@ -48,10 +49,7 @@ namespace SudokuKata.Board
 
         public static IEnumerable<Cell> ForBoard()
         {
-            for (var j = 0; j < 81; j++)
-            {
-                yield return Cell.FromIndex(j);
-            }
+            return Enumerable.Range(0, 81).Select(FromIndex);
         }
     }
 }
