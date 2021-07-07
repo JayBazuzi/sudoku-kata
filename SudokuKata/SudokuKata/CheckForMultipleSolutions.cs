@@ -296,7 +296,6 @@ namespace SudokuKata
 
                 foreach(var cell2 in Cell.ForBoard().Skip(cell1.ToIndex()+1))
                 {
-                    // TODO: clean this up
                     var matchingTwoPossiblesCell =
                         possibility.Possibilities.SequenceEqual(sudokuBoard.GetPossibilities(cell2));
                     var isMatchingGroup = cell1.IsSameRow(cell2) || cell1.IsSameColumn(cell2) || cell1.IsCellBlock(cell2);
