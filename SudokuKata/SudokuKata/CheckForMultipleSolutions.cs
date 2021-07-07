@@ -1,8 +1,6 @@
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
-using ApprovalUtilities.Utilities;
 using SudokuKata.Board;
 
 namespace SudokuKata
@@ -32,7 +30,8 @@ namespace SudokuKata
             return Applesauce1(rng, finalState, sudokuBoard, stateIndexesAndValues, state);
         }
 
-        private static List<Tuple<Cell, Cell, int, int>> Applesauce2(Random rng, int[] finalState, SudokuBoard sudokuBoard,
+        private static List<Tuple<Cell, Cell, int, int>> Applesauce2(Random rng, int[] finalState,
+            SudokuBoard sudokuBoard,
             Queue<Tuple<Cell, Cell, int, int>> candidatesOfIndexesAndDigits, int[] state)
         {
             var stateIndexesAndValues = new List<Tuple<Cell, Cell, int, int>>();
@@ -250,11 +249,15 @@ namespace SudokuKata
             Console.WriteLine(
                 $"Guessing that {digit1} and {digit2} are arbitrary in {GetDescription(cell1, cell2)} (multiple solutions): Pick {finalState[cell1.ToIndex()]}->({cell1.Row + 1}, {cell1.Column + 1}), {finalState[cell2.ToIndex()]}->({cell2.Row + 1}, {cell2.Column + 1}).");
             return new ChangesMadeStates {CellChanged = true};
-
         }
 
-        private static void DoSomethingToCellsForApplesauce1(int[] finalState, SudokuBoard sudokuBoard, int[] state, Cell cell1,
-            Cell cell2)
+        private static void DoSomethingToCellsForApplesauce1(
+            int[] finalState,
+            SudokuBoard sudokuBoard,
+            int[] state,
+            Cell cell1,
+            Cell cell2
+        )
         {
             state[cell1.ToIndex()] = finalState[cell1.ToIndex()];
             state[cell2.ToIndex()] = finalState[cell2.ToIndex()];
@@ -289,7 +292,8 @@ namespace SudokuKata
             return description;
         }
 
-        private static Queue<Tuple<Cell, Cell, int, int>> GetDeadlockedCellsWithTwoPossibilities(SudokuBoard sudokuBoard)
+        private static Queue<Tuple<Cell, Cell, int, int>> GetDeadlockedCellsWithTwoPossibilities(
+            SudokuBoard sudokuBoard)
         {
             var candidatesOfIndexesAndDigits = new Queue<Tuple<Cell, Cell, int, int>>();
 
@@ -298,11 +302,12 @@ namespace SudokuKata
             {
                 var cell1 = possibility.Cell;
 
-                foreach(var cell2 in Cell.ForBoard().Skip(cell1.ToIndex()+1))
+                foreach (var cell2 in Cell.ForBoard().Skip(cell1.ToIndex() + 1))
                 {
                     var matchingTwoPossiblesCell =
                         possibility.Possibilities.SequenceEqual(sudokuBoard.GetPossibilities(cell2));
-                    var isMatchingGroup = cell1.IsSameRow(cell2) || cell1.IsSameColumn(cell2) || cell1.IsCellBlock(cell2);
+                    var isMatchingGroup =
+                        cell1.IsSameRow(cell2) || cell1.IsSameColumn(cell2) || cell1.IsCellBlock(cell2);
                     if (isMatchingGroup && matchingTwoPossiblesCell)
                     {
                         var upper = possibility.Possibilities.Max();
@@ -316,7 +321,7 @@ namespace SudokuKata
         }
     }
 
-    static class _
+    internal static class _
     {
         public static T GetRandomElement<T>(this IEnumerable<T> source, Random random)
         {
