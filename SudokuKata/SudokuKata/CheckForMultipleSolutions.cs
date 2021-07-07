@@ -249,11 +249,11 @@ namespace SudokuKata
 
                 string description;
 
-                if (row1 == row2)
+                if (cell1.IsSameRow(cell2))
                 {
                     description = $"row #{row1 + 1}";
                 }
-                else if (col1 == col2)
+                else if (cell1.IsSameColumn(cell2))
                 {
                     description = $"column #{col1 + 1}";
                 }
