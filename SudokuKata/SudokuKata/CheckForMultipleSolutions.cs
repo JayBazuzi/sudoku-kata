@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using ApprovalUtilities.Utilities;
 using SudokuKata.Board;
 
 namespace SudokuKata
@@ -298,8 +299,8 @@ namespace SudokuKata
                 {
                     // TODO: clean this up
                     var possibilities2 = sudokuBoard.GetPossibilities().ElementAt(cell2.ToIndex());
-                    var possibilities2a = possibilities2;
-                    Debug.Assert(possibilities2 == possibilities2a);
+                    var possibilities2a = sudokuBoard.GetPossibilities(cell2);
+                    Debug.Assert( possibilities2.ToReadableString() == possibilities2a.ToReadableString());
                     var matchingTwoPossiblesCell =
                         possibility.Possibilities.SequenceEqual(possibilities2);
                     if (matchingTwoPossiblesCell)

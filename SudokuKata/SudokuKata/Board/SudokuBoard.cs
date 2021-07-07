@@ -325,6 +325,11 @@ namespace SudokuKata.Board
             return candidateMasks;
         }
 
+        public List<int> GetPossibilities(Cell cell)
+        {
+            return GetDigitsForMask(GetCandidates().Masks[cell.ToIndex()]);
+        }
+
         public int GetValueForCell(Cell cell)
         {
             return _board[cell.Row, cell.Column];
