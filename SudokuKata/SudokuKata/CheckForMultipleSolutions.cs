@@ -243,8 +243,7 @@ namespace SudokuKata
                 return new ChangesMadeStates {CellChanged = false};
             }
 
-            var pos = rng.Next(stateIndexesAndValues.Count());
-            var (cell1, cell2, digit1, digit2) = stateIndexesAndValues.ElementAt(pos);
+            var (cell1, cell2, digit1, digit2) = stateIndexesAndValues.GetRandomElement(rng);
 
             state[cell1.ToIndex()] = finalState[cell1.ToIndex()];
             state[cell2.ToIndex()] = finalState[cell2.ToIndex()];
@@ -308,6 +307,14 @@ namespace SudokuKata
             }
 
             return candidatesOfIndexesAndDigits;
+        }
+    }
+
+    static class _
+    {
+        public static T GetRandomElement<T>(this IEnumerable<T> source, Random random)
+        {
+            return source.ElementAt(random.Next(source.Count()));
         }
     }
 }
