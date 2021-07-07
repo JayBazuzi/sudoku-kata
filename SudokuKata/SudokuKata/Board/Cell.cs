@@ -1,4 +1,6 @@
-﻿namespace SudokuKata.Board
+﻿using System.Collections.Generic;
+
+namespace SudokuKata.Board
 {
     public class Cell
     {
@@ -42,6 +44,14 @@
         public Cell WithValue(int value)
         {
             return new Cell(Row, Column, value);
+        }
+
+        public static IEnumerable<Cell> ForBoard()
+        {
+            for (var j = 0; j < 81; j++)
+            {
+                yield return Cell.FromIndex(j);
+            }
         }
     }
 }

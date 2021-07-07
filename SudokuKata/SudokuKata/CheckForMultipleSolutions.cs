@@ -14,8 +14,6 @@ namespace SudokuKata
         {
             var state = sudokuBoard.GetBoardAsNumbers();
 
-            // TODO - clean this up
-
             // This is the last chance to do something in this iteration:
             // If this attempt fails, board will not be entirely solved.
 
@@ -296,20 +294,16 @@ namespace SudokuKata
                 var upper = possibility.Possibilities.Max();
                 var lower = possibility.Possibilities.Min();
 
-                for (var j = i + 1; j < 81; j++)
+                foreach(var cell2 in Cell.ForBoard().Skip(i+1))
                 {
                     // TODO: clean this up
                     var matchingTwoPossiblesCell =
-                        possibility.Possibilities.SequenceEqual(sudokuBoard.GetPossibilities().ElementAt(j));
+                        possibility.Possibilities.SequenceEqual(sudokuBoard.GetPossibilities().ElementAt(cell2.ToIndex()));
                     if (matchingTwoPossiblesCell)
                     {
-                        var row1 = j / 9;
-                        var col1 = j % 9;
-                        var blockIndex1 = 3 * (row1 / 3) + col1 / 3;
-
-                        if (cell.Row == row1 || cell.Column == col1 || cell.Block == blockIndex1)
+                        if (cell.Row == cell2.Row || cell.Column == cell2.Column || cell.Block == cell2.Block)
                         {
-                            candidatesOfIndexesAndDigits.Enqueue(Tuple.Create(i, j, lower, upper));
+                            candidatesOfIndexesAndDigits.Enqueue(Tuple.Create(i, cell2.ToIndex(), lower, upper));
                         }
                     }
                 }
