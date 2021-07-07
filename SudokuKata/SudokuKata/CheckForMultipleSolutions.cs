@@ -301,9 +301,9 @@ namespace SudokuKata
                     var possibilities2a = sudokuBoard.GetPossibilities(cell2);
                     var matchingTwoPossiblesCell =
                         possibility.Possibilities.SequenceEqual(possibilities2a);
+                    var isMatchingGroup = cell.IsSameRow(cell2) || cell.IsSameColumn(cell2) || cell.IsCellBlock(cell2);
                     if (matchingTwoPossiblesCell)
                     {
-                        var isMatchingGroup = cell.IsSameRow(cell2) || cell.IsSameColumn(cell2) || cell.IsCellBlock(cell2);
                         if (isMatchingGroup)
                         {
                             candidatesOfIndexesAndDigits.Enqueue(Tuple.Create(i, cell2.ToIndex(), lower, upper));
