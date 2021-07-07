@@ -298,6 +298,8 @@ namespace SudokuKata
                 {
                     // TODO: clean this up
                     var possibilities2 = sudokuBoard.GetPossibilities().ElementAt(cell2.ToIndex());
+                    var possibilities2a = possibilities2;
+                    Debug.Assert(possibilities2 == possibilities2a);
                     var matchingTwoPossiblesCell =
                         possibility.Possibilities.SequenceEqual(possibilities2);
                     if (matchingTwoPossiblesCell)
