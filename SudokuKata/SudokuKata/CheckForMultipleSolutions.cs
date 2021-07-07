@@ -28,7 +28,7 @@ namespace SudokuKata
             // TODO: clean up these
             var stateIndexesAndValues = Applesauce2(rng, finalState, sudokuBoard, candidatesOfIndexesAndDigits, state);
 
-            return Applesauce1(rng, finalState, sudokuBoard, stateIndexesAndValues, state);
+            return MergeTheStateWithValuesOfFinalStateFromCells1And2ForPossibleElementAndLog(rng, finalState, sudokuBoard, stateIndexesAndValues, state);
         }
 
         private static List<Tuple<Cell, Cell, int, int>> Applesauce2(Random rng, int[] finalState,
@@ -235,7 +235,7 @@ namespace SudokuKata
             return stateIndexesAndValues;
         }
 
-        private static ChangesMadeStates Applesauce1(Random rng, int[] finalState, SudokuBoard sudokuBoard,
+        private static ChangesMadeStates MergeTheStateWithValuesOfFinalStateFromCells1And2ForPossibleElementAndLog(Random rng, int[] finalState, SudokuBoard sudokuBoard,
             List<Tuple<Cell, Cell, int, int>> stateIndexesAndValues, int[] state)
         {
             if (!stateIndexesAndValues.Any())
