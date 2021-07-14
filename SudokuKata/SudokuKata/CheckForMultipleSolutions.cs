@@ -9,7 +9,7 @@ namespace SudokuKata
     {
         public static ChangesMadeStates Do(Random rng, int[] finalState, SudokuBoard sudokuBoard)
         {
-            // TODO: Make this class tell a better story
+            // TODO: Make this class tell a better story, so the flow of this class is more obvious
             var state = sudokuBoard.GetBoardAsNumbers();
 
             // This is the last chance to do something in this iteration:
