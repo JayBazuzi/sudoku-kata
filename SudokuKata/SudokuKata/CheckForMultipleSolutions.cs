@@ -69,14 +69,11 @@ namespace SudokuKata
             // either digit1 or digit2 is a viable option
             if (finalState[index1.ToIndex()] == digit1)
             {
-                alternateState[index1.ToIndex()] = digit2;
-                alternateState[index2.ToIndex()] = digit1;
+                (digit1, digit2) = (digit2, digit1);
             }
-            else
-            {
-                alternateState[index1.ToIndex()] = digit1;
-                alternateState[index2.ToIndex()] = digit2;
-            }
+
+            alternateState[index1.ToIndex()] = digit1;
+            alternateState[index2.ToIndex()] = digit2;
 
             return alternateState;
         }
