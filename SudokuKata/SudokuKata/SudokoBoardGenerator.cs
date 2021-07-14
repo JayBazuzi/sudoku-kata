@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using SudokuKata;
 using SudokuKata.Board;
@@ -173,18 +174,12 @@ internal static class SudokoBoardGenerator
     public static ViableMove GetViableMove(SudokuBoard sudokuBoard,
         Stacks stateStack)
     {
-        var stacksStateStack = stateStack.StateStack;
-        var rowIndexStack = stateStack.RowIndexStack;
-        var colIndexStack = stateStack.ColIndexStack;
-        var usedDigitsStack = stateStack.UsedDigitsStack;
-        var lastDigitStack = stateStack.LastDigitStack;
+        var rowToMove = stateStack.RowIndexStack.Peek();
+        var colToMove = stateStack.ColIndexStack.Peek();
+        var digitToMove = stateStack.LastDigitStack.Pop();
 
-        var rowToMove = rowIndexStack.Peek();
-        var colToMove = colIndexStack.Peek();
-        var digitToMove = lastDigitStack.Pop();
-
-        var usedDigits = usedDigitsStack.Peek();
-        var currentState = stacksStateStack.Peek();
+        var usedDigits = stateStack.UsedDigitsStack.Peek();
+        var currentState = stateStack.StateStack.Peek();
         var currentStateIndex = 9 * rowToMove + colToMove;
 
         var movedToDigit = digitToMove + 1;
