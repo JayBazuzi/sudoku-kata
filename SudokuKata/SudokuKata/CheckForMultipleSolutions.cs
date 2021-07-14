@@ -67,7 +67,7 @@ namespace SudokuKata
             var digitsNeedToBeSwapped = finalState[index1.ToIndex()] == digit1;
             if (digitsNeedToBeSwapped)
             {
-                (digit1, digit2) = (digit2, digit1);
+                (digit1, digit2) = (digit2, digit1); // swap
             }
 
             alternateState[index1.ToIndex()] = digit1;
