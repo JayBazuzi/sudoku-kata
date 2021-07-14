@@ -78,6 +78,11 @@ internal static class SudokoBoardGenerator
         stacks.UsedDigitsStack.Pop();
         stacks.LastDigitStack.Pop();
 
+        if (!stacks.StateStack.Any())
+        {
+            return Command.Fail;
+        }
+
         return Command.Move;
     }
 

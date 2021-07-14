@@ -151,15 +151,10 @@ namespace SudokuKata
 
                         // Always try to move after expand
                         command = Command.Move;
-                    } // if (command == Command.expand")
+                    }
                     else if (command == Command.Collapse)
                     {
                         command = SudokoBoardGenerator.PopulateBoard(null, command, stacks, sudokuBoard);
-
-                        if (!stacks.StateStack.Any())
-                        {
-                            command = Command.Fail;
-                        }
                     }
                     else if (command == Command.Move)
                     {
