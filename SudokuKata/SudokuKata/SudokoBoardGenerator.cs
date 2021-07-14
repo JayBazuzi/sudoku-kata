@@ -91,7 +91,7 @@ internal static class SudokoBoardGenerator
         return Command.Move;
     }
 
-    private static Command DoExpand(Random rng, Stacks stacks, int[] alternateState = null)
+    public static Command DoExpand(Random rng, Stacks stacks, int[] alternateState = null)
     {
         var currentState = new int[9 * 9];
 
