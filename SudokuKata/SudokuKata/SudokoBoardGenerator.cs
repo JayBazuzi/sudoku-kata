@@ -20,7 +20,7 @@ internal static class SudokoBoardGenerator
         return sudokuBoardAndStackState;
     }
 
-    private static void SolveBoard(Random rng, SudokuBoard sudokuBoardAndStackState)
+    public static Command SolveBoard(Random rng, SudokuBoard sudokuBoardAndStackState, int[] alternateState = null)
     {
         var stacks = new Stacks();
 
@@ -32,8 +32,10 @@ internal static class SudokoBoardGenerator
         var command = Command.Expand;
         while (command != Command.Complete && command != Command.Fail)
         {
-            command = PopulateBoard(rng, command, stacks, sudokuBoardAndStackState);
+            command = PopulateBoard(rng, command, stacks, sudokuBoardAndStackState, alternateState);
         }
+
+        return command;
     }
 
     public static Command PopulateBoard(Random rng, Command command, Stacks stacks, SudokuBoard sudokuBoard, int[] alternateState = null)
