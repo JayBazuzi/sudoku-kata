@@ -158,7 +158,7 @@ namespace SudokuKata
                     }
                     else if (command == Command.Move)
                     {
-                        command = DoMove(stacks, sudokuBoard);
+                        command = SudokoBoardGenerator.DoMove(stacks, sudokuBoard, true);
                     } // if (command == Command.move")
                 } // while (command != "complete" && command != "fail")
 
@@ -174,11 +174,6 @@ namespace SudokuKata
             } // while (candidateIndex1.Any())
 
             return stateIndexesAndValues;
-        }
-
-        private static Command DoMove(Stacks stacks, SudokuBoard sudokuBoard)
-        {
-            return SudokoBoardGenerator.DoMove(stacks, sudokuBoard, true);
         }
 
         private static ChangesMadeStates MergeTheStateWithValuesOfFinalStateFromCells1And2ForPossibleElementAndLog(Random rng, int[] finalState, SudokuBoard sudokuBoard,
