@@ -99,6 +99,7 @@ internal static class SudokoBoardGenerator
 
     public static Command DoExpand(Random rng, Stacks stacks, int[] alternateState = null)
     {
+        // TODO: clean this method
         var currentState = new int[9 * 9];
 
         if (stacks.StateStack.Count > 0)

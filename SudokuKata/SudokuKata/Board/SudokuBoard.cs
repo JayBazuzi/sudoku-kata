@@ -100,6 +100,7 @@ namespace SudokuKata.Board
 
         private Candidates CalculateCandidatesForCurrentStateOfTheBoard()
         {
+            // TODO: clean this method
             var boardAsNumbers = GetBoardAsNumbers();
 
             var candidateMasks = new int[boardAsNumbers.Length];
@@ -162,6 +163,8 @@ namespace SudokuKata.Board
         public SudokuBoard GeneratePuzzleFromCompletelySolvedBoard(Random rng
         )
         {
+            // TODO: clean this method
+
             var puzzle = Clone();
 
             // Board is solved at this point.
