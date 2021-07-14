@@ -66,7 +66,6 @@ namespace SudokuKata
             var alternateState = new int[finalState.Length];
             Array.Copy(state, alternateState, alternateState.Length);
 
-            // either digit1 or digit2 is a viable option
             if (finalState[index1.ToIndex()] == digit1)
             {
                 (digit1, digit2) = (digit2, digit1);
