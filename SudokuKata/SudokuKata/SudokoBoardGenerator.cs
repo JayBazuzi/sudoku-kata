@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using SudokuKata;
 using SudokuKata.Board;
@@ -92,13 +91,17 @@ internal static class SudokoBoardGenerator
         return Command.Move;
     }
 
-    private static Command DoExpand(Random rng, Stacks stacks)
+    private static Command DoExpand(Random rng, Stacks stacks, int[] alternateState = null)
     {
         var currentState = new int[9 * 9];
 
         if (stacks.StateStack.Count > 0)
         {
             Array.Copy(stacks.StateStack.Peek(), currentState, currentState.Length);
+        }
+        else if (alternateState != null)
+        {
+            Array.Copy(alternateState, currentState, currentState.Length);
         }
 
         var bestRow = -1;
