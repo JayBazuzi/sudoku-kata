@@ -52,9 +52,7 @@ namespace SudokuKata
                 } while (changesMadeStates.CandidateChanged);
 
                 changesMadeStates = changesMadeStates.DoIfUnchanged(
-                    () => CheckForMultipleSolutions.Do(rng,
-                        candidates2.Masks,
-                        solvedBoard.GetBoardAsNumbers(), puzzle));
+                    () => CheckForMultipleSolutions.Do(rng, solvedBoard.GetBoardAsNumbers(), puzzle, candidates2));
 
                 PrintBoardChange(changesMadeStates.CellChanged, puzzle);
             } while (changesMadeStates.IsChanged);
