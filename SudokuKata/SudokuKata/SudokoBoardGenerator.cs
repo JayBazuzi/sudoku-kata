@@ -31,7 +31,7 @@ internal static class SudokoBoardGenerator
         return sudokuBoardAndStackState;
     }
 
-    private static Command PopulateBoard(Random rng, Command command, Stacks stacks,
+    public static Command PopulateBoard(Random rng, Command command, Stacks stacks,
         SudokuBoard sudokuBoard)
     {
         switch (command)
