@@ -7,7 +7,7 @@ namespace SudokuKata
 {
     internal static class CheckForMultipleSolutions
     {
-        public static ChangesMadeStates Do(Random rng, int[] finalState, SudokuBoard sudokuBoard, Candidates candidates)
+        public static ChangesMadeStates Do(Random rng, int[] finalState, SudokuBoard sudokuBoard)
         {
             // TODO: Make this class tell a better story
             var state = sudokuBoard.GetBoardAsNumbers();
