@@ -55,17 +55,7 @@ namespace SudokuKata
                     alternateState[index1.ToIndex()] = digit1;
                     alternateState[index2.ToIndex()] = digit2;
                 }
-
-                // What follows below is a complete copy-paste of the solver which appears at the beginning of this method
-                // However, the algorithm couldn't be applied directly and it had to be modified.
-                // Implementation below assumes that the board might not have a solution.
-                //var stacks = new Stacks();
-
-                //var command = Command.Expand;
-                //while (command != Command.Complete && command != Command.Fail)
-                //{
-                //    command = SudokoBoardGenerator.PopulateBoard(rng, command, stacks, sudokuBoard, alternateState);
-                //}
+                
                 var command = SudokoBoardGenerator.SolveBoard(rng, sudokuBoard, alternateState);
 
                 if (command == Command.Complete)
