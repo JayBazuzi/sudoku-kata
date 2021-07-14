@@ -178,31 +178,17 @@ namespace SudokuKata
 
         private static Command DoMove(Stacks stacks, SudokuBoard sudokuBoard)
         {
+            var viableMove = SudokoBoardGenerator.GetViableMove(sudokuBoard, stacks);
             Command command;
-            var rowToMove = stacks.RowIndexStack.Peek();
-            var colToMove = stacks.ColIndexStack.Peek();
-            var digitToMove = stacks.LastDigitStack.Pop();
-
-            var usedDigits = stacks.UsedDigitsStack.Peek();
-            var currentState = stacks.StateStack.Peek();
-            var currentStateIndex = 9 * rowToMove + colToMove;
-
-            var movedToDigit = digitToMove + 1;
-            while (movedToDigit <= 9 && usedDigits[movedToDigit - 1])
+            if (viableMove != null)
             {
-                movedToDigit += 1;
-            }
-
-            if (digitToMove > 0)
-            {
-                usedDigits[digitToMove - 1] = false;
-                currentState[currentStateIndex] = 0;
-                sudokuBoard.SetValue(rowToMove, colToMove,
-                    SudokuBoard.Unknown);
-            }
-
-            if (movedToDigit <= 9)
-            {
+                var movedToDigit = viableMove.MovedToDigit;
+                var usedDigits = viableMove.UsedDigits;
+                var currentStateIndex = viableMove.CurrentStateIndex;
+                var currentState = viableMove.CurrentState;
+                var rowToMove = viableMove.RowToWrite;
+                var colToMove = viableMove.ColToWrite;
+                
                 stacks.LastDigitStack.Push(movedToDigit);
                 usedDigits[movedToDigit - 1] = true;
                 currentState[currentStateIndex] = movedToDigit;
