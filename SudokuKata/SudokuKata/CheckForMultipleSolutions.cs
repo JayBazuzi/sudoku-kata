@@ -158,50 +158,7 @@ namespace SudokuKata
                     }
                     else if (command == Command.Move)
                     {
-                        var rowToMove = stacks.RowIndexStack.Peek();
-                        var colToMove = stacks.ColIndexStack.Peek();
-                        var digitToMove = stacks.LastDigitStack.Pop();
-
-                        var usedDigits = stacks.UsedDigitsStack.Peek();
-                        var currentState = stacks.StateStack.Peek();
-                        var currentStateIndex = 9 * rowToMove + colToMove;
-
-                        var movedToDigit = digitToMove + 1;
-                        while (movedToDigit <= 9 && usedDigits[movedToDigit - 1])
-                        {
-                            movedToDigit += 1;
-                        }
-
-                        if (digitToMove > 0)
-                        {
-                            usedDigits[digitToMove - 1] = false;
-                            currentState[currentStateIndex] = 0;
-                            sudokuBoard.SetValue(rowToMove, colToMove,
-                                SudokuBoard.Unknown);
-                        }
-
-                        if (movedToDigit <= 9)
-                        {
-                            stacks.LastDigitStack.Push(movedToDigit);
-                            usedDigits[movedToDigit - 1] = true;
-                            currentState[currentStateIndex] = movedToDigit;
-                            sudokuBoard.SetValue(rowToMove, colToMove, movedToDigit);
-
-                            if (currentState.Any(digit => digit == 0))
-                            {
-                                command = Command.Expand;
-                            }
-                            else
-                            {
-                                command = Command.Complete;
-                            }
-                        }
-                        else
-                        {
-                            // No viable candidate was found at current position - pop it in the next iteration
-                            stacks.LastDigitStack.Push(0);
-                            command = Command.Collapse;
-                        }
+                        command = DoMove(stacks, sudokuBoard);
                     } // if (command == Command.move")
                 } // while (command != "complete" && command != "fail")
 
@@ -217,6 +174,57 @@ namespace SudokuKata
             } // while (candidateIndex1.Any())
 
             return stateIndexesAndValues;
+        }
+
+        private static Command DoMove(Stacks stacks, SudokuBoard sudokuBoard)
+        {
+            Command command;
+            var rowToMove = stacks.RowIndexStack.Peek();
+            var colToMove = stacks.ColIndexStack.Peek();
+            var digitToMove = stacks.LastDigitStack.Pop();
+
+            var usedDigits = stacks.UsedDigitsStack.Peek();
+            var currentState = stacks.StateStack.Peek();
+            var currentStateIndex = 9 * rowToMove + colToMove;
+
+            var movedToDigit = digitToMove + 1;
+            while (movedToDigit <= 9 && usedDigits[movedToDigit - 1])
+            {
+                movedToDigit += 1;
+            }
+
+            if (digitToMove > 0)
+            {
+                usedDigits[digitToMove - 1] = false;
+                currentState[currentStateIndex] = 0;
+                sudokuBoard.SetValue(rowToMove, colToMove,
+                    SudokuBoard.Unknown);
+            }
+
+            if (movedToDigit <= 9)
+            {
+                stacks.LastDigitStack.Push(movedToDigit);
+                usedDigits[movedToDigit - 1] = true;
+                currentState[currentStateIndex] = movedToDigit;
+                sudokuBoard.SetValue(rowToMove, colToMove, movedToDigit);
+
+                if (currentState.Any(digit => digit == 0))
+                {
+                    command = Command.Expand;
+                }
+                else
+                {
+                    command = Command.Complete;
+                }
+            }
+            else
+            {
+                // No viable candidate was found at current position - pop it in the next iteration
+                stacks.LastDigitStack.Push(0);
+                command = Command.Collapse;
+            }
+
+            return command;
         }
 
         private static ChangesMadeStates MergeTheStateWithValuesOfFinalStateFromCells1And2ForPossibleElementAndLog(Random rng, int[] finalState, SudokuBoard sudokuBoard,
