@@ -33,8 +33,8 @@ namespace SudokuKata
             SudokuBoard sudokuBoard,
             Queue<Tuple<Cell, Cell, int, int>> candidatesOfIndexesAndDigits, int[] state)
         {
+            var sudokuBoardClone = sudokuBoard.Clone();
             // TODO: clean up this method
-            //      - Try to make it not mutate the sudokuBoard, so we can clean up MergeTheStateWithValuesOfFinalStateFromCells1And2()
 
             var stateIndexesAndValues = new List<Tuple<Cell, Cell, int, int>>();
 
@@ -44,7 +44,7 @@ namespace SudokuKata
 
                 var alternateState = ConstructAlternateState(finalState, state, index1, digit1, digit2, index2);
 
-                var command = SudokoBoardGenerator.SolveBoard(rng, sudokuBoard, alternateState);
+                var command = SudokoBoardGenerator.SolveBoard(rng, sudokuBoardClone, alternateState);
 
                 if (command == Command.Complete)
                 {
@@ -101,8 +101,6 @@ namespace SudokuKata
             Cell cell1,
             Cell cell2)
         {
-            // Reset sudokuBoard to the initial state (we think)
-            sudokuBoard.SetAllValuesOfBoard(state);
             sudokuBoard.SetValue(cell1.Row, cell1.Column, finalState[cell1.ToIndex()]);
             sudokuBoard.SetValue(cell2.Row, cell2.Column, finalState[cell2.ToIndex()]);
         }
