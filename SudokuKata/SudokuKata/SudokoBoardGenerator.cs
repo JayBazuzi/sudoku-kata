@@ -49,7 +49,7 @@ internal static class SudokoBoardGenerator
         }
     }
 
-    public static Command DoMove(Stacks stacks, SudokuBoard sudokuBoard)
+    public static Command DoMove(Stacks stacks, SudokuBoard sudokuBoard, bool applesauce = false)
     {
         var viableMove = GetViableMove(sudokuBoard, stacks);
 
@@ -63,6 +63,12 @@ internal static class SudokoBoardGenerator
 
             // Next possible digit was found at current position
             // Next step will be to expand the state
+            if (applesauce && !viableMove.CurrentState.Any(digit => digit == 0))
+            {
+                return Command.Complete;
+
+            }
+
             return Command.Expand;
         }
 
