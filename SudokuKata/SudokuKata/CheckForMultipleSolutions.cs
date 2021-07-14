@@ -159,7 +159,7 @@ namespace SudokuKata
                     else if (command == Command.Move)
                     {
                         command = SudokoBoardGenerator.DoMove(stacks, sudokuBoard, true);
-                    } // if (command == Command.move")
+                    }
                 } // while (command != "complete" && command != "fail")
 
                 if (command == Command.Complete)
