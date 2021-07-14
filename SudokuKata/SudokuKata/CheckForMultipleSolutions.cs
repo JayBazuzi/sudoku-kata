@@ -42,20 +42,8 @@ namespace SudokuKata
             {
                 var (index1, index2, digit1, digit2) = candidatesOfIndexesAndDigits.Dequeue();
 
-                var alternateState = new int[finalState.Length];
-                Array.Copy(state, alternateState, alternateState.Length);
+                var alternateState = ConstructAlternateState(finalState, state, index1, digit1, digit2, index2);
 
-                if (finalState[index1.ToIndex()] == digit1)
-                {
-                    alternateState[index1.ToIndex()] = digit2;
-                    alternateState[index2.ToIndex()] = digit1;
-                }
-                else
-                {
-                    alternateState[index1.ToIndex()] = digit1;
-                    alternateState[index2.ToIndex()] = digit2;
-                }
-                
                 var command = SudokoBoardGenerator.SolveBoard(rng, sudokuBoard, alternateState);
 
                 if (command == Command.Complete)
@@ -70,6 +58,27 @@ namespace SudokuKata
             }
 
             return stateIndexesAndValues;
+        }
+
+        private static int[] ConstructAlternateState(int[] finalState, int[] state, Cell index1, int digit1, int digit2,
+            Cell index2)
+        {
+            var alternateState = new int[finalState.Length];
+            Array.Copy(state, alternateState, alternateState.Length);
+
+            // either digit1 or digit2 is a viable option
+            if (finalState[index1.ToIndex()] == digit1)
+            {
+                alternateState[index1.ToIndex()] = digit2;
+                alternateState[index2.ToIndex()] = digit1;
+            }
+            else
+            {
+                alternateState[index1.ToIndex()] = digit1;
+                alternateState[index2.ToIndex()] = digit2;
+            }
+
+            return alternateState;
         }
 
         private static ChangesMadeStates MergeTheStateWithValuesOfFinalStateFromCells1And2ForPossibleElementAndLog(Random rng, int[] finalState, SudokuBoard sudokuBoard,
