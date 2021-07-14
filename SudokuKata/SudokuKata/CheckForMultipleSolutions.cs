@@ -182,19 +182,12 @@ namespace SudokuKata
             Command command;
             if (viableMove != null)
             {
-                var movedToDigit = viableMove.MovedToDigit;
-                var usedDigits = viableMove.UsedDigits;
-                var currentStateIndex = viableMove.CurrentStateIndex;
-                var currentState = viableMove.CurrentState;
-                var rowToMove = viableMove.RowToWrite;
-                var colToMove = viableMove.ColToWrite;
-                
-                stacks.LastDigitStack.Push(movedToDigit);
-                usedDigits[movedToDigit - 1] = true;
-                currentState[currentStateIndex] = movedToDigit;
-                sudokuBoard.SetValue(rowToMove, colToMove, movedToDigit);
+                stacks.LastDigitStack.Push(viableMove.MovedToDigit);
+                viableMove.UsedDigits[viableMove.MovedToDigit - 1] = true;
+                viableMove.CurrentState[viableMove.CurrentStateIndex] = viableMove.MovedToDigit;
+                sudokuBoard.SetValue(viableMove.RowToWrite, viableMove.ColToWrite, viableMove.MovedToDigit);
 
-                if (currentState.Any(digit => digit == 0))
+                if (viableMove.CurrentState.Any(digit => digit == 0))
                 {
                     command = Command.Expand;
                 }
