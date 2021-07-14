@@ -17,9 +17,9 @@ internal static class SudokoBoardGenerator
         // - move - finds next candidate number at current pos and applies it to current state
         // - collapse - pops current state from stack as it did not yield a solution
         var command = Command.Expand;
-        while (stacks.StateStack.Count <= 9 * 9)
+        while (command != Command.Complete && command != Command.Fail)
         {
-            command = PopulateBoard(rng, command, stacks, sudokuBoardAndStackState);
+            command = PopulateBoard(rng, command, stacks, sudokuBoardAndStackState, returnCompleteIfNoUnsolved: true);
         }
 
 
