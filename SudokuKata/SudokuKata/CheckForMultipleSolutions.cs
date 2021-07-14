@@ -67,7 +67,7 @@ namespace SudokuKata
                         digit1,
                         digit2));
                 }
-            } // while (candidateIndex1.Any())
+            }
 
             return stateIndexesAndValues;
         }
