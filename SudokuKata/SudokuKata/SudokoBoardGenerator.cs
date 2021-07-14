@@ -48,7 +48,7 @@ internal static class SudokoBoardGenerator
         }
     }
 
-    private static Command DoMove(Stacks stacks, SudokuBoard sudokuBoard)
+    public static Command DoMove(Stacks stacks, SudokuBoard sudokuBoard)
     {
         var viableMove = GetViableMove(sudokuBoard, stacks);
 
