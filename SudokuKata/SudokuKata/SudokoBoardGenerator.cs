@@ -9,6 +9,19 @@ internal static class SudokoBoardGenerator
     {
         var sudokuBoardAndStackState = new SudokuBoard();
 
+        SolveBoard(rng, sudokuBoardAndStackState);
+
+
+        Console.WriteLine();
+        Console.WriteLine("Final look of the solved board:");
+        var result = sudokuBoardAndStackState.ToString();
+        Console.WriteLine(result);
+
+        return sudokuBoardAndStackState;
+    }
+
+    private static void SolveBoard(Random rng, SudokuBoard sudokuBoardAndStackState)
+    {
         var stacks = new Stacks();
 
 
@@ -21,14 +34,6 @@ internal static class SudokoBoardGenerator
         {
             command = PopulateBoard(rng, command, stacks, sudokuBoardAndStackState);
         }
-
-
-        Console.WriteLine();
-        Console.WriteLine("Final look of the solved board:");
-        var result = sudokuBoardAndStackState.ToString();
-        Console.WriteLine(result);
-
-        return sudokuBoardAndStackState;
     }
 
     public static Command PopulateBoard(Random rng, Command command, Stacks stacks, SudokuBoard sudokuBoard, int[] alternateState = null)
