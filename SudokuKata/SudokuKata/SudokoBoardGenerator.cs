@@ -63,10 +63,9 @@ internal static class SudokoBoardGenerator
 
             // Next possible digit was found at current position
             // Next step will be to expand the state
-            if (returnCompleteIfNoUnsolved && viableMove.CurrentState.All(digit => digit != 0))
+            if (returnCompleteIfNoUnsolved && viableMove.CurrentState.All(digit => 1 <= digit && digit <= 9))
             {
                 return Command.Complete;
-
             }
 
             return Command.Expand;
