@@ -11,6 +11,7 @@ namespace SudokuKata
             int[] finalState,
             SudokuBoard sudokuBoard)
         {
+            // TODO: Make this class tell a better story
             var state = sudokuBoard.GetBoardAsNumbers();
 
             // This is the last chance to do something in this iteration:
@@ -34,7 +35,6 @@ namespace SudokuKata
             Queue<Tuple<Cell, Cell, int, int>> candidatesOfIndexesAndDigits, int[] state)
         {
             var sudokuBoardClone = sudokuBoard.Clone();
-            // TODO: clean up this method
 
             var stateIndexesAndValues = new List<Tuple<Cell, Cell, int, int>>();
 

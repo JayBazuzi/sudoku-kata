@@ -5,6 +5,7 @@ namespace SudokuKata.Board
 {
     public class Cell
     {
+        // TODO: separate Column/Row into its own Location class and fix up places that use Cell(value=0)
         public readonly int Column;
         public readonly int Row;
         public readonly int Value;
