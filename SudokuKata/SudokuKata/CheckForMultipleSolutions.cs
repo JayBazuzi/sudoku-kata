@@ -66,7 +66,7 @@ namespace SudokuKata
                 {
                     if (command == Command.Expand)
                     {
-                        command = DoExpand(rng, stacks, alternateState);
+                        command = SudokoBoardGenerator.DoExpand(rng, stacks, alternateState);
                     }
                     else if (command == Command.Collapse)
                     {
@@ -90,11 +90,6 @@ namespace SudokuKata
             } // while (candidateIndex1.Any())
 
             return stateIndexesAndValues;
-        }
-
-        private static Command DoExpand(Random rng, Stacks stacks, int[] alternateState)
-        {
-            return SudokoBoardGenerator.DoExpand(rng, stacks, alternateState);
         }
 
         private static ChangesMadeStates MergeTheStateWithValuesOfFinalStateFromCells1And2ForPossibleElementAndLog(Random rng, int[] finalState, SudokuBoard sudokuBoard,
