@@ -32,16 +32,16 @@ internal static class SudokoBoardGenerator
     }
 
     public static Command PopulateBoard(Random rng, Command command, Stacks stacks,
-        SudokuBoard sudokuBoard)
+        SudokuBoard sudokuBoard, bool returnCompleteIfNoUnsolved = false, int[] alternateState = null)
     {
         switch (command)
         {
             case Command.Expand:
-                return DoExpand(rng, stacks);
+                return DoExpand(rng, stacks, alternateState);
             case Command.Collapse:
                 return DoCollapse(stacks);
             case Command.Move:
-                return DoMove(stacks, sudokuBoard);
+                return DoMove(stacks, sudokuBoard, returnCompleteIfNoUnsolved);
 
             default:
                 return command;
