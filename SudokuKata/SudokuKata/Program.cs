@@ -40,7 +40,7 @@ namespace SudokuKata
 
             do
             {
-                var candidates2 = puzzle.GetCandidates(true);
+                puzzle.GetCandidates(true);
 
                 do
                 {
