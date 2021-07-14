@@ -178,32 +178,7 @@ namespace SudokuKata
 
         private static Command DoMove(Stacks stacks, SudokuBoard sudokuBoard)
         {
-            var viableMove = SudokoBoardGenerator.GetViableMove(sudokuBoard, stacks);
-            Command command;
-            if (viableMove != null)
-            {
-                stacks.LastDigitStack.Push(viableMove.MovedToDigit);
-                viableMove.UsedDigits[viableMove.MovedToDigit - 1] = true;
-                viableMove.CurrentState[viableMove.CurrentStateIndex] = viableMove.MovedToDigit;
-                sudokuBoard.SetValue(viableMove.RowToWrite, viableMove.ColToWrite, viableMove.MovedToDigit);
-
-                if (viableMove.CurrentState.Any(digit => digit == 0))
-                {
-                    command = Command.Expand;
-                }
-                else
-                {
-                    command = Command.Complete;
-                }
-            }
-            else
-            {
-                // No viable candidate was found at current position - pop it in the next iteration
-                stacks.LastDigitStack.Push(0);
-                command = Command.Collapse;
-            }
-
-            return command;
+            return SudokoBoardGenerator.DoMove(stacks, sudokuBoard, true);
         }
 
         private static ChangesMadeStates MergeTheStateWithValuesOfFinalStateFromCells1And2ForPossibleElementAndLog(Random rng, int[] finalState, SudokuBoard sudokuBoard,
