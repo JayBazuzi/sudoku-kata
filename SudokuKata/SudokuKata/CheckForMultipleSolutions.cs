@@ -59,11 +59,7 @@ namespace SudokuKata
                 // What follows below is a complete copy-paste of the solver which appears at the beginning of this method
                 // However, the algorithm couldn't be applied directly and it had to be modified.
                 // Implementation below assumes that the board might not have a solution.
-                var stacks_StateStack = new Stack<int[]>();
-                var stacks_RowIndexStack = new Stack<int>();
-                var stacks_ColIndexStack = new Stack<int>();
-                var stacks_UsedDigitsStack = new Stack<bool[]>();
-                var stacks_LastDigitStack = new Stack<int>();
+                var stacks = new Stacks();
 
                 var command = Command.Expand;
                 while (command != Command.Complete && command != Command.Fail)
@@ -72,9 +68,9 @@ namespace SudokuKata
                     {
                         var currentState = new int[9 * 9];
 
-                        if (stacks_StateStack.Any())
+                        if (stacks.StateStack.Any())
                         {
-                            Array.Copy(stacks_StateStack.Peek(), currentState, currentState.Length);
+                            Array.Copy(stacks.StateStack.Peek(), currentState, currentState.Length);
                         }
                         else
                         {
@@ -146,11 +142,11 @@ namespace SudokuKata
 
                         if (!containsUnsolvableCells)
                         {
-                            stacks_StateStack.Push(currentState);
-                            stacks_RowIndexStack.Push(bestRow);
-                            stacks_ColIndexStack.Push(bestCol);
-                            stacks_UsedDigitsStack.Push(bestUsedDigits);
-                            stacks_LastDigitStack.Push(0); // No digit was tried at this position
+                            stacks.StateStack.Push(currentState);
+                            stacks.RowIndexStack.Push(bestRow);
+                            stacks.ColIndexStack.Push(bestCol);
+                            stacks.UsedDigitsStack.Push(bestUsedDigits);
+                            stacks.LastDigitStack.Push(0); // No digit was tried at this position
                         }
 
                         // Always try to move after expand
@@ -158,13 +154,13 @@ namespace SudokuKata
                     } // if (command == Command.expand")
                     else if (command == Command.Collapse)
                     {
-                        stacks_StateStack.Pop();
-                        stacks_RowIndexStack.Pop();
-                        stacks_ColIndexStack.Pop();
-                        stacks_UsedDigitsStack.Pop();
-                        stacks_LastDigitStack.Pop();
+                        stacks.StateStack.Pop();
+                        stacks.RowIndexStack.Pop();
+                        stacks.ColIndexStack.Pop();
+                        stacks.UsedDigitsStack.Pop();
+                        stacks.LastDigitStack.Pop();
 
-                        if (stacks_StateStack.Any())
+                        if (stacks.StateStack.Any())
                         {
                             command = Command.Move; // Always try to move after collapse
                         }
@@ -175,12 +171,12 @@ namespace SudokuKata
                     }
                     else if (command == Command.Move)
                     {
-                        var rowToMove = stacks_RowIndexStack.Peek();
-                        var colToMove = stacks_ColIndexStack.Peek();
-                        var digitToMove = stacks_LastDigitStack.Pop();
+                        var rowToMove = stacks.RowIndexStack.Peek();
+                        var colToMove = stacks.ColIndexStack.Peek();
+                        var digitToMove = stacks.LastDigitStack.Pop();
 
-                        var usedDigits = stacks_UsedDigitsStack.Peek();
-                        var currentState = stacks_StateStack.Peek();
+                        var usedDigits = stacks.UsedDigitsStack.Peek();
+                        var currentState = stacks.StateStack.Peek();
                         var currentStateIndex = 9 * rowToMove + colToMove;
 
                         var movedToDigit = digitToMove + 1;
@@ -199,7 +195,7 @@ namespace SudokuKata
 
                         if (movedToDigit <= 9)
                         {
-                            stacks_LastDigitStack.Push(movedToDigit);
+                            stacks.LastDigitStack.Push(movedToDigit);
                             usedDigits[movedToDigit - 1] = true;
                             currentState[currentStateIndex] = movedToDigit;
                             sudokuBoard.SetValue(rowToMove, colToMove, movedToDigit);
@@ -216,7 +212,7 @@ namespace SudokuKata
                         else
                         {
                             // No viable candidate was found at current position - pop it in the next iteration
-                            stacks_LastDigitStack.Push(0);
+                            stacks.LastDigitStack.Push(0);
                             command = Command.Collapse;
                         }
                     } // if (command == Command.move")
