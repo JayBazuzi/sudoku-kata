@@ -165,7 +165,7 @@ internal static class SudokoBoardGenerator
         return Command.Move;
     }
 
-    private static ViableMove GetViableMove(SudokuBoard sudokuBoard,
+    public static ViableMove GetViableMove(SudokuBoard sudokuBoard,
         Stacks stateStack)
     {
         var stacksStateStack = stateStack.StateStack;
