@@ -154,17 +154,9 @@ namespace SudokuKata
                     } // if (command == Command.expand")
                     else if (command == Command.Collapse)
                     {
-                        stacks.StateStack.Pop();
-                        stacks.RowIndexStack.Pop();
-                        stacks.ColIndexStack.Pop();
-                        stacks.UsedDigitsStack.Pop();
-                        stacks.LastDigitStack.Pop();
+                        command = SudokoBoardGenerator.PopulateBoard(null, command, stacks, sudokuBoard);
 
-                        if (stacks.StateStack.Any())
-                        {
-                            command = Command.Move; // Always try to move after collapse
-                        }
-                        else
+                        if (!stacks.StateStack.Any())
                         {
                             command = Command.Fail;
                         }
