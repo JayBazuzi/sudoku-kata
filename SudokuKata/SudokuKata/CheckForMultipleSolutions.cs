@@ -64,7 +64,7 @@ namespace SudokuKata
                 var command = Command.Expand;
                 while (command != Command.Complete && command != Command.Fail)
                 {
-                    command = SudokoBoardGenerator.PopulateBoard(rng, command, stacks, sudokuBoard, true, alternateState);
+                    command = SudokoBoardGenerator.PopulateBoard(rng, command, stacks, sudokuBoard, alternateState);
                 }
 
                 if (command == Command.Complete)

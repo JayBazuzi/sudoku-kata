@@ -19,7 +19,7 @@ internal static class SudokoBoardGenerator
         var command = Command.Expand;
         while (command != Command.Complete && command != Command.Fail)
         {
-            command = PopulateBoard(rng, command, stacks, sudokuBoardAndStackState, returnCompleteIfNoUnsolved: true);
+            command = PopulateBoard(rng, command, stacks, sudokuBoardAndStackState);
         }
 
 
@@ -31,8 +31,7 @@ internal static class SudokoBoardGenerator
         return sudokuBoardAndStackState;
     }
 
-    public static Command PopulateBoard(Random rng, Command command, Stacks stacks,
-        SudokuBoard sudokuBoard, bool returnCompleteIfNoUnsolved = false, int[] alternateState = null)
+    public static Command PopulateBoard(Random rng, Command command, Stacks stacks, SudokuBoard sudokuBoard, int[] alternateState = null)
     {
         switch (command)
         {
@@ -41,14 +40,14 @@ internal static class SudokoBoardGenerator
             case Command.Collapse:
                 return DoCollapse(stacks);
             case Command.Move:
-                return DoMove(stacks, sudokuBoard, returnCompleteIfNoUnsolved);
+                return DoMove(stacks, sudokuBoard);
 
             default:
                 return command;
         }
     }
 
-    public static Command DoMove(Stacks stacks, SudokuBoard sudokuBoard, bool returnCompleteIfNoUnsolved = false)
+    public static Command DoMove(Stacks stacks, SudokuBoard sudokuBoard)
     {
         var viableMove = GetViableMove(sudokuBoard, stacks);
 
@@ -62,7 +61,7 @@ internal static class SudokoBoardGenerator
 
             // Next possible digit was found at current position
             // Next step will be to expand the state
-            if (returnCompleteIfNoUnsolved && viableMove.CurrentState.All(digit => 1 <= digit && digit <= 9))
+            if (viableMove.CurrentState.All(digit => 1 <= digit && digit <= 9))
             {
                 return Command.Complete;
             }
